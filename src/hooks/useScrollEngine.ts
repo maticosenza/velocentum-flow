@@ -227,11 +227,12 @@ export function useScrollRange(
     const element = elementRef.current;
     if (!element) return;
     engine.start();
-    return engine.register({
+    const target: RangeTarget = {
       element,
       onProgress: (p, s) => cb.current(p, s),
-      start: options?.start,
-      end: options?.end,
-    });
+    };
+    if (options?.start !== undefined) target.start = options.start;
+    if (options?.end !== undefined) target.end = options.end;
+    return engine.register(target);
   }, [elementRef, options?.start, options?.end]);
 }
