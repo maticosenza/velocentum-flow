@@ -31,7 +31,7 @@ export function HeroTrazado() {
       data-play={play ? "true" : "false"}
       data-motion={reducedMotion ? "reduced" : "full"}
     >
-      <div className="container-v flex w-full flex-col items-center gap-4 md:gap-5">
+      <div className="container-v flex w-full flex-col items-center gap-4 text-center md:gap-5">
         <span
           className="eyebrow reveal w-full text-on-dark-2"
           data-revealed={play ? "true" : "false"}
@@ -55,16 +55,15 @@ export function HeroTrazado() {
         </h1>
 
         <p
-          className="reveal body-l w-full max-w-[56ch] text-on-dark-2"
+          className="reveal body-l w-full max-w-[52ch] text-balance text-on-dark-2"
           data-revealed={play ? "true" : "false"}
           style={{ transitionDelay: "1300ms" }}
         >
-          Estrategia, creatividad, pauta y medición.
-          <br />
-          Primero analizamos tu negocio. Después armamos el plan.
+          Estrategia, creatividad, pauta y medición. Primero analizamos tu negocio. Después armamos
+          el plan.
         </p>
 
-        <div className="mx-auto w-full max-w-[200px] md:max-w-[280px]">
+        <div className="mx-auto mt-7 w-full max-w-[150px] md:max-w-[200px]">
           <HeroIsotype sectionRef={sectionRef} reducedMotion={reducedMotion} />
         </div>
 
