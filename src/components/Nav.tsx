@@ -8,10 +8,10 @@ const LEFT_HALF =
   "M 49.8 87.6 L 0 0 L 65.7 0 L 44.2 38.2 L 35.8 23.9 L 40.7 14.3 L 24.6 14.3 L 49.8 58 Z";
 const RIGHT_HALF = "M 49.65 58 L 82.9 0 L 100 0 L 49.65 87.6 Z";
 
-const NAV_LINKS = [
-  { label: "Método", href: "/metodo" },
-  { label: "Trabajos", href: "/#trabajos" },
-  { label: "Casos", href: "/casos" },
+const NAV_LINKS: Array<{ label: string; to: string; hash?: string }> = [
+  { label: "Método", to: "/metodo" },
+  { label: "Trabajos", to: "/", hash: "trabajos" },
+  { label: "Casos", to: "/casos" },
 ];
 
 const SCROLL_THRESHOLD = 80;
@@ -49,14 +49,19 @@ export function Nav() {
 
         <nav className="hidden items-center gap-8 min-[900px]:flex" aria-label="Principal">
           {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="nav-link">
+            <Link
+              key={link.label}
+              to={link.to}
+              {...(link.hash ? { hash: link.hash } : {})}
+              className="nav-link"
+            >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         <a
-          href="#contacto"
+          href="/#contacto"
           className="nav-cta inline-flex shrink-0 items-center gap-2 rounded-full bg-brand text-on-dark"
         >
           Reservá tu análisis
