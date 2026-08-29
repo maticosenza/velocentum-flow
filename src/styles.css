@@ -351,18 +351,28 @@
   transition-timing-function: var(--ease-out-soft);
 }
 
-@utility hero-outline {
-  stroke-width: 0.6;
-}
-
+/* Ambient from the start (not an entrance fade): tenue at 0.18, dimming
+   further to 0.08 once the two halves have assembled. */
 @utility hero-construction-lines {
-  opacity: 1;
-  transition: opacity 600ms var(--ease-out-soft) 1700ms;
+  stroke-opacity: 0.18;
+  transition: stroke-opacity 400ms var(--ease-out-soft) 1400ms;
 }
 
-@utility hero-fill {
+@utility hero-half {
   opacity: 0;
-  transition: opacity 500ms var(--ease-out-soft) 1500ms;
+  fill-opacity: 0;
+  transition:
+    transform 900ms var(--ease-out-soft) 600ms,
+    opacity 900ms var(--ease-out-soft) 600ms,
+    fill-opacity 400ms var(--ease-out-soft) 1400ms;
+}
+
+@utility hero-half-left {
+  transform: translateX(-18px);
+}
+
+@utility hero-half-right {
+  transform: translateX(18px);
 }
 
 @utility hero-cota {
@@ -393,9 +403,13 @@
 [data-play="true"] .hero-grid-bg,
 [data-play="true"] .hero-line-inner,
 [data-play="true"] .hero-trace,
-[data-play="true"] .hero-fill,
-[data-play="true"] .hero-cota {
+[data-play="true"] .hero-cota,
+[data-play="true"] .hero-half {
   opacity: 1;
+}
+
+[data-play="true"] .hero-half {
+  fill-opacity: 1;
 }
 
 [data-play="true"] .hero-line-inner {
@@ -406,8 +420,13 @@
   stroke-dashoffset: 0;
 }
 
+[data-play="true"] .hero-half-left,
+[data-play="true"] .hero-half-right {
+  transform: translateX(0);
+}
+
 [data-play="true"] .hero-construction-lines {
-  opacity: 0.15;
+  stroke-opacity: 0.08;
 }
 
 /*

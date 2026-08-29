@@ -10,37 +10,29 @@ type Cota = {
 
 const COTAS: Cota[] = [
   {
-    id: "top",
-    text: "84.0",
-    delay: 850,
-    style: { left: "50%", top: "18%", transform: "translate(-50%, -220%)" },
-  },
-  {
-    id: "axis",
-    text: "74.0",
-    delay: 910,
-    style: {
-      left: "50%",
-      top: "56%",
-      transform: "translate(calc(-100% - 10px), -50%) rotate(-90deg)",
-    },
-  },
-  {
-    id: "angle",
-    text: "∠ 58°",
-    delay: 970,
-    style: { left: "50%", top: "92%", transform: "translate(-50%, 6px)" },
-  },
-  {
     id: "code",
     text: "VLC—01",
-    delay: 1030,
-    style: { left: "6%", top: "8%", transform: "translate(0, -100%)" },
+    delay: 850,
+    style: { left: "0%", top: "0%", transform: "translate(0, -150%)" },
+  },
+  {
+    id: "top",
+    text: "84.0",
+    delay: 910,
+    style: { left: "50%", top: "0%", transform: "translate(-50%, -160%)" },
   },
 ];
 
-const OUTER_TRIANGLE = "M 8 18 L 92 18 L 50 92 Z";
-const INNER_NOTCH = "M 28 30 L 58 30 L 43 56 Z";
+// Vectorized from the original logo (95% match). Single continuous
+// contour: the inner V is an open notch cut into the left arm from the
+// top edge, not a closed hole — split down the shared edge between
+// (49.8, 58) and (49.8, 87.6) into the two halves that assemble on load.
+const LEFT_HALF =
+  "M 49.8 87.6 L 0 0 L 65.7 0 L 44.2 38.2 L 35.8 23.9 L 40.7 14.3 L 24.6 14.3 L 49.8 58 Z";
+// Right half's shared edge is nudged 0.15 units past x=49.8 so the two
+// fills overlap slightly at rest instead of leaving a hairline gap from
+// anti-aliasing between two adjacent (not unioned) shapes.
+const RIGHT_HALF = "M 49.65 58 L 82.9 0 L 100 0 L 49.65 87.6 Z";
 
 type HeroIsotypeProps = {
   sectionRef: RefObject<HTMLElement | null>;
@@ -49,13 +41,14 @@ type HeroIsotypeProps = {
 
 export function HeroIsotype({ sectionRef, reducedMotion }: HeroIsotypeProps) {
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const groupRef = useRef<SVGGElement | null>(null);
+  const leftGroupRef = useRef<SVGGElement | null>(null);
+  const rightGroupRef = useRef<SVGGElement | null>(null);
   const cotasRef = useRef<HTMLDivElement | null>(null);
 
   // Real per-element trace length instead of a fixed generous dasharray:
-  // short strokes (the cota tick marks) are only a few units long, so a
-  // dasharray of 320 kept them entirely inside the initial gap until the
-  // very end of the transition, making them pop in instead of drawing.
+  // short strokes are only a few units long, so a fixed dasharray kept
+  // them entirely inside the initial gap until the very end of the
+  // transition, making them pop in instead of drawing.
   useEffect(() => {
     const svg = svgRef.current;
     if (!svg) return;
@@ -71,12 +64,14 @@ export function HeroIsotype({ sectionRef, reducedMotion }: HeroIsotypeProps) {
     (progress) => {
       if (reducedMotion) return;
 
-      const group = groupRef.current;
-      if (group) {
-        const rotate = progress * 4;
-        const translate = progress * 8;
-        group.setAttribute("transform", `translate(0 ${translate}) rotate(${rotate} 50 55)`);
-      }
+      // The two halves pull apart again on scroll, proportional to
+      // progress, capping at 6 units of separation — the assembly gesture
+      // reads going down the page too, not just on load.
+      const offset = progress * 6;
+      const left = leftGroupRef.current;
+      if (left) left.setAttribute("transform", `translate(${-offset} 0)`);
+      const right = rightGroupRef.current;
+      if (right) right.setAttribute("transform", `translate(${offset} 0)`);
 
       const cotas = cotasRef.current;
       if (cotas) {
@@ -92,106 +87,79 @@ export function HeroIsotype({ sectionRef, reducedMotion }: HeroIsotypeProps) {
   );
 
   return (
-    <div className="relative aspect-square w-full" style={{ containerType: "inline-size" }}>
+    <div className="relative aspect-[100/87.6] w-full" style={{ containerType: "inline-size" }}>
       <div className="hero-halo" aria-hidden="true" />
       <div className="hero-grid-bg" aria-hidden="true" />
 
       <svg
         ref={svgRef}
-        viewBox="0 0 100 100"
+        viewBox="0 0 100 87.6"
         className="relative h-full w-full"
         role="img"
-        aria-label="Isotipo de Velocentum trazándose como un plano técnico"
+        aria-label="Isotipo de Velocentum ensamblándose desde sus dos mitades"
       >
         <defs>
-          <linearGradient id="heroIsotypeFill" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient
+            id="heroIsotypeFill"
+            gradientUnits="userSpaceOnUse"
+            x1="0"
+            y1="0"
+            x2="100"
+            y2="87.6"
+          >
             <stop offset="0%" stopColor="#F7F7FB" />
             <stop offset="55%" stopColor="#7B5CFF" />
             <stop offset="100%" stopColor="#2A1EC9" />
           </linearGradient>
         </defs>
 
-        {/* Construction lines live inside the same group as the isotype so
-            the scroll parallax (rotate/translate) moves them together —
-            otherwise they drift out of alignment with the mark. */}
-        <g ref={groupRef} style={{ willChange: "transform" }}>
-          <g className="hero-construction-lines" aria-hidden="true">
-            <line
-              className="hero-trace"
-              x1={4}
-              y1={18}
-              x2={96}
-              y2={18}
-              style={{ transitionDelay: "200ms", transitionDuration: "500ms" }}
-            />
-            <line
-              className="hero-trace"
-              x1={50}
-              y1={12}
-              x2={50}
-              y2={98}
-              style={{ transitionDelay: "200ms", transitionDuration: "500ms" }}
-            />
-            <line
-              className="hero-trace"
-              x1={8}
-              y1={18}
-              x2={50}
-              y2={92}
-              style={{ transitionDelay: "450ms", transitionDuration: "500ms" }}
-            />
-            <line
-              className="hero-trace"
-              x1={92}
-              y1={18}
-              x2={50}
-              y2={92}
-              style={{ transitionDelay: "450ms", transitionDuration: "500ms" }}
-            />
-            <circle
-              className="hero-trace"
-              cx={50}
-              cy={42}
-              r={44}
-              strokeOpacity={0.25}
-              style={{ transitionDelay: "600ms", transitionDuration: "600ms" }}
-            />
-            <line
-              className="hero-trace"
-              x1={4}
-              y1={15}
-              x2={4}
-              y2={21}
-              style={{ transitionDelay: "250ms", transitionDuration: "300ms" }}
-            />
-            <line
-              className="hero-trace"
-              x1={96}
-              y1={15}
-              x2={96}
-              y2={21}
-              style={{ transitionDelay: "250ms", transitionDuration: "300ms" }}
-            />
-          </g>
+        <g className="hero-construction-lines" aria-hidden="true">
+          <line
+            className="hero-trace"
+            x1={-4}
+            y1={0}
+            x2={104}
+            y2={0}
+            style={{ transitionDelay: "200ms", transitionDuration: "300ms" }}
+          />
+          <line
+            className="hero-trace"
+            x1={49.8}
+            y1={-6}
+            x2={49.8}
+            y2={94}
+            style={{ transitionDelay: "200ms", transitionDuration: "300ms" }}
+          />
+          <line
+            className="hero-trace"
+            x1={0}
+            y1={0}
+            x2={49.8}
+            y2={87.6}
+            style={{ transitionDelay: "350ms", transitionDuration: "300ms" }}
+          />
+          <line
+            className="hero-trace"
+            x1={100}
+            y1={0}
+            x2={49.8}
+            y2={87.6}
+            style={{ transitionDelay: "350ms", transitionDuration: "300ms" }}
+          />
+          <circle
+            className="hero-trace"
+            cx={49.8}
+            cy={40}
+            r={52}
+            style={{ transitionDelay: "500ms", transitionDuration: "300ms" }}
+          />
+        </g>
 
-          <path
-            className="hero-trace hero-outline"
-            d={OUTER_TRIANGLE}
-            style={{ transitionDelay: "1000ms", transitionDuration: "700ms" }}
-          />
-          <path
-            className="hero-trace hero-outline"
-            d={INNER_NOTCH}
-            style={{ transitionDelay: "1300ms", transitionDuration: "400ms" }}
-          />
-          {/* Single evenodd path: the notch is a real cutout (halo/grid show
-              through) instead of an opaque ink-deep patch on top of the fill. */}
-          <path
-            className="hero-fill"
-            d={`${OUTER_TRIANGLE} ${INNER_NOTCH}`}
-            fillRule="evenodd"
-            fill="url(#heroIsotypeFill)"
-          />
+        <g ref={leftGroupRef} style={{ willChange: "transform" }}>
+          <path className="hero-half hero-half-left" d={LEFT_HALF} fill="url(#heroIsotypeFill)" />
+        </g>
+        <g ref={rightGroupRef} style={{ willChange: "transform" }}>
+          <path className="hero-half hero-half-right" d={RIGHT_HALF} fill="url(#heroIsotypeFill)" />
         </g>
       </svg>
 
