@@ -11,7 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { useScrollEngine } from "../hooks/useScrollEngine";
+import { getScrollEngine } from "../hooks/useScrollEngine";
 
 function NotFoundComponent() {
   return (
@@ -154,7 +154,11 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  useScrollEngine();
+  useEffect(() => {
+    const engine = getScrollEngine();
+    engine.start();
+    return () => engine.stop();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
