@@ -717,3 +717,172 @@
     opacity: 1;
   }
 }
+
+/* ---------- Trabajos ---------- */
+
+@utility trabajos-track-viewport {
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  cursor: grab;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &[data-dragging="true"] {
+    scroll-snap-type: none;
+    cursor: grabbing;
+  }
+}
+
+@utility trabajos-track {
+  display: flex;
+  gap: 20px;
+  padding-inline: clamp(20px, 5vw, 80px);
+}
+
+@utility trabajos-video-card {
+  position: relative;
+  flex: 0 0 250px;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border-radius: var(--radius-20);
+  border: 1px solid var(--border-dark);
+  background-color: var(--ink-deep-2);
+  cursor: pointer;
+  scroll-snap-align: start;
+}
+
+@utility trabajos-video-media {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@utility trabajos-video-overlay {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: 16px;
+  background: linear-gradient(to bottom, transparent 45%, rgba(11, 7, 34, 0.9));
+}
+
+@utility trabajos-video-categoria {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--on-dark);
+}
+
+@utility trabajos-video-accion {
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-dark-2);
+}
+
+@utility trabajos-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-full);
+  background-color: rgba(11, 7, 34, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+@utility trabajos-text-card {
+  position: relative;
+  flex: 0 0 330px;
+  aspect-ratio: 9 / 13;
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-20);
+  background-color: var(--ink-deep-2);
+  border: 1px solid var(--border-dark);
+  padding: 30px;
+  scroll-snap-align: start;
+}
+
+@utility trabajos-text-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--violet);
+}
+
+@utility trabajos-text-body {
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  color: var(--on-dark);
+}
+
+@utility trabajos-text-isotype {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+@utility trabajos-tag {
+  display: inline-flex;
+  align-items: center;
+  margin-inline: 10px;
+  padding: 9px 18px;
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--on-dark-2);
+}
+
+@utility trabajos-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: rgba(11, 7, 34, 0.9);
+}
+
+@utility trabajos-modal-content {
+  position: relative;
+  width: min(90vw, 420px);
+  aspect-ratio: 9 / 16;
+}
+
+@utility trabajos-modal-close {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--on-dark);
+}
+
+@media (max-width: 899px) {
+  .trabajos-video-card {
+    flex: 0 0 200px;
+  }
+}

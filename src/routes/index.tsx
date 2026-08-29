@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HeroTrazado } from "@/components/hero/HeroTrazado";
 import { Contraste } from "@/components/sections/Contraste";
+import { Trabajos } from "@/components/sections/Trabajos";
 import { Servicios } from "@/components/sections/Servicios";
 import { Clientes } from "@/components/sections/Clientes";
 
@@ -35,6 +36,7 @@ function Home() {
     <>
       <HeroTrazado />
       <Contraste />
+      <Trabajos />
       <Servicios />
       <Clientes />
     </>
