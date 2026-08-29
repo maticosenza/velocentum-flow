@@ -131,7 +131,7 @@ function AlignedPieces({
             pieceRefs.current[i] = el;
           }}
           className="contraste-piece"
-          style={{ borderColor, background }}
+          style={{ borderColor, background, transform: pieceTransform(piece.disordered) }}
         >
           <span>{piece.label}</span>
         </div>
