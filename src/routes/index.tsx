@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { HeroTrazado } from "@/components/hero/HeroTrazado";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,9 +28,5 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  return (
-    <div className="container-v section-v">
-      <h1 className="display-xl">Velocentum</h1>
-    </div>
-  );
+  return <HeroTrazado />;
 }

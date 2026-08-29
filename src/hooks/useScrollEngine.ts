@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 /**
  * Velocentum scroll engine.
  *
  * The single source of scroll for the whole site.
- * - One global rAF loop.
+ * - One global rAF loop that sleeps when there is nothing to animate.
  * - The 'scroll' listener is passive and only flips a boolean flag; it never
  *   reads layout.
  * - Layout measurements are cached on mount and on resize, never inside the
@@ -43,6 +43,8 @@ export function lerp(from: number, to: number, factor = LERP_FACTOR) {
   return from + (to - from) * factor;
 }
 
+const RESIZE_DEBOUNCE_MS = 150;
+
 type Measured = RangeTarget & { top: number; height: number };
 
 class ScrollEngine {
@@ -51,8 +53,12 @@ class ScrollEngine {
   private measured: Measured[] = [];
   private rafId: number | null = null;
   private dirty = true;
+  private needsFrames = true;
+  private idle = false;
   private docHeight = 0;
   private started = false;
+  private measureQueued = false;
+  private resizeTimer: ReturnType<typeof setTimeout> | null = null;
 
   state: ScrollState = {
     y: 0,
@@ -67,25 +73,29 @@ class ScrollEngine {
   private onScroll = () => {
     // Flag only. No layout reads here.
     this.dirty = true;
+    this.wake();
   };
 
   private onResize = () => {
-    this.measure();
-    this.dirty = true;
+    // Wake immediately so repaint doesn't stall, but debounce the actual
+    // re-measurement: iOS fires resize repeatedly during ordinary scroll.
+    this.wake();
+    if (this.resizeTimer !== null) clearTimeout(this.resizeTimer);
+    this.resizeTimer = setTimeout(() => {
+      this.resizeTimer = null;
+      this.measure();
+      this.dirty = true;
+      this.wake();
+    }, RESIZE_DEBOUNCE_MS);
   };
 
-  /** All layout reads live here: mount + resize only. */
+  /** All layout reads live here: mount + debounced resize + queued register(). */
   private measure() {
     if (typeof window === "undefined") return;
     this.state.viewportHeight = window.innerHeight;
     this.state.viewportWidth = window.innerWidth;
-    this.state.reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    this.docHeight = Math.max(
-      document.documentElement.scrollHeight - window.innerHeight,
-      1,
-    );
+    this.state.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    this.docHeight = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
     this.measured = [];
     this.targets.forEach((target) => {
       const rect = target.element.getBoundingClientRect();
@@ -95,6 +105,32 @@ class ScrollEngine {
         height: rect.height,
       });
     });
+  }
+
+  /**
+   * Collapse any number of register()/unregister() calls within the same
+   * tick into a single measure() on the next frame, instead of a full pass
+   * per call.
+   */
+  private queueMeasure() {
+    if (this.measureQueued || typeof window === "undefined") return;
+    this.measureQueued = true;
+    queueMicrotask(() => {
+      requestAnimationFrame(() => {
+        this.measureQueued = false;
+        this.measure();
+        this.dirty = true;
+        this.wake();
+      });
+    });
+  }
+
+  private wake() {
+    if (!this.idle) return;
+    this.idle = false;
+    if (this.rafId === null) {
+      this.rafId = requestAnimationFrame(this.tick);
+    }
   }
 
   private tick = () => {
@@ -134,10 +170,14 @@ class ScrollEngine {
       this.subscribers.forEach((fn) => fn(s));
     }
 
+    if (!this.dirty && !this.needsFrames) {
+      this.rafId = null;
+      this.idle = true;
+      return;
+    }
+
     this.rafId = requestAnimationFrame(this.tick);
   };
-
-  private needsFrames = true;
 
   start() {
     if (this.started || typeof window === "undefined") return;
@@ -154,13 +194,17 @@ class ScrollEngine {
     this.started = false;
     window.removeEventListener("scroll", this.onScroll);
     window.removeEventListener("resize", this.onResize);
+    if (this.resizeTimer !== null) clearTimeout(this.resizeTimer);
+    this.resizeTimer = null;
     if (this.rafId !== null) cancelAnimationFrame(this.rafId);
     this.rafId = null;
+    this.idle = false;
   }
 
   subscribe(fn: Subscriber) {
     this.subscribers.add(fn);
     this.dirty = true;
+    this.wake();
     return () => {
       this.subscribers.delete(fn);
     };
@@ -168,11 +212,10 @@ class ScrollEngine {
 
   register(target: RangeTarget) {
     this.targets.add(target);
-    this.measure();
-    this.dirty = true;
+    this.queueMeasure();
     return () => {
       this.targets.delete(target);
-      this.measure();
+      this.queueMeasure();
     };
   }
 
@@ -180,6 +223,7 @@ class ScrollEngine {
   refresh() {
     this.measure();
     this.dirty = true;
+    this.wake();
   }
 }
 
@@ -187,21 +231,6 @@ const engine = new ScrollEngine();
 
 export function getScrollEngine() {
   return engine;
-}
-
-/** Mount once (in the root layout) to run the global loop. */
-export function useScrollEngine() {
-  const [state, setState] = useState<ScrollState>(engine.state);
-
-  useEffect(() => {
-    engine.start();
-    const unsubscribe = engine.subscribe((s) => {
-      setState({ ...s });
-    });
-    return unsubscribe;
-  }, []);
-
-  return state;
 }
 
 /** Subscribe imperatively without re-rendering React. */

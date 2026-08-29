@@ -301,6 +301,128 @@
   }
 }
 
+/* ---------- Hero — trazado ---------- */
+
+@utility hero-halo {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 70%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-full);
+  background: radial-gradient(
+    circle,
+    rgba(123, 92, 255, 0.35),
+    transparent 70%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+@utility hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-image:
+    linear-gradient(rgba(123, 92, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(123, 92, 255, 0.04) 1px, transparent 1px);
+  background-size: 34px 34px;
+  transition: opacity 400ms var(--ease-out-soft);
+}
+
+@utility hero-line-mask {
+  display: block;
+  overflow: hidden;
+}
+
+@utility hero-line-inner {
+  display: block;
+  transform: translateY(115%);
+  transition-property: transform;
+  transition-duration: var(--dur-reveal);
+  transition-timing-function: var(--ease-out-soft);
+}
+
+@utility hero-trace {
+  fill: none;
+  stroke: var(--violet);
+  stroke-width: 0.4;
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+  transition-property: stroke-dashoffset;
+  transition-timing-function: var(--ease-out-soft);
+}
+
+@utility hero-outline {
+  stroke-width: 0.6;
+}
+
+@utility hero-construction-lines {
+  opacity: 1;
+  transition: opacity 600ms var(--ease-out-soft) 1700ms;
+}
+
+@utility hero-fill {
+  opacity: 0;
+  transition: opacity 500ms var(--ease-out-soft) 1500ms;
+}
+
+@utility hero-cota {
+  position: absolute;
+  opacity: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(154, 150, 180, 0.55);
+  transition: opacity 300ms var(--ease-out-soft);
+}
+
+@utility hero-cta {
+  &:hover .hero-cta-arrow {
+    transform: translateX(4px);
+  }
+}
+
+@utility hero-cta-arrow {
+  display: inline-block;
+  transition: transform var(--dur-micro) var(--ease-out-soft);
+}
+
+[data-play="true"] .hero-grid-bg,
+[data-play="true"] .hero-line-inner,
+[data-play="true"] .hero-trace,
+[data-play="true"] .hero-fill,
+[data-play="true"] .hero-cota {
+  opacity: 1;
+}
+
+[data-play="true"] .hero-line-inner {
+  transform: translateY(0);
+}
+
+[data-play="true"] .hero-trace {
+  stroke-dashoffset: 0;
+}
+
+[data-play="true"] .hero-construction-lines {
+  opacity: 0.15;
+}
+
+/*
+ * The blanket reduced-motion query below zeroes transition-duration but not
+ * transition-delay, which would leave every staggered hero element stuck
+ * invisible until its delay elapses. This scoped rule kills delay too, so a
+ * reduced-motion visitor gets the final state immediately instead of a fast
+ * but still-sequenced replay.
+ */
+.hero-trazado[data-motion="reduced"] * {
+  transition-duration: 0.01ms !important;
+  transition-delay: 0ms !important;
+  animation-duration: 0.01ms !important;
+  animation-delay: 0ms !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
