@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { lerp, LERP_FACTOR, useScrollRange } from "@/hooks/useScrollEngine";
 
 // Mirrors the isotype geometry from HeroIsotype/Nav, used here as a flat
@@ -47,14 +47,15 @@ function ServiceIcon() {
   );
 }
 
-function ServiceCard({ service, active }: { service: Service; active: boolean }) {
+function ServiceCard({
+  service,
+  cardRef,
+}: {
+  service: Service;
+  cardRef: (el: HTMLElement | null) => void;
+}) {
   return (
-    <article
-      className="servicios-card"
-      style={
-        active ? { borderColor: "rgba(123,92,255,0.55)", backgroundColor: "#191243" } : undefined
-      }
-    >
+    <article ref={cardRef} className="servicios-card">
       <ServiceIcon />
       <span className="servicios-card-label mt-6 block">{service.label}</span>
       <p className="mt-3 text-[1.02rem] text-on-dark">{service.text}</p>
@@ -67,6 +68,8 @@ export function Servicios() {
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const fillRef = useRef<HTMLDivElement | null>(null);
+  const counterRef = useRef<HTMLSpanElement | null>(null);
+  const cardRefs = useRef<Array<HTMLElement | null>>([]);
 
   const isDesktopRef = useRef(true);
   const reducedMotionRef = useRef(false);
@@ -74,9 +77,7 @@ export function Servicios() {
   const targetRef = useRef(0);
   const currentRef = useRef(0);
   const rafRef = useRef<number | null>(null);
-  const activeIndexRef = useRef(0);
-
-  const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndexRef = useRef(-1);
 
   useEffect(() => {
     const mqDesktop = window.matchMedia("(min-width: 900px)");
@@ -104,9 +105,20 @@ export function Servicios() {
       if (!track || !viewport) return;
       metricsRef.current = { scrollWidth: track.scrollWidth, clientWidth: viewport.clientWidth };
     }
+
+    function handleResize() {
+      measure();
+      // Crossing down past the desktop breakpoint while live-resizing (not a
+      // fresh page load) leaves the last desktop translate3d stuck on the
+      // track, fighting the native horizontal scroll mobile switches to.
+      if (!window.matchMedia("(min-width: 900px)").matches && trackRef.current) {
+        trackRef.current.style.transform = "";
+      }
+    }
+
     measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -127,7 +139,14 @@ export function Servicios() {
     const nextIndex = Math.min(SERVICES.length - 1, Math.floor(p * SERVICES.length));
     if (nextIndex !== activeIndexRef.current) {
       activeIndexRef.current = nextIndex;
-      setActiveIndex(nextIndex);
+      cardRefs.current.forEach((el, i) => {
+        el?.classList.toggle("is-active", i === nextIndex);
+      });
+      if (counterRef.current) {
+        counterRef.current.textContent = `${String(nextIndex + 1).padStart(2, "0")} / ${String(
+          SERVICES.length,
+        ).padStart(2, "0")}`;
+      }
     }
   }
 
@@ -189,9 +208,8 @@ export function Servicios() {
               </p>
 
               <div className="servicios-progress mt-8">
-                <span className="label-mono" style={{ color: "var(--violet)" }}>
-                  {String(activeIndex + 1).padStart(2, "0")} /{" "}
-                  {String(SERVICES.length).padStart(2, "0")}
+                <span ref={counterRef} className="label-mono" style={{ color: "var(--violet)" }}>
+                  01 / {String(SERVICES.length).padStart(2, "0")}
                 </span>
                 <div className="servicios-progress-track mt-3">
                   <div ref={fillRef} className="servicios-progress-fill" />
@@ -206,7 +224,13 @@ export function Servicios() {
             <div ref={viewportRef} className="servicios-track-viewport">
               <div ref={trackRef} className="servicios-track">
                 {SERVICES.map((service, i) => (
-                  <ServiceCard key={service.label} service={service} active={i === activeIndex} />
+                  <ServiceCard
+                    key={service.label}
+                    service={service}
+                    cardRef={(el) => {
+                      cardRefs.current[i] = el;
+                    }}
+                  />
                 ))}
               </div>
             </div>

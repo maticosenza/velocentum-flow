@@ -643,6 +643,11 @@
   transition:
     border-color 200ms var(--ease-out-soft),
     background-color 200ms var(--ease-out-soft);
+
+  &.is-active {
+    border-color: rgba(123, 92, 255, 0.55);
+    background-color: #191243;
+  }
 }
 
 @utility servicios-card-label {
