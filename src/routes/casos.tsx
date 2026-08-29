@@ -6,14 +6,12 @@ export const Route = createFileRoute("/casos")({
       { title: "Casos — Velocentum" },
       {
         name: "description",
-        content:
-          "Casos y resultados de las cuentas gestionadas por Velocentum.",
+        content: "Casos y resultados de las cuentas gestionadas por Velocentum.",
       },
       { property: "og:title", content: "Casos — Velocentum" },
       {
         property: "og:description",
-        content:
-          "Casos y resultados de las cuentas gestionadas por Velocentum.",
+        content: "Casos y resultados de las cuentas gestionadas por Velocentum.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/casos" },
@@ -25,8 +23,9 @@ export const Route = createFileRoute("/casos")({
 
 function Casos() {
   return (
-    <div className="container-v section-v">
-      <h1 className="display-l">Casos</h1>
+    <div className="container-v section-v pt-36">
+      <span className="eyebrow mb-3 block text-on-dark-2">Resultados</span>
+      <h1 className="display-l text-on-dark">Casos</h1>
     </div>
   );
 }

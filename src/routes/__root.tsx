@@ -12,6 +12,18 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { getScrollEngine } from "../hooks/useScrollEngine";
+import { Nav } from "../components/Nav";
+import { ScrollAxis } from "../components/ScrollAxis";
+
+const SCROLL_AXIS_LABELS = [
+  "Inicio",
+  "Marcas",
+  "Diagnóstico",
+  "Trabajos",
+  "Servicios",
+  "Casos",
+  "Contacto",
+];
 
 function NotFoundComponent() {
   return (
@@ -94,8 +106,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Velocentum — Marketing de performance" },
       {
         name: "description",
-        content:
-          "Velocentum, agencia de marketing de performance en Argentina.",
+        content: "Velocentum, agencia de marketing de performance en Argentina.",
       },
       { name: "author", content: "Velocentum" },
       { property: "og:site_name", content: "Velocentum" },
@@ -162,6 +173,8 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Nav />
+      <ScrollAxis labels={SCROLL_AXIS_LABELS} />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
