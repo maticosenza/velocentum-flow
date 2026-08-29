@@ -277,10 +277,19 @@
 
 @utility marquee-viewport {
   overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 
   &:hover .marquee-track {
     animation-play-state: paused;
   }
+}
+
+@utility marquee-static {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes marquee-scroll {
@@ -687,5 +696,24 @@
     flex: 0 0 250px;
     height: 340px;
     scroll-snap-align: start;
+  }
+}
+
+/* ---------- Clientes ---------- */
+
+@utility clientes-logo {
+  height: 34px;
+  width: auto;
+  object-fit: contain;
+  margin-inline: 20px;
+  filter: grayscale(1) brightness(1.8);
+  opacity: 0.55;
+  transition:
+    filter 250ms var(--ease-out-soft),
+    opacity 250ms var(--ease-out-soft);
+
+  &:hover {
+    filter: none;
+    opacity: 1;
   }
 }

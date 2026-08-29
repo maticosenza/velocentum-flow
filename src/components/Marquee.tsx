@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type MarqueeProps = {
@@ -9,13 +9,22 @@ type MarqueeProps = {
   className?: string;
 };
 
-/** Infinite horizontal marquee. transform-only, pauses on hover. */
-export function Marquee({
-  children,
-  duration = 30,
-  reverse = false,
-  className,
-}: MarqueeProps) {
+/**
+ * Infinite horizontal marquee. transform-only, pauses on hover.
+ * Under prefers-reduced-motion, renders the (single, non-duplicated) set as
+ * a static centered grid instead of an animated track.
+ */
+export function Marquee({ children, duration = 30, reverse = false, className }: MarqueeProps) {
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
+  if (reducedMotion) {
+    return <div className={cn("marquee-static", className)}>{children}</div>;
+  }
+
   return (
     <div className={cn("marquee-viewport", className)}>
       <div
