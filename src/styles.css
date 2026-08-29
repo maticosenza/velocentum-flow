@@ -516,3 +516,47 @@
   display: inline-block;
   transition: transform var(--dur-micro) var(--ease-out-soft);
 }
+
+/* ---------- Contraste ---------- */
+
+@utility contraste-card {
+  position: relative;
+  border-radius: var(--radius-28);
+  padding: clamp(28px, 4vw, 56px);
+  min-height: 340px;
+}
+
+@utility contraste-card-01 {
+  background-image: linear-gradient(120deg, #0d1230, #151034);
+}
+
+@utility contraste-card-02 {
+  background-image: linear-gradient(120deg, #1a1038, #151034);
+}
+
+@utility contraste-stage {
+  position: relative;
+  width: 100%;
+  max-width: 260px;
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
+}
+
+@utility contraste-piece {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 8px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  color: var(--on-dark-2);
+  will-change: transform;
+}
