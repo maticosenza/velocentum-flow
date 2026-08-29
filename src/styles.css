@@ -310,11 +310,7 @@
   width: 70%;
   aspect-ratio: 1 / 1;
   border-radius: var(--radius-full);
-  background: radial-gradient(
-    circle,
-    rgba(123, 92, 255, 0.35),
-    transparent 70%
-  );
+  background: radial-gradient(circle, rgba(123, 92, 255, 0.35), transparent 70%);
   filter: blur(40px);
   pointer-events: none;
 }
@@ -347,8 +343,10 @@
   fill: none;
   stroke: var(--violet);
   stroke-width: 0.4;
-  stroke-dasharray: 320;
-  stroke-dashoffset: 320;
+  /* Set per-element to the real path length via getTotalLength(); 320 is
+     just a pre-hydration fallback so nothing is stroked solid before JS runs. */
+  stroke-dasharray: var(--trace-len, 320);
+  stroke-dashoffset: var(--trace-len, 320);
   transition-property: stroke-dashoffset;
   transition-timing-function: var(--ease-out-soft);
 }
@@ -371,7 +369,10 @@
   position: absolute;
   opacity: 0;
   font-family: var(--font-mono);
-  font-size: 10px;
+  /* Relative to the isotype's own container (container-type: inline-size
+     on its wrapper), so it scales down with the 230px mobile mark instead
+     of staying a fixed 10px next to a much smaller drawing. */
+  font-size: clamp(7px, 3.5cqw, 11px);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(154, 150, 180, 0.55);

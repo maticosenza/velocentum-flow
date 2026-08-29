@@ -1,4 +1,4 @@
-import { useRef, type RefObject } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 import { useScrollRange } from "@/hooks/useScrollEngine";
 
 type Cota = {
@@ -48,8 +48,23 @@ type HeroIsotypeProps = {
 };
 
 export function HeroIsotype({ sectionRef, reducedMotion }: HeroIsotypeProps) {
+  const svgRef = useRef<SVGSVGElement | null>(null);
   const groupRef = useRef<SVGGElement | null>(null);
   const cotasRef = useRef<HTMLDivElement | null>(null);
+
+  // Real per-element trace length instead of a fixed generous dasharray:
+  // short strokes (the cota tick marks) are only a few units long, so a
+  // dasharray of 320 kept them entirely inside the initial gap until the
+  // very end of the transition, making them pop in instead of drawing.
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg) return;
+    const traces = svg.querySelectorAll<SVGGeometryElement>(".hero-trace");
+    traces.forEach((el) => {
+      const length = el.getTotalLength();
+      el.style.setProperty("--trace-len", String(length));
+    });
+  }, []);
 
   useScrollRange(
     sectionRef,
@@ -77,11 +92,12 @@ export function HeroIsotype({ sectionRef, reducedMotion }: HeroIsotypeProps) {
   );
 
   return (
-    <div className="relative aspect-square w-full">
+    <div className="relative aspect-square w-full" style={{ containerType: "inline-size" }}>
       <div className="hero-halo" aria-hidden="true" />
       <div className="hero-grid-bg" aria-hidden="true" />
 
       <svg
+        ref={svgRef}
         viewBox="0 0 100 100"
         className="relative h-full w-full"
         role="img"
@@ -95,66 +111,69 @@ export function HeroIsotype({ sectionRef, reducedMotion }: HeroIsotypeProps) {
           </linearGradient>
         </defs>
 
-        <g className="hero-construction-lines" aria-hidden="true">
-          <line
-            className="hero-trace"
-            x1={4}
-            y1={18}
-            x2={96}
-            y2={18}
-            style={{ transitionDelay: "200ms", transitionDuration: "500ms" }}
-          />
-          <line
-            className="hero-trace"
-            x1={50}
-            y1={12}
-            x2={50}
-            y2={98}
-            style={{ transitionDelay: "200ms", transitionDuration: "500ms" }}
-          />
-          <line
-            className="hero-trace"
-            x1={8}
-            y1={18}
-            x2={50}
-            y2={92}
-            style={{ transitionDelay: "450ms", transitionDuration: "500ms" }}
-          />
-          <line
-            className="hero-trace"
-            x1={92}
-            y1={18}
-            x2={50}
-            y2={92}
-            style={{ transitionDelay: "450ms", transitionDuration: "500ms" }}
-          />
-          <circle
-            className="hero-trace"
-            cx={50}
-            cy={42}
-            r={44}
-            strokeOpacity={0.25}
-            style={{ transitionDelay: "600ms", transitionDuration: "600ms" }}
-          />
-          <line
-            className="hero-trace"
-            x1={4}
-            y1={15}
-            x2={4}
-            y2={21}
-            style={{ transitionDelay: "250ms", transitionDuration: "300ms" }}
-          />
-          <line
-            className="hero-trace"
-            x1={96}
-            y1={15}
-            x2={96}
-            y2={21}
-            style={{ transitionDelay: "250ms", transitionDuration: "300ms" }}
-          />
-        </g>
-
+        {/* Construction lines live inside the same group as the isotype so
+            the scroll parallax (rotate/translate) moves them together —
+            otherwise they drift out of alignment with the mark. */}
         <g ref={groupRef} style={{ willChange: "transform" }}>
+          <g className="hero-construction-lines" aria-hidden="true">
+            <line
+              className="hero-trace"
+              x1={4}
+              y1={18}
+              x2={96}
+              y2={18}
+              style={{ transitionDelay: "200ms", transitionDuration: "500ms" }}
+            />
+            <line
+              className="hero-trace"
+              x1={50}
+              y1={12}
+              x2={50}
+              y2={98}
+              style={{ transitionDelay: "200ms", transitionDuration: "500ms" }}
+            />
+            <line
+              className="hero-trace"
+              x1={8}
+              y1={18}
+              x2={50}
+              y2={92}
+              style={{ transitionDelay: "450ms", transitionDuration: "500ms" }}
+            />
+            <line
+              className="hero-trace"
+              x1={92}
+              y1={18}
+              x2={50}
+              y2={92}
+              style={{ transitionDelay: "450ms", transitionDuration: "500ms" }}
+            />
+            <circle
+              className="hero-trace"
+              cx={50}
+              cy={42}
+              r={44}
+              strokeOpacity={0.25}
+              style={{ transitionDelay: "600ms", transitionDuration: "600ms" }}
+            />
+            <line
+              className="hero-trace"
+              x1={4}
+              y1={15}
+              x2={4}
+              y2={21}
+              style={{ transitionDelay: "250ms", transitionDuration: "300ms" }}
+            />
+            <line
+              className="hero-trace"
+              x1={96}
+              y1={15}
+              x2={96}
+              y2={21}
+              style={{ transitionDelay: "250ms", transitionDuration: "300ms" }}
+            />
+          </g>
+
           <path
             className="hero-trace hero-outline"
             d={OUTER_TRIANGLE}
@@ -165,8 +184,14 @@ export function HeroIsotype({ sectionRef, reducedMotion }: HeroIsotypeProps) {
             d={INNER_NOTCH}
             style={{ transitionDelay: "1300ms", transitionDuration: "400ms" }}
           />
-          <path className="hero-fill" d={OUTER_TRIANGLE} fill="url(#heroIsotypeFill)" />
-          <path className="hero-fill" d={INNER_NOTCH} fill="var(--ink-deep)" />
+          {/* Single evenodd path: the notch is a real cutout (halo/grid show
+              through) instead of an opaque ink-deep patch on top of the fill. */}
+          <path
+            className="hero-fill"
+            d={`${OUTER_TRIANGLE} ${INNER_NOTCH}`}
+            fillRule="evenodd"
+            fill="url(#heroIsotypeFill)"
+          />
         </g>
       </svg>
 
