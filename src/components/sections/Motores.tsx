@@ -1,41 +1,52 @@
-import { CrystalV } from "@/components/brand/CrystalV";
 import { useReveal } from "@/hooks/useReveal";
+import {
+  BarsMotif,
+  FragmentClusterIcon,
+  LightningIcon,
+  PrismIcon,
+  TargetStructureIcon,
+} from "@/components/brand/motorIcons";
+import type { ComponentType } from "react";
 
-type Motor = { name: string; text: string };
+type Motor = { name: string; text: string; Icon: ComponentType<{ className?: string }> };
 
-// Copy grounded in what's already established elsewhere in the site, not
-// invented for this section: Estrategia/Contenido/Pauta/Medición are the
-// same four terms from the Hero subtitle and pill labels, and each line
-// below reuses or lightly adapts an existing sentence (Hero subtitle,
-// Trabajos headline, the old Servicios card copy) instead of introducing
-// new claims. The Plan Maestro PDF that presumably names these engines in
-// more detail wasn't accessible in this session — see the PR/handoff notes.
+// Four motors, not seven cards, not the old "Servicios" list — Motores
+// explains how the team works, Servicios (its own section, see
+// Servicios.tsx) explains what capabilities exist. Medición is
+// deliberately not a fifth motor here: it's the transversal layer,
+// expressed as the Bars motif running behind all four instead of its own
+// card (see .motores-bars).
 const MOTORES: Motor[] = [
   {
     name: "Estrategia",
     text: "Primero entendemos el negocio. Después armamos el plan.",
+    Icon: PrismIcon,
   },
   {
-    name: "Contenido",
-    text: "Piezas pensadas para pautar, no para llenar el feed.",
+    name: "Creatividad",
+    text: "Piezas pensadas para funcionar, no solo para llenar el feed.",
+    Icon: FragmentClusterIcon,
   },
   {
-    name: "Pauta",
+    name: "Adquisición",
     text: "Campañas que se miden por venta real, no por clics.",
+    Icon: LightningIcon,
   },
   {
-    name: "Medición",
-    text: "Un mismo tablero para ver qué está funcionando y qué no.",
+    name: "Web & Conversión",
+    text: "Sitios y fichas pensados para convertir, no solo para existir.",
+    Icon: TargetStructureIcon,
   },
 ];
 
 function MotorCard({ motor, index }: { motor: Motor; index: number }) {
   const cardRef = useReveal<HTMLDivElement>({ delay: index * 90 });
+  const { Icon } = motor;
 
   return (
     <article ref={cardRef} className="motores-card reveal">
       <span className="motores-icon" aria-hidden="true">
-        <CrystalV variant="mark" className="h-full w-full" />
+        <Icon className="h-full w-full" />
       </span>
       <h3 className="motores-card-title text-on-dark">{motor.name}</h3>
       <p className="motores-card-text text-on-dark-2">{motor.text}</p>
@@ -52,20 +63,27 @@ export function Motores() {
         <div ref={headingRef} className="reveal" data-revealed="false">
           <span className="eyebrow text-on-dark-2">Cómo trabajamos</span>
           <h2 className="display-l motores-headline mx-auto mt-4 text-on-dark">
-            Un equipo, cuatro motores
+            Un equipo. Cuatro motores
             <br />
             funcionando juntos.
           </h2>
-          <p className="body-l mx-auto mt-4 max-w-[52ch] text-on-dark-2">
-            Estrategia, contenido, pauta y medición no se activan por separado.
+          <p className="body-l mx-auto mt-4 max-w-[56ch] text-on-dark-2">
+            Estrategia, creatividad, adquisición y web &amp; conversión no se activan por separado.
+            Medición los conecta a todos.
           </p>
         </div>
 
         <div className="motores-grid mt-16">
-          <div className="motores-spine" aria-hidden="true" />
           {MOTORES.map((motor, i) => (
             <MotorCard key={motor.name} motor={motor} index={i} />
           ))}
+          {/* Medición as a dedicated transversal strip under all four
+              motors — not behind their text (an overlay there either hid
+              behind the cards' opaque background or fought their
+              legibility) and not a fifth card of its own. */}
+          <div className="motores-bars-row" aria-hidden="true">
+            <BarsMotif className="motores-bars" />
+          </div>
         </div>
       </div>
     </section>

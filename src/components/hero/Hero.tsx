@@ -8,8 +8,12 @@ import { cn } from "@/lib/utils";
 const EYEBROW = "Equipo de crecimiento";
 const HEADLINE_LINE_1 = "Estamos en el negocio de";
 const HEADLINE_LINE_2_HIGHLIGHT = "hacer crecer negocios";
+// Kept aligned with the four Motores names (Estrategia/Creatividad/
+// Adquisición/Web & conversión) plus Medición as the transversal layer —
+// see Motores.tsx. "Pauta" was the pre-Home-V2 term for what Motores now
+// calls Adquisición.
 const SUBTITLE =
-  "Estrategia, creatividad, pauta y medición. Primero analizamos tu negocio. Después armamos el plan.";
+  "Estrategia, creatividad, adquisición y medición. Primero analizamos tu negocio. Después armamos el plan.";
 
 // Facet assembly timing — see crystalVMotion.ts for the scatter positions.
 // Edges fade in only once every facet has finished converging: computed, not

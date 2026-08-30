@@ -623,23 +623,33 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1px;
-  background-color: var(--border-dark);
-  border: 1px solid var(--border-dark);
+  /* A soft pink hairline instead of the old neutral --border-dark — the
+     grid divisions read as cut glass seams, not a spreadsheet/table
+     border. */
+  background-color: rgba(255, 75, 141, 0.14);
+  border: 1px solid rgba(255, 75, 141, 0.14);
   border-radius: var(--radius-20);
   overflow: hidden;
 }
 
-/* The through-line reads as "these four are one system", not four
-   independent cards — the opposite gesture from Dolor 2's loose clusters. */
-@utility motores-spine {
+/* Medición as the transversal layer, not a fifth card: a dedicated strip
+   spanning all four columns, below the cards' own text so it never fights
+   their legibility (an overlay behind the cards' opaque background hid it
+   entirely; on top of their text it hurt contrast). */
+@utility motores-bars-row {
+  position: relative;
+  grid-column: 1 / -1;
+  height: 56px;
+  overflow: hidden;
+  background-color: var(--ink-deep);
+}
+
+@utility motores-bars {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 1px;
-  background-color: rgba(255, 75, 141, 0.35);
-  transform: translateY(-50%);
-  pointer-events: none;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
 }
 
 @utility motores-card {
@@ -647,12 +657,25 @@
   background-color: var(--ink-deep);
   padding: 40px 28px;
   text-align: left;
+  transition: background-color var(--dur-section) var(--ease-out-soft);
+
+  &:hover {
+    background-color: var(--ink-deep-2);
+  }
+
+  &:hover .motores-icon {
+    transform: translateY(-2px) scale(1.05);
+    filter: drop-shadow(0 8px 16px rgba(217, 47, 110, 0.35));
+  }
 }
 
 @utility motores-icon {
   display: block;
-  width: 28px;
-  height: 23px;
+  width: 44px;
+  height: 40px;
+  transition:
+    transform var(--dur-section) var(--ease-out-soft),
+    filter var(--dur-section) var(--ease-out-soft);
 }
 
 @utility motores-card-title {
@@ -674,14 +697,8 @@
     grid-template-columns: 1fr;
   }
 
-  .motores-spine {
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    right: auto;
-    width: 1px;
-    height: auto;
-    transform: translateX(-50%);
+  .motores-bars-row {
+    height: 40px;
   }
 }
 
