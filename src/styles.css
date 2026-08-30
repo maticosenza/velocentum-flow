@@ -1112,3 +1112,36 @@
   cursor: pointer;
   font-family: var(--font-sans);
 }
+
+@utility contacto-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@utility contacto-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+@utility contacto-input {
+  height: 48px;
+  padding-inline: 16px;
+  border-radius: var(--radius-12);
+  border: 1px solid var(--border-dark);
+  background-color: var(--ink-deep-2);
+  color: var(--on-dark);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  transition: border-color var(--dur-micro) var(--ease-out-soft);
+
+  &::placeholder {
+    color: var(--on-dark-2);
+  }
+
+  &:focus {
+    border-color: var(--pink);
+  }
+}
