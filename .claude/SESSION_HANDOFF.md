@@ -1,100 +1,115 @@
 # Session handoff — Velocentum Flow
 
-Última actualización: 2026-08-30. Último commit: `9024c54` (`main`, pusheado a `origin/main`).
+Última actualización: 2026-08-30. Último commit: `e82cc83` (`main`, pusheado a
+`origin/main`). Esta sesión ejecutó **HOME V2** completa (los 7 bloques del
+prompt maestro), un commit por bloque significativo más un commit de QA final.
 
-## Estado actual de HOME
-
-HOME (`src/routes/index.tsx`) está completa en su primera pasada de contenido e implementación:
+## Estado actual de HOME (post Home V2)
 
 ```
-Hero -> Dolor1 -> Dolor2 -> RevealSection -> Motores -> Trabajos -> Clientes -> Contacto
+CrystalIntro -> Hero -> Dolor1 -> Dolor2 -> RevealSection -> Motores ->
+Servicios -> Trabajos -> Clientes -> Contacto
 ```
 
-Todo lo anterior a Motores (Hero, Dolores, Reveal) pasó por dos rondas de corrección visual
-("Fase 1" y "Fase 1 — pasada visual 2"). Motores, Trabajos (ajustes), Clientes y Contacto son
-nuevos de esta última sesión ("loop nocturno"). `/metodo` y `/casos` son solo skeletons, no
-tocados en ninguna de estas sesiones.
+Arquitectura, `useScrollEngine`, Mux y TanStack sin cambios estructurales.
+`/metodo` y `/casos` **no se tocaron** — siguen siendo skeletons, tal como
+pedía el freno obligatorio del prompt.
 
-**HOME requiere auditoría visual humana antes de avanzar.** El sandbox de browser de esta sesión
-no permitió fijar anchos de ventana reales de forma confiable (los tabs nuevos devolvían
-consistentemente 1280px); lo verificado con mediciones exactas (`getBoundingClientRect`,
-`scrollTo` a offsets calculados) cubre ~500px y ~1280px. 1440px+ y mobile real (~390px) solo se
-revisaron por código/CSS, no en pantalla.
+## Bloques ejecutados (commits, más reciente arriba)
 
-## Qué quedó implementado esta sesión (commits, más reciente arriba)
+- `e82cc83` — QA final: cierra un hueco de `transition-delay` bajo
+  `prefers-reduced-motion` (la duración ya se anulaba globalmente, el delay
+  no) que afectaba a los fragmentos de Dolor1/2 y a la secuencia de Contacto.
+  tsc/eslint/build limpios en todo el repo.
+- `ac90081` — **Bloque 7, Contacto**: el CrystalV pasa de un mark estático a
+  un `variant="object"` que hace *settle* (sin re-fracturarse) al entrar en
+  viewport, cerrando el arco abierto por CrystalIntro. Nuevo `.contacto-thread`
+  (línea que crece desde el cristal) y secuencia de reveal escalonada
+  (cristal -> hilo -> eyebrow -> headline -> subtítulo -> CTA) para que el CTA
+  se sienta "nacido del sistema", no un botón suelto. TODO(contacto) intacto,
+  sin canal real inventado.
+- `5e29962` — **Bloque 6, Clientes**: reconstruida sobre `--surface` (blanco)
+  en vez de `--surface-2` (rosa lavado, la versión no aprobada). Logos
+  legibles en reposo (grayscale .55/opacity .78, no .5 casi invisible), nuevo
+  `.clientes-frame` (card bordeada con sombra) en vez de la marquee suelta.
+- `d7a5fbe` — **Bloque 5, Trabajos**: diagnóstico real del pixelado
+  (documentado abajo) + fix con `minResolution="720p"` en Mux Player.
+  Headline deja de anclar todo a "pautar" ("Trabajo real, pensado para hacer
+  crecer marcas."). Bordes hairline rosa muy sutiles en las video cards.
+- `a0f362d` — **Bloque 4**: nueva sección **Servicios** (Motores no la
+  reemplaza) entre Motores y Trabajos. 6 servicios aprobados, track
+  horizontal con drag-to-scroll (mismo patrón que Trabajos), objetos propios
+  reutilizando Prism/FragmentCluster/Lightning/Target de Motores + CrystalV
+  para Branding + ConnectedClusterIcon nuevo para Influencer Marketing.
+- `9de9a58` — **Bloque 3, Motores**: renombrado a los 4 motores reales
+  (Estrategia/Creatividad/Adquisición/Web & Conversión), Medición pasa a capa
+  transversal (franja de Bars al pie, no una 5ª card). Objeto propio por
+  motor en vez del isotipo V repetido.
+- `f114a22` — **Bloque 2, Dolor1/Dolor2**: los 16 shards son ahora los
+  polígonos exactos de `fragment-cluster-board.svg` del Asset Pack V2 (no
+  clip-paths genéricos), con identidad compartida entre ambas escenas
+  (mismo shard disperso en Dolor1 -> mismo shard agrupado en Dolor2) y un
+  pan/zoom sutil dirigido por scroll en Dolor2.
+- `1fb8dc1` — **Bloque 1**: `CrystalIntro` (fractura antes del Hero, ~1s,
+  se salta entero con reduced-motion), H1 a 2 líneas fijas en todo
+  viewport >=900px, píldoras rediseñadas como cápsulas de vidrio.
 
-- `9024c54` — QA final: limpieza de lint preexistente (`Reveal.tsx`, `useReveal.ts`), sin cambio
-  de lógica.
-- `32b280f` — Nueva sección **Contacto**: escena de cierre (mark de Crystal V, headline, CTA).
-  Corrige que `hash="contacto"` (Nav, Hero) no apuntaba a ningún `id` existente.
-- `1ff44db` — **Clientes** reconstruida sobre fondo claro (`--surface-2`), filtro de logos
-  ajustado para fondo claro. Mismos 12 logos reales, ninguno inventado.
-- `15171ab` — **Trabajos**: decoración de las text cards intercaladas reducida (título pasa a
-  mono/uppercase chico), video sigue siendo el protagonista, Mux sin tocar.
-- `617955f` — **Servicios eliminada, reemplazada por Motores**: 4 motores (Estrategia/
-  Contenido/Pauta/Medición) conectados por una línea (`motores-spine`), no 7 cards sueltas.
+## Decisión de alcance documentada (Bloque 2)
 
-Commits previos (misma sesión de trabajo, antes del loop nocturno, ver `70645ea` y anteriores)
-cubren la Fase 1 del rebrand pink/ink y su pasada de corrección visual (Hero, Dolores, Reveal,
-ScrollAxis).
+Dolor1 + Dolor2 + Reveal **no se fusionaron en una única sección pineada**
+para lograr continuidad literal de DOM. El propio prompt maestro pide
+"evitar scroll-jacking excesivo", y esas tres eran de las secciones mejor
+recibidas de la sesión anterior. La continuidad se logra por identidad de
+forma/tratamiento compartida (mismo shard, mismo índice, misma cluster),
+no por un canvas compartido entre las tres secciones. Si en una futura
+sesión se pide explícitamente el pin único, es un rework de arquitectura
+más grande, no un ajuste menor.
 
-## Arquitectura y decisiones que NO deben romperse
+## Diagnóstico del pixelado de Trabajos (Bloque 5) — causa y fix verificados
 
-- **`useScrollEngine`** (`src/hooks/useScrollEngine.ts`) es la única fuente de scroll: un solo
-  rAF global, `useScrollSubscription`, `useScrollRange(ref, cb, {start, end})`. No agregar un
-  segundo listener de scroll en ningún componente nuevo.
-- **No agregar GSAP, Framer Motion ni Lenis.** Todo el motion es `transform`/`opacity` vía la
-  animación existente o transiciones CSS (`.reveal` + `useReveal` para fade-in on-scroll de un
-  solo uso).
-- Patrón de pin sticky (outer alto + inner `position:sticky`) usado en Servicios-ahora-Motores
-  (ya no pinneado; Motores es una sección simple) y en `RevealSection`/`Dolores` donde aplica —
-  no reinventar el mecanismo, reusar `useScrollRange`.
-- Respetar `prefers-reduced-motion` en cualquier componente nuevo (patrón: `useState(false)` +
-  corrección en `useEffect` vía `matchMedia`, con rama que "siembra" el estado final sin animar).
-- `TanStack Router` para navegación; los CTAs internos usan `<Link to="/" hash="...">`, no
-  `<a href="/#...">`.
-- Mux (`@mux/mux-player-react`) para todo el video de Trabajos — no reemplazar ni reconstruir el
-  sistema de preview/modal existente.
-- Lazy loading (`loading="lazy"`) en imágenes/logos ya establecido, mantenerlo en contenido nuevo.
+- El poster (`image.mux.com/.../thumbnail.webp`) y el CSS (`object-fit:cover`,
+  dimensiones declaradas) ya estaban bien; no eran la causa.
+- Causa real: Mux Player, por defecto, capea la rendition de HLS al tamaño
+  en **CSS px** del player (`capLevelToPlayerSize` de hls.js), sin multiplicar
+  por `devicePixelRatio`. Con las cards de preview en ~250-260px de ancho,
+  elegía la rendition de 480x854 o 270x480 del asset (el manifest solo tiene
+  720x1280/480x854/270x480) en vez de la de mayor calidad — nítido en un
+  monitor 1x, borroso en cualquier pantalla retina (2x/3x).
+- Fix: `minResolution="720p"` en el `<MuxPlayer>` (preview inline y modal).
+  Verificado en Network: sin el fix el manifest pedido es
+  `...m3u8?redundant_streams=true`; con el fix pasa a
+  `...m3u8?min_resolution=720p&redundant_streams=true` — Mux garantiza la
+  rendition top del asset server-side, sin depender de la heurística de
+  hls.js. Ver `src/components/sections/Trabajos.tsx`.
 
-## Identidad visual vigente
+## Puntos abiertos / requieren revisión humana
 
-- **Asset Pack V2** es la fuente de verdad visual (geometría exacta de Crystal V, paleta,
-  tratamiento de facetas). Cualquier ícono/gráfico nuevo debe derivar de `CrystalV.tsx`
-  (`variant="object"` para la pieza completa de 12 facetas, `variant="mark"` para el ícono plano
-  reducido), no inventar geometría nueva.
-- **Plan Maestro 2026** es la fuente de verdad narrativa/UX (el arco Hero -> Dolor1 -> Dolor2 ->
-  Reveal -> "qué hacemos" -> prueba -> social proof -> CTA sigue esa lógica). El PDF en sí no
-  estuvo accesible en esta sesión — ver nota de Motores abajo.
-- Identidad de marca vigente: **Crystal V + pink/red (`--pink`, `--pink-deep`, `--pink-soft`) +
-  ink (`--ink-deep`) + blanco**. `--violet`/`--brand` siguen existiendo como alias temporales
-  (`var(--pink)`/`var(--pink-deep)`) en código legacy no reescrito todavía — no son un segundo
-  sistema de color, son nomenclatura vieja a limpiar de a poco, no reintroducir violeta real en
-  ningún diseño nuevo.
-- Regla de composición mantenida: un gesto visual principal + un apoyo secundario por escena;
-  evitar exceso de cards, glows genéricos, blobs, shapes random.
-
-## Puntos abiertos / requieren decisión o revisión humana
-
-1. **Motores — nombres y copy necesitan revisión humana.** El Plan Maestro 2026 (PDF) no estuvo
-   accesible en esta sesión de loop nocturno. El copy actual (`src/components/sections/
-   Motores.tsx`) reusa/adapta frases YA aprobadas en el sitio (subtítulo del Hero, headline de
-   Trabajos, copy del viejo Servicios) en vez de inventar — pero si el Plan Maestro define los
-   motores con nombres o descripciones distintos, hay que ajustar este archivo.
-2. **Contacto — falta destino real.** No hay email, WhatsApp, teléfono, link de agenda ni
-   endpoint de formulario en todo el repo (búsqueda explícita, cero resultados). El CTA final en
-   `src/components/sections/Contacto.tsx` es un `<button>` con un `TODO(contacto)` documentado en
-   el propio archivo — no se inventó ningún dato de contacto. Definir el canal real y conectar
-   `handleContactCta` antes de producción.
-3. **Logos de Clientes — verificar visualmente en Lovable.** Las URLs (`/__l5e/assets-v1/...`)
-   apuntan al CDN de Lovable y no cargan en `localhost` (esperado). No se pudo confirmar
-   visualmente que los 12 logos se vean bien sobre el nuevo fondo claro (`--surface-2`) fuera de
-   este sandbox — verificar en el editor/preview de Lovable o en el deploy real.
-4. **HOME requiere auditoría visual humana** antes de avanzar a cualquier fase siguiente,
-   especialmente en 1440px+ y mobile real (~390px), que esta sesión no pudo confirmar en pantalla
-   (ver limitación de tooling arriba).
+1. **1440px+ real y mobile físico**: el sandbox de browser de esta sesión no
+   pudo exceder ~1607px de viewport aunque se pidiera un resize mayor (mismo
+   tipo de limitación de tooling que la sesión anterior, que se topó con un
+   techo distinto ~1280px). Verificado con certeza: ~390px, ~1024px, ~1280px,
+   ~1600px (via iframe interno + resize del tab). 1920px+ y un dispositivo
+   móvil físico real quedan sin confirmar en pantalla.
+2. **Logos de Clientes sobre el nuevo fondo blanco**: las URLs
+   (`/__l5e/assets-v1/...`) son del CDN de Lovable y devuelven 404 en
+   localhost (no cambió respecto a la sesión anterior). Verificar contraste
+   real de cada isotipo en el editor/preview de Lovable o en el deploy.
+3. **Copy de Motores/Servicios/Trabajos** (Estrategia, Creatividad,
+   Adquisición, Web & Conversión, los 6 servicios, "Trabajo real, pensado
+   para hacer crecer marcas.") fue adaptado por esta sesión reusando el tono
+   ya establecido en el sitio, no verificado contra el PDF Plan Maestro 2026
+   línea por línea — revisar si el Plan Maestro define nombres/frases
+   distintas para alguno de estos puntos.
+4. **Contacto — sigue sin canal real** (email/WhatsApp/Calendly/endpoint).
+   `TODO(contacto)` documentado en `Contacto.tsx`, sin inventar nada.
+5. **`prefers-reduced-motion`** verificado por revisión de código (todas las
+   rutas de motion nuevas pasan por el bloque global de `styles.css` o por
+   checks explícitos de `matchMedia`), no por emulación visual en vivo — el
+   set de herramientas de este sandbox no expone un toggle de "emulate
+   media" que sobreviva a la hidratación de React.
 
 ## `/metodo` y `/casos`
 
-Siguen siendo skeletons sin trabajo de diseño/contenido. **No continuar automáticamente con
-Método ni Casos hasta nueva instrucción.**
+Sin tocar en esta sesión, tal como exigía el freno obligatorio del prompt
+maestro de Home V2. **No continuar automáticamente con Método ni Casos hasta
+nueva instrucción explícita.**
