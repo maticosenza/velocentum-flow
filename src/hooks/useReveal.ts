@@ -4,9 +4,7 @@ import { useEffect, useRef } from "react";
  * One-shot reveal via IntersectionObserver.
  * Pairs with the `.reveal` utility in styles.css.
  */
-export function useReveal<T extends HTMLElement = HTMLDivElement>(options?: {
-  delay?: number;
-}) {
+export function useReveal<T extends HTMLElement = HTMLDivElement>(options?: { delay?: number }) {
   const ref = useRef<T | null>(null);
 
   useEffect(() => {

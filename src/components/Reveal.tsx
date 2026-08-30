@@ -10,12 +10,7 @@ type RevealProps = {
   as?: ElementType;
 };
 
-export function Reveal({
-  children,
-  className,
-  index = 0,
-  as: Tag = "div",
-}: RevealProps) {
+export function Reveal({ children, className, index = 0, as: Tag = "div" }: RevealProps) {
   const ref = useReveal<HTMLDivElement>({ delay: index * 60 });
 
   return (
