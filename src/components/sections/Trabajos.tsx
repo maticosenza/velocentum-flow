@@ -110,7 +110,7 @@ const TAGS = [
   "Web y conversión",
 ];
 
-// Mirrors the isotype geometry from HeroIsotype/Nav/Servicios: a flat
+// Mirrors the isotype geometry from HeroIsotype/Nav: a flat
 // two-path triangle mark for the text cards' corner glyph.
 const ISOTYPE_LEFT =
   "M 49.8 87.6 L 0 0 L 65.7 0 L 44.2 38.2 L 35.8 23.9 L 40.7 14.3 L 24.6 14.3 L 49.8 58 Z";
@@ -153,8 +153,8 @@ function PlayIcon() {
 function TextCardIsotype() {
   return (
     <svg viewBox="0 0 100 87.6" width={24} height={24} aria-hidden="true" style={{ opacity: 0.4 }}>
-      <path d={ISOTYPE_LEFT} fill="var(--violet)" />
-      <path d={ISOTYPE_RIGHT} fill="var(--violet)" />
+      <path d={ISOTYPE_LEFT} fill="var(--pink)" />
+      <path d={ISOTYPE_RIGHT} fill="var(--pink)" />
     </svg>
   );
 }

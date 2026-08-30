@@ -753,19 +753,24 @@
   scroll-snap-align: start;
 }
 
+/* Deliberately quieter than a video card's own on-hover label: these are
+   breathers between clips, not content competing with the videos for
+   attention. */
 @utility trabajos-text-title {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.35rem;
-  color: var(--violet);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-dark-2);
 }
 
 @utility trabajos-text-body {
-  margin-top: 12px;
+  margin-top: 14px;
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.15rem;
-  line-height: 1.35;
+  font-weight: 500;
+  font-size: 1.05rem;
+  line-height: 1.4;
   color: var(--on-dark);
 }
 
