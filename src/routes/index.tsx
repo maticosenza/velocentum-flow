@@ -5,6 +5,7 @@ import { Dolor1, Dolor2 } from "@/components/sections/Dolores";
 import { RevealSection } from "@/components/sections/RevealSection";
 import { Trabajos } from "@/components/sections/Trabajos";
 import { Motores } from "@/components/sections/Motores";
+import { Servicios } from "@/components/sections/Servicios";
 import { Clientes } from "@/components/sections/Clientes";
 import { Contacto } from "@/components/sections/Contacto";
 
@@ -42,6 +43,7 @@ function Home() {
       <Dolor2 />
       <RevealSection />
       <Motores />
+      <Servicios />
       <Trabajos />
       <Clientes />
       <Contacto />

@@ -139,6 +139,50 @@ export function FragmentClusterIcon({ className }: IconProps) {
   );
 }
 
+// Influencer Marketing (Servicios) — a fragment cluster with its shards
+// visibly wired together, distinct from Contenido & Creatividad's loose
+// cluster: "voces conectadas", not scattered pieces.
+export function ConnectedClusterIcon({ className }: IconProps) {
+  const uid = useId();
+  const gradId = `motor-connfrag-${uid}`;
+  const shards = [FRAGMENTS[2], FRAGMENTS[3], FRAGMENTS[7], FRAGMENTS[11]].filter(
+    (shard) => shard !== undefined,
+  );
+  return (
+    <svg viewBox="90 5 150 140" className={className} aria-hidden="true">
+      <defs>
+        <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
+          <stop stopColor="#fff" stopOpacity=".7" />
+          <stop offset=".35" stopColor="var(--pink-soft)" />
+          <stop offset="1" stopColor="var(--pink)" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M117 27L179 30M179 30L221 68M179 30L207 116"
+        stroke="var(--pink)"
+        strokeOpacity=".45"
+        strokeWidth="1.4"
+        fill="none"
+      />
+      {shards.map((shard, i) => (
+        <polygon
+          key={i}
+          points={shard.points}
+          fill={
+            shard.treatment === "graded"
+              ? `url(#${gradId})`
+              : shard.treatment === "translucent"
+                ? "none"
+                : "var(--pink)"
+          }
+          stroke="rgba(255,255,255,.32)"
+          strokeWidth="1.2"
+        />
+      ))}
+    </svg>
+  );
+}
+
 // The transversal "medición" motif: a faint ascending-bars pattern that
 // runs behind all four motor cards (see .motores-bars), not a fifth card.
 export function BarsMotif({ className }: IconProps) {

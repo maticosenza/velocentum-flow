@@ -702,6 +702,97 @@
   }
 }
 
+/* ---------- Servicios ---------- */
+
+@utility servicios-track-viewport {
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  cursor: grab;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &[data-dragging="true"] {
+    scroll-snap-type: none;
+    cursor: grabbing;
+  }
+}
+
+@utility servicios-track {
+  position: relative;
+  display: flex;
+  gap: 20px;
+  padding-inline: clamp(20px, 5vw, 80px);
+
+  /* The "módulos conectados" cue: one hairline running behind every card
+     at icon height, so the row reads as one wired system, not six loose
+     tiles — same intent as Motores' spine/bars, different execution
+     because this row scrolls. */
+  &::before {
+    content: "";
+    position: absolute;
+    left: clamp(20px, 5vw, 80px);
+    right: clamp(20px, 5vw, 80px);
+    top: 68px;
+    height: 1px;
+    background: rgba(255, 75, 141, 0.25);
+  }
+}
+
+@utility servicios-card {
+  position: relative;
+  flex: 0 0 264px;
+  padding: 32px 24px;
+  border-radius: var(--radius-20);
+  border: 1px solid rgba(255, 75, 141, 0.16);
+  background-color: var(--ink-deep-2);
+  text-align: left;
+  scroll-snap-align: start;
+  transition: border-color var(--dur-section) var(--ease-out-soft);
+
+  &:hover {
+    border-color: rgba(255, 75, 141, 0.4);
+  }
+
+  &:hover .servicios-icon {
+    transform: translateY(-2px) scale(1.05);
+    filter: drop-shadow(0 8px 16px rgba(217, 47, 110, 0.35));
+  }
+}
+
+@utility servicios-icon {
+  display: block;
+  width: 40px;
+  height: 36px;
+  transition:
+    transform var(--dur-section) var(--ease-out-soft),
+    filter var(--dur-section) var(--ease-out-soft);
+}
+
+@utility servicios-card-title {
+  display: block;
+  margin-top: 20px;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+@utility servicios-card-text {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 899px) {
+  .servicios-card {
+    flex: 0 0 220px;
+  }
+}
+
 /* ---------- Clientes ---------- */
 
 /* Light background on purpose — a deliberate change of rhythm after five
