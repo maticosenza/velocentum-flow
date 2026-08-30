@@ -796,30 +796,55 @@
 /* ---------- Clientes ---------- */
 
 /* Light background on purpose — a deliberate change of rhythm after five
-   dark scenes (Hero through Motores/Trabajos), and it reads client logos
-   far better than the ink-deep backdrop the rest of the page uses. */
+   dark scenes (Hero through Motores/Trabajos). --surface (pure white), not
+   --surface-2 (pink-tinted): the previous pass read as washed-out pink
+   rather than a premium neutral break. */
 @utility clientes-section {
-  background-color: var(--surface-2);
+  background-color: var(--surface);
+}
+
+/* A bordered, elevated card around the logo wall instead of a bare row on
+   the page background — gives the section structure ("prueba de
+   autoridad"), not just a change of backdrop color. */
+@utility clientes-frame {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-28);
+  background-color: var(--surface);
+  box-shadow: 0 24px 48px rgba(14, 14, 19, 0.06);
+  padding-block: 40px;
 }
 
 @utility clientes-logo {
-  height: 34px;
+  height: 36px;
   width: auto;
   object-fit: contain;
-  margin-inline: 20px;
-  /* brightness(1.8) was tuned to lift logos out of a dark background —
-     inverted here for a light one: grayscale to keep the wall calm and
-     uniform, no brightness push (these are normal-contrast marks on
-     transparent PNGs already). */
-  filter: grayscale(1);
-  opacity: 0.5;
+  margin-inline: 28px;
+  /* Kept legible at rest (grayscale .55/opacity .78, not the near-invisible
+     grayscale(1)/opacity .5 the previous pass used) — logos should read
+     clearly without needing a hover to reveal identity. */
+  filter: grayscale(0.55);
+  opacity: 0.78;
   transition:
-    filter 250ms var(--ease-out-soft),
-    opacity 250ms var(--ease-out-soft);
+    filter var(--dur-section) var(--ease-out-soft),
+    opacity var(--dur-section) var(--ease-out-soft),
+    transform var(--dur-section) var(--ease-out-soft);
 
   &:hover {
     filter: none;
     opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+@media (max-width: 767px) {
+  .clientes-frame {
+    padding-block: 28px;
+    border-radius: var(--radius-20);
+  }
+
+  .clientes-logo {
+    height: 30px;
+    margin-inline: 20px;
   }
 }
 

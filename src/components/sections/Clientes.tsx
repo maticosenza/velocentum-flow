@@ -69,20 +69,22 @@ export function Clientes() {
         <h2 className="display-l mt-4 text-ink">Detrás de cada una hay un plan escrito.</h2>
       </div>
 
-      <div className="mt-16">
-        <Marquee duration={42}>
-          {CLIENT_LOGOS.map((logo) => (
-            <img
-              key={logo.src}
-              src={logo.src}
-              alt={logo.alt}
-              width={LOGO_WIDTH_PLACEHOLDER}
-              height={LOGO_HEIGHT}
-              loading="lazy"
-              className="clientes-logo"
-            />
-          ))}
-        </Marquee>
+      <div className="container-v mt-16">
+        <div className="clientes-frame">
+          <Marquee duration={42}>
+            {CLIENT_LOGOS.map((logo) => (
+              <img
+                key={logo.src}
+                src={logo.src}
+                alt={logo.alt}
+                width={LOGO_WIDTH_PLACEHOLDER}
+                height={LOGO_HEIGHT}
+                loading="lazy"
+                className="clientes-logo"
+              />
+            ))}
+          </Marquee>
+        </div>
       </div>
     </section>
   );
