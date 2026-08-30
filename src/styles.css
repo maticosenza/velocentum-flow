@@ -849,16 +849,24 @@
   padding-inline: clamp(20px, 5vw, 80px);
 }
 
+/* Border is an extremely subtle pink hairline (not the heavy pink frame
+   the spec explicitly rules out) — consistent with the same treatment on
+   Motores/Servicios instead of the old neutral --border-dark. */
 @utility trabajos-video-card {
   position: relative;
-  flex: 0 0 250px;
+  flex: 0 0 260px;
   aspect-ratio: 9 / 16;
   overflow: hidden;
   border-radius: var(--radius-20);
-  border: 1px solid var(--border-dark);
+  border: 1px solid rgba(255, 75, 141, 0.14);
   background-color: var(--ink-deep-2);
   cursor: pointer;
   scroll-snap-align: start;
+  transition: border-color var(--dur-section) var(--ease-out-soft);
+
+  &:hover {
+    border-color: rgba(255, 75, 141, 0.4);
+  }
 }
 
 @utility trabajos-video-media {

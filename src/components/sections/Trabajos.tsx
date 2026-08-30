@@ -91,8 +91,8 @@ const TEXT_CARDS: TextCardContent[] = [
     cuerpo: "Indumentaria, gastronomía, real estate y comunidad. Distinto producto, mismo método.",
   },
   {
-    titulo: "Pensado para pautar",
-    cuerpo: "Cada pieza nace con un objetivo de campaña, no con un objetivo de calendario.",
+    titulo: "Pensado para funcionar",
+    cuerpo: "Cada pieza nace con un objetivo de negocio, no con un objetivo de calendario.",
   },
 ];
 
@@ -119,8 +119,11 @@ const ISOTYPE_RIGHT = "M 49.65 58 L 82.9 0 L 100 0 L 49.65 87.6 Z";
 // The thumbnail API returns each source clip's own native ratio (verified:
 // 400x1280 for all thirteen) when no `height` param is given, not a 9:16
 // crop — object-fit:cover on the card handles the mismatch visually.
+// width=500 (up from 400) covers a ~250px-wide card at up to 2x DPR;
+// posters aren't the pixelation source (see minResolution below) but this
+// still tightens the margin on very-high-DPR screens for free.
 function posterUrl(playbackId: string) {
-  return `https://image.mux.com/${playbackId}/thumbnail.webp?width=400&fit_mode=smartcrop&time=1`;
+  return `https://image.mux.com/${playbackId}/thumbnail.webp?width=500&fit_mode=smartcrop&time=1`;
 }
 
 type CarouselItem = { kind: "video"; trabajo: Trabajo } | { kind: "text"; text: TextCardContent };
@@ -209,6 +212,7 @@ function VideoCard({
           loop
           playsInline
           nohotkeys
+          minResolution="720p"
           className="trabajos-video-media"
           style={{ "--controls": "none", "--media-object-fit": "cover" }}
         />
@@ -287,6 +291,7 @@ function TrabajosModal({ trabajo, onClose }: { trabajo: Trabajo; onClose: () => 
           poster={posterUrl(trabajo.playbackId)}
           autoPlay
           playsInline
+          minResolution="720p"
           style={{ width: "100%", height: "100%" }}
         />
       </div>
@@ -387,9 +392,9 @@ export function Trabajos() {
       <div className="container-v text-center">
         <span className="eyebrow text-on-dark-2">Trabajos</span>
         <h2 className="display-l mx-auto mt-4 text-on-dark">
-          Contenido producido para pautar,
+          Trabajo real,
           <br />
-          no para llenar el feed.
+          pensado para hacer crecer marcas.
         </h2>
       </div>
 
