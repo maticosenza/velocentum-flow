@@ -1032,12 +1032,58 @@
 
 /* ---------- Contacto ---------- */
 
+@utility contacto-sequence {
+  position: relative;
+}
+
 /* A calm closing signature, not a repeat of Reveal's assembly gesture — the
-   "cada motor funciona junto" payoff already happened there. */
-@utility contacto-mark {
+   "cada motor funciona junto" payoff already happened there. Just a settle
+   (scale .88 -> 1, no overshoot) so the final Crystal V reads resolved and
+   controlled, not mid-motion. */
+@utility contacto-crystal-wrap {
   display: block;
-  width: 44px;
-  height: 36px;
+  width: clamp(120px, 18vw, 168px);
+  opacity: 0;
+  transform: scale(0.88);
+  transition:
+    opacity 900ms var(--ease-out-soft),
+    transform 900ms var(--ease-out-soft);
+
+  [data-revealed="true"] & {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* The line the CTA "grows from" — a visual thread from the resolved
+   Crystal V down into the copy/CTA, instead of the button just sitting
+   under a headline. */
+@utility contacto-thread {
+  display: block;
+  width: 1px;
+  height: 40px;
+  margin-top: 16px;
+  background: linear-gradient(to bottom, var(--pink), transparent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 500ms var(--ease-out-soft) 350ms;
+
+  [data-revealed="true"] & {
+    transform: scaleY(1);
+  }
+}
+
+@utility contacto-item {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out-soft),
+    transform var(--dur-reveal) var(--ease-out-soft);
+
+  [data-revealed="true"] & {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @utility contacto-cta {
