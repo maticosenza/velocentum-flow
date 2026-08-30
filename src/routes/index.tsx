@@ -3,7 +3,7 @@ import { Hero } from "@/components/hero/Hero";
 import { Dolor1, Dolor2 } from "@/components/sections/Dolores";
 import { RevealSection } from "@/components/sections/RevealSection";
 import { Trabajos } from "@/components/sections/Trabajos";
-import { Servicios } from "@/components/sections/Servicios";
+import { Motores } from "@/components/sections/Motores";
 import { Clientes } from "@/components/sections/Clientes";
 
 export const Route = createFileRoute("/")({
@@ -38,8 +38,8 @@ function Home() {
       <Dolor1 />
       <Dolor2 />
       <RevealSection />
+      <Motores />
       <Trabajos />
-      <Servicios />
       <Clientes />
     </>
   );

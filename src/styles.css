@@ -564,132 +564,72 @@
   }
 }
 
-/* ---------- Servicios ---------- */
+/* ---------- Motores ---------- */
 
-@utility servicios-outer {
+@utility motores-grid {
   position: relative;
-  height: 480vh;
-}
-
-@utility servicios-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-@utility servicios-grid {
   display: grid;
-  grid-template-columns: 390px 1fr;
-  gap: 48px;
-  width: 100%;
-}
-
-@utility servicios-fixed-card {
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-dark);
-  border-radius: 24px;
-  padding: 38px;
-}
-
-@utility servicios-progress-track {
-  position: relative;
-  height: 2px;
-  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
   background-color: var(--border-dark);
-}
-
-@utility servicios-progress-fill {
-  position: absolute;
-  inset: 0;
-  transform-origin: left;
-  transform: scaleX(0);
-  background-color: var(--violet);
-  will-change: transform;
-}
-
-@utility servicios-skip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--on-dark);
-  background-color: rgba(255, 255, 255, 0.06);
-  border-radius: var(--radius-full);
-  padding: 11px 20px;
-}
-
-@utility servicios-track-viewport {
-  width: 100%;
-  overflow: hidden;
-}
-
-@utility servicios-track {
-  display: flex;
-  gap: 20px;
-  will-change: transform;
-}
-
-@utility servicios-card {
-  position: relative;
-  flex: 0 0 300px;
-  height: 390px;
-  background-color: var(--ink-deep-2);
   border: 1px solid var(--border-dark);
   border-radius: var(--radius-20);
-  padding: 30px;
-  transition:
-    border-color 200ms var(--ease-out-soft),
-    background-color 200ms var(--ease-out-soft);
-
-  &.is-active {
-    border-color: rgba(255, 75, 141, 0.55);
-    background-color: #191243;
-  }
+  overflow: hidden;
 }
 
-@utility servicios-card-label {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--violet);
+/* The through-line reads as "these four are one system", not four
+   independent cards — the opposite gesture from Dolor 2's loose clusters. */
+@utility motores-spine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background-color: rgba(255, 75, 141, 0.35);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+@utility motores-card {
+  position: relative;
+  background-color: var(--ink-deep);
+  padding: 40px 28px;
+  text-align: left;
+}
+
+@utility motores-icon {
+  display: block;
+  width: 28px;
+  height: 23px;
+}
+
+@utility motores-card-title {
+  display: block;
+  margin-top: 20px;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+@utility motores-card-text {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 @media (max-width: 899px) {
-  .servicios-outer {
-    height: auto;
-  }
-
-  .servicios-sticky {
-    position: static;
-    height: auto;
-    overflow: visible;
-  }
-
-  .servicios-grid {
+  .motores-grid {
     grid-template-columns: 1fr;
   }
 
-  .servicios-progress {
-    display: none;
-  }
-
-  .servicios-track-viewport {
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .servicios-card {
-    flex: 0 0 250px;
-    height: 340px;
-    scroll-snap-align: start;
+  .motores-spine {
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    right: auto;
+    width: 1px;
+    height: auto;
+    transform: translateX(-50%);
   }
 }
 

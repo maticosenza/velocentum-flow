@@ -19,8 +19,8 @@ const SCROLL_AXIS_LABELS = [
   "Inicio",
   "Marcas",
   "Diagnóstico",
+  "Motores",
   "Trabajos",
-  "Servicios",
   "Casos",
   "Contacto",
 ];
