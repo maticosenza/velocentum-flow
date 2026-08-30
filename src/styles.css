@@ -13,23 +13,31 @@
 :root {
   /* Light scale */
   --background: #ffffff;
-  --surface: #f7f7fb;
-  --surface-2: #f0effc;
-  --ink: #0f0a2e;
-  --ink-2: #6b6880;
-  --border: #e8e7f2;
-  --border-hairline: rgba(15, 10, 46, 0.08);
+  --surface: #ffffff;
+  --surface-2: #fff0f6;
+  --ink: #0e0e13;
+  --ink-2: #5c5964;
+  --border: #ece8ef;
+  --border-hairline: rgba(14, 14, 19, 0.08);
 
   /* Dark scale (dominant) */
-  --ink-deep: #0b0722;
-  --ink-deep-2: #151034;
-  --on-dark: #f7f7fb;
-  --on-dark-2: #9a96b4;
+  --ink-deep: #0e0e13;
+  --ink-deep-2: #1a1a23;
+  --on-dark: #ffffff;
+  --on-dark-2: rgba(255, 255, 255, 0.62);
   --border-dark: rgba(255, 255, 255, 0.1);
 
-  /* Brand */
-  --brand: #2a1ec9;
-  --violet: #7b5cff;
+  /* Brand — Crystal V / pink-red direction (Plan Maestro 2026) */
+  --pink: #ff4b8d;
+  --pink-soft: #ff85b8;
+  --pink-deep: #d92f6e;
+  --gradient-brand: linear-gradient(135deg, #ffb4cf 0%, #f77fa8 28%, #d32d68 62%, #7a193c 100%);
+
+  /* Compatibilidad temporal con componentes viejos (Trabajos, Servicios,
+     Clientes) todavía no reconstruidos contra el nuevo sistema. Limpiar en
+     Fase 2 una vez que consuman --pink/--pink-deep directamente. */
+  --violet: var(--pink);
+  --brand: var(--pink-deep);
 
   /* shadcn semantic mapping (dark-first site) */
   --foreground: var(--on-dark);
@@ -37,18 +45,18 @@
   --card-foreground: var(--on-dark);
   --popover: var(--ink-deep-2);
   --popover-foreground: var(--on-dark);
-  --primary: var(--violet);
+  --primary: var(--pink);
   --primary-foreground: var(--ink-deep);
   --secondary: var(--ink-deep-2);
   --secondary-foreground: var(--on-dark);
   --muted: var(--ink-deep-2);
   --muted-foreground: var(--on-dark-2);
-  --accent: var(--brand);
+  --accent: var(--pink-deep);
   --accent-foreground: var(--on-dark);
   --destructive: #e5484d;
   --destructive-foreground: var(--on-dark);
   --input: var(--border-dark);
-  --ring: var(--violet);
+  --ring: var(--pink);
 
   /* Radius */
   --radius: 12px;
@@ -106,6 +114,9 @@
   --color-on-dark-2: var(--on-dark-2);
   --color-brand: var(--brand);
   --color-violet: var(--violet);
+  --color-pink: var(--pink);
+  --color-pink-soft: var(--pink-soft);
+  --color-pink-deep: var(--pink-deep);
   --color-white-page: var(--background);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -166,7 +177,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--violet);
+    outline: 2px solid var(--pink);
     outline-offset: 2px;
   }
 }
@@ -310,92 +321,55 @@
   }
 }
 
-/* ---------- Hero — trazado ---------- */
+/* ---------- Hero ---------- */
 
-@utility hero-halo {
+@utility hero {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+@utility hero-pill {
   position: absolute;
-  inset: 0;
-  margin: auto;
-  width: 70%;
-  aspect-ratio: 1 / 1;
-  border-radius: var(--radius-full);
-  background: radial-gradient(circle, rgba(123, 92, 255, 0.35), transparent 70%);
-  filter: blur(40px);
-  pointer-events: none;
-}
-
-@utility hero-grid-bg {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  background-image:
-    linear-gradient(rgba(123, 92, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(123, 92, 255, 0.04) 1px, transparent 1px);
-  background-size: 34px 34px;
-  transition: opacity 400ms var(--ease-out-soft);
-}
-
-@utility hero-line-mask {
-  display: block;
-  overflow: hidden;
-}
-
-@utility hero-line-inner {
-  display: block;
-  transform: translateY(115%);
-  transition-property: transform;
-  transition-duration: var(--dur-reveal);
-  transition-timing-function: var(--ease-out-soft);
-}
-
-@utility hero-trace {
-  fill: none;
-  stroke: var(--violet);
-  stroke-width: 0.4;
-  /* Set per-element to the real path length via getTotalLength(); 320 is
-     just a pre-hydration fallback so nothing is stroked solid before JS runs. */
-  stroke-dasharray: var(--trace-len, 320);
-  stroke-dashoffset: var(--trace-len, 320);
-  transition-property: stroke-dashoffset;
-  transition-timing-function: var(--ease-out-soft);
-}
-
-/* Ambient from the start (not an entrance fade): tenue at 0.18, dimming
-   further to 0.08 once the two halves have assembled. */
-@utility hero-construction-lines {
-  stroke-opacity: 0.18;
-  transition: stroke-opacity 400ms var(--ease-out-soft) 1400ms;
-}
-
-@utility hero-half {
-  opacity: 0;
-  fill-opacity: 0;
-  transition:
-    transform 900ms var(--ease-out-soft) 600ms,
-    opacity 900ms var(--ease-out-soft) 600ms,
-    fill-opacity 400ms var(--ease-out-soft) 1400ms;
-}
-
-@utility hero-half-left {
-  transform: translateX(-18px);
-}
-
-@utility hero-half-right {
-  transform: translateX(18px);
-}
-
-@utility hero-cota {
-  position: absolute;
-  opacity: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  padding-inline: 24px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   font-family: var(--font-mono);
-  /* Relative to the isotype's own container (container-type: inline-size
-     on its wrapper), so it scales down with the 230px mobile mark instead
-     of staying a fixed 10px next to a much smaller drawing. */
-  font-size: clamp(7px, 3.5cqw, 11px);
-  letter-spacing: 0.1em;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  color: rgba(154, 150, 180, 0.55);
-  transition: opacity 300ms var(--ease-out-soft);
+  letter-spacing: 1.8px;
+  white-space: nowrap;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.45));
+  opacity: 0;
+  transform: translateY(-140px) rotate(-8deg);
+  transition:
+    transform 850ms cubic-bezier(0.34, 1.3, 0.64, 1),
+    opacity 850ms cubic-bezier(0.34, 1.3, 0.64, 1);
+  will-change: transform, opacity;
+}
+
+@utility hero-pill-rosa {
+  background:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.35), transparent 55%),
+    linear-gradient(160deg, #ff7fb0, #ff4b8d 55%, #d92f6e);
+  color: #ffffff;
+}
+
+@utility hero-pill-blanca {
+  background:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.6), transparent 55%),
+    linear-gradient(160deg, #ffffff, #fff0f6 55%, #ffc9de);
+  color: var(--ink);
+}
+
+@utility hero-pill-deep {
+  background:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.25), transparent 55%),
+    linear-gradient(160deg, #e4568b, #d92f6e 55%, #9c1f4e);
+  color: #ffffff;
 }
 
 @utility hero-cta {
@@ -407,49 +381,6 @@
 @utility hero-cta-arrow {
   display: inline-block;
   transition: transform var(--dur-micro) var(--ease-out-soft);
-}
-
-[data-play="true"] .hero-grid-bg,
-[data-play="true"] .hero-line-inner,
-[data-play="true"] .hero-trace,
-[data-play="true"] .hero-cota,
-[data-play="true"] .hero-half {
-  opacity: 1;
-}
-
-[data-play="true"] .hero-half {
-  fill-opacity: 1;
-}
-
-[data-play="true"] .hero-line-inner {
-  transform: translateY(0);
-}
-
-[data-play="true"] .hero-trace {
-  stroke-dashoffset: 0;
-}
-
-[data-play="true"] .hero-half-left,
-[data-play="true"] .hero-half-right {
-  transform: translateX(0);
-}
-
-[data-play="true"] .hero-construction-lines {
-  stroke-opacity: 0.08;
-}
-
-/*
- * The blanket reduced-motion query below zeroes transition-duration but not
- * transition-delay, which would leave every staggered hero element stuck
- * invisible until its delay elapses. This scoped rule kills delay too, so a
- * reduced-motion visitor gets the final state immediately instead of a fast
- * but still-sequenced replay.
- */
-.hero-trazado[data-motion="reduced"] * {
-  transition-duration: 0.01ms !important;
-  transition-delay: 0ms !important;
-  animation-duration: 0.01ms !important;
-  animation-delay: 0ms !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -483,7 +414,7 @@
     backdrop-filter 300ms var(--ease-out-soft);
 
   &[data-scrolled="true"] {
-    background-color: rgba(11, 7, 34, 0.72);
+    background-color: rgba(14, 14, 19, 0.72);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
   }
@@ -526,48 +457,59 @@
   transition: transform var(--dur-micro) var(--ease-out-soft);
 }
 
-/* ---------- Contraste ---------- */
+/* ---------- Dolor 1 / Dolor 2 ---------- */
 
-@utility contraste-card {
+@utility dolor-section {
   position: relative;
-  border-radius: var(--radius-28);
-  padding: clamp(28px, 4vw, 56px);
-  min-height: 340px;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
 }
 
-@utility contraste-card-01 {
-  background-image: linear-gradient(120deg, #0d1230, #151034);
-}
-
-@utility contraste-card-02 {
-  background-image: linear-gradient(120deg, #1a1038, #151034);
-}
-
-@utility contraste-stage {
+@utility dolor-scene {
   position: relative;
   width: 100%;
-  max-width: 260px;
   aspect-ratio: 1 / 1;
-  margin-inline: auto;
+
+  &[data-revealed="true"] .dolor-fragment {
+    transform: translate(0, 0) rotate(var(--fragment-rotate, 0deg));
+    opacity: var(--fragment-opacity, 0.5);
+  }
 }
 
-@utility contraste-piece {
+@utility dolor-fragment {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  display: inline-flex;
+  opacity: 0;
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  background-image: var(--gradient-brand);
+  transform: translate(var(--drift-x, 0px), var(--drift-y, 12px)) rotate(var(--fragment-rotate, 0deg));
+  transition:
+    transform 700ms var(--ease-out-soft),
+    opacity 700ms var(--ease-out-soft);
+  will-change: transform, opacity;
+}
+
+@utility dolor-cluster {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  will-change: transform;
+}
+
+@utility dolor-target-ring {
+  fill: none;
+  stroke: var(--on-dark);
+  stroke-opacity: 0.5;
+}
+
+/* ---------- Reveal (Crystal V ensamble final) ---------- */
+
+@utility reveal-section {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
   align-items: center;
   justify-content: center;
-  white-space: nowrap;
-  border-radius: 8px;
-  border-width: 1px;
-  border-style: solid;
-  padding: 6px 12px;
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  color: var(--on-dark-2);
-  will-change: transform;
 }
 
 /* ---------- Servicios ---------- */
@@ -654,7 +596,7 @@
     background-color 200ms var(--ease-out-soft);
 
   &.is-active {
-    border-color: rgba(123, 92, 255, 0.55);
+    border-color: rgba(255, 75, 141, 0.55);
     background-color: #191243;
   }
 }
@@ -770,7 +712,7 @@
   inset-inline: 0;
   bottom: 0;
   padding: 16px;
-  background: linear-gradient(to bottom, transparent 45%, rgba(11, 7, 34, 0.9));
+  background: linear-gradient(to bottom, transparent 45%, rgba(14, 14, 19, 0.9));
 }
 
 @utility trabajos-video-categoria {
@@ -800,7 +742,7 @@
   width: 54px;
   height: 54px;
   border-radius: var(--radius-full);
-  background-color: rgba(11, 7, 34, 0.5);
+  background-color: rgba(14, 14, 19, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
@@ -863,7 +805,7 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background-color: rgba(11, 7, 34, 0.9);
+  background-color: rgba(14, 14, 19, 0.9);
 }
 
 @utility trabajos-modal-content {

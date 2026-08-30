@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { HeroTrazado } from "@/components/hero/HeroTrazado";
-import { Contraste } from "@/components/sections/Contraste";
+import { Hero } from "@/components/hero/Hero";
+import { Dolor1, Dolor2 } from "@/components/sections/Dolores";
+import { RevealSection } from "@/components/sections/RevealSection";
 import { Trabajos } from "@/components/sections/Trabajos";
 import { Servicios } from "@/components/sections/Servicios";
 import { Clientes } from "@/components/sections/Clientes";
@@ -8,20 +9,19 @@ import { Clientes } from "@/components/sections/Clientes";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Velocentum — Marketing de performance en Argentina" },
+      { title: "Velocentum — Equipo de crecimiento" },
       {
         name: "description",
         content:
-          "Velocentum es una agencia de marketing de performance en Argentina enfocada en crecimiento medible.",
+          "Velocentum es un equipo de crecimiento: estrategia, contenido, pauta y medición integrados para hacer crecer negocios.",
       },
       {
         property: "og:title",
-        content: "Velocentum — Marketing de performance en Argentina",
+        content: "Velocentum — Equipo de crecimiento",
       },
       {
         property: "og:description",
-        content:
-          "Agencia de marketing de performance en Argentina enfocada en crecimiento medible.",
+        content: "Estrategia, contenido, pauta y medición integrados para hacer crecer negocios.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
@@ -34,8 +34,10 @@ export const Route = createFileRoute("/")({
 function Home() {
   return (
     <>
-      <HeroTrazado />
-      <Contraste />
+      <Hero />
+      <Dolor1 />
+      <Dolor2 />
+      <RevealSection />
       <Trabajos />
       <Servicios />
       <Clientes />

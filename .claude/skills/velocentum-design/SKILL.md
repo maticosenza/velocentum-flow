@@ -1,12 +1,16 @@
 ---
 name: velocentum-design
-description: Design system y reglas de construcción del sitio velocentum.com. Usar SIEMPRE que se cree o modifique cualquier componente, sección, página o estilo de este repositorio. Cubre tokens de color, escala tipográfica, spacing, reglas de animación y performance, geometría del isotipo, y las decisiones de marca que no se deben romper.
+description: Design system y reglas de construcción del sitio velocentum.com. Usar SIEMPRE que se cree o modifique cualquier componente, sección, página o estilo de este repositorio. Cubre tokens de color, escala tipográfica, spacing, reglas de animación y performance, geometría del Crystal V, y las decisiones de marca que no se deben romper.
 ---
 
 # Velocentum — design system
 
-Sitio de marca de Velocentum, agencia de performance marketing en Argentina.
-Stack: TanStack Start + React + TypeScript + Tailwind v4. Sincroniza con Lovable.
+Sitio de marca de Velocentum, **equipo de crecimiento** (Argentina). Stack: TanStack Start +
+React + TypeScript + Tailwind v4. Sincroniza con Lovable.
+
+Performance, pauta, contenido, diseño, web, tecnología, análisis y estrategia son **capacidades
+del equipo**, no el posicionamiento de la empresa. No presentar a Velocentum como agencia de
+performance ni encerrar la marca en un solo servicio.
 
 Rol de este sitio: vitrina de marca y trabajos, para tráfico orgánico, directo y referidos.
 `velocentum.agency` es otra propiedad: la landing de conversión para tráfico pago. No confundir.
@@ -25,35 +29,43 @@ Los tokens ya están en `src/styles.css`. **No los redefinas ni los dupliques.**
 
 | Token | Hex | Uso |
 |---|---|---|
-| `--ink-deep` | `#0B0722` | Fondo por defecto del sitio |
-| `--ink-deep-2` | `#151034` | Cards y bloques sobre fondo oscuro |
-| `--on-dark` | `#F7F7FB` | Texto principal sobre oscuro |
-| `--on-dark-2` | `#9A96B4` | Texto secundario sobre oscuro |
+| `--ink-deep` | `#0E0E13` | Fondo por defecto del sitio |
+| `--ink-deep-2` | `#1A1A23` | Cards y bloques sobre fondo oscuro |
+| `--on-dark` | `#FFFFFF` | Texto principal sobre oscuro |
+| `--on-dark-2` | `rgba(255,255,255,0.62)` | Texto secundario sobre oscuro |
 | `--border-dark` | `rgba(255,255,255,0.10)` | Bordes sobre oscuro |
 
 ### Escala clara
 
 | Token | Hex | Uso |
 |---|---|---|
-| `--surface` | `#F7F7FB` | Cards claras |
-| `--surface-2` | `#F0EFFC` | Secciones claras |
-| `--ink` | `#0F0A2E` | Texto sobre claro |
-| `--ink-2` | `#6B6880` | Texto secundario sobre claro |
-| `--border` | `#E8E7F2` | Bordes sobre claro |
+| `--surface` | `#FFFFFF` | Cards claras |
+| `--surface-2` | `#FFF0F6` | Secciones claras |
+| `--ink` | `#0E0E13` | Texto sobre claro |
+| `--ink-2` | `#5C5964` | Texto secundario sobre claro |
+| `--border` | `#ECE8EF` | Bordes sobre claro |
 
 ### Marca
 
 | Token | Hex | Uso |
 |---|---|---|
-| `--brand` | `#2A1EC9` | Botones sólidos, focus ring |
-| `--violet` | `#7B5CFF` | Acento: flechas, links, eje de medición, labels |
+| `--pink` | `#FF4B8D` | Acento principal, CTAs sólidos, focus ring, elementos activos |
+| `--pink-soft` | `#FF85B8` | Luz, facetas claras del Crystal V |
+| `--pink-deep` | `#D92F6E` | Profundidad, facetas oscuras, acentos secundarios |
+| `--gradient-brand` | `linear-gradient(135deg, #FFB4CF 0%, #F77FA8 28%, #D32D68 62%, #7A193C 100%)` | Único gradiente decorativo permitido, reservado al Crystal V y tratamientos de marca |
+
+`--violet` y `--brand` siguen existiendo como **alias temporales** (`--violet: var(--pink)`,
+`--brand: var(--pink-deep)`) para las secciones todavía no reconstruidas contra el nuevo sistema
+(Trabajos, Servicios, Clientes). No los uses en código nuevo — referenciá `--pink` / `--pink-deep`
+directamente. Se limpian en Fase 2.
 
 ### Reglas de color
 
 - El fondo por defecto es `--ink-deep`, no blanco.
-- `--violet` aparece solo en: flechas de CTA, links, eje de medición, labels de sección, elementos activos.
-- `--brand` aparece solo en botones sólidos y focus ring.
-- **Nada de gradientes decorativos de fondo ni glows difusos.** El único gradiente permitido es el del isotipo.
+- `--pink` aparece en: flechas de CTA, links, eje de medición, labels de sección, elementos activos.
+- **Botones sólidos: fondo `--pink`, texto e ícono `--ink`. Nunca texto blanco sobre rosa.**
+- **Nada de gradientes decorativos de fondo ni glows difusos.** El único gradiente permitido es
+  `--gradient-brand`, reservado al Crystal V.
 - **Nada de paletas multicolor.** Un color de acento por sección, siempre de la paleta.
 
 ---
@@ -67,6 +79,9 @@ Los tokens ya están en `src/styles.css`. **No los redefinas ni los dupliques.**
 | Display | Satoshi | Títulos, cifras |
 | Body | Inter | Texto corrido |
 | Utility | Geist Mono | Eyebrows, labels, contadores, cotas, unidades |
+
+El rebranding de Fase 1 **no cambia tipografía** — se conserva la base ya implementada para
+evitar retrabajo.
 
 ### Escala — regla crítica
 
@@ -103,6 +118,11 @@ Escala: `4 8 12 16 24 32 48 64 96 128 192`.
 
 ---
 
+## Principio de animación
+
+Todo motion debe **explicar, guiar o transformar una idea**. Un gesto principal + un apoyo
+secundario por escena, máximo. Nada de loops infinitos de flotación o giro decorativos.
+
 ## Motor de scroll
 
 Existe `src/hooks/useScrollEngine.ts`. **Es la única fuente de scroll del sitio.**
@@ -125,7 +145,8 @@ Exporta: `getScrollEngine`, `useScrollSubscription`, `useScrollRange`, `lerp`, `
    `{ start: 0, end: 0 }`, porque el rango por defecto asume que el elemento entra desde abajo
    del viewport y arranca en un progreso distinto de cero.
 6. **Lerp con factor `0.12`** para todo lo que se desplace con el scroll. Es lo que da la
-   sensación de peso.
+   sensación de peso. Excepción: transformaciones narrativas de ensamble (como el Crystal V del
+   Reveal) interpolan directo desde el progreso, sin lerp, para ser perfectamente reversibles.
 
 ### prefers-reduced-motion
 
@@ -136,31 +157,40 @@ hasta que vencen los delays.
 
 ---
 
-## Isotipo
+## Crystal V
 
-Un solo contorno continuo. La V interna es una entrada abierta desde el borde superior,
-**no es un hueco cerrado**. No uses `fill-rule="evenodd"` con dos paths.
+Reemplaza al isotipo anterior (las dos mitades violeta con muesca). Es el símbolo madre del
+sistema — deja de ser "un objeto más" y pasa a representar materialmente al equipo de
+crecimiento. Componente: `src/components/brand/CrystalV.tsx`.
 
-viewBox `0 0 100 87.6`:
+### Jerarquía
 
-```
-M 49.8 87.6 L 0 0 L 65.7 0 L 44.2 38.2 L 35.8 23.9 L 40.7 14.3 L 24.6 14.3 L 49.8 58 L 82.9 0 L 100 0 Z
-```
+1. **Crystal V Simple** — favicon, avatar, tamaños pequeños. Silueta limpia, mínima complejidad.
+2. **Crystal V Brand** — isotipo estándar, pocas facetas, lectura inmediata.
+3. **Crystal V Object** — versión facetada, volumétrica, animable. Para hero, reveal, transiciones
+   y piezas de branding.
 
-Se parte en dos mitades por el eje `x = 49.8`:
+### Geometría
 
-```
-Izquierda: M 49.8 87.6 L 0 0 L 65.7 0 L 44.2 38.2 L 35.8 23.9 L 40.7 14.3 L 24.6 14.3 L 49.8 58 Z
-Derecha:   M 49.65 58 L 82.9 0 L 100 0 L 49.65 87.6 Z
-```
+Fuente de verdad: `crystal-v-short-b.svg` del Asset Pack V2. **No aproximes ni redibujes los
+puntos de los polígonos** — son los del pack, tal cual, viewBox `0 0 220 180`. Cada faceta
+(polígono) va envuelta en su propio `<g>` para poder animarse individualmente sin tocar el
+`points` del polígono.
 
-La derecha arranca en `49.65` y no en `49.8` para solapar 0.15 unidades y evitar una costura
-de 1px por antialiasing.
+Gradientes (`gradientUnits="userSpaceOnUse"` con coordenadas absolutas, igual razón que el
+isotipo anterior: sin eso cada mitad calcula su propio gradiente y se ve un salto de color en la
+costura):
+- Mitad izquierda: `#FFB4CF → #F77FA8 (28%) → #D32D68 (62%) → #7A193C (100%)`.
+- Mitad derecha: `#F8B2CC → #E782A5 (26%) → #C92B64 (58%) → #661532 (100%)`.
 
-Gradiente: `#F7F7FB` (0%) → `#7B5CFF` (55%) → `#2A1EC9` (100%), diagonal.
-**Siempre con `gradientUnits="userSpaceOnUse"`** y coordenadas absolutas, para que sea continuo
-a través de ambas mitades. Con el default (`objectBoundingBox`) cada mitad calcularía su propio
-gradiente y se vería un salto de color.
+Los IDs de gradiente se generan con `useId()` y se sanitizan antes de usarse dentro de
+`url(#...)` (los dos puntos que agrega React en el id no son válidos ahí sin escapar).
+
+### Variantes del componente
+
+- `variant="object"` — Crystal V completo, facetado, para hero/reveal/piezas expresivas.
+- `variant="mark"` — versión simplificada para nav y tamaños chicos: los dos polígonos
+  principales en `--pink`, sin facetas internas.
 
 ---
 
@@ -168,6 +198,9 @@ gradiente y se vería un salto de color.
 
 - Español rioplatense, voseo. "Reservá", no "Reserva". "Agendá", no "Agenda".
 - **Nunca uses la palabra "tienda".** El sitio habla de "negocio", que es más amplio.
+- **No mostrar fotos del equipo por ahora.** La idea de "equipo completo" se comunica con el
+  copy, la integración de capacidades (píldoras, fragmentos) y el sistema visual — no con
+  fotografía.
 - **Sin emojis** en interfaz ni en copy.
 - Sin social proof de volumen ("más de X clientes").
 - Sin escasez fabricada, countdowns ni urgencia inventada.
@@ -175,8 +208,9 @@ gradiente y se vería un salto de color.
 - No inventes copy. Si falta texto, pedilo; no lo completes con placeholders plausibles.
 - No inventes cifras de resultados de clientes bajo ninguna circunstancia.
 
-Posicionamiento: "crecimiento con control". El diferencial es medición y criterio, no cantidad
-de gente ni volumen de producción.
+Posicionamiento: **"Estamos en el negocio de hacer crecer negocios."** Velocentum es un equipo
+de crecimiento; el diferencial es medición y criterio integrando capacidades, no la venta de un
+servicio puntual ni el volumen de gente o de producción.
 
 ---
 
@@ -185,7 +219,7 @@ de gente ni volumen de producción.
 No se anuncia, se cumple, en todo lo que se construya:
 
 - Responsive real desde 320px.
-- Focus visible en todo elemento interactivo: `outline 2px --violet`, offset 2px.
+- Focus visible en todo elemento interactivo: `outline 2px --pink`, offset 2px.
 - Navegación completa por teclado.
 - `prefers-reduced-motion` respetado.
 - Videos con `poster`, `preload="none"` y lazy loading por IntersectionObserver.

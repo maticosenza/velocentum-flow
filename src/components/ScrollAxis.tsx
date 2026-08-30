@@ -43,15 +43,12 @@ export function ScrollAxis({ labels = [] }: ScrollAxisProps) {
       className="pointer-events-none fixed top-0 z-40 h-screen"
       style={{ left: compact ? 0 : 26, width: compact ? 2 : 1 }}
     >
-      <div
-        className="absolute inset-0"
-        style={{ backgroundColor: "rgba(123,92,255,0.18)" }}
-      />
+      <div className="absolute inset-0" style={{ backgroundColor: "rgba(255,75,141,0.18)" }} />
       <div
         ref={fillRef}
         className="absolute inset-0 origin-top"
         style={{
-          backgroundColor: "#7B5CFF",
+          backgroundColor: "var(--pink)",
           transform: reduced ? "scaleY(1)" : "scaleY(0)",
           willChange: "transform",
         }}
@@ -59,8 +56,7 @@ export function ScrollAxis({ labels = [] }: ScrollAxisProps) {
 
       {!compact &&
         labels.map((labelText, i) => {
-          const top =
-            labels.length === 1 ? 50 : (i / (labels.length - 1)) * 100;
+          const top = labels.length === 1 ? 50 : (i / (labels.length - 1)) * 100;
           return (
             <div
               key={labelText + i}
@@ -72,7 +68,7 @@ export function ScrollAxis({ labels = [] }: ScrollAxisProps) {
                 style={{
                   width: 8,
                   height: 1,
-                  backgroundColor: "rgba(123,92,255,0.35)",
+                  backgroundColor: "rgba(255,75,141,0.35)",
                 }}
               />
               <span
@@ -80,7 +76,7 @@ export function ScrollAxis({ labels = [] }: ScrollAxisProps) {
                 style={{
                   fontSize: 9,
                   letterSpacing: "0.1em",
-                  color: "rgba(154,150,180,0.55)",
+                  color: "var(--on-dark-2)",
                 }}
               >
                 {labelText}
