@@ -33,34 +33,50 @@ type Rect = { top: number; left: number; width: number; height: number };
 /**
  * Where the crystal sits at a given global progress is itself an
  * interpolated value — a pixel rect, not a CSS scale, because "aligned
- * with Hero's copy" and "big dispersed field, viewport-centered" are two
- * genuinely different layouts, not two scales of the same one. Hero and
- * Reveal want the crystal in a slot measured from their own real layout
- * (see heroSlotRef); Dolor1/Dolor2 want it free-floating and large.
+ * with Hero's copy", "aligned with Reveal's copy" and "big dispersed
+ * field, viewport-centered" are three genuinely different layouts, not
+ * three scales of the same one. Hero and Reveal each want the crystal in
+ * a slot measured from their own real layout (see heroSlotRef/
+ * revealSlotRef); Dolor1/Dolor2 want it free-floating and large.
  *
- * heroSlotRef is measured on mount + resize only (never inside the scroll
+ * Slots are measured on mount + resize only (never inside the scroll
  * callback) — same rule useScrollEngine already enforces for everything
  * else.
  */
-function useCrystalRects(heroSlotRef: RefObject<HTMLDivElement | null>) {
+function useCrystalRects(
+  heroSlotRef: RefObject<HTMLDivElement | null>,
+  revealSlotRef: RefObject<HTMLDivElement | null>,
+) {
   const heroRectRef = useRef<Rect>({ top: 0, left: 0, width: 200, height: 200 * CRYSTAL_ASPECT });
+  const revealRectRef = useRef<Rect>({ top: 0, left: 0, width: 275, height: 275 * CRYSTAL_ASPECT });
 
   useEffect(() => {
     function measure() {
-      const slot = heroSlotRef.current;
-      if (!slot) return;
-      const rect = slot.getBoundingClientRect();
-      heroRectRef.current = {
-        top: rect.top,
-        left: rect.left,
-        width: rect.width,
-        height: rect.height,
-      };
+      const heroSlot = heroSlotRef.current;
+      if (heroSlot) {
+        const rect = heroSlot.getBoundingClientRect();
+        heroRectRef.current = {
+          top: rect.top,
+          left: rect.left,
+          width: rect.width,
+          height: rect.height,
+        };
+      }
+      const revealSlot = revealSlotRef.current;
+      if (revealSlot) {
+        const rect = revealSlot.getBoundingClientRect();
+        revealRectRef.current = {
+          top: rect.top,
+          left: rect.left,
+          width: rect.width,
+          height: rect.height,
+        };
+      }
     }
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, [heroSlotRef]);
+  }, [heroSlotRef, revealSlotRef]);
 
   function freeRect(): Rect {
     const vw = window.innerWidth;
@@ -77,7 +93,7 @@ function useCrystalRects(heroSlotRef: RefObject<HTMLDivElement | null>) {
     };
   }
 
-  return { heroRectRef, freeRect };
+  return { heroRectRef, revealRectRef, freeRect };
 }
 
 function mixRect(a: Rect, b: Rect, t: number): Rect {
@@ -92,18 +108,17 @@ function mixRect(a: Rect, b: Rect, t: number): Rect {
 /**
  * Rect keyframes computed from the same global-progress timeline as the
  * facet keyframes (see poses.ts): hero-slot-anchored while assembled
- * through most of the Hero beat, free/large through Dolor1-Dolor2, back
- * to the hero slot for Reveal (placeholder until V3 commit 5 gives Reveal
- * its own measured slot).
+ * through most of the Hero beat, free/large through Dolor1-Dolor2, then
+ * reveal-slot-anchored for the final reassembly.
  */
-function rectAtProgress(progress: number, hero: Rect, free: Rect): Rect {
+function rectAtProgress(progress: number, hero: Rect, free: Rect, reveal: Rect): Rect {
   const stops: Array<{ t: number; rect: Rect }> = [
     { t: 0, rect: hero },
     { t: 0.22, rect: hero },
     { t: 0.3, rect: free },
     { t: 0.7, rect: free },
-    { t: 0.9, rect: hero },
-    { t: 1, rect: hero },
+    { t: 0.9, rect: reveal },
+    { t: 1, rect: reveal },
   ];
   const p = Math.min(Math.max(progress, 0), 1);
   let i = 0;
@@ -124,6 +139,7 @@ function settleFactor(progress: number): number {
 
 type CrystalStageProps = {
   heroSlotRef: RefObject<HTMLDivElement | null>;
+  revealSlotRef: RefObject<HTMLDivElement | null>;
 };
 
 /**
@@ -139,14 +155,14 @@ type CrystalStageProps = {
  * (pre-V3 Hero/Dolores/RevealSection) covers that case entirely on its
  * own, with its own already-reduced-motion-safe components.
  */
-export function CrystalStage({ heroSlotRef }: CrystalStageProps) {
+export function CrystalStage({ heroSlotRef, revealSlotRef }: CrystalStageProps) {
   const { subscribe } = useNarrativeContext();
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const facetRefs = useRef<Array<SVGGElement | null>>([]);
   const edgesRef = useRef<SVGGElement | null>(null);
   const [introDone, setIntroDone] = useState(false);
   const lastProgressRef = useRef(0);
-  const { heroRectRef, freeRect } = useCrystalRects(heroSlotRef);
+  const { heroRectRef, revealRectRef, freeRect } = useCrystalRects(heroSlotRef, revealSlotRef);
 
   useEffect(() => {
     const timers: Array<ReturnType<typeof setTimeout>> = [];
@@ -197,7 +213,12 @@ export function CrystalStage({ heroSlotRef }: CrystalStageProps) {
         ).toFixed(3);
       }
       if (wrapRef.current) {
-        const rect = rectAtProgress(progress, heroRectRef.current, freeRect());
+        const rect = rectAtProgress(
+          progress,
+          heroRectRef.current,
+          freeRect(),
+          revealRectRef.current,
+        );
         const settle = settleFactor(progress);
         const w = rect.width * settle;
         const h = rect.height * settle;
@@ -217,7 +238,7 @@ export function CrystalStage({ heroSlotRef }: CrystalStageProps) {
       lastProgressRef.current = progress;
       applyFromProgress(progress);
     });
-  }, [introDone, subscribe, heroRectRef, freeRect]);
+  }, [introDone, subscribe, heroRectRef, revealRectRef, freeRect]);
 
   return (
     <div
