@@ -5,6 +5,7 @@ import { RevealSection } from "@/components/sections/RevealSection";
 import { Trabajos } from "@/components/sections/Trabajos";
 import { Motores } from "@/components/sections/Motores";
 import { Clientes } from "@/components/sections/Clientes";
+import { Contacto } from "@/components/sections/Contacto";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -41,6 +42,7 @@ function Home() {
       <Motores />
       <Trabajos />
       <Clientes />
+      <Contacto />
     </>
   );
 }

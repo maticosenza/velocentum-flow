@@ -836,3 +836,19 @@
     flex: 0 0 200px;
   }
 }
+
+/* ---------- Contacto ---------- */
+
+/* A calm closing signature, not a repeat of Reveal's assembly gesture — the
+   "cada motor funciona junto" payoff already happened there. */
+@utility contacto-mark {
+  display: block;
+  width: 44px;
+  height: 36px;
+}
+
+@utility contacto-cta {
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+}
