@@ -588,6 +588,21 @@
 
 /* ---------- Reveal (Crystal V ensamble final) ---------- */
 
+/* ---------- Narrative Interaction System (V3) ---------- */
+
+/* Generic pinned-viewport shell for any <NarrativeSequence>. Unlike
+   .reveal-sticky/.reveal-outer this needs no mobile media-query override:
+   NarrativeSequence itself renders different markup (no sticky wrapper at
+   all) in "static" mode, so this class only ever appears in "pinned" mode
+   markup to begin with. */
+@utility narrative-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
 @utility reveal-outer {
   position: relative;
   height: 150vh;
