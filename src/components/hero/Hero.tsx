@@ -6,8 +6,7 @@ import { useScrollRange } from "@/hooks/useScrollEngine";
 import { cn } from "@/lib/utils";
 
 const EYEBROW = "Equipo de crecimiento";
-const HEADLINE_LINE_1 = "Estamos en el negocio";
-const HEADLINE_LINE_2_PREFIX = "de ";
+const HEADLINE_LINE_1 = "Estamos en el negocio de";
 const HEADLINE_LINE_2_HIGHLIGHT = "hacer crecer negocios";
 const SUBTITLE =
   "Estrategia, creatividad, pauta y medición. Primero analizamos tu negocio. Después armamos el plan.";
@@ -171,8 +170,14 @@ function HeroPill({
     top: pill.top,
     zIndex: pill.layer === "front" ? 3 : 1,
   };
-  if (pill.side === "left") positionStyle.left = pill.inset;
-  else positionStyle.right = pill.inset;
+  // A floor in px, not just the raw %, because the wrapping column is
+  // full-width (not the 1300px max) below that breakpoint — a bare 0.5-3%
+  // inset clips the pill against the real viewport edge at 900-1300px
+  // widths (e.g. 1024 tablet landscape) even though it reads fine once the
+  // column is wide enough to have its own margin outside it.
+  const inset = `max(${pill.inset}, 16px)`;
+  if (pill.side === "left") positionStyle.left = inset;
+  else positionStyle.right = inset;
 
   return (
     <div ref={slotRef} className="pointer-events-none absolute" style={positionStyle}>
@@ -292,7 +297,7 @@ export function Hero() {
           />
         ))}
 
-        <div className="relative z-[2] mx-auto flex w-full max-w-[640px] flex-col items-center gap-3 lg:max-w-[760px] xl:max-w-[900px] md:gap-4">
+        <div className="relative z-[2] mx-auto flex w-full max-w-[640px] flex-col items-center gap-3 lg:max-w-[760px] xl:max-w-[960px] 2xl:max-w-[1040px] md:gap-4">
           <span
             className="reveal eyebrow w-full text-on-dark-2"
             data-revealed={play ? "true" : "false"}
@@ -308,7 +313,6 @@ export function Hero() {
           >
             {HEADLINE_LINE_1}
             <br />
-            {HEADLINE_LINE_2_PREFIX}
             <span style={{ color: "var(--pink)" }}>{HEADLINE_LINE_2_HIGHLIGHT}</span>.
           </h1>
 
@@ -320,7 +324,7 @@ export function Hero() {
             {SUBTITLE}
           </p>
 
-          <div className="mx-auto mt-1 w-full max-w-[150px] md:max-w-[200px]">
+          <div className="hero-crystal-wrap mx-auto mt-2 w-full max-w-[150px] md:max-w-[260px]">
             <CrystalV
               variant="object"
               className="w-full"
