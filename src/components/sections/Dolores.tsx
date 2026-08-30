@@ -55,6 +55,9 @@ function FragmentShard({
           "--frag-opacity": TREATMENT_OPACITY[fragment.treatment],
           "--frag-tx": `${tx.toFixed(2)}px`,
           "--frag-ty": `${ty.toFixed(2)}px`,
+          // The site-wide prefers-reduced-motion rule (styles.css) forces
+          // transition-delay:0 !important too, so this stagger collapses
+          // safely there without any extra guard here.
           transitionDelay: `${index * 28}ms`,
         } as CSSProperties
       }

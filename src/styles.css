@@ -445,6 +445,12 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    /* Duration alone isn't enough — an unzeroed transition-delay still
+       holds an element invisible until it elapses. .contacto-thread is the
+       one place a delay lives in CSS rather than an inline style a
+       component can zero itself (see Contacto.tsx's own delay() guard for
+       the rest of its sequence). */
+    transition-delay: 0ms !important;
     scroll-behavior: auto !important;
   }
 
