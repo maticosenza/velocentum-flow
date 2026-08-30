@@ -7,7 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { useScrollRange } from "@/hooks/useScrollEngine";
+import { getScrollEngine } from "@/hooks/useScrollEngine";
 
 export type NarrativeMode = "pinned" | "static";
 
@@ -69,36 +69,65 @@ type NarrativeSequenceProps = {
   beatCount: number;
   staticBelow?: number;
   className?: string;
-  /** Rendered inside the pinned sticky viewport (mode:"pinned") or inline in normal flow (mode:"static"). */
+  /** Rendered inside the shared pinned sticky viewport — an overlay per beat, opacity-driven by shared progress. */
   children: ReactNode;
+  /**
+   * Rendered instead, in normal document flow, for mobile/reduced-motion.
+   * A structurally different tree on purpose: pinned beats are absolutely
+   * positioned overlays sharing one crystal instance; the static fallback
+   * is ordinary stacked sections (closer to pre-V3 Home), which is also
+   * just simpler code for a case that must never animate continuously.
+   */
+  staticFallback: ReactNode;
 };
 
 /**
  * The scroll scaffold shared by every V3 sequence/transition: one outer
  * element sized to `beatCount * 100svh`, one inner sticky viewport, one
  * `useScrollRange` producing a single progress 0..1 across the whole
- * thing. Children ("beats") read that progress via `useNarrativeContext`
- * and mutate their own refs directly — no React re-render per frame,
- * same contract as the rest of useScrollEngine's consumers.
- *
- * In "static" mode (mobile or reduced-motion) this renders the exact same
- * children, but as normal-flow content with no pin and no scroll
- * subscription — beats detect this via `mode` and skip straight to their
- * resolved pose instead of animating.
+ * thing. Pinned-mode children ("beats") read that progress via
+ * `useNarrativeContext` and mutate their own refs directly — no React
+ * re-render per frame, same contract as the rest of useScrollEngine's
+ * consumers.
  */
 export function NarrativeSequence({
   beatCount,
   staticBelow,
   className,
   children,
+  staticFallback,
 }: NarrativeSequenceProps) {
   const outerRef = useRef<HTMLDivElement | null>(null);
   const listenersRef = useRef(new Set<ProgressListener>());
   const mode = useNarrativeMode(staticBelow);
 
-  useScrollRange(outerRef, (progress) => {
-    listenersRef.current.forEach((fn) => fn(progress));
-  });
+  // Not useScrollRange: that hook's effect deps are `[elementRef, ...]`, and
+  // a ref object's *identity* never changes even though `.current` does —
+  // it would never re-run once `mode` flips from "static" (outerRef isn't
+  // rendered at all, .current stays null forever) to "pinned" (outerRef
+  // finally attaches). Depending on `mode` directly here re-registers at
+  // the exact render where the ref becomes real.
+  //
+  // start:0/end:1 is the exact sticky-pin mapping (not either default):
+  // progress 0 the instant the outer's top reaches the viewport top (the
+  // pin engages), progress 1 the instant scroll has covered the outer's
+  // full height minus one viewport (the pin releases) — see the engine's
+  // own startY/endY formula. RevealSection's 0.8/0.75 is a deliberate,
+  // narrower, Reveal-specific deviation from this; sequences want the
+  // whole pinned duration mapped cleanly to 0..1.
+  useEffect(() => {
+    if (mode !== "pinned") return;
+    const element = outerRef.current;
+    if (!element) return;
+    const engine = getScrollEngine();
+    engine.start();
+    return engine.register({
+      element,
+      onProgress: (p) => listenersRef.current.forEach((fn) => fn(p)),
+      start: 0,
+      end: 1,
+    });
+  }, [mode]);
 
   const subscribe = useCallback((fn: ProgressListener) => {
     listenersRef.current.add(fn);
@@ -110,7 +139,7 @@ export function NarrativeSequence({
   if (mode === "static") {
     return (
       <NarrativeContext.Provider value={{ mode, subscribe }}>
-        <div className={className}>{children}</div>
+        {staticFallback}
       </NarrativeContext.Provider>
     );
   }
