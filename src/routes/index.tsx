@@ -4,6 +4,7 @@ import { SequenceB } from "@/components/sections/sequenceB/SequenceB";
 import { ServiciosToTrabajosHandoff } from "@/components/sections/ServiciosToTrabajosHandoff";
 import { Trabajos } from "@/components/sections/Trabajos";
 import { Clientes } from "@/components/sections/Clientes";
+import { ClientesToContactoHandoff } from "@/components/sections/ClientesToContactoHandoff";
 import { Contacto } from "@/components/sections/Contacto";
 
 export const Route = createFileRoute("/")({
@@ -39,6 +40,7 @@ function Home() {
       <ServiciosToTrabajosHandoff />
       <Trabajos />
       <Clientes />
+      <ClientesToContactoHandoff />
       <Contacto />
     </>
   );
