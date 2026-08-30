@@ -65,7 +65,10 @@ function useCrystalRects(heroSlotRef: RefObject<HTMLDivElement | null>) {
   function freeRect(): Rect {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    const width = Math.min(vw, vh) * 0.62;
+    // 0.52, not a bigger fraction: Dolor1/Dolor2's text columns sit ~35-40%
+    // in from each edge (see Dolor1Beat/Dolor2Beat's 560px columns), and a
+    // wider field started clipping under their headlines.
+    const width = Math.min(vw, vh) * 0.52;
     return {
       width,
       height: width * CRYSTAL_ASPECT,
