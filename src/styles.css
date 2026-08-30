@@ -328,8 +328,22 @@
   min-height: 100svh;
 }
 
+/* Hero-only headline adaptation for the 900-1439px tablet/medium-desktop
+   band: the text column narrows there to leave the pills a safe margin, so
+   the headline needs a smaller size to keep its two-line shape instead of
+   wrapping into four. display-xl itself (the global scale) is untouched.
+   Upper bound is 1439 (not 1279/Tailwind's xl breakpoint) because the text
+   column stays capped at 900px for any viewport >=1280 — cutting the
+   override off at 1279 left exactly the 1280-1366 "laptop" range using the
+   uncapped scale again, reintroducing the four-line wrap it was meant to
+   fix. 1440 is where container-max takes over as "desktop grande". */
+@media (min-width: 900px) and (max-width: 1439px) {
+  .hero-headline {
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+  }
+}
+
 @utility hero-pill {
-  position: absolute;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -461,9 +475,23 @@
 
 @utility dolor-section {
   position: relative;
-  min-height: 90vh;
+  min-height: 78vh;
+  min-height: 78svh;
+  padding-block: 56px;
   display: flex;
   align-items: center;
+}
+
+/* Tablet/medium-desktop-only reduction, same reasoning as .hero-headline:
+   the grid gives each column roughly half the container, so display-l's
+   normal size fragments this two-line headline into three or four. Upper
+   bound is 1439, not 1279 — container-v caps at 1440px either way, so the
+   per-column width (~620-660px) stops changing well before 1440 and stays
+   just as tight from 1280-1439 as it is at 1024. */
+@media (min-width: 768px) and (max-width: 1439px) {
+  .dolor-headline {
+    font-size: clamp(1.625rem, 3.4vw, 2.5rem);
+  }
 }
 
 @utility dolor-scene {
@@ -480,8 +508,6 @@
 @utility dolor-fragment {
   position: absolute;
   opacity: 0;
-  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-  background-image: var(--gradient-brand);
   transform: translate(var(--drift-x, 0px), var(--drift-y, 12px)) rotate(var(--fragment-rotate, 0deg));
   transition:
     transform 700ms var(--ease-out-soft),
@@ -504,12 +530,38 @@
 
 /* ---------- Reveal (Crystal V ensamble final) ---------- */
 
-@utility reveal-section {
-  min-height: 100vh;
-  min-height: 100svh;
+@utility reveal-outer {
+  position: relative;
+  height: 150vh;
+  height: 150svh;
+}
+
+@utility reveal-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Same nav-clearance reasoning as .hero's pt-36: the headline must never
+     sit under the fixed nav once this section is pinned mid-scroll. */
+  padding-top: 112px;
+  overflow: hidden;
+}
+
+@media (max-width: 899px) {
+  .reveal-outer {
+    height: auto;
+  }
+
+  .reveal-sticky {
+    position: static;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding-block: 112px 64px;
+  }
 }
 
 /* ---------- Servicios ---------- */

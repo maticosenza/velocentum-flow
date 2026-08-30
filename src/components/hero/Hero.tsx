@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { Link } from "@tanstack/react-router";
 import { CrystalV, CRYSTAL_V_FACET_COUNT } from "@/components/brand/CrystalV";
 import { CRYSTAL_V_SCATTER, facetTransformString } from "@/components/brand/crystalVMotion";
 import { useScrollRange } from "@/hooks/useScrollEngine";
@@ -27,25 +28,33 @@ const PILL_EASE_OVERSHOOT = "cubic-bezier(0.34, 1.3, 0.64, 1)";
 
 type PillVariant = "rosa" | "blanca" | "deep";
 type PillLayer = "behind" | "front";
+type PillSide = "left" | "right";
 
 type PillDef = {
   label: string;
   variant: PillVariant;
   layer: PillLayer;
   top: string;
-  left: string;
+  /** Anchored from this edge — "right" avoids width-dependent viewport
+   * clipping that a large `left:%` value on a narrow desktop can't. */
+  side: PillSide;
+  inset: string;
   finalRotate: number;
   /** % of viewport height the pill drifts up by as the hero scrolls past, 6-10. */
   parallaxPct: number;
 };
 
+// Anchored to the wrapper's own edges (side+inset), never to a `left:%` on
+// the far side — that clipped hard on 1024-1366px viewports because a
+// pill's own width was never part of the percentage math.
 const DESKTOP_PILLS: PillDef[] = [
   {
     label: "Crecimiento",
     variant: "rosa",
     layer: "behind",
-    top: "10%",
-    left: "4%",
+    top: "6%",
+    side: "left",
+    inset: "2%",
     finalRotate: -4,
     parallaxPct: 7,
   },
@@ -53,8 +62,9 @@ const DESKTOP_PILLS: PillDef[] = [
     label: "Estrategia",
     variant: "deep",
     layer: "behind",
-    top: "12%",
-    left: "92%",
+    top: "8%",
+    side: "right",
+    inset: "2%",
     finalRotate: 5,
     parallaxPct: 9,
   },
@@ -62,8 +72,9 @@ const DESKTOP_PILLS: PillDef[] = [
     label: "Contenido",
     variant: "blanca",
     layer: "front",
-    top: "40%",
-    left: "1%",
+    top: "38%",
+    side: "left",
+    inset: "0.5%",
     finalRotate: 3,
     parallaxPct: 6,
   },
@@ -71,8 +82,9 @@ const DESKTOP_PILLS: PillDef[] = [
     label: "Marca",
     variant: "rosa",
     layer: "front",
-    top: "42%",
-    left: "94%",
+    top: "40%",
+    side: "right",
+    inset: "0.5%",
     finalRotate: -6,
     parallaxPct: 10,
   },
@@ -81,7 +93,8 @@ const DESKTOP_PILLS: PillDef[] = [
     variant: "deep",
     layer: "front",
     top: "68%",
-    left: "5%",
+    side: "left",
+    inset: "3%",
     finalRotate: 6,
     parallaxPct: 8,
   },
@@ -90,7 +103,8 @@ const DESKTOP_PILLS: PillDef[] = [
     variant: "blanca",
     layer: "front",
     top: "70%",
-    left: "90%",
+    side: "right",
+    inset: "3%",
     finalRotate: -3,
     parallaxPct: 7,
   },
@@ -106,7 +120,8 @@ const MOBILE_PILLS: PillDef[] = [
     variant: "rosa",
     layer: "behind",
     top: "-15%",
-    left: "10%",
+    side: "left",
+    inset: "10%",
     finalRotate: -4,
     parallaxPct: 6,
   },
@@ -115,7 +130,8 @@ const MOBILE_PILLS: PillDef[] = [
     variant: "blanca",
     layer: "behind",
     top: "58%",
-    left: "58%",
+    side: "left",
+    inset: "58%",
     finalRotate: 3,
     parallaxPct: 7,
   },
@@ -124,7 +140,8 @@ const MOBILE_PILLS: PillDef[] = [
     variant: "deep",
     layer: "behind",
     top: "106%",
-    left: "50%",
+    side: "left",
+    inset: "50%",
     finalRotate: -3,
     parallaxPct: 8,
   },
@@ -150,16 +167,15 @@ function HeroPill({
   slotRef: (el: HTMLDivElement | null) => void;
 }) {
   const restTransform = `translateY(0) rotate(${pill.finalRotate}deg)`;
+  const positionStyle: CSSProperties = {
+    top: pill.top,
+    zIndex: pill.layer === "front" ? 3 : 1,
+  };
+  if (pill.side === "left") positionStyle.left = pill.inset;
+  else positionStyle.right = pill.inset;
+
   return (
-    <div
-      ref={slotRef}
-      className="pointer-events-none absolute"
-      style={{
-        top: pill.top,
-        left: pill.left,
-        zIndex: pill.layer === "front" ? 3 : 1,
-      }}
-    >
+    <div ref={slotRef} className="pointer-events-none absolute" style={positionStyle}>
       <span
         className={cn("hero-pill", PILL_VARIANT_CLASS[pill.variant])}
         style={{
@@ -276,7 +292,7 @@ export function Hero() {
           />
         ))}
 
-        <div className="relative z-[2] mx-auto flex w-full max-w-[900px] flex-col items-center gap-4 md:gap-5">
+        <div className="relative z-[2] mx-auto flex w-full max-w-[640px] flex-col items-center gap-3 lg:max-w-[760px] xl:max-w-[900px] md:gap-4">
           <span
             className="reveal eyebrow w-full text-on-dark-2"
             data-revealed={play ? "true" : "false"}
@@ -286,7 +302,7 @@ export function Hero() {
           </span>
 
           <h1
-            className="reveal display-xl w-full text-on-dark"
+            className="reveal display-xl hero-headline w-full text-on-dark"
             data-revealed={play ? "true" : "false"}
             style={{ transitionDelay: "900ms" }}
           >
@@ -304,7 +320,7 @@ export function Hero() {
             {SUBTITLE}
           </p>
 
-          <div className="mx-auto mt-7 w-full max-w-[150px] md:max-w-[200px]">
+          <div className="mx-auto mt-1 w-full max-w-[150px] md:max-w-[200px]">
             <CrystalV
               variant="object"
               className="w-full"
@@ -318,9 +334,10 @@ export function Hero() {
             />
           </div>
 
-          <a
-            href="/#contacto"
-            className="hero-cta reveal body-base mt-2 inline-flex items-center gap-2 rounded-full bg-pink px-6 py-3 font-medium text-ink"
+          <Link
+            to="/"
+            hash="contacto"
+            className="hero-cta reveal body-base inline-flex items-center gap-2 rounded-full bg-pink px-6 py-3 font-medium text-ink"
             data-revealed={play ? "true" : "false"}
             style={{ transitionDelay: "1450ms" }}
           >
@@ -328,7 +345,7 @@ export function Hero() {
             <span className="hero-cta-arrow" style={{ color: "var(--ink)" }} aria-hidden="true">
               →
             </span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
