@@ -539,28 +539,39 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
+}
 
-  &[data-revealed="true"] .dolor-fragment {
-    transform: translate(0, 0) rotate(var(--fragment-rotate, 0deg));
-    opacity: var(--fragment-opacity, 0.5);
+/* Applies to the <g> wrapping each fragment-cluster-board shard polygon.
+   transform-box:fill-box makes the pre-reveal scale (0.92 -> 1) anchor on
+   the shard's own center instead of the shared <svg>'s (0,0) corner; the
+   translate distance (--frag-tx/--frag-ty, in board/viewBox units — see
+   fragmentGeometry.ts) is unaffected by that scale either way, since
+   `translate() scale()` applies scale to the point first and the translate
+   offset after. Dolor 2 sets --frag-tx/--frag-ty to the shard's full
+   cluster delta so the reveal transition IS the gathering motion. */
+@utility dolor-fragment {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  opacity: 0;
+  transform: translate(0, 0) scale(0.92);
+  transition:
+    transform 900ms var(--ease-out-soft),
+    opacity 900ms var(--ease-out-soft);
+  will-change: transform, opacity;
+
+  [data-revealed="true"] & {
+    opacity: var(--frag-opacity, 0.6);
+    transform: translate(var(--frag-tx, 0px), var(--frag-ty, 0px)) scale(1);
   }
 }
 
-@utility dolor-fragment {
-  position: absolute;
+@utility dolor-connector {
   opacity: 0;
-  transform: translate(var(--drift-x, 0px), var(--drift-y, 12px)) rotate(var(--fragment-rotate, 0deg));
-  transition:
-    transform 700ms var(--ease-out-soft),
-    opacity 700ms var(--ease-out-soft);
-  will-change: transform, opacity;
-}
+  transition: opacity 900ms var(--ease-out-soft);
 
-@utility dolor-cluster {
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  will-change: transform;
+  [data-revealed="true"] & {
+    opacity: var(--frag-opacity, 0.28);
+  }
 }
 
 @utility dolor-target-ring {
