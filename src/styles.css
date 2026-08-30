@@ -635,13 +635,24 @@
 
 /* ---------- Clientes ---------- */
 
+/* Light background on purpose — a deliberate change of rhythm after five
+   dark scenes (Hero through Motores/Trabajos), and it reads client logos
+   far better than the ink-deep backdrop the rest of the page uses. */
+@utility clientes-section {
+  background-color: var(--surface-2);
+}
+
 @utility clientes-logo {
   height: 34px;
   width: auto;
   object-fit: contain;
   margin-inline: 20px;
-  filter: grayscale(1) brightness(1.8);
-  opacity: 0.55;
+  /* brightness(1.8) was tuned to lift logos out of a dark background —
+     inverted here for a light one: grayscale to keep the wall calm and
+     uniform, no brightness push (these are normal-contrast marks on
+     transparent PNGs already). */
+  filter: grayscale(1);
+  opacity: 0.5;
   transition:
     filter 250ms var(--ease-out-soft),
     opacity 250ms var(--ease-out-soft);

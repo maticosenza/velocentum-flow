@@ -63,10 +63,10 @@ const LOGO_HEIGHT = 34;
 
 export function Clientes() {
   return (
-    <section className="section-v">
+    <section className="section-v clientes-section">
       <div className="container-v text-center">
-        <span className="eyebrow text-on-dark-2">Con quiénes trabajamos</span>
-        <h2 className="display-l mt-4 text-on-dark">Detrás de cada una hay un plan escrito.</h2>
+        <span className="eyebrow text-ink-2">Con quiénes trabajamos</span>
+        <h2 className="display-l mt-4 text-ink">Detrás de cada una hay un plan escrito.</h2>
       </div>
 
       <div className="mt-16">
