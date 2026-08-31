@@ -520,8 +520,116 @@ Movimiento:
 - Pulso de luz o alineación breve.
 - Continúa su recorrido sin convocar todavía al resto de piezas.
 
-Mockup aprobado:
-- PENDIENTE: docs/home-mockups/04-mismo-objetivo.png
+MOCKUP APROBADO:
+- Imagen: docs/home-mockups/04-mismo-objetivo.png
+- HTML de referencia interactivo: docs/home-mockups/04-mismo-objetivo-mockup-final.html
+- Fecha: 2026-08-31
+- Viewport de referencia: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
+
+- Lectura de la escena:
+  · Es el punto de giro de la HOME: la narrativa deja de mostrar problemas
+    y empieza a mostrar dirección.
+  · La pausa se construye QUITANDO, no agregando. Las Secciones 02 y 03
+    tienen seis píldoras, conexiones y el fragmento. Esta tiene TRES
+    ELEMENTOS y un eje.
+
+- SOLO TRES ELEMENTOS VISUALES:
+  1. Huella del Crystal 5 (aristas).
+  2. Mira (el objetivo).
+  3. Fragmento guía.
+  · SIN PÍLDORAS. El plan pide continuar "sin convocar todavía al resto de
+    piezas"; sacarlas por completo es la lectura más limpia y es lo que
+    produce el contraste de densidad que hace que la sección respire.
+
+- Copy definitivo:
+  · Eyebrow: "Un mismo objetivo" — Geist Mono 500, 0.7rem,
+    letter-spacing .22em, uppercase, color --pink.
+  · Headline: "El crecimiento aparece cuando cada parte trabaja sobre el
+    mismo objetivo." — Manrope 800, 58 px, line-height 1.04,
+    letter-spacing -.03em, medida máxima 900 px, CENTRADO.
+    "el mismo objetivo" en --pink.
+  · Subtítulo: "No hace falta más gente. Hace falta que todo lo que ya se
+    hace apunte al mismo lugar." — Manrope 400, 1.02rem, line-height 1.55,
+    medida 50ch, color --on-2, centrado.
+
+- Geometría de la composición:
+  · Lienzo 1440 × 900, sin overflow lateral.
+  · Copy CENTRADO, y=168. La Sección 02 tiene el copy a la izquierda y la
+    03 a la derecha; el centrado de la 04 cierra ese vaivén y detiene el
+    movimiento lateral del recorrido. Es parte de lo que comunica la pausa.
+  · Huella: centrada en el eje x=720, y=452, ancho 620 px.
+  · Mira: centro en (720, 592), 150 px.
+  · Fragmento: left 330, top 556, ancho 92 px.
+
+- HUELLA DEL CRYSTAL 5:
+  · ÚNICAMENTE ARISTAS. Los mismos trazos del asset oficial, sin ningún
+    relleno, sin facetas y sin gradientes.
+  · stroke --pink, stroke-width 0.55, stroke-opacity .15,
+    vector-effect non-scaling-stroke.
+  · NO ES UNA RECONSTRUCCIÓN: es el lugar donde el objeto estuvo.
+  · NO HAY RECONSTRUCCIÓN DEL CRYSTAL 5 EN ESTA SECCIÓN. La reconstrucción
+    real está reservada para la sección "Empecemos".
+
+- LA MIRA (el objetivo):
+  · Asset oficial official/objects/target.svg, sin modificar. Solo se
+    renombraron los IDs de sus <defs> para evitar colisiones al embeber.
+  · El sistema ya la define como foco y dirección: el objetivo tiene un
+    objeto asignado, no es una abstracción.
+  · UBICACIÓN: en el NODO CENTRAL de la huella, el punto donde convergen
+    las aristas de los dos cuerpos del Crystal 5.
+  · CORRECCIÓN IMPORTANTE: NO está en el vértice inferior. El vértice
+    inferior del Crystal 5 es la punta que queda abajo, bastante más lejos
+    del nodo central. Esta distinción se documentó tras un error en la V1
+    del mockup.
+  · Pulso de luz breve en el núcleo durante la alineación.
+
+- FRAGMENTO GUÍA — ORIENTACIÓN CALCULADA:
+  · VÉRTICE GUÍA: (117,166), con ÁNGULO INTERNO 37.7°.
+    Es el vértice más agudo de FACETS[15]. Los otros tres miden
+    136.4° en (139,102), 109.6° en (164,89) y 76.3° en (193,116).
+  · ROTACIÓN FINAL: -138.3°.
+  · LA PUNTA DEBE APUNTAR AL CENTRO REAL DE LA MIRA. La rotación no es
+    estética: se calculó geométricamente.
+    – Vector desde el centro de rotación del elemento hasta el vértice
+      agudo, sin rotar: (-39, 37), es decir 136.5°.
+    – Vector desde el centro del fragmento (376, 603) hasta el centro de
+      la Mira (720, 592): -1.8°.
+    – Rotación necesaria = -1.8° - 136.5° = -138.3°.
+  · NO basta con reducir el ángulo del cruce anterior. En la V1 se usó
+    -31° por continuidad con los -58° de la Sección 03, y la punta quedó
+    apuntando hacia abajo. El ángulo correcto es casi opuesto.
+  · Al implementar: si cambian la posición del fragmento, su tamaño o la
+    posición de la Mira, la rotación DEBE recalcularse con el mismo
+    procedimiento y verificarse visualmente. No es un valor fijo, es el
+    resultado de una relación espacial.
+
+- Movimiento aprobado:
+  · El fragmento llega desde el carril izquierdo, viniendo de la
+    Sección 03.
+  · TRAYECTORIA CASI RECTA: pasa de curva amplia a línea, que es como se
+    lee una desaceleración.
+  · Desacelera y gira para orientar su vértice agudo hacia la Mira.
+  · Pulso de luz breve en el núcleo de la Mira durante la alineación.
+  · Continúa su recorrido saliendo por abajo a la derecha, SOLO: no
+    arrastra ni convoca a las demás piezas.
+
+- Comportamiento mobile:
+  · Pendiente de mockup propio. La huella se recorta o se reduce, la Mira
+    se mantiene como ancla central y el fragmento entra por un lateral con
+    trayectoria vertical simplificada.
+
+- Reduced motion:
+  · Sin desaceleración ni giro: el fragmento aparece ya orientado.
+  · Sin pulso de luz.
+  · Huella y Mira estáticas.
+  · Ningún contenido esencial depende de la animación.
+
+- Relación con las secciones vecinas:
+  · 02: capacidades dispersas, sin centro ni conexión.
+  · 03: clusters con conexiones parciales, sin sistema completo.
+  · 04: aparece el objetivo. Una sola pieza se orienta hacia él.
+  · La progresión se lee como dispersión → agrupamiento incompleto →
+    dirección. La integración plena llega después.
 
 ------------------------------------------------------------
 
@@ -723,17 +831,22 @@ COMPLETADO
   ver Sección 03 para el detalle completo de copy invertido a la derecha,
   clusters con conexiones parciales, trayectoria corregida del fragmento guía
   y vacío inferior derecho como corredor narrativo).
+- Mockup 04 — Un mismo objetivo: APROBADO (docs/home-mockups/04-mismo-objetivo.png,
+  ver Sección 04 para el detalle completo de la escena de tres elementos sin
+  píldoras, la huella de aristas sin reconstrucción, la Mira en el nodo central
+  y el procedimiento de cálculo de la orientación del fragmento).
 
 PENDIENTE INMEDIATO
-- Crear y aprobar el mockup 04 — Un mismo objetivo, que cierra la progresión
-  dispersión → agrupamiento incompleto → integración.
+- Crear y aprobar el mockup 05 — Cómo trabajamos, primera sección de contenido
+  comercial después del punto de giro narrativo de la Sección 04.
 - Crear los keyframes aislados de explosión y fragmento guía para Hero,
   a partir de lo ya aprobado en la Sección 01.
 
 NO INICIAR TODAVÍA
 - Implementación completa de la HOME.
-- Implementación productiva de los mockups 01 — Hero, 02 — El problema y
-  03 — El otro problema (mockups aprobados, código todavía no).
-- Mockup 04 en adelante.
+- Implementación productiva de los mockups 01 — Hero, 02 — El problema,
+  03 — El otro problema y 04 — Un mismo objetivo (mockups aprobados, código
+  todavía no).
+- Mockup 05 en adelante.
 - Movimiento continuo definitivo.
 - Reemplazo masivo de secciones productivas.
