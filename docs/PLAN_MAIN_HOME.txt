@@ -801,15 +801,156 @@ Headline:
 - Activamos lo que tu negocio necesita para crecer.
 
 Contenido:
-- Carrusel horizontal de capacidades.
-- Objetos vitrificados del design system por capacidad.
+- Carrusel horizontal de las seis capacidades.
+- Una pieza volumétrica del Crystal 5 por capacidad.
 
 Movimiento:
-- Fragmento guía por un lateral, a menor velocidad que el carrusel.
+- Fragmento guía por el canal superior, a menor velocidad que el carrusel.
 - Un solo reflejo coordinado con la entrada del módulo activo.
 
-Mockup aprobado:
-- PENDIENTE: docs/home-mockups/06-que-activamos.png
+MOCKUP APROBADO:
+- Imagen: docs/home-mockups/06-que-activamos.png
+- HTML de referencia interactivo: docs/home-mockups/06-que-activamos-mockup-final.html
+- Fecha: 2026-08-31
+- Viewport de referencia: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
+
+=====================================================================
+DISTINCIÓN NARRATIVA CON LA SECCIÓN 05
+=====================================================================
+- Sección 05 — Cómo trabajamos: los CUATRO MOTORES explican cómo opera el
+  equipo.
+- Sección 06 — Qué activamos: las SEIS CAPACIDADES explican qué
+  combinación se pone en marcha según el problema.
+- Sin esa distinción, las dos secciones se leerían como el mismo listado
+  repetido.
+
+=====================================================================
+LAS SEIS CAPACIDADES Y SUS PIEZAS
+=====================================================================
+Fuente de verdad de los nombres: src/components/sections/Servicios.tsx.
+
+- 01 ESTRATEGIA & GROWTH      → FACETA 02 · cuadrilátero, 5 vértices
+     "Dónde crecer, con qué prioridad y en qué orden."
+- 02 CONTENIDO & CREATIVIDAD  → FACETA 17 · pentágono, 6 vértices
+     "Piezas pensadas para competir, no para llenar el feed."
+- 03 PAID MEDIA               → FACETA 10 · triángulo alargado
+     "Inversión que se optimiza sobre venta real."
+- 04 WEB & CONVERSIÓN         → FACETA 07 · triángulo ancho
+     "Lo que pasa después del clic, ordenado."
+- 05 BRANDING                 → FACETA 11 · cuadrilátero apaisado
+     "Una identidad que sostiene todo lo demás."
+- 06 INFLUENCER MARKETING     → FACETA 05 · triángulo compacto
+     "Colaboraciones con seguimiento, no canjes sueltos."
+
+- MEDICIÓN, TRACKING Y ATRIBUCIÓN SIGUEN SIENDO TRANSVERSALES. No forman
+  una séptima capacidad ni un módulo propio.
+- Meta Ads, Google Ads, GA4, CAPI, contenido para pauta y demás
+  herramientas específicas quedan RESERVADAS como tags o evidencia dentro
+  de Trabajos. No son categorías de esta sección.
+
+=====================================================================
+PIEZAS VOLUMÉTRICAS — REGLAS
+=====================================================================
+- UNA PIEZA VOLUMÉTRICA DISTINTA DEL CRYSTAL 5 POR CAPACIDAD, tomada de
+  official/narrative/crystal-five-fragments-volumetric-approved.svg.
+- Las seis facetas (02, 17, 10, 07, 11, 05) se eligieron por tener
+  siluetas y cantidad de vértices bien distintos entre sí, para que ninguna
+  se confunda con otra a tamaño de card.
+- Cada una conserva la materialidad del sistema: rosa y grafito, volumen,
+  espesor y aristas. NO SE INVENTAN FORMAS NUEVAS.
+- Al aislarlas se les quita el transform de layout del board original y se
+  reencuadra el viewBox al bounding box de la pieza más 6 px de margen. La
+  geometría no se toca.
+- FACETS[15] NO SE USA EN ESTA SECCIÓN. Sigue reservada exclusivamente
+  como fragmento guía.
+- NO SE USAN LOS OBJETOS DEL SISTEMA. Mira, Prisma, Rayo y Barras quedan
+  asignados a los motores de la Sección 05; repetirlos acá haría que el
+  mismo objeto significara dos cosas distintas en secciones seguidas.
+
+=====================================================================
+GEOMETRÍA DE LA COMPOSICIÓN
+=====================================================================
+- Lienzo 1440 × 900, sin overflow lateral.
+- Copy centrado arriba, y=96. Headline 48 px.
+- Subtítulo aprobado, que es lo que impide que la sección se lea como un
+  menú de servicios:
+  "No activamos todo porque sí. Elegimos la combinación que destraba el
+   crecimiento y prepara el siguiente paso."
+- CANAL DE ~100 PX entre el copy y el carrusel (y 286–392). NO SE REDUCE:
+  funciona como aire de composición y como canal narrativo por donde pasa
+  el fragmento guía.
+- Carrusel: y=396, alto 316, módulo 280 px, gap 20 px.
+  Posiciones x de los seis: -90, 210, 510, 810, 1110, 1410.
+- CORTE EN AMBOS BORDES: el primero y el último quedan parcialmente fuera
+  de cuadro, con máscara de degradado de 120 px a cada lado. Así se lee que
+  la lista continúa.
+
+=====================================================================
+ESTADOS: OPACIDADES SEPARADAS
+=====================================================================
+- EL ESTADO INACTIVO BAJA EL CONTENIDO, NO EL MÓDULO ENTERO:
+  · Texto (título, descripción, número): opacidad .62
+  · Pieza volumétrica: opacidad .80
+  · El contenedor NO lleva opacidad global.
+- MOTIVO: con una opacidad global en el contenedor, las facetas más
+  oscuras —Estrategia & Growth y Branding— desaparecían por completo sobre
+  el fondo. Si al implementar se simplifica a una sola opacidad de
+  contenedor, esas dos capacidades vuelven a perderse.
+- MÓDULO ACTIVO: fondo rgba(255,75,141,.055), borde
+  rgba(255,75,141,.45), y todo su contenido a opacidad 1.
+
+=====================================================================
+REFLEJO
+=====================================================================
+- UN ÚNICO REFLEJO EN TODA LA SECCIÓN, recortado al módulo activo con
+  clip-path.
+- Banda diagonal con skewX(-16), gradiente blanco a --pink-soft, opacidad
+  máxima .18.
+- COORDINADO CON LA ENTRADA DEL MÓDULO ACTIVO.
+- Ninguna otra pieza ni módulo tiene brillo propio.
+
+=====================================================================
+FRAGMENTO GUÍA — CONTINUIDAD 05 → 06
+=====================================================================
+- ENTRA POR EL MARGEN EXTERIOR IZQUIERDO, continuando exactamente el
+  descenso y el canal inferior con los que cerró la Sección 05.
+- NO REAPARECE EN EL LATERAL DERECHO NI SE TELETRANSPORTA ENTRE SECCIONES.
+  El recorrido es continuo a lo largo de toda la HOME.
+- Posición en el mockup: left 96, top 292, ancho 84 px, rotación -14°.
+  Ocupa y 292–378; el rail empieza en y=396, así que va POR ENCIMA y la
+  máscara de degradado del carrusel no lo tapa.
+- Atraviesa el canal de ~100 px en deriva lenta, A MENOR VELOCIDAD QUE EL
+  CARRUSEL.
+- SALIDA: continúa hacia el borde exterior de la Sección 07 — Trabajos.
+
+- REGLA OBLIGATORIA DE IMPLEMENTACIÓN:
+  · EL FRAGMENTO GUÍA NO ACTIVA, NO SEÑALA Y NO SELECCIONA CAPACIDADES EN
+    ESTA SECCIÓN.
+  · Su paso sobre la zona del módulo 01 NO DEBE COINCIDIR con la entrada,
+    la activación, el reflejo ni ningún cambio de estado de ninguna card.
+  · MOTIVO: al quedar visualmente cerca del módulo 01, si el timing
+    coincide se leería como si lo estuviera activando, que es lo contrario
+    de lo que define esta sección.
+  · El movimiento del carrusel pertenece a una CAPA NARRATIVA
+    INDEPENDIENTE de la del fragmento. No deben sincronizarse.
+
+=====================================================================
+OTRAS REGLAS DE LA SECCIÓN
+=====================================================================
+- SIN EXPLOSIÓN Y SIN RECONSTRUCCIÓN. Las piezas están sueltas y quietas:
+  todavía no se convocan entre sí. La reconstrucción sigue reservada para
+  "Empecemos".
+
+- Comportamiento mobile:
+  · Pendiente de mockup propio. El carrusel pasa a scroll horizontal
+    nativo con snap, una capacidad visible por vez, y el fragmento
+    acompaña por un solo lateral con deriva simplificada.
+
+- Reduced motion:
+  · Sin desplazamiento del carrusel ni del fragmento: el módulo activo ya
+    aparece activo y el fragmento en su posición.
+  · Sin reflejo.
+  · Ningún contenido esencial depende de la animación.
 
 ------------------------------------------------------------
 
@@ -978,18 +1119,23 @@ COMPLETADO
   medición como escala derivada del ScrollAxis oficial que reemplaza la
   indicación previa de "Barras como recurso transversal", la activación del
   nodo 01 a distancia y las tres zonas de recorrido del fragmento).
+- Mockup 06 — Qué activamos: APROBADO (docs/home-mockups/06-que-activamos.png,
+  ver Sección 06 para las seis capacidades con su faceta asignada, la exclusión
+  de FACETS[15], las opacidades separadas de piezas y contenido, el reflejo
+  único del módulo activo, el canal narrativo de ~100 px y la independencia
+  entre el recorrido del fragmento y el carrusel).
 
 PENDIENTE INMEDIATO
-- Crear y aprobar el mockup 06 — Qué activamos, que continúa la fase de
-  contenido comercial iniciada en la Sección 05.
+- Crear y aprobar el mockup 07 — Trabajos, donde el fragmento continúa por el
+  borde exterior al salir de la Sección 06.
 - Crear los keyframes aislados de explosión y fragmento guía para Hero,
   a partir de lo ya aprobado en la Sección 01.
 
 NO INICIAR TODAVÍA
 - Implementación completa de la HOME.
 - Implementación productiva de los mockups 01 — Hero, 02 — El problema,
-  03 — El otro problema, 04 — Un mismo objetivo y 05 — Cómo trabajamos
-  (mockups aprobados, código todavía no).
-- Mockup 06 en adelante.
+  03 — El otro problema, 04 — Un mismo objetivo, 05 — Cómo trabajamos y
+  06 — Qué activamos (mockups aprobados, código todavía no).
+- Mockup 07 en adelante.
 - Movimiento continuo definitivo.
 - Reemplazo masivo de secciones productivas.

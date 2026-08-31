@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Velocentum — Mockup 06 · Qué activamos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#FF4B8D;--pink-soft:#FF85B8;--pink-deep:#D92F6E;--ink:#0E0E13;
+--on:#FFFFFF;--on-2:rgba(255,255,255,.62);--bd:rgba(255,255,255,.10);
+--sans:'Manrope',sans-serif;--mono:'Geist Mono',ui-monospace,monospace;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#08080C;color:var(--on);font-family:var(--sans)}
+.shell{width:1440px;max-width:100%;margin:0 auto;padding:26px 0}
+.meta{width:1440px;margin:0 0 16px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.meta h1{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.meta .s{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-2);margin-top:4px}
+.tgs{display:flex;gap:7px;flex-wrap:wrap}
+.tg{background:rgba(255,255,255,.06);border:1px solid var(--bd);color:var(--on);font-family:var(--mono);font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;padding:8px 13px;border-radius:999px;cursor:pointer}
+.tg.on{background:var(--pink);color:var(--ink);border-color:var(--pink)}
+
+.vp{position:relative;width:1440px;height:900px;background:var(--ink);overflow:hidden}
+.vp::before{content:"";position:absolute;inset:0;pointer-events:none;
+ background:radial-gradient(56% 44% at 45% 62%, rgba(255,75,141,.085), transparent 70%)}
+
+.copy{position:absolute;left:0;right:0;top:96px;text-align:center;z-index:30;padding:0 72px}
+.eyebrow{font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--pink);margin-bottom:20px}
+.h2{font-weight:800;font-size:48px;line-height:1.05;letter-spacing:-.03em}
+.h2 em{font-style:normal;color:var(--pink)}
+.sub{margin:20px auto 0;font-size:1rem;line-height:1.55;color:var(--on-2);max-width:58ch}
+
+.rail{position:absolute;top:396px;left:0;right:0;height:316px;z-index:14}
+.mod{position:absolute;top:0;width:280px;height:316px;
+ background:rgba(255,255,255,.024);border:1px solid var(--bd);border-radius:22px;
+ padding:24px 22px 26px;display:flex;flex-direction:column}
+.mod h3,.mod p,.mod .num{opacity:.62}
+.mod .pieza{opacity:.8}
+.mod.act{background:rgba(255,75,141,.055);border-color:rgba(255,75,141,.45)}
+.mod.act h3,.mod.act p,.mod.act .num,.mod.act .pieza{opacity:1}
+.pieza{height:118px;flex:0 0 118px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.pieza svg{max-height:118px;max-width:100%;height:auto;width:auto;
+ filter:drop-shadow(0 8px 18px rgba(0,0,0,.55))}
+.mod .num{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--pink)}
+.mod h3{font-weight:800;font-size:1.16rem;letter-spacing:-.02em;margin:auto 0 8px}
+.mod p{font-size:.85rem;line-height:1.5;color:var(--on-2)}
+
+.fade{position:absolute;top:386px;height:336px;width:120px;z-index:20;pointer-events:none}
+.fade.l{left:0;background:linear-gradient(90deg,var(--ink) 14%,transparent)}
+.fade.r{right:0;background:linear-gradient(270deg,var(--ink) 14%,transparent)}
+
+.reflejo{position:absolute;inset:0;z-index:16;pointer-events:none}
+
+.frag{position:absolute;left:96px;top:292px;width:84px;z-index:26;
+ transform:rotate(-14.0deg);filter:drop-shadow(0 10px 22px rgba(0,0,0,.55))}
+.frag svg{display:block;width:100%}
+
+.ann{position:absolute;inset:0;z-index:60;pointer-events:none;display:none}
+.ann.show{display:block}
+.ann text{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase}
+
+.note{width:1440px;margin:20px 0 0;border:1px solid var(--bd);border-radius:14px;padding:22px 24px;color:var(--on-2);line-height:1.65;font-size:.88rem}
+.note b{color:var(--on);font-weight:700}
+.note code{font-family:var(--mono);font-size:.85em;color:var(--pink)}
+.note ul{margin:10px 0 0 18px} .note li{margin-bottom:5px}
+</style></head><body><div class="shell">
+
+<div class="meta">
+  <div><h1>Mockup 06 · Qué activamos · FINAL</h1>
+  <div class="s">Desktop 1440 × 900 · carrusel de seis capacidades · piezas del Crystal 5 · aprobado 2026-08-31</div></div>
+  <div class="tgs">
+    <button class="tg" data-l="piezas">Piezas por capacidad</button>
+    <button class="tg" data-l="carrusel">Carrusel y módulo activo</button>
+    <button class="tg" data-l="frag">Fragmento guía</button>
+    <button class="tg" data-l="grid">Grilla y cotas</button>
+  </div>
+</div>
+
+<div class="vp">
+
+  <div class="copy">
+    <div class="eyebrow">Qué activamos</div>
+    <h2 class="h2">Activamos lo que tu negocio <em>necesita para crecer</em>.</h2>
+    <p class="sub">No activamos todo porque sí. Elegimos la combinación que destraba el crecimiento y prepara el siguiente paso.</p>
+  </div>
+
+  <div class="rail">
+  <div class="mod" style="left:-90px">
+    <div class="pieza"><svg xmlns="http://www.w3.org/2000/svg" viewBox="56 31 61 61" aria-hidden="true"><defs><linearGradient id="cp-light-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF7FA" stop-opacity=".92"></stop><stop offset=".2" stop-color="#FFB1CE"></stop><stop offset=".56" stop-color="#F56B9D"></stop><stop offset="1" stop-color="#B32558"></stop></linearGradient><linearGradient id="cp-hot-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFB0CC"></stop><stop offset=".3" stop-color="#FF5C96"></stop><stop offset=".62" stop-color="#E82C70"></stop><stop offset="1" stop-color="#7C1C40"></stop></linearGradient><linearGradient id="cp-rose-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#F58FB4"></stop><stop offset=".38" stop-color="#CA3F72"></stop><stop offset="1" stop-color="#5B243B"></stop></linearGradient><linearGradient id="cp-graphite-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5D4C5B"></stop><stop offset=".48" stop-color="#332A37"></stop><stop offset="1" stop-color="#17141D"></stop></linearGradient><linearGradient id="cp-deep-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#9E315E"></stop><stop offset=".42" stop-color="#63213E"></stop><stop offset="1" stop-color="#261A27"></stop></linearGradient><linearGradient id="cp-glass-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".82"></stop><stop offset=".3" stop-color="#F6BDD1" stop-opacity=".52"></stop><stop offset="1" stop-color="#6C5364" stop-opacity=".32"></stop></linearGradient><linearGradient id="cp-edge-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".78"></stop><stop offset=".45" stop-color="#F4B3CA" stop-opacity=".58"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity=".46"></stop></linearGradient><radialGradient id="cp-ground-_R_19ra_" cx="50%" cy="10%" r="72%"><stop stop-color="#FF4B8D" stop-opacity=".34"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity="0"></stop></radialGradient><filter id="cp-glow-_R_19ra_" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4.2"></feGaussianBlur></filter><filter id="cp-piece-_R_19ra_" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="1" stdDeviation="1.3" flood-color="#120A12" flood-opacity=".76"></feDropShadow><feDropShadow dx="0" dy="0" stdDeviation=".55" flood-color="#FF4B8D" flood-opacity=".22"></feDropShadow></filter></defs><polygon points="62,54 82,37 111,86 91,72" fill="url(#cp-deep-_R_19ra_)" fill-opacity=".5" stroke="#4E1830" stroke-opacity=".5" stroke-width=".7" transform="translate(3 3.5)" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="62,54 82,37 111,86 91,72" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.92" stroke="url(#cp-edge-_R_19ra_)" stroke-width=".82" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="86.5,62.25 62,54 82,37" fill="url(#cp-hot-_R_19ra_)" fill-opacity="0.4" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="86.5,62.25 82,37 111,86" fill="url(#cp-deep-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="86.5,62.25 111,86 91,72" fill="url(#cp-light-_R_19ra_)" fill-opacity="0.31" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="86.5,62.25 91,72 62,54" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.4" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><path d="M86.5 62.25L62 54" fill="none" stroke="rgba(255,240,245,.62)" stroke-width=".48" vector-effect="non-scaling-stroke"></path></svg></div>
+    <span class="num">01</span>
+    <h3>Estrategia &amp; Growth</h3>
+    <p>Dónde crecer, con qué prioridad y en qué orden.</p>
+  </div>
+  <div class="mod" style="left:210px">
+    <div class="pieza"><svg xmlns="http://www.w3.org/2000/svg" viewBox="98 72 47 100" aria-hidden="true"><defs><linearGradient id="cp-light-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF7FA" stop-opacity=".92"></stop><stop offset=".2" stop-color="#FFB1CE"></stop><stop offset=".56" stop-color="#F56B9D"></stop><stop offset="1" stop-color="#B32558"></stop></linearGradient><linearGradient id="cp-hot-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFB0CC"></stop><stop offset=".3" stop-color="#FF5C96"></stop><stop offset=".62" stop-color="#E82C70"></stop><stop offset="1" stop-color="#7C1C40"></stop></linearGradient><linearGradient id="cp-rose-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#F58FB4"></stop><stop offset=".38" stop-color="#CA3F72"></stop><stop offset="1" stop-color="#5B243B"></stop></linearGradient><linearGradient id="cp-graphite-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5D4C5B"></stop><stop offset=".48" stop-color="#332A37"></stop><stop offset="1" stop-color="#17141D"></stop></linearGradient><linearGradient id="cp-deep-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#9E315E"></stop><stop offset=".42" stop-color="#63213E"></stop><stop offset="1" stop-color="#261A27"></stop></linearGradient><linearGradient id="cp-glass-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".82"></stop><stop offset=".3" stop-color="#F6BDD1" stop-opacity=".52"></stop><stop offset="1" stop-color="#6C5364" stop-opacity=".32"></stop></linearGradient><linearGradient id="cp-edge-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".78"></stop><stop offset=".45" stop-color="#F4B3CA" stop-opacity=".58"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity=".46"></stop></linearGradient><radialGradient id="cp-ground-_R_19ra_" cx="50%" cy="10%" r="72%"><stop stop-color="#FF4B8D" stop-opacity=".34"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity="0"></stop></radialGradient><filter id="cp-glow-_R_19ra_" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4.2"></feGaussianBlur></filter><filter id="cp-piece-_R_19ra_" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="1" stdDeviation="1.3" flood-color="#120A12" flood-opacity=".76"></feDropShadow><feDropShadow dx="0" dy="0" stdDeviation=".55" flood-color="#FF4B8D" flood-opacity=".22"></feDropShadow></filter></defs><polygon points="111,86 124,78 139,102 117,166 104,108" fill="url(#cp-deep-_R_19ra_)" fill-opacity=".5" stroke="#4E1830" stroke-opacity=".5" stroke-width=".7" transform="translate(3 3.5)" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="111,86 124,78 139,102 117,166 104,108" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.58" stroke="url(#cp-edge-_R_19ra_)" stroke-width=".82" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="119,108 111,86 124,78" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.4" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="119,108 124,78 139,102" fill="url(#cp-hot-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="119,108 139,102 117,166" fill="url(#cp-deep-_R_19ra_)" fill-opacity="0.31" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="119,108 117,166 104,108" fill="url(#cp-light-_R_19ra_)" fill-opacity="0.4" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="119,108 104,108 111,86" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><path d="M119 108L111 86" fill="none" stroke="rgba(255,240,245,.62)" stroke-width=".48" vector-effect="non-scaling-stroke"></path></svg></div>
+    <span class="num">02</span>
+    <h3>Contenido &amp; Creatividad</h3>
+    <p>Piezas pensadas para competir, no para llenar el feed.</p>
+  </div>
+  <div class="mod act" style="left:510px">
+    <div class="pieza"><svg xmlns="http://www.w3.org/2000/svg" viewBox="175 16 52 106" aria-hidden="true"><defs><linearGradient id="cp-light-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF7FA" stop-opacity=".92"></stop><stop offset=".2" stop-color="#FFB1CE"></stop><stop offset=".56" stop-color="#F56B9D"></stop><stop offset="1" stop-color="#B32558"></stop></linearGradient><linearGradient id="cp-hot-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFB0CC"></stop><stop offset=".3" stop-color="#FF5C96"></stop><stop offset=".62" stop-color="#E82C70"></stop><stop offset="1" stop-color="#7C1C40"></stop></linearGradient><linearGradient id="cp-rose-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#F58FB4"></stop><stop offset=".38" stop-color="#CA3F72"></stop><stop offset="1" stop-color="#5B243B"></stop></linearGradient><linearGradient id="cp-graphite-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5D4C5B"></stop><stop offset=".48" stop-color="#332A37"></stop><stop offset="1" stop-color="#17141D"></stop></linearGradient><linearGradient id="cp-deep-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#9E315E"></stop><stop offset=".42" stop-color="#63213E"></stop><stop offset="1" stop-color="#261A27"></stop></linearGradient><linearGradient id="cp-glass-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".82"></stop><stop offset=".3" stop-color="#F6BDD1" stop-opacity=".52"></stop><stop offset="1" stop-color="#6C5364" stop-opacity=".32"></stop></linearGradient><linearGradient id="cp-edge-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".78"></stop><stop offset=".45" stop-color="#F4B3CA" stop-opacity=".58"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity=".46"></stop></linearGradient><radialGradient id="cp-ground-_R_19ra_" cx="50%" cy="10%" r="72%"><stop stop-color="#FF4B8D" stop-opacity=".34"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity="0"></stop></radialGradient><filter id="cp-glow-_R_19ra_" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4.2"></feGaussianBlur></filter><filter id="cp-piece-_R_19ra_" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="1" stdDeviation="1.3" flood-color="#120A12" flood-opacity=".76"></feDropShadow><feDropShadow dx="0" dy="0" stdDeviation=".55" flood-color="#FF4B8D" flood-opacity=".22"></feDropShadow></filter></defs><polygon points="221,22 181,59 193,116" fill="url(#cp-deep-_R_19ra_)" fill-opacity=".5" stroke="#4E1830" stroke-opacity=".5" stroke-width=".7" transform="translate(3 3.5)" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="221,22 181,59 193,116" fill="url(#cp-light-_R_19ra_)" fill-opacity="0.9" stroke="url(#cp-edge-_R_19ra_)" stroke-width=".82" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="198.33333333333334,65.66666666666667 221,22 181,59" fill="url(#cp-hot-_R_19ra_)" fill-opacity="0.31" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="198.33333333333334,65.66666666666667 181,59 193,116" fill="url(#cp-deep-_R_19ra_)" fill-opacity="0.4" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="198.33333333333334,65.66666666666667 193,116 221,22" fill="url(#cp-light-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><path d="M198.33333333333334 65.66666666666667L221 22" fill="none" stroke="rgba(255,240,245,.62)" stroke-width=".48" vector-effect="non-scaling-stroke"></path></svg></div>
+    <span class="num">03</span>
+    <h3>Paid Media</h3>
+    <p>Inversión que se optimiza sobre venta real.</p>
+  </div>
+  <div class="mod" style="left:810px">
+    <div class="pieza"><svg xmlns="http://www.w3.org/2000/svg" viewBox="38 102 85 70" aria-hidden="true"><defs><linearGradient id="cp-light-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF7FA" stop-opacity=".92"></stop><stop offset=".2" stop-color="#FFB1CE"></stop><stop offset=".56" stop-color="#F56B9D"></stop><stop offset="1" stop-color="#B32558"></stop></linearGradient><linearGradient id="cp-hot-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFB0CC"></stop><stop offset=".3" stop-color="#FF5C96"></stop><stop offset=".62" stop-color="#E82C70"></stop><stop offset="1" stop-color="#7C1C40"></stop></linearGradient><linearGradient id="cp-rose-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#F58FB4"></stop><stop offset=".38" stop-color="#CA3F72"></stop><stop offset="1" stop-color="#5B243B"></stop></linearGradient><linearGradient id="cp-graphite-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5D4C5B"></stop><stop offset=".48" stop-color="#332A37"></stop><stop offset="1" stop-color="#17141D"></stop></linearGradient><linearGradient id="cp-deep-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#9E315E"></stop><stop offset=".42" stop-color="#63213E"></stop><stop offset="1" stop-color="#261A27"></stop></linearGradient><linearGradient id="cp-glass-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".82"></stop><stop offset=".3" stop-color="#F6BDD1" stop-opacity=".52"></stop><stop offset="1" stop-color="#6C5364" stop-opacity=".32"></stop></linearGradient><linearGradient id="cp-edge-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".78"></stop><stop offset=".45" stop-color="#F4B3CA" stop-opacity=".58"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity=".46"></stop></linearGradient><radialGradient id="cp-ground-_R_19ra_" cx="50%" cy="10%" r="72%"><stop stop-color="#FF4B8D" stop-opacity=".34"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity="0"></stop></radialGradient><filter id="cp-glow-_R_19ra_" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4.2"></feGaussianBlur></filter><filter id="cp-piece-_R_19ra_" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="1" stdDeviation="1.3" flood-color="#120A12" flood-opacity=".76"></feDropShadow><feDropShadow dx="0" dy="0" stdDeviation=".55" flood-color="#FF4B8D" flood-opacity=".22"></feDropShadow></filter></defs><polygon points="44,118 104,108 117,166" fill="url(#cp-deep-_R_19ra_)" fill-opacity=".5" stroke="#4E1830" stroke-opacity=".5" stroke-width=".7" transform="translate(3 3.5)" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="44,118 104,108 117,166" fill="url(#cp-rose-_R_19ra_)" fill-opacity="0.76" stroke="url(#cp-edge-_R_19ra_)" stroke-width=".82" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="88.33333333333333,130.66666666666666 44,118 104,108" fill="url(#cp-deep-_R_19ra_)" fill-opacity="0.31" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="88.33333333333333,130.66666666666666 104,108 117,166" fill="url(#cp-light-_R_19ra_)" fill-opacity="0.4" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="88.33333333333333,130.66666666666666 117,166 44,118" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><path d="M88.33333333333333 130.66666666666666L44 118" fill="none" stroke="rgba(255,240,245,.62)" stroke-width=".48" vector-effect="non-scaling-stroke"></path></svg></div>
+    <span class="num">04</span>
+    <h3>Web &amp; Conversión</h3>
+    <p>Lo que pasa después del clic, ordenado.</p>
+  </div>
+  <div class="mod" style="left:1110px">
+    <div class="pieza"><svg xmlns="http://www.w3.org/2000/svg" viewBox="118 33 69 51" aria-hidden="true"><defs><linearGradient id="cp-light-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF7FA" stop-opacity=".92"></stop><stop offset=".2" stop-color="#FFB1CE"></stop><stop offset=".56" stop-color="#F56B9D"></stop><stop offset="1" stop-color="#B32558"></stop></linearGradient><linearGradient id="cp-hot-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFB0CC"></stop><stop offset=".3" stop-color="#FF5C96"></stop><stop offset=".62" stop-color="#E82C70"></stop><stop offset="1" stop-color="#7C1C40"></stop></linearGradient><linearGradient id="cp-rose-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#F58FB4"></stop><stop offset=".38" stop-color="#CA3F72"></stop><stop offset="1" stop-color="#5B243B"></stop></linearGradient><linearGradient id="cp-graphite-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5D4C5B"></stop><stop offset=".48" stop-color="#332A37"></stop><stop offset="1" stop-color="#17141D"></stop></linearGradient><linearGradient id="cp-deep-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#9E315E"></stop><stop offset=".42" stop-color="#63213E"></stop><stop offset="1" stop-color="#261A27"></stop></linearGradient><linearGradient id="cp-glass-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".82"></stop><stop offset=".3" stop-color="#F6BDD1" stop-opacity=".52"></stop><stop offset="1" stop-color="#6C5364" stop-opacity=".32"></stop></linearGradient><linearGradient id="cp-edge-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".78"></stop><stop offset=".45" stop-color="#F4B3CA" stop-opacity=".58"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity=".46"></stop></linearGradient><radialGradient id="cp-ground-_R_19ra_" cx="50%" cy="10%" r="72%"><stop stop-color="#FF4B8D" stop-opacity=".34"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity="0"></stop></radialGradient><filter id="cp-glow-_R_19ra_" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4.2"></feGaussianBlur></filter><filter id="cp-piece-_R_19ra_" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="1" stdDeviation="1.3" flood-color="#120A12" flood-opacity=".76"></feDropShadow><feDropShadow dx="0" dy="0" stdDeviation=".55" flood-color="#FF4B8D" flood-opacity=".22"></feDropShadow></filter></defs><polygon points="168,39 124,78 150,72 181,59" fill="url(#cp-deep-_R_19ra_)" fill-opacity=".5" stroke="#4E1830" stroke-opacity=".5" stroke-width=".7" transform="translate(3 3.5)" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="168,39 124,78 150,72 181,59" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.86" stroke="url(#cp-edge-_R_19ra_)" stroke-width=".82" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="155.75,62 168,39 124,78" fill="url(#cp-deep-_R_19ra_)" fill-opacity="0.4" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="155.75,62 124,78 150,72" fill="url(#cp-light-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="155.75,62 150,72 181,59" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.31" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="155.75,62 181,59 168,39" fill="url(#cp-hot-_R_19ra_)" fill-opacity="0.4" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><path d="M155.75 62L168 39" fill="none" stroke="rgba(255,240,245,.62)" stroke-width=".48" vector-effect="non-scaling-stroke"></path></svg></div>
+    <span class="num">05</span>
+    <h3>Branding</h3>
+    <p>Una identidad que sostiene todo lo demás.</p>
+  </div>
+  <div class="mod" style="left:1410px">
+    <div class="pieza"><svg xmlns="http://www.w3.org/2000/svg" viewBox="66 80 51 34" aria-hidden="true"><defs><linearGradient id="cp-light-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF7FA" stop-opacity=".92"></stop><stop offset=".2" stop-color="#FFB1CE"></stop><stop offset=".56" stop-color="#F56B9D"></stop><stop offset="1" stop-color="#B32558"></stop></linearGradient><linearGradient id="cp-hot-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFB0CC"></stop><stop offset=".3" stop-color="#FF5C96"></stop><stop offset=".62" stop-color="#E82C70"></stop><stop offset="1" stop-color="#7C1C40"></stop></linearGradient><linearGradient id="cp-rose-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#F58FB4"></stop><stop offset=".38" stop-color="#CA3F72"></stop><stop offset="1" stop-color="#5B243B"></stop></linearGradient><linearGradient id="cp-graphite-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5D4C5B"></stop><stop offset=".48" stop-color="#332A37"></stop><stop offset="1" stop-color="#17141D"></stop></linearGradient><linearGradient id="cp-deep-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#9E315E"></stop><stop offset=".42" stop-color="#63213E"></stop><stop offset="1" stop-color="#261A27"></stop></linearGradient><linearGradient id="cp-glass-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".82"></stop><stop offset=".3" stop-color="#F6BDD1" stop-opacity=".52"></stop><stop offset="1" stop-color="#6C5364" stop-opacity=".32"></stop></linearGradient><linearGradient id="cp-edge-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".78"></stop><stop offset=".45" stop-color="#F4B3CA" stop-opacity=".58"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity=".46"></stop></linearGradient><radialGradient id="cp-ground-_R_19ra_" cx="50%" cy="10%" r="72%"><stop stop-color="#FF4B8D" stop-opacity=".34"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity="0"></stop></radialGradient><filter id="cp-glow-_R_19ra_" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4.2"></feGaussianBlur></filter><filter id="cp-piece-_R_19ra_" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="1" stdDeviation="1.3" flood-color="#120A12" flood-opacity=".76"></feDropShadow><feDropShadow dx="0" dy="0" stdDeviation=".55" flood-color="#FF4B8D" flood-opacity=".22"></feDropShadow></filter></defs><polygon points="72,92 111,86 104,108" fill="url(#cp-deep-_R_19ra_)" fill-opacity=".5" stroke="#4E1830" stroke-opacity=".5" stroke-width=".7" transform="translate(3 3.5)" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="72,92 111,86 104,108" fill="rgba(20,17,25,.34)" fill-opacity="0.42" stroke="url(#cp-edge-_R_19ra_)" stroke-width=".82" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon></svg></div>
+    <span class="num">06</span>
+    <h3>Influencer Marketing</h3>
+    <p>Colaboraciones con seguimiento, no canjes sueltos.</p>
+  </div>
+  </div>
+
+  <div class="fade l"></div>
+  <div class="fade r"></div>
+
+  <svg class="reflejo" viewBox="0 0 1440 900">
+    <defs>
+      <linearGradient id="rfx" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+        <stop offset="46%" stop-color="#FFFFFF" stop-opacity=".14"/>
+        <stop offset="54%" stop-color="#FFD9E7" stop-opacity=".18"/>
+        <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+      </linearGradient>
+      <clipPath id="clip-act"><rect x="510" y="396" width="280" height="316" rx="22"/></clipPath>
+    </defs>
+    <g clip-path="url(#clip-act)">
+      <rect x="540" y="376" width="110" height="356" fill="url(#rfx)" transform="skewX(-16)"/>
+    </g>
+  </svg>
+
+  <div class="frag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="112 84 88 90" class="frag-svg" aria-hidden="true"><defs><linearGradient id="cp-light-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF7FA" stop-opacity=".92"></stop><stop offset=".2" stop-color="#FFB1CE"></stop><stop offset=".56" stop-color="#F56B9D"></stop><stop offset="1" stop-color="#B32558"></stop></linearGradient><linearGradient id="cp-hot-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFB0CC"></stop><stop offset=".3" stop-color="#FF5C96"></stop><stop offset=".62" stop-color="#E82C70"></stop><stop offset="1" stop-color="#7C1C40"></stop></linearGradient><linearGradient id="cp-rose-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#F58FB4"></stop><stop offset=".38" stop-color="#CA3F72"></stop><stop offset="1" stop-color="#5B243B"></stop></linearGradient><linearGradient id="cp-graphite-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5D4C5B"></stop><stop offset=".48" stop-color="#332A37"></stop><stop offset="1" stop-color="#17141D"></stop></linearGradient><linearGradient id="cp-deep-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#9E315E"></stop><stop offset=".42" stop-color="#63213E"></stop><stop offset="1" stop-color="#261A27"></stop></linearGradient><linearGradient id="cp-glass-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".82"></stop><stop offset=".3" stop-color="#F6BDD1" stop-opacity=".52"></stop><stop offset="1" stop-color="#6C5364" stop-opacity=".32"></stop></linearGradient><linearGradient id="cp-edge-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".78"></stop><stop offset=".45" stop-color="#F4B3CA" stop-opacity=".58"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity=".46"></stop></linearGradient><radialGradient id="cp-ground-_R_19ra_" cx="50%" cy="10%" r="72%"><stop stop-color="#FF4B8D" stop-opacity=".34"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity="0"></stop></radialGradient><filter id="cp-glow-_R_19ra_" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4.2"></feGaussianBlur></filter><filter id="cp-piece-_R_19ra_" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="1" stdDeviation="1.3" flood-color="#120A12" flood-opacity=".76"></feDropShadow><feDropShadow dx="0" dy="0" stdDeviation=".55" flood-color="#FF4B8D" flood-opacity=".22"></feDropShadow></filter></defs><polygon points="139,102 164,89 193,116 117,166" fill="url(#cp-deep-_R_19ra_)" fill-opacity=".5" stroke="#4E1830" stroke-opacity=".5" stroke-width=".7" transform="translate(3 3.5)" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="139,102 164,89 193,116 117,166" fill="url(#cp-rose-_R_19ra_)" fill-opacity="0.74" stroke="url(#cp-edge-_R_19ra_)" stroke-width=".82" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 139,102 164,89" fill="url(#cp-deep-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 164,89 193,116" fill="url(#cp-light-_R_19ra_)" fill-opacity="0.31" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 193,116 117,166" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.4" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 117,166 139,102" fill="url(#cp-hot-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><path d="M153.25 118.25L139 102" fill="none" stroke="rgba(255,240,245,.62)" stroke-width=".48" vector-effect="non-scaling-stroke"></path><polygon points="148,118 167,101 158,126" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.5" stroke="rgba(255,222,233,.30)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon></svg></div>
+
+  <svg class="ann" data-layer="piezas" viewBox="0 0 1440 900">
+    <text x="72" y="768" fill="#FF4B8D" fill-opacity=".85">UNA PIEZA VOLUMÉTRICA DISTINTA DEL CRYSTAL 5 POR CAPACIDAD</text>
+    <text x="72" y="788" fill="#FF85B8" fill-opacity=".6">01 ESTRATEGIA &amp; GROWTH → FACETA 02 · CUADRILÁTERO, 5 VÉRTICES</text>
+    <text x="72" y="804" fill="#FF85B8" fill-opacity=".6">02 CONTENIDO &amp; CREATIVIDAD → FACETA 17 · PENTÁGONO, 6 VÉRTICES</text>
+    <text x="72" y="820" fill="#FF85B8" fill-opacity=".6">03 PAID MEDIA → FACETA 10 · TRIÁNGULO ALARGADO</text>
+    <text x="72" y="836" fill="#FF85B8" fill-opacity=".6">04 WEB &amp; CONVERSIÓN → FACETA 07 · TRIÁNGULO ANCHO</text>
+    <text x="72" y="852" fill="#FF85B8" fill-opacity=".6">05 BRANDING → FACETA 11 · CUADRILÁTERO APAISADO</text>
+    <text x="72" y="868" fill="#FF85B8" fill-opacity=".6">06 INFLUENCER MARKETING → FACETA 05 · TRIÁNGULO COMPACTO</text>
+    <text x="1368" y="768" fill="#FF4B8D" fill-opacity=".75" text-anchor="end">SIN OBJETOS DEL SISTEMA</text>
+    <text x="1368" y="788" fill="#FFFFFF" fill-opacity=".55" text-anchor="end">MIRA, PRISMA, RAYO Y BARRAS QUEDAN EN LA SECCIÓN 05</text>
+    <text x="1368" y="804" fill="#FFFFFF" fill-opacity=".55" text-anchor="end">ACÁ CADA CAPACIDAD ES UNA PIEZA DEL MISMO CRISTAL</text>
+    <text x="1368" y="824" fill="#FF85B8" fill-opacity=".6" text-anchor="end">FACETS[15] NO SE USA · RESERVADA COMO FRAGMENTO GUÍA</text>
+  </svg>
+
+  <svg class="ann" data-layer="carrusel" viewBox="0 0 1440 900">
+    <rect x="510" y="396" width="280" height="316" rx="22" fill="none" stroke="#FF4B8D" stroke-opacity=".85" stroke-width="1.7"/>
+    <text x="650" y="378" fill="#FF4B8D" fill-opacity=".85" text-anchor="middle">MÓDULO ACTIVO</text>
+    <text x="650" y="740" fill="#FF85B8" fill-opacity=".62" text-anchor="middle">SOLO EL ACTIVO LLEVA BORDE Y FONDO ROSA · LOS DEMÁS A .62 DE OPACIDAD</text>
+    <rect x="0" y="386" width="120" height="336" fill="#FF4B8D" fill-opacity=".07" stroke="#FF4B8D" stroke-opacity=".25" stroke-dasharray="5 5"/>
+    <rect x="1320" y="386" width="120" height="336" fill="#FF4B8D" fill-opacity=".07" stroke="#FF4B8D" stroke-opacity=".25" stroke-dasharray="5 5"/>
+    <text x="10" y="378" fill="#FF4B8D" fill-opacity=".75">CORTE IZQ.</text>
+    <text x="1430" y="378" fill="#FF4B8D" fill-opacity=".75" text-anchor="end">CORTE DER.</text>
+    <text x="720" y="764" fill="#FFFFFF" fill-opacity=".5" text-anchor="middle">SEIS MÓDULOS · EL CARRUSEL SIGUE FUERA DE CUADRO EN AMBOS EXTREMOS</text>
+    <path d="M550 390 l40 -22" stroke="#FFFFFF" stroke-opacity=".4" stroke-width="1.3"/>
+    <text x="596" y="364" fill="#FFFFFF" fill-opacity=".55">UN SOLO REFLEJO · RECORTADO AL ACTIVO</text>
+  </svg>
+
+  <svg class="ann" data-layer="frag" viewBox="0 0 1440 900">
+    <rect x="0" y="0" width="150" height="900" fill="#FF4B8D" fill-opacity=".07" stroke="#FF4B8D" stroke-opacity=".3" stroke-dasharray="6 5"/>
+    <text x="10" y="26" fill="#FF4B8D">GUTTER EXTERIOR IZQUIERDO</text>
+    <rect x="0" y="286" width="1440" height="106" fill="#FF4B8D" fill-opacity=".05" stroke="#FF4B8D" stroke-opacity=".22" stroke-dasharray="6 5"/>
+    <text x="1430" y="278" fill="#FF4B8D" fill-opacity=".7" text-anchor="end">CANAL DE ~100 PX · AIRE Y PASO DEL FRAGMENTO</text>
+
+    <path d="M-40 170 C 20 210, 60 250, 138 335" fill="none" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="1.6" stroke-dasharray="7 5"/>
+    <path d="M138 335 C 320 344, 700 350, 1120 342" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1.5" stroke-dasharray="4 6"/>
+    <path d="M1120 342 C 1330 340, 1400 360, 1440 420" fill="none" stroke="#FFFFFF" stroke-opacity=".2" stroke-width="1.4" stroke-dasharray="3 7"/>
+    <circle cx="138" cy="335" r="5" fill="#FFFFFF"/>
+
+    <text x="10" y="196" fill="#FFFFFF" fill-opacity=".8">1 · ENTRA DESDE EL MARGEN EXTERIOR IZQUIERDO</text>
+    <text x="10" y="212" fill="#FFFFFF" fill-opacity=".52">CONTINÚA EL DESCENSO Y EL CANAL INFERIOR DE LA SECCIÓN 05</text>
+    <text x="202" y="321" fill="#FFFFFF" fill-opacity=".85">2 · FACETS[15] · DERIVA LENTA</text>
+    <text x="202" y="337" fill="#FFFFFF" fill-opacity=".5">POR ENCIMA DEL RAIL · LA MÁSCARA NO LO TAPA</text>
+    <text x="700" y="330" fill="#FFFFFF" fill-opacity=".5" text-anchor="middle">3 · CRUZA EL CANAL A MENOR VELOCIDAD QUE EL CARRUSEL</text>
+    <text x="1430" y="404" fill="#FFFFFF" fill-opacity=".5" text-anchor="end">4 · SIGUE HACIA EL BORDE EXTERIOR DE TRABAJOS</text>
+    <text x="1430" y="420" fill="#FFFFFF" fill-opacity=".35" text-anchor="end">SECCIÓN 07</text>
+
+    <text x="10" y="852" fill="#FF85B8" fill-opacity=".72">SIN SALTOS ENTRE SECCIONES</text>
+    <text x="10" y="868" fill="#FF85B8" fill-opacity=".5">05 SALE POR EL CANAL INFERIOR IZQUIERDO → 06 ENTRA POR EL MISMO LADO</text>
+
+    <g stroke="#FF85B8" stroke-width="1.5">
+      <path d="M300 802h190M490 802l-11-6M490 802l-11 6" stroke-opacity=".6"/>
+      <path d="M980 802h56M1036 802l-9-5M1036 802l-9 5" stroke-opacity=".3"/>
+    </g>
+    <text x="300" y="790" fill="#FF85B8" fill-opacity=".7">CARRUSEL · VELOCIDAD 1</text>
+    <text x="980" y="790" fill="#FF85B8" fill-opacity=".45">FRAGMENTO · VELOCIDAD MENOR</text>
+  </svg>
+
+  <svg class="ann" data-layer="grid" viewBox="0 0 1440 900">
+    <g stroke="#FF4B8D" stroke-opacity=".14">
+      <path d="M72 0V900M1368 0V900"/>
+      <path d="M650 0V900" stroke-dasharray="6 6"/>
+      <path d="M0 396H1440M0 712H1440" stroke-dasharray="6 6"/>
+    </g>
+    <text x="72" y="384" fill="#FF4B8D" fill-opacity=".6">CARRUSEL · Y=396 · ALTO 316 · MÓDULO 280 · GAP 20</text>
+    <text x="72" y="734" fill="#FF4B8D" fill-opacity=".5">X DE LOS SEIS: -90, 210, 510, 810, 1110, 1410</text>
+    <text x="1188" y="890" fill="#FF4B8D" fill-opacity=".5">LIENZO 1440 × 900</text>
+  </svg>
+
+</div>
+
+<div class="note">
+  <b>Lectura de la escena.</b> Seis capacidades en carrusel, cortadas en ambos bordes para que se lea que hay más de las que entran. Solo una está activa: la combinación se elige, no se muestra entera.
+  <ul>
+    <li><b>Las capacidades no son los motores.</b> La Sección 05 explica cómo opera el equipo con cuatro motores; esta explica qué combinación se pone en marcha según el problema. Por eso el subtítulo aclara que no se activa todo porque sí.</li>
+    <li><b>Una pieza volumétrica distinta del Crystal 5 por capacidad.</b> Facetas 02, 17, 10, 07, 11 y 05 del asset volumétrico oficial, elegidas por tener siluetas y cantidad de vértices bien distintos entre sí. Cada una conserva su materialidad rosa y grafito, su volumen y sus aristas.</li>
+    <li><b>Sin objetos del sistema.</b> Mira, Prisma, Rayo y Barras quedan asignados a los motores de la Sección 05. Repetirlos acá haría que el mismo objeto significara dos cosas distintas en secciones seguidas.</li>
+    <li><b><code>FACETS[15]</code> no se usa.</b> Sigue reservada como fragmento guía.</li>
+    <li><b>El estado inactivo baja el contenido, no la pieza entera.</b> Los módulos inactivos llevan texto a .62 y pieza a .80, en vez de una opacidad global: con opacidad global las facetas más oscuras desaparecían del todo sobre el fondo.</li>
+    <li><b>Un solo reflejo.</b> Una banda diagonal recortada al módulo activo, coordinada con su entrada. Ninguna otra pieza tiene brillo propio.</li>
+    <li><b>El fragmento guía entra por el margen exterior izquierdo</b>, continuando el descenso y el canal inferior con los que cerró la Sección 05. No reaparece del otro lado ni se teletransporta entre secciones.</li>
+    <li><b>Viaja por el canal de ~100 px</b> entre el copy y el carrusel, por encima del rail, de modo que la máscara de borde no lo tape. Va en deriva lenta, a menor velocidad que el carrusel, y no activa ni señala ninguna capacidad. Sigue después hacia el borde exterior de Trabajos.</li>
+    <li><b>Sin explosión y sin reconstrucción.</b> Las piezas están sueltas y quietas: todavía no se convocan entre sí.</li>
+  </ul>
+</div>
+
+</div>
+<script>
+document.querySelectorAll('.tg').forEach(b=>{
+  b.addEventListener('click',()=>{
+    b.classList.toggle('on');
+    document.querySelector('.ann[data-layer="'+b.dataset.l+'"]').classList.toggle('show');
+  });
+});
+</script></body></html>
