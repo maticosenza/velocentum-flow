@@ -1113,15 +1113,145 @@ Headline:
 - Detrás de cada una hay un plan escrito.
 
 Contenido:
-- Marquee de logos.
+- Marquee de logos dentro de un frame.
 
 Movimiento:
 - Tramo de descanso.
 - El fragmento reduce giro y desciende casi verticalmente por un lateral.
 - No superponerlo a logos de clientes.
 
-Mockup aprobado:
-- PENDIENTE: docs/home-mockups/08-clientes.png
+MOCKUP APROBADO:
+- Imagen: docs/home-mockups/08-clientes.png
+- HTML de referencia interactivo: docs/home-mockups/08-clientes-mockup-final.html
+- Fecha: 2026-08-31
+- Viewport de referencia: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
+
+=====================================================================
+ÚNICA SECCIÓN CLARA DE LA HOME
+=====================================================================
+- Fondo --surface, BLANCO PURO. NO --surface-2 (rosado): el CSS del
+  repositorio ya documenta que ese pase se leía deslavado en vez de como
+  un corte neutro premium.
+- Es un cambio de ritmo deliberado después de siete escenas oscuras.
+- EL CAMBIO DE FONDO ES EL GESTO PRINCIPAL. No hace falta ningún otro: sin
+  objetos, sin piezas, sin atmósferas.
+- Copy centrado: eyebrow en --ink-2, headline en --ink.
+
+=====================================================================
+NAV — VARIANTE CLARA (REQUISITO)
+=====================================================================
+- EL NAV CONSERVA UN ÚNICO COMPONENTE Y CAMBIA SOLAMENTE DE TEMA. No hay
+  un segundo nav ni un componente alternativo: es una transición de
+  estilos sobre el mismo elemento, con la misma geometría, altura y
+  padding que el nav aprobado.
+- Variante clara mientras atraviesa esta sección:
+  · Fondo blanco translúcido rgba(255,255,255,.78) con backdrop-filter
+    blur(14px).
+  · Wordmark y links en tinta (--ink y --ink-2).
+  · CTA rosa INTACTO, sin cambios.
+  · Borde inferior muy fino: rgba(20,14,26,.07).
+- LA TRANSICIÓN OSCURO → CLARO Y CLARO → OSCURO OCURRE PROGRESIVAMENTE EN
+  UNA FRANJA DE APROXIMADAMENTE 100 PX. NO DEBE CAMBIAR ABRUPTAMENTE EN EL
+  BORDE DE LA SECCIÓN.
+  · MOTIVO: el nav es fijo y esta es la única sección clara, así que la
+    transición ocurre DOS VECES durante el scroll, al entrar y al salir.
+    Con un umbral simple de posición el cambio salta justo en el borde.
+  · Resolver con un cruce progresivo sobre esa franja o con un
+    IntersectionObserver sobre la propia sección.
+- Al entrar en la Sección 09 vuelve a su tratamiento oscuro original.
+
+=====================================================================
+ALTURA DE LA SECCIÓN (REQUISITO)
+=====================================================================
+- LA SECCIÓN 08 USA ALTURA DE CONTENIDO Y NO FUERZA min-height: 100vh.
+- Termina según su contenido, alrededor de y=612 en el viewport de
+  referencia.
+- EL SIGUIENTE BLOQUE COMIENZA INMEDIATAMENTE DESPUÉS.
+- El vacío inferior visible en el PNG del mockup pertenece únicamente al
+  lienzo aislado de 900 px y NO EXISTE en el sitio. No se debe compensar
+  agrandando el frame ni agregando elementos.
+
+=====================================================================
+FRAME Y MARQUEE
+=====================================================================
+- EL FRAME ES UNA CARD, NO UNA FILA DESNUDA. Da estructura de prueba de
+  autoridad al muro de logos.
+- Geometría: x=72 a 1368 (ancho del container), y=392, alto 200,
+  radius 28.
+- Borde #E1DCE5 y sombra 0 16px 44px rgba(20,14,26,.07).
+  · Es MÁS PRESENCIA que los valores implementados hoy (--border y
+    0 24px 48px rgba(14,14,19,.06)), que sobre blanco puro casi no se
+    percibían y hacían que la card se leyera como fila suelta.
+  · SIN ROSA y sin peso de card: el contenedor se percibe pero sigue
+    siendo liviano.
+- Máscara de degradado en ambos extremos del marquee.
+- Marquee de 42 segundos, pausa en hover.
+- Logos: 36 px de alto, margin-inline 28 px, grayscale .55 y opacidad .78
+  en reposo, color pleno y scale 1.04 en hover.
+
+=====================================================================
+LOGOS (REQUISITO)
+=====================================================================
+- Los DOCE clientes reales, según src/components/sections/Clientes.tsx:
+  Carácter, Comercial Pas, Patagonia Vessels, Armbruster, Buy Now,
+  Glam Ragazza, Green Pac, Il Sapore, Lamina, Snake Store, Uprise,
+  Vinotique.
+- LOS LOGOS DEL MOCKUP SON PLACEHOLDERS DE TEXTO. Las URLs son de la CDN
+  de Lovable y no son accesibles desde el entorno donde se genera el
+  mockup.
+- SOLO APRUEBAN COMPOSICIÓN, ESPACIOS Y MOVIMIENTO DEL MARQUEE. No
+  aprueban apariencia, proporciones ni jerarquía de las marcas.
+- EN IMPLEMENTACIÓN DEBEN UTILIZARSE Y VERIFICARSE LOS LOGOS REALES
+  EXISTENTES, RESPETANDO SUS PROPORCIONES Y SIN ALTERAR IDENTIDADES.
+  · No inventar clientes.
+  · No modificar los archivos de logo.
+  · Verificar que cada imagen corresponda a su atributo alt.
+- NOTA TÉCNICA PENDIENTE: Clientes.tsx documenta que las dimensiones
+  declaradas (120 × 34) son un placeholder de ratio, no el tamaño
+  intrínseco real de cada PNG, porque los archivos viven solo en la CDN.
+  Reemplazar por las dimensiones reales una vez que sean inspeccionables.
+
+=====================================================================
+FRAGMENTO GUÍA (REQUISITO)
+=====================================================================
+- EL SVG DEL FRAGMENTO PERMANECE INTACTO. SOLO CAMBIA SU SOMBRA CSS.
+  · Sombra rosa suave:
+    drop-shadow(0 10px 20px rgba(217,47,110,.28))
+    drop-shadow(0 2px 4px rgba(217,47,110,.18))
+  · MOTIVO: el drop-shadow negro que usa en el resto de la HOME se lee
+    como una mancha sucia sobre fondo blanco. Sin glow excesivo.
+- SE MANTIENE A 60 PX. Es menor que en el resto del recorrido para
+  respetar el gutter de 72 px que deja el container: con su tamaño
+  habitual de 78–84 px pisaría el frame.
+- ROTACIÓN -6°. Es el giro más bajo de todo el recorrido.
+  · Progresión completa: -58° (Sección 03) → -31° (04) → -46.5° (05) →
+    -14° (06) → -16° (07) → -6° (08). Se lee como una desaceleración
+    sostenida a lo largo de la HOME, coherente con el tramo de descanso.
+- DESCIENDE CASI VERTICALMENTE por el gutter derecho y SALE PARCIALMENTE
+  POR EL BORDE DERECHO: en el mockup ocupa x 1398–1458, o sea 18 px fuera
+  de cuadro.
+- NO SE SUPERPONE A LOS LOGOS NI ENTRA EN EL FRAME. Todo el rectángulo del
+  frame (x 72–1368, y 392–592) es zona prohibida.
+- CONTINÚA HACIA LA SECCIÓN 09, entrando desde el borde derecho.
+- Viene del borde exterior superior con el que cerró la Sección 07.
+
+=====================================================================
+OTRAS REGLAS
+=====================================================================
+- SIN EXPLOSIÓN Y SIN RECONSTRUCCIÓN. En esta sección no hay piezas del
+  Crystal 5 más allá del fragmento guía. La reconstrucción sigue
+  reservada para "Empecemos".
+
+- Comportamiento mobile:
+  · Pendiente de mockup propio. El frame reduce padding y radius (ya
+    implementado: 28 px de padding y radius 20), los logos bajan a 30 px
+    de alto con margin-inline 20, y el fragmento acompaña por un lateral
+    con presencia mínima.
+- Reduced motion:
+  · Marquee detenido, logos estáticos.
+  · El fragmento aparece en su posición, sin descenso.
+  · La transición de tema del nav ocurre sin animación.
+  · Ningún contenido esencial depende de la animación.
 
 ------------------------------------------------------------
 
@@ -1268,10 +1398,17 @@ COMPLETADO
   · REQUISITO DE CIERRE PENDIENTE: la auditoría de los 13 playback IDs contra
     categoría, acción, poster real, orden y posición de las tres cards
     editoriales, detallada en la Sección 07.
+- Mockup 08 — Con quiénes trabajamos: APROBADO (docs/home-mockups/08-clientes.png,
+  ver Sección 08 para la única sección clara de la HOME, el nav como un solo
+  componente con transición progresiva de tema, el frame con su borde y sombra,
+  la altura de contenido sin min-height y el fragmento a 60 px con rotación -6°).
+  · REQUISITOS DE CIERRE PENDIENTES: usar y verificar los logos reales, que en
+    el mockup son placeholders de texto, y reemplazar las dimensiones
+    placeholder de Clientes.tsx por las reales cuando sean inspeccionables.
 
 PENDIENTE INMEDIATO
-- Crear y aprobar el mockup 08 — Con quiénes trabajamos, hacia donde sale el
-  fragmento al dejar la franja exterior de la Sección 07.
+- Crear y aprobar el mockup 09 — Empecemos, donde el fragmento entra desde el
+  borde derecho y llega por fin la reconstrucción del Crystal 5.
 - Crear los keyframes aislados de explosión y fragmento guía para Hero,
   a partir de lo ya aprobado en la Sección 01.
 
@@ -1279,7 +1416,8 @@ NO INICIAR TODAVÍA
 - Implementación completa de la HOME.
 - Implementación productiva de los mockups 01 — Hero, 02 — El problema,
   03 — El otro problema, 04 — Un mismo objetivo, 05 — Cómo trabajamos,
-  06 — Qué activamos y 07 — Trabajos (mockups aprobados, código todavía no).
-- Mockup 08 en adelante.
+  06 — Qué activamos, 07 — Trabajos y 08 — Con quiénes trabajamos (mockups
+  aprobados, código todavía no).
+- Mockup 09 en adelante.
 - Movimiento continuo definitivo.
 - Reemplazo masivo de secciones productivas.

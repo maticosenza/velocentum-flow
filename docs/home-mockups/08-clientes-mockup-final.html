@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Velocentum — Mockup 08 · Con quiénes trabajamos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#FF4B8D;--pink-soft:#FF85B8;--pink-deep:#D92F6E;
+--surface:#FFFFFF;--ink:#0E0E13;--ink-2:#5C5964;--border:#ECE8EF;
+--ink-deep:#0E0E13;--on-dark:#FFF;--bd:rgba(255,255,255,.10);
+--sans:'Manrope',sans-serif;--mono:'Geist Mono',ui-monospace,monospace;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#08080C;color:#FFF;font-family:var(--sans)}
+.shell{width:1440px;max-width:100%;margin:0 auto;padding:26px 0}
+.meta{width:1440px;margin:0 0 16px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.meta h1{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.meta .s{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-top:4px}
+.tgs{display:flex;gap:7px;flex-wrap:wrap}
+.tg{background:rgba(255,255,255,.06);border:1px solid var(--bd);color:#FFF;font-family:var(--mono);font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;padding:8px 13px;border-radius:999px;cursor:pointer}
+.tg.on{background:var(--pink);color:var(--ink);border-color:var(--pink)}
+
+/* ÚNICA SECCIÓN CLARA DE LA HOME */
+.vp{position:relative;width:1440px;height:900px;background:var(--surface);overflow:hidden}
+
+/* el nav fijo sigue siendo oscuro: sobre blanco se lee como barra flotante */
+.nav{position:absolute;top:0;left:0;right:0;height:80px;z-index:40;
+ display:flex;align-items:center;justify-content:space-between;padding:0 72px;
+ background:rgba(255,255,255,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+ border-bottom:1px solid rgba(20,14,26,.07)}
+.nav .wm{font-weight:800;font-size:1.1rem;letter-spacing:-.02em;color:var(--ink)}
+.nav .lk{display:flex;gap:30px}
+.nav .lk span{font-family:var(--mono);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2)}
+.nav .cta{background:var(--pink);color:var(--ink);border-radius:999px;padding:10px 18px;font-weight:700;font-size:.78rem}
+
+.copy{position:absolute;left:0;right:0;top:186px;text-align:center;z-index:30}
+.eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);margin-bottom:18px}
+.h2{font-weight:800;font-size:46px;line-height:1.05;letter-spacing:-.03em;color:var(--ink)}
+
+.frame{position:absolute;left:72px;top:392px;width:1296px;height:200px;z-index:14;
+ border:1px solid #E1DCE5;border-radius:28px;background:var(--surface);
+ box-shadow:0 16px 44px rgba(20,14,26,.07);display:flex;align-items:center;overflow:hidden;
+ -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+ mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.mq{display:flex;width:max-content;align-items:center}
+/* PLACEHOLDER: en implementación van los 12 PNG reales de src/assets/logos/ */
+.logo-ph{height:36px;display:flex;align-items:center;margin-inline:28px;white-space:nowrap;
+ font-weight:800;font-size:1.05rem;letter-spacing:-.01em;color:var(--ink);
+ filter:grayscale(.55);opacity:.78}
+
+/* sombra ROSA suave: el drop-shadow negro del resto de la HOME mancha sobre blanco */
+.frag{position:absolute;left:1398px;top:300px;width:60px;z-index:24;
+ transform:rotate(-6deg);
+ filter:drop-shadow(0 10px 20px rgba(217,47,110,.28)) drop-shadow(0 2px 4px rgba(217,47,110,.18))}
+.frag svg{display:block;width:100%}
+
+.ann{position:absolute;inset:0;z-index:60;pointer-events:none;display:none}
+.ann.show{display:block}
+.ann text{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase}
+
+.note{width:1440px;margin:20px 0 0;border:1px solid var(--bd);border-radius:14px;padding:22px 24px;color:rgba(255,255,255,.62);line-height:1.65;font-size:.88rem}
+.note b{color:#FFF;font-weight:700}
+.note code{font-family:var(--mono);font-size:.85em;color:var(--pink)}
+.note ul{margin:10px 0 0 18px} .note li{margin-bottom:5px}
+</style></head><body><div class="shell">
+
+<div class="meta">
+  <div><h1>Mockup 08 · Con quiénes trabajamos · FINAL</h1>
+  <div class="s">Desktop 1440 × 900 · única sección clara · tramo de descanso · aprobado 2026-08-31</div></div>
+  <div class="tgs">
+    <button class="tg" data-l="ritmo">Cambio de ritmo</button>
+    <button class="tg" data-l="frame">Frame y marquee</button>
+    <button class="tg" data-l="frag">Descenso del fragmento</button>
+    <button class="tg" data-l="grid">Grilla y cotas</button>
+  </div>
+</div>
+
+<div class="vp">
+
+  <nav class="nav">
+    <div class="wm">velocentum</div>
+    <div class="lk"><span>Método</span><span>Trabajos</span><span>Casos</span></div>
+    <div class="cta">Hablemos →</div>
+  </nav>
+
+  <div class="copy">
+    <div class="eyebrow">Con quiénes trabajamos</div>
+    <h2 class="h2">Detrás de cada una hay un plan escrito.</h2>
+  </div>
+
+  <div class="frame"><div class="mq"><span class="logo-ph">Carácter</span><span class="logo-ph">Comercial Pas</span><span class="logo-ph">Patagonia Vessels</span><span class="logo-ph">Armbruster</span><span class="logo-ph">Buy Now</span><span class="logo-ph">Glam Ragazza</span><span class="logo-ph">Green Pac</span><span class="logo-ph">Il Sapore</span><span class="logo-ph">Lamina</span><span class="logo-ph">Snake Store</span><span class="logo-ph">Uprise</span><span class="logo-ph">Vinotique</span><span class="logo-ph">Carácter</span><span class="logo-ph">Comercial Pas</span><span class="logo-ph">Patagonia Vessels</span><span class="logo-ph">Armbruster</span><span class="logo-ph">Buy Now</span><span class="logo-ph">Glam Ragazza</span><span class="logo-ph">Green Pac</span><span class="logo-ph">Il Sapore</span><span class="logo-ph">Lamina</span><span class="logo-ph">Snake Store</span><span class="logo-ph">Uprise</span><span class="logo-ph">Vinotique</span></div></div>
+
+  <div class="frag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="112 84 88 90" class="frag-svg" aria-hidden="true"><defs><linearGradient id="cp-light-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF7FA" stop-opacity=".92"></stop><stop offset=".2" stop-color="#FFB1CE"></stop><stop offset=".56" stop-color="#F56B9D"></stop><stop offset="1" stop-color="#B32558"></stop></linearGradient><linearGradient id="cp-hot-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFB0CC"></stop><stop offset=".3" stop-color="#FF5C96"></stop><stop offset=".62" stop-color="#E82C70"></stop><stop offset="1" stop-color="#7C1C40"></stop></linearGradient><linearGradient id="cp-rose-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#F58FB4"></stop><stop offset=".38" stop-color="#CA3F72"></stop><stop offset="1" stop-color="#5B243B"></stop></linearGradient><linearGradient id="cp-graphite-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5D4C5B"></stop><stop offset=".48" stop-color="#332A37"></stop><stop offset="1" stop-color="#17141D"></stop></linearGradient><linearGradient id="cp-deep-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#9E315E"></stop><stop offset=".42" stop-color="#63213E"></stop><stop offset="1" stop-color="#261A27"></stop></linearGradient><linearGradient id="cp-glass-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".82"></stop><stop offset=".3" stop-color="#F6BDD1" stop-opacity=".52"></stop><stop offset="1" stop-color="#6C5364" stop-opacity=".32"></stop></linearGradient><linearGradient id="cp-edge-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".78"></stop><stop offset=".45" stop-color="#F4B3CA" stop-opacity=".58"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity=".46"></stop></linearGradient><radialGradient id="cp-ground-_R_19ra_" cx="50%" cy="10%" r="72%"><stop stop-color="#FF4B8D" stop-opacity=".34"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity="0"></stop></radialGradient><filter id="cp-glow-_R_19ra_" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4.2"></feGaussianBlur></filter><filter id="cp-piece-_R_19ra_" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="1" stdDeviation="1.3" flood-color="#120A12" flood-opacity=".76"></feDropShadow><feDropShadow dx="0" dy="0" stdDeviation=".55" flood-color="#FF4B8D" flood-opacity=".22"></feDropShadow></filter></defs><polygon points="139,102 164,89 193,116 117,166" fill="url(#cp-deep-_R_19ra_)" fill-opacity=".5" stroke="#4E1830" stroke-opacity=".5" stroke-width=".7" transform="translate(3 3.5)" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="139,102 164,89 193,116 117,166" fill="url(#cp-rose-_R_19ra_)" fill-opacity="0.74" stroke="url(#cp-edge-_R_19ra_)" stroke-width=".82" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 139,102 164,89" fill="url(#cp-deep-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 164,89 193,116" fill="url(#cp-light-_R_19ra_)" fill-opacity="0.31" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 193,116 117,166" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.4" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 117,166 139,102" fill="url(#cp-hot-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><path d="M153.25 118.25L139 102" fill="none" stroke="rgba(255,240,245,.62)" stroke-width=".48" vector-effect="non-scaling-stroke"></path><polygon points="148,118 167,101 158,126" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.5" stroke="rgba(255,222,233,.30)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon></svg></div>
+
+  <svg class="ann" data-layer="ritmo" viewBox="0 0 1440 900">
+    <text x="72" y="130" fill="#D92F6E" fill-opacity=".9">ÚNICA SECCIÓN CLARA DE LA HOME</text>
+    <text x="72" y="148" fill="#5C5964">SURFACE BLANCO PURO · NO SURFACE-2 ROSADO</text>
+    <text x="72" y="164" fill="#5C5964">CAMBIO DE RITMO TRAS SIETE ESCENAS OSCURAS</text>
+    <path d="M0 612H1440" stroke="#D92F6E" stroke-opacity=".4" stroke-dasharray="6 6"/>
+    <text x="72" y="634" fill="#D92F6E" fill-opacity=".8">LA SECCIÓN TERMINA ACÁ · NO FUERZA 100VH</text>
+    <text x="72" y="652" fill="#5C5964">EL BLOQUE SIGUIENTE APARECE INMEDIATAMENTE DESPUÉS</text>
+    <text x="72" y="670" fill="#5C5964">EL VACÍO DE ABAJO PERTENECE SOLO AL LIENZO AISLADO DEL MOCKUP</text>
+    <text x="1368" y="130" fill="#D92F6E" fill-opacity=".8" text-anchor="end">TRAMO DE DESCANSO</text>
+    <text x="1368" y="148" fill="#5C5964" text-anchor="end">SIN OBJETOS · SIN PIEZAS · SIN EXPLOSIÓN</text>
+    <text x="1368" y="164" fill="#5C5964" text-anchor="end">SOLO COPY, LOGOS Y EL FRAGMENTO DE PASO</text>
+    <rect x="0" y="0" width="1440" height="80" fill="none" stroke="#D92F6E" stroke-opacity=".45" stroke-dasharray="5 5"/>
+    <text x="72" y="98" fill="#D92F6E" fill-opacity=".8">NAV EN VARIANTE CLARA · MISMA GEOMETRÍA, SOLO CAMBIAN LOS ESTILOS</text>
+    <text x="1368" y="98" fill="#5C5964" text-anchor="end">VUELVE AL TRATAMIENTO OSCURO AL ENTRAR EN LA SECCIÓN 09</text>
+  </svg>
+
+  <svg class="ann" data-layer="frame" viewBox="0 0 1440 900">
+    <rect x="72" y="392" width="1296" height="200" rx="28" fill="none" stroke="#D92F6E" stroke-opacity=".7" stroke-width="1.5"/>
+    <text x="72" y="378" fill="#D92F6E" fill-opacity=".85">CLIENTES-FRAME · BORDE, RADIUS 28 Y SOMBRA SUAVE</text>
+    <text x="72" y="614" fill="#5C5964">NO ES UNA FILA DESNUDA: LA CARD DA ESTRUCTURA DE PRUEBA DE AUTORIDAD</text>
+    <text x="72" y="632" fill="#5C5964">12 LOGOS REALES · MARQUEE 42S · GRAYSCALE .55 / OPACIDAD .78 · COLOR PLENO EN HOVER</text>
+    <text x="1368" y="378" fill="#D92F6E" fill-opacity=".6" text-anchor="end">MÁSCARA DE DEGRADADO EN AMBOS EXTREMOS</text>
+  </svg>
+
+  <svg class="ann" data-layer="frag" viewBox="0 0 1440 900">
+    <rect x="1368" y="0" width="72" height="900" fill="#D92F6E" fill-opacity=".07" stroke="#D92F6E" stroke-opacity=".4" stroke-dasharray="5 5"/>
+    <text x="1362" y="352" fill="#D92F6E" fill-opacity=".85" text-anchor="end">GUTTER 72 PX</text>
+    <path d="M1330 40 C 1360 130, 1392 220, 1428 331" fill="none" stroke="#0E0E13" stroke-opacity=".4" stroke-width="1.5" stroke-dasharray="7 5"/>
+    <path d="M1428 331 C 1432 480, 1436 700, 1430 900" fill="none" stroke="#0E0E13" stroke-opacity=".22" stroke-width="1.4" stroke-dasharray="3 6"/>
+    <circle cx="1428" cy="331" r="5" fill="#0E0E13" fill-opacity=".7"/>
+    <text x="1400" y="313" fill="#0E0E13" fill-opacity=".85" text-anchor="end">FACETS[15] · 60 PX</text>
+    <text x="1400" y="329" fill="#5C5964" text-anchor="end">DESCIENDE CASI VERTICAL · GIRO REDUCIDO A -6°</text>
+    <text x="1400" y="345" fill="#5C5964" text-anchor="end">SALE PARCIALMENTE DE CUADRO POR EL BORDE DERECHO</text>
+    <text x="1400" y="361" fill="#5C5964" text-anchor="end">SOMBRA ROSA · EL DROP-SHADOW NEGRO MANCHA SOBRE BLANCO</text>
+    <rect x="72" y="392" width="1296" height="200" rx="28" fill="none" stroke="#0E0E13" stroke-opacity=".25" stroke-dasharray="4 5"/>
+    <text x="720" y="492.0" fill="#0E0E13" fill-opacity=".4" text-anchor="middle">ZONA PROHIBIDA · NUNCA SOBRE LOS LOGOS</text>
+    <text x="72" y="836" fill="#D92F6E" fill-opacity=".75">GIRO POR SECCIÓN: -58° (03) → -31° (04) → -46.5° (05) → -14° (06) → -16° (07) → -6° (08)</text>
+    <text x="72" y="854" fill="#5C5964">EL GIRO SE REDUCE PROGRESIVAMENTE HASTA CASI DETENERSE</text>
+  </svg>
+
+  <svg class="ann" data-layer="grid" viewBox="0 0 1440 900">
+    <g stroke="#D92F6E" stroke-opacity=".18">
+      <path d="M72 0V900M1368 0V900M720 0V900" stroke-dasharray="6 6"/>
+      <path d="M0 80H1440M0 392H1440M0 592H1440" stroke-dasharray="6 6"/>
+    </g>
+    <text x="80" y="74" fill="#D92F6E" fill-opacity=".6">NAV 80</text>
+    <text x="80" y="386" fill="#D92F6E" fill-opacity=".6">FRAME Y=392 · 1296×200</text>
+    <text x="80" y="180" fill="#D92F6E" fill-opacity=".6">COPY Y=186</text>
+    <text x="1188" y="890" fill="#D92F6E" fill-opacity=".5">LIENZO 1440 × 900</text>
+  </svg>
+
+</div>
+
+<div class="note">
+  <b>Lectura de la escena.</b> Tramo de descanso. Es la única sección clara de la HOME y el cambio de fondo es el gesto principal: no hace falta ningún otro.
+  <ul>
+    <li><b>El nav usa variante clara mientras atraviesa esta sección:</b> fondo blanco translúcido con blur, wordmark y links en tinta, CTA rosa intacto y un borde inferior muy fino. Misma geometría y altura que el nav aprobado: es una transición de estilos sobre el mismo componente, no un nav distinto. Al entrar en la Sección 09 vuelve a su tratamiento oscuro.</li>
+    <li><b>Esta sección no fuerza 100vh.</b> Termina según su contenido, alrededor de y=612, y el bloque siguiente aparece inmediatamente. El vacío inferior del mockup pertenece únicamente al lienzo aislado de 900 px y no existe en el sitio.</li>
+    <li><b>Fondo blanco puro.</b> <code>--surface</code>, no <code>--surface-2</code>. El CSS del repositorio ya documenta que el pase rosado anterior se leía deslavado en vez de como un corte neutro premium.</li>
+    <li><b>El frame es una card, no una fila.</b> Borde <code>#E1DCE5</code> y sombra <code>0 16px 44px rgba(20,14,26,.07)</code>: más presencia que los valores implementados hoy, que sobre blanco puro casi no se percibían, pero sin rosa y sin peso de card. Le da estructura de prueba de autoridad al muro de logos.</li>
+    <li><b>Doce logos reales</b>, marquee de 42 segundos, grayscale .55 y opacidad .78 en reposo, color pleno y escala 1.04 en hover.</li>
+    <li><b>Los logos del mockup son placeholders de texto.</b> Las URLs son de la CDN de Lovable y no son accesibles desde el entorno donde se genera este mockup. Aprueban composición, ritmo y espacios; NO aprueban apariencia, proporciones ni jerarquía de las marcas.</li>
+    <li><b>El fragmento baja a 60 px</b> para respetar el gutter de 72 y desciende parcialmente fuera de cuadro por el borde derecho. Nunca entra en el frame ni se superpone a un logo.</li>
+    <li><b>Sombra rosa, SVG intacto.</b> El <code>drop-shadow</code> negro que usa en el resto de la HOME se lee como una mancha sucia sobre blanco. Se cambia solo el CSS; el asset no se toca.</li>
+    <li><b>El giro se reduce a -6°</b>, el más bajo de todo el recorrido. Prendé la capa del fragmento para ver la progresión completa de giros desde la Sección 03.</li>
+    <li><b>Sin explosión y sin reconstrucción.</b> No hay piezas del Crystal 5 en esta sección más allá del fragmento guía.</li>
+  </ul>
+</div>
+
+</div>
+<script>
+document.querySelectorAll('.tg').forEach(b=>{
+  b.addEventListener('click',()=>{
+    b.classList.toggle('on');
+    document.querySelector('.ann[data-layer="'+b.dataset.l+'"]').classList.toggle('show');
+  });
+});
+</script></body></html>
