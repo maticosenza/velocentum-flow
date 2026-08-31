@@ -1,0 +1,122 @@
+VELOCENTUM — HANDOFF DE REPOSITORIO Y WORKTREES
+Fecha de auditoría: 2026-08-30
+Estado: confirmado mediante Git local
+
+======================================================================
+1. ACLARACIÓN PRINCIPAL
+======================================================================
+
+NO existen dos repositorios independientes.
+
+Ambas carpetas pertenecen al mismo repositorio Git y comparten:
+- Remote: https://github.com/maticosenza/velocentum-flow.git
+- Git common dir: /Users/maticosenza/velocentum-flow/.git
+
+Son dos worktrees con ramas y estados diferentes.
+
+WORKTREE PRINCIPAL
+- Carpeta: /Users/maticosenza/velocentum-flow
+- Rama: main
+- HEAD auditado: a2dc1715a3d4fe442eadc083712822bdae43850c
+- Estado: implementación V3 más reciente.
+
+WORKTREE DE DISEÑO / REBUILD
+- Carpeta: /Users/maticosenza/velocentum-flow-home-rebuild
+- Rama: rebuild/home-cinematic
+- HEAD base: 09462d3c8eb0c3587e2942075339255a53d1e994
+- Estado: cambios locales de assets, storyboard, componentes y documentación
+  todavía sin commit al momento de esta auditoría.
+
+======================================================================
+2. ACLARACIÓN SOBRE 7612635
+======================================================================
+
+El commit 76126355d636b9403de10d62dc600dd4e1c7c949 NO fue el cierre final
+de la HOME. Su mensaje es:
+
+"Agrega handoff de sesión: estado de HOME y puntos pendientes"
+
+Ese commit agregó únicamente:
+- .claude/SESSION_HANDOFF.md
+
+7612635 es ancestro tanto de main como de rebuild/home-cinematic.
+Por lo tanto, su trabajo anterior no está huérfano ni perdido.
+
+======================================================================
+3. MUX Y TRABAJOS
+======================================================================
+
+La integración de Mux está presente en ambos worktrees:
+- Dependencia @mux/mux-player-react en package.json.
+- MuxPlayer y los playback IDs en src/components/sections/Trabajos.tsx.
+
+El rango 09462d3..main no modifica Trabajos.tsx ni package.json.
+Conclusión: Mux ya estaba integrado antes de que las ramas divergieran y
+NO necesita ser reconstruido ni rescatado mediante cherry-pick.
+
+======================================================================
+4. QUÉ TIENE MAIN QUE NO ESTÁ EN LA BASE DE REBUILD
+======================================================================
+
+Después de 09462d3, main agregó once commits V3 y actualmente termina en
+a2dc171. Incluyen:
+
+- Primitivas de narrativa y poses.
+- NarrativeSequence y progreso compartido.
+- Sequence A: Intro, Hero, Dolor 1, Dolor 2 y Reveal.
+- Sequence B: Motores y Servicios.
+- Handoff Servicios → Trabajos.
+- Handoff Clientes → Contacto.
+- Formulario de Contacto.
+- QA final y handoff actualizado.
+
+Archivos relevantes presentes en main:
+- src/components/narrative/
+- src/components/sections/sequenceA/
+- src/components/sections/sequenceB/
+- src/components/sections/ServiciosToTrabajosHandoff.tsx
+- src/components/sections/ClientesToContactoHandoff.tsx
+
+Esta implementación es referencia funcional valiosa, pero su dirección
+visual no debe imponerse sobre los nuevos mockups aprobados.
+
+El handoff detallado de esa ejecución se conserva en:
+- docs/MAIN_V3_SESSION_HANDOFF.md
+
+======================================================================
+5. ESTRATEGIA SEGURA DE CONTINUIDAD
+======================================================================
+
+NO hacer automáticamente:
+- No borrar ninguno de los worktrees.
+- No resetear la rama rebuild/home-cinematic.
+- No hacer force push, rebase, amend o squash de historia publicada.
+- No fusionar main dentro del worktree sucio sin un checkpoint previo.
+- No reimplementar Mux.
+
+Flujo recomendado cuando el usuario autorice la integración:
+
+1. Revisar y separar los cambios locales de rebuild/home-cinematic.
+2. Crear commits normales para assets/documentación y, por separado,
+   experimentos de página. No mezclar ambos grupos.
+3. Crear una rama de integración desde main/a2dc171.
+4. Incorporar los assets, documentos y componentes aprobados desde rebuild.
+5. Preservar Mux, Trabajos, Clientes, Contacto y las primitivas narrativas.
+6. Evaluar Sequence A/B contra cada mockup aprobado; reutilizar motores y
+   estructuras, pero adaptar la dirección visual al PLAN_MAIN_HOME.
+7. Implementar una sección por vez después de aprobar su mockup.
+
+La decisión final de integración corresponde al usuario. Ningún agente debe
+ejecutar merges, commits, cherry-picks o cambios de rama sin autorización.
+
+======================================================================
+6. LECTURA OBLIGATORIA PARA AGENTES
+======================================================================
+
+1. AGENTS.md
+2. docs/REPOSITORY_HANDOFF.txt
+3. docs/PLAN_MAIN_HOME.txt
+4. docs/DESIGN_SYSTEM_CRYSTAL.txt
+5. public/brand-approved/ASSET_MANIFEST.txt
+6. public/brand-approved/official/ASSETS_CONFIRMADOS.txt
+7. docs/MAIN_V3_SESSION_HANDOFF.md, cuando se audite código V3 existente.

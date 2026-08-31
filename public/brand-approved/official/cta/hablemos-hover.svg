@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="92" viewBox="0 0 360 92">
+  <defs>
+    <linearGradient id="cta-hover" x1="22" y1="16" x2="338" y2="76" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF7CB0"/>
+      <stop offset="0.46" stop-color="#FF4B8D"/>
+      <stop offset="1" stop-color="#DC2468"/>
+    </linearGradient>
+    <linearGradient id="cta-hover-shine" x1="36" y1="18" x2="150" y2="78" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="cta-hover-glow" x="-24%" y="-95%" width="148%" height="290%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="10" result="blur"/>
+      <feFlood flood-color="#FF4B8D" flood-opacity="0.64"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#cta-hover-glow)">
+    <rect x="22.5" y="15.5" width="315" height="59" rx="7" fill="url(#cta-hover)" stroke="#FFA5C5"/>
+    <path d="M29 22H158L108 75H29Z" fill="url(#cta-hover-shine)"/>
+    <rect x="23.5" y="16.5" width="313" height="57" rx="6" fill="none" stroke="#FFE0EB" stroke-opacity="0.24"/>
+  </g>
+  <text x="148" y="50" fill="#FFFFFF" font-family="Manrope, Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle" letter-spacing="0.25">HABLEMOS</text>
+  <text x="282" y="49" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle">↗</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 180">
+<defs>
+ <linearGradient id="leftA" x1="18" y1="18" x2="112" y2="166" gradientUnits="userSpaceOnUse"><stop stop-color="#FFB4CF"/><stop offset=".28" stop-color="#F77FA8"/><stop offset=".62" stop-color="#D32D68"/><stop offset="1" stop-color="#7A193C"/></linearGradient>
+ <linearGradient id="rightA" x1="202" y1="17" x2="112" y2="166" gradientUnits="userSpaceOnUse"><stop stop-color="#F8B2CC"/><stop offset=".26" stop-color="#E782A5"/><stop offset=".58" stop-color="#C92B64"/><stop offset="1" stop-color="#661532"/></linearGradient>
+ <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".82"/><stop offset="1" stop-color="#FF82AE" stop-opacity=".3"/></linearGradient>
+</defs>
+<g stroke-linejoin="round">
+ <polygon points="18,18 86,43 112,166 42,121" fill="url(#leftA)"/>
+ <polygon points="202,17 135,44 112,166 179,117" fill="url(#rightA)"/>
+ <polygon points="18,18 75,31 86,43 42,121" fill="#F1AEC6" fill-opacity=".62"/>
+ <polygon points="18,18 86,43 69,74" fill="#2A2230" fill-opacity=".72"/>
+ <polygon points="86,43 112,79 112,166 42,121" fill="#8E2047" fill-opacity=".48"/>
+ <polygon points="42,121 86,43 112,79" fill="#E23872" fill-opacity=".68"/>
+ <polygon points="202,17 148,31 135,44 179,117" fill="#DFA3B9" fill-opacity=".42"/>
+ <polygon points="202,17 135,44 153,70" fill="#2D2430" fill-opacity=".65"/>
+ <polygon points="135,44 112,79 112,166 179,117" fill="#751A3A" fill-opacity=".64"/>
+ <polygon points="135,44 153,70 112,79" fill="#D9346D" fill-opacity=".74"/>
+ <polygon points="75,31 86,43 112,79" fill="#F7C4D5" fill-opacity=".38"/>
+ <polygon points="148,31 135,44 112,79" fill="#FFFFFF" fill-opacity=".14"/>
+ <g fill="none" stroke="url(#edge)" stroke-width="1.15" stroke-opacity=".78">
+  <path d="M18 18L112 166 202 17"/>
+  <path d="M18 18L86 43L112 79L135 44L202 17"/>
+  <path d="M42 121L112 79L179 117"/>
+  <path d="M75 31L112 79L148 31"/>
+  <path d="M86 43L112 166M135 44L112 166"/>
+ </g>
+</g></svg>

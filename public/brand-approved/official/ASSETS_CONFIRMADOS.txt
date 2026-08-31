@@ -1,0 +1,194 @@
+VELOCENTUM — ÍNDICE DE ASSETS CONFIRMADOS
+Versión: 2026-08-30
+Estado: paquete oficial para diseño, mockups e implementación
+
+RAÍZ DEL PAQUETE
+public/brand-approved/official/
+
+REGLA DE USO
+- SVG: archivo maestro, escalable y preferido para web, Figma y animación.
+- PNG: preview, entrega rápida o herramienta sin soporte SVG.
+- Los archivos de esta carpeta no se modifican para pruebas.
+- Una variante nueva sólo ingresa después de ser aprobada.
+
+======================================================================
+1. IDENTIDAD
+======================================================================
+
+Isotipo vertical aprobado:
+- identity/isotipo-approved.svg
+- identity/isotipo-approved-2048.png
+
+Fuente funcional:
+- src/components/brand/BrandLogoMark.tsx
+
+Rol:
+- Navegación, firma, avatar y lockup.
+- No explota ni participa del recorrido narrativo.
+
+======================================================================
+2. CRYSTAL 5 — OBJETO NARRATIVO
+======================================================================
+
+Crystal 5 armado:
+- narrative/crystal-five-approved.svg
+- narrative/crystal-five-approved.png
+
+Rotura volumétrica correspondiente:
+- narrative/crystal-five-fragments-volumetric-approved.svg
+- narrative/crystal-five-fragments-volumetric-approved.png
+
+Fuente React animable:
+- src/components/brand/CrystalFiveApproved.tsx
+
+Rol:
+- Protagonista de la HOME: se arma, explota y se reconstruye.
+
+======================================================================
+3. BOTONES CTA
+======================================================================
+
+Hablemos — estado primary:
+- cta/hablemos-primary.svg
+- cta/hablemos-primary.png
+
+Hablemos — estado hover/glow:
+- cta/hablemos-hover.svg
+- cta/hablemos-hover.png
+
+Ver método — outline:
+- cta/ver-metodo-outline.svg
+- cta/ver-metodo-outline.png
+
+Ver casos — outline:
+- cta/ver-casos-outline.svg
+- cta/ver-casos-outline.png
+
+Fuente funcional:
+- src/components/brand/BrandCTA.tsx
+
+Estados en código:
+- primary
+- outline
+- compact
+- hover mediante CSS
+
+======================================================================
+4. OBJETOS PRINCIPALES
+======================================================================
+
+Prisma — análisis y diagnóstico:
+- objects/prism.svg
+- objects/prism.png
+
+Rayo — adquisición, ejecución y velocidad:
+- objects/lightning.svg
+- objects/lightning.png
+
+Barras — medición, proyección y resultados:
+- objects/bars.svg
+- objects/bars.png
+
+Mira — foco, objetivo y conversión:
+- objects/target.svg
+- objects/target.png
+
+======================================================================
+5. FRAGMENTACIÓN Y RECORRIDO
+======================================================================
+
+Familia de fragmentos del design system:
+- fragments/fragment-cluster-system.svg
+- fragments/fragment-cluster-system.png
+
+Scroll axis:
+- scroll/scroll-axis.svg
+- scroll/scroll-axis.png
+
+Nota:
+- La familia de fragmentos es referencia visual.
+- La explosión de Crystal 5 usa sus propias facetas volumétricas.
+
+======================================================================
+6. PÍLDORAS / CAPACIDADES
+======================================================================
+
+- pills/strategy.svg + strategy.png
+- pills/acquisition.svg + acquisition.png
+- pills/content.svg + content.png
+- pills/analysis.svg + analysis.png
+- pills/web.svg + web.png
+- pills/design.svg + design.png
+
+======================================================================
+7. TRATAMIENTOS VISUALES
+======================================================================
+
+- treatments/solid.svg + solid.png
+- treatments/outline.svg + outline.png
+- treatments/graded.svg + graded.png
+- treatments/translucent.svg + translucent.png
+
+======================================================================
+8. ATMÓSFERAS
+======================================================================
+
+- atmosphere/pink-glow.svg + pink-glow.png
+- atmosphere/dark-glass.svg + dark-glass.png
+- atmosphere/orbit.svg + orbit.png
+- atmosphere/network.svg + network.png
+
+======================================================================
+9. BOARDS Y DOCUMENTACIÓN
+======================================================================
+
+Board maestro:
+- public/brand-approved/reference/design-system-board-source.png
+
+Board específico de Crystal 5:
+- public/brand-approved/reference/design-system-crystal-approved.png
+
+Manifiesto técnico:
+- public/brand-approved/ASSET_MANIFEST.txt
+
+Construcción del sistema de cristal:
+- docs/DESIGN_SYSTEM_CRYSTAL.txt
+
+Plan principal de la HOME:
+- docs/PLAN_MAIN_HOME.txt
+
+Relación entre worktrees, ramas e implementación existente:
+- docs/REPOSITORY_HANDOFF.txt
+
+Handoff técnico de la HOME V3 en main:
+- docs/MAIN_V3_SESSION_HANDOFF.md
+
+Reglas obligatorias del repositorio:
+- AGENTS.md
+
+Fuentes originales de trazabilidad:
+- public/brand-v2/
+
+Carpeta para mockups aprobados:
+- docs/home-mockups/
+
+======================================================================
+10. ESTADO DEL PLAN
+======================================================================
+
+CONFIRMADO
+- Identidad.
+- Crystal 5 armado.
+- Rotura volumétrica.
+- CTA primary, outline y hover.
+- Prisma, rayo, barras y mira.
+- Píldoras.
+- Scroll axis.
+- Tratamientos visuales.
+- Atmósferas.
+- Dirección de la animación principal.
+
+SIGUIENTE ETAPA
+- Mockup y aprobación de cada sección de la HOME.
+- Incorporar cada mockup aprobado en docs/home-mockups/.
+- Completar los bloques pendientes del PLAN_MAIN_HOME.txt.
