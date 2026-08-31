@@ -285,8 +285,111 @@ Movimiento:
 - Primera caída lenta con giro y pequeño rebote.
 - Últimas motas de polvo desaparecen.
 
-Mockup aprobado:
-- PENDIENTE: docs/home-mockups/02-problema-uno.png
+MOCKUP APROBADO:
+- Imagen: docs/home-mockups/02-problema-uno.png
+- HTML de referencia interactivo: docs/home-mockups/02-problema-mockup-final.html
+- Fecha: 2026-08-31
+- Viewport de referencia: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
+
+- Lectura de la escena:
+  · Las seis capacidades existen y son reconocibles, pero ninguna se
+    relaciona con otra. Sin centro, sin eje, sin agrupamiento.
+  · No se repite la explosión, no aparece el Crystal 5 completo y no hay
+    lluvia ni grupos de fragmentos.
+
+- Copy definitivo:
+  · Eyebrow: "El problema" — Geist Mono 500, 0.7rem, letter-spacing .22em,
+    uppercase, color --pink.
+  · Headline: "Una sola persona no puede cargar todo el crecimiento de un
+    negocio." — Manrope 800, 60 px, line-height 1.02,
+    letter-spacing -.032em, ancho de caja 560 px.
+    "todo el crecimiento" en --pink.
+  · Subtítulo: "Estrategia, contenido, pauta, web, diseño y medición. Cada
+    una es un oficio distinto. Juntas, no entran en una sola agenda." —
+    Manrope 400, 1.02rem, line-height 1.55, medida 46ch, color --on-2.
+
+- Geometría de la composición:
+  · Lienzo 1440 × 900, sin overflow lateral.
+  · Copy alineado a la IZQUIERDA: x=72, y=214 a y=526, ancho 560 px.
+    Rompe deliberadamente el centrado simétrico del Hero; es el primer
+    cambio de registro del recorrido.
+  · Campo de dispersión: x 646–1244.
+  · Carril derecho reservado: x 1150–1370.
+  · Zona protegida del copy: x 72–652, y 196–526. El fragmento guía nunca
+    la cruza ni la tapa.
+
+- Píldoras dispersas, tres planos de profundidad:
+  · Lejano — ESTRATEGIA (left 706, top 104, 198 px, -19°) ·
+    WEB (left 1016, top 452, 178 px, +21°).
+  · Medio, opacidad .52 — ANÁLISIS (left 690, top 394, 206 px, +13°) ·
+    DISEÑO (left 944, top 700, 196 px, -9°).
+  · Cercano, opacidad .92 — CONTENIDO (left 806, top 560, 240 px, -22°) ·
+    ADQUISICIÓN (left 646, top 726, 228 px, +8°).
+  · Rotaciones entre -22° y +21°, bastante más fuertes que el ±7° del
+    Hero. Ningún par comparte ángulo ni altura. Sin centro común.
+
+- Tratamiento del plano lejano (técnica aprobada):
+  · El cuerpo de la píldora (rect + circle del icono) y su etiqueta
+    (icono + palabra) se renderizan como DOS SVG HERMANOS SUPERPUESTOS,
+    con el mismo viewBox 0 0 300 72 y posicionados uno sobre otro.
+  · Cuerpo: filter blur 1.55 px, opacidad .44.
+  · Etiqueta: sin filtro, opacidad .62.
+  · Resultado: la profundidad vive en la forma, pero las seis capacidades
+    se identifican. En esta sección las píldoras SON la escena, no
+    atmósfera, así que ninguna puede quedar muda.
+  · IMPORTANTE para la implementación: deben ser dos SVG hermanos, no un
+    <g> interno. Con un grupo dentro del mismo SVG, el blur se calcula en
+    unidades del viewBox y no en píxeles de pantalla, por lo que el
+    desenfoque real variaría con la escala de cada píldora.
+  · Los seis SVG maestros de official/pills/ quedan intactos. Las
+    etiquetas se tipografían en Manrope 700 al renderizar.
+
+- Fragmento guía:
+  · FACETS[15] con INCLUSIONS[6] adherida, según lo aprobado en la
+    Sección 01.
+  · Fuente: grupo 15 de
+    official/narrative/crystal-five-fragments-volumetric-approved.svg,
+    que ya contiene la cara principal rosa, el espesor oscuro desplazado
+    (translate 3 / 3.5) y las cuatro caras internas trianguladas desde el
+    centroide 153.25 / 118.25. No hay que construir volumen: el asset
+    oficial ya lo trae.
+  · Posición en esta escena: left 1214, top 250, ancho 104 px,
+    rotación -24°.
+  · Se mantiene en la zona SUPERIOR derecha: su altura comunica que acaba
+    de entrar como consecuencia de la explosión del Hero. No debe bajarse.
+  · Vive entre el plano medio y el cercano, para leerse por delante del
+    desorden sin competir con el copy.
+  · Continúa su descenso hacia la Sección 03.
+
+- Polvo residual:
+  · Ocho motas en el cuadrante superior derecho, radios 1 a 1.6,
+    opacidades .18 a .5, color --pink-soft.
+  · Es estela de la explosión del Hero, presente solo en la transición.
+    No se mantiene durante toda la sección.
+
+- Movimiento aprobado:
+  · El fragmento entra desde el borde superior del carril derecho, con
+    caída lenta, giro suave y pequeño rebote.
+  · Las píldoras no explotan ni se reagrupan: entran con desfase y quedan
+    donde están.
+  · Las últimas motas de polvo se desvanecen al completarse la entrada.
+
+- Comportamiento mobile:
+  · Pendiente de mockup propio. Menos píldoras simultáneas, el fragmento
+    pegado al lateral y a menor escala, polvo reducido.
+
+- Reduced motion:
+  · Sin caída ni giro del fragmento; aparece en su posición final.
+  · Píldoras estáticas, sin desfase de entrada.
+  · Ningún contenido esencial depende de la animación.
+
+- Relación con la Sección 03:
+  · La 02 muestra capacidades DISPERSAS, sin centro y sin ninguna
+    conexión entre sí: todo cae sobre una sola persona.
+  · La 03 se diferenciará mostrando PEQUEÑOS CLUSTERS con conexiones
+    parciales entre algunos pares, que aun así no llegan a formar un
+    sistema completo.
+  · Sin esa diferencia, la 03 se leería como repetición de la 02.
 
 ------------------------------------------------------------
 
@@ -517,16 +620,20 @@ COMPLETADO
 - Reglas de construcción documentadas.
 - Mockup 01 — Hero: APROBADO (docs/home-mockups/01-hero.png,
   ver Sección 01 para el detalle completo de copy, geometría y movimiento).
+- Mockup 02 — El problema: APROBADO (docs/home-mockups/02-problema-uno.png,
+  ver Sección 02 para el detalle completo de copy, geometría, técnica de los
+  dos SVG hermanos, fragmento guía y movimiento).
 
 PENDIENTE INMEDIATO
-- Crear y aprobar el mockup 02 — El problema.
+- Crear y aprobar el mockup 03 — El otro problema, con clusters parciales
+  que lo diferencien de la dispersión sin centro de la Sección 02.
 - Crear los keyframes aislados de explosión y fragmento guía para Hero,
   a partir de lo ya aprobado en la Sección 01.
 
 NO INICIAR TODAVÍA
 - Implementación completa de la HOME.
-- Implementación productiva del mockup 01 — Hero (mockup aprobado, código
-  todavía no).
-- Mockup 02 en adelante.
+- Implementación productiva de los mockups 01 — Hero y 02 — El problema
+  (mockups aprobados, código todavía no).
+- Mockup 03 en adelante.
 - Movimiento continuo definitivo.
 - Reemplazo masivo de secciones productivas.
