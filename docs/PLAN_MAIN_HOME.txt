@@ -1,0 +1,532 @@
+VELOCENTUM — PLAN MAIN HOME
+Versión: 2026-08-30
+Estado: dirección visual y narrativa aprobada; implementación pendiente de mockups
+
+======================================================================
+0. FUNCIÓN DE ESTE DOCUMENTO
+======================================================================
+
+Este archivo es la fuente única de verdad para diseñar e implementar la HOME.
+
+Orden obligatorio de trabajo:
+1. Definir estructura de una sección.
+2. Crear su mockup estático.
+3. Aprobar el mockup.
+4. Guardar la imagen en docs/home-mockups/.
+5. Completar en este archivo el bloque MOCKUP APROBADO.
+6. Recién entonces implementar esa sección.
+7. Auditar visualmente desktop, tablet, mobile y reduced motion.
+
+No implementar toda la HOME a partir de una descripción general.
+No reinterpretar assets aprobados dentro del código.
+
+======================================================================
+1. DECISIONES APROBADAS
+======================================================================
+
+- Fondo principal oscuro dentro del lenguaje del board.
+- Isotipo vertical reservado para identidad y navegación.
+- Crystal 5 ancho como protagonista narrativo de la HOME.
+- Crystal 5 aprobado: src/components/brand/CrystalFiveApproved.tsx.
+- Fragmentos aprobados: misma fuente, estado volumétrico.
+- CTA aprobados: src/components/brand/BrandCTA.tsx.
+- Paquete consolidado de assets: public/brand-approved/official/.
+- Índice rápido de archivos: public/brand-approved/official/ASSETS_CONFIRMADOS.txt.
+- Una sola explosión principal en el Hero.
+- La explosión ocupa todo el viewport y expulsa piezas hacia los bordes.
+- Algunas piezas salen completamente de cámara.
+- Queda polvo cristalino residual de corta duración.
+- Un fragmento inferior de Crystal 5 permanece como guía narrativa.
+- Ese fragmento desciende lentamente, gira y describe curvas suaves.
+- El fragmento usa carriles laterales para no cubrir copy ni controles.
+- Los demás fragmentos reaparecen únicamente para la reconstrucción final.
+- El final “Empecemos” reconstruye el mismo Crystal 5.
+
+Decisión reemplazada:
+- Ya NO habrá una lluvia continua de muchas partículas durante toda la HOME.
+- Ya NO se repetirá el ciclo completo de explosión/rearmado en cada bloque.
+
+======================================================================
+2. SISTEMA DE ANIMACIÓN PRINCIPAL
+======================================================================
+
+ESTADO A — CRYSTAL 5 ARMADO
+- Ubicación: Hero.
+- Movimiento: respiración mínima, reflejos internos y leve flotación.
+- El usuario debe reconocer el objeto antes de la explosión.
+
+ESTADO B — EXPLOSIÓN RADIAL
+- Origen: centro del Crystal 5.
+- Cantidad base: las 18 facetas reales + polvo secundario.
+- Profundidad cercana: 4–5 fragmentos grandes; pasan cerca de cámara.
+- Profundidad media: 7–8 fragmentos legibles.
+- Profundidad lejana: el resto, más pequeño y levemente desenfocado.
+- Dirección: radial hacia los cuatro bordes, sin formar círculo perfecto.
+- Resultado: entre 65% y 75% de las piezas salen del viewport.
+- Duración orientativa: 900–1400 ms, con timings diferentes por pieza.
+- Evitar: explosión uniforme, estrella perfecta o partículas a igual velocidad.
+
+ESTADO C — POLVO RESIDUAL
+- 24–36 motas en desktop; 10–16 en mobile.
+- Baja opacidad, brillo puntual y duración corta.
+- Se desvanece después de la explosión; no acompaña toda la página.
+- No puede competir con el texto del primer problema.
+
+ESTADO D — FRAGMENTO GUÍA
+- Origen: una faceta de la zona inferior del Crystal 5.
+- Debe poseer 3–5 caras visibles, borde fino y espesor oscuro.
+- Movimiento vertical lento con trayectoria curvada.
+- Rotación en profundidad; no girar como ícono plano.
+- Pequeñas aceleraciones, pausas y recuperación de flotación.
+- Puede acercarse a un título y producir un destello breve.
+- Nunca atraviesa texto, botones, videos o logos.
+- Desktop: alterna carril izquierdo y derecho en zonas vacías.
+- Mobile: permanece pegado a un lateral y reduce su escala.
+
+ESTADO E — RECONSTRUCCIÓN FINAL
+- Ubicación: sección Empecemos.
+- El fragmento guía desacelera y ocupa su faceta original.
+- Las demás piezas regresan desde los bordes en varias profundidades.
+- Las aristas aparecen únicamente cuando todas las caras asentaron.
+- El CTA se revela después del objeto, no simultáneamente.
+
+REDUCED MOTION
+- Sin explosión radial ni trayecto helicoidal.
+- Cambio por fundido: armado → fragmento guía estático → armado final.
+- Ningún contenido esencial depende de la animación.
+
+======================================================================
+3. REGLAS TÉCNICAS DE MOVIMIENTO
+======================================================================
+
+- Mantener useScrollEngine como única fuente de scroll.
+- Un solo requestAnimationFrame global.
+- El scroll solamente marca estado; no leer layout dentro del evento.
+- Cachear medidas al montar y en resize.
+- Animar exclusivamente transform y opacity.
+- No incorporar GSAP, Framer Motion, Lenis ni scroll-jacking.
+- Usar translate3d/rotate/scale para profundidad y parallax.
+- Las facetas deben continuar siendo SVG independientes y animables.
+- El polvo debe resolverse con una capa liviana; evitar filtros costosos masivos.
+- Probar 60 fps en desktop y mobile antes de aprobar.
+
+======================================================================
+4. ESTRUCTURA SECCIÓN POR SECCIÓN
+======================================================================
+
+SECCIÓN 00 — NAV / IDENTIDAD
+Rol:
+- Firma estable de Velocentum.
+
+Asset:
+- Isotipo vertical aprobado; no Crystal 5.
+
+Movimiento:
+- Microinteracción únicamente. No explota.
+
+Mockup aprobado:
+- PENDIENTE: docs/home-mockups/00-nav.png
+
+------------------------------------------------------------
+
+SECCIÓN 01 — HERO / HEADER
+Eyebrow:
+- Equipo de crecimiento.
+
+Headline:
+- Estamos en el negocio de hacer crecer negocios.
+
+Subtítulo:
+- Estrategia, creatividad, adquisición y medición. Primero analizamos tu
+  negocio. Después armamos el plan.
+
+Contenido:
+- Copy central.
+- CTA Hablemos.
+- CTA Ver método.
+- Crystal 5 aprobado como protagonista.
+- Pills del sistema en planos secundarios, sin tapar copy.
+
+Movimiento:
+- Entrada y respiración de Crystal 5.
+- Explosión radial tridimensional hacia todo el viewport.
+- Salida de fragmentos volumétricos.
+- Aparición breve de polvo.
+- Permanencia del fragmento guía inferior.
+
+Checkpoint visual del mockup:
+- Confirmar que Crystal 5 comparte suficiente ADN material y angular con el
+  isotipo, aunque sean objetos y siluetas diferentes.
+- Si se perciben desconectados, resolverlo únicamente mediante composición,
+  escala, materiales, reflejos y eje visual.
+- No alterar la silueta, las facetas ni las proporciones del Crystal 5 aprobado.
+- No convertir Crystal 5 en el logotipo.
+
+MOCKUP APROBADO:
+- Imagen: docs/home-mockups/01-hero.png
+- HTML de referencia interactivo: docs/home-mockups/01-hero-mockup-final.html
+- Fecha: 2026-08-31
+- Viewport de referencia: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
+
+- Copy definitivo:
+  · Eyebrow: "Equipo de crecimiento" — Geist Mono 500, 0.7rem,
+    letter-spacing .22em, uppercase, color --pink.
+  · Headline: "Estamos en el negocio de / hacer crecer negocios." —
+    Manrope 800, 72 px, line-height 1, letter-spacing -.035em,
+    medida máxima 1050 px, dos líneas con corte forzado después de "de".
+    "hacer crecer negocios" en --pink.
+  · Subtítulo: "Estrategia, creatividad, adquisición y medición. Primero
+    analizamos tu negocio. Después armamos el plan." — Manrope 400,
+    1.02rem, line-height 1.5, medida 54ch, color --on-2.
+  · CTA primario: "Hablemos →" — fondo --pink, texto --ink,
+    flecha --pink-deep, radio 999, padding 15/30.
+  · CTA secundario: "Ver método →" — contorno rgba(255,75,141,.62),
+    texto blanco, flecha --pink.
+  · Nav: isotipo + wordmark "velocentum" (Manrope 800, 1.22rem).
+    La bajada "Equipo de crecimiento" NO se repite en el nav; vive solo
+    como eyebrow del Hero.
+  · Links de nav: Método · Trabajos · Casos — Geist Mono, 0.66rem,
+    letter-spacing .13em, uppercase.
+
+- Assets utilizados (sin modificar):
+  · official/identity/isotipo-approved.svg — nav, 36 px de alto.
+  · official/narrative/crystal-five-approved.svg — protagonista.
+  · official/pills/{strategy,analysis,content,acquisition,web,design}.svg
+    Los archivos maestros quedan intactos. En render, las etiquetas se
+    tipografían en Manrope 700; geometría, pill e iconos siguen siendo los
+    oficiales.
+
+- Geometría de la composición:
+  · Lienzo 1440 × 900, sin overflow lateral.
+  · Nav: alto 80 px, padding lateral 72 px.
+  · Copy: inicia en y=128, cierra en y=456.
+  · Stage de Crystal 5: y=470, ancho 500 px, base en y=853, centrado en el
+    eje x=720.
+  · Gap declarado copy→stage: 14 px. Aire óptico real ≈ 60 px, porque el
+    objeto arranca al 12% de su propio viewBox.
+  · Isotipo y Crystal 5 comparten el eje vertical central.
+
+- Píldoras, tres planos de profundidad:
+  · Lejano (blur 2.5 px, opacidad .32): ESTRATEGIA (left 60, top 470,
+    190 px, -7°) · ANÁLISIS (right 66, top 442, 180 px, +6°).
+  · Medio (opacidad .60): CONTENIDO (left 96, top 620, 210 px, +4°) ·
+    ADQUISICIÓN (right 104, top 656, 205 px, -5°).
+  · Cercano (opacidad .90): WEB (left 232, top 786, 195 px, -3°) ·
+    DISEÑO (right 60, top 736, 188 px, +5°).
+  · Ninguna invade la zona protegida del copy (x 195–1245, y 112–464).
+  · APROBADO: las píldoras del plano lejano quedan aprobadas como
+    elementos atmosféricos con blur 2.5 px + opacidad .32, aunque su texto
+    no sea completamente legible a esa distancia/blur. No se sube la
+    opacidad ni se baja el blur para forzar legibilidad — la función de
+    ese plano es presencia ambiental, no lectura.
+
+- Dirección de luz:
+  · Fuente única desde arriba-izquierda.
+  · No fue necesario forzarla: los gradientes oficiales del isotipo
+    (iso-left-light, x1 20/18 → x2 85/151) y del Crystal 5
+    (cp-light, x1 0/0 → x2 1/1) ya comparten ese vector.
+
+- Posición inicial del fragmento guía:
+  · FACETS[15] — cuadrilátero 139,102 164,89 193,116 117,166.
+  · INCLUSIONS[6] — 148,118 167,101 158,126 — adherida, viaja con la faceta.
+  · Centroide en pantalla ≈ x 789, y 715.
+
+- Posición final del fragmento guía (dentro de esta sección):
+  · Sale de cuadro por el carril inferior derecho, siguiendo una curva
+    suave desde (789, 715) hacia (1258, 884).
+  · El carril derecho (x 1150–1370) queda reservado para su recorrido en
+    las secciones siguientes.
+
+- Movimiento aprobado:
+  · Estado A: Crystal 5 armado, respiración mínima y reflejos internos.
+  · Estado B: explosión radial desde el centro del objeto (≈ 720, 662),
+    hacia los cuatro bordes, sin círculo perfecto, con timings distintos
+    por pieza y tres planos de profundidad.
+    Algunas piezas volumétricas salen de cuadro; la proporción exacta se
+    define al construir la animación, no en este mockup.
+  · Estado C: polvo residual breve, 24–36 motas en desktop.
+  · Estado D: FACETS[15] permanece y sale por el carril inferior derecho.
+  · El fragmento nunca atraviesa la zona protegida del copy.
+
+- Comportamiento mobile:
+  · Pendiente de mockup propio. El plan ya fija: menos objetos
+    simultáneos, el fragmento pegado a un lateral y a menor escala,
+    10–16 motas de polvo.
+
+- Reduced motion:
+  · Sin explosión radial ni trayecto curvo.
+  · Crystal 5 armado estático, fragmento guía en posición fija, transición
+    por fundido.
+  · Ningún contenido esencial depende de la animación.
+
+- PENDIENTE FUTURO:
+  · Variante simplificada del isotipo para tamaños pequeños. El isotipo a
+    36 px de alto pierde definición de facetas: se lee más como mancha que
+    como objeto. El ASSET_MANIFEST ya pide un test a 16/24/32 px; conviene
+    resolverlo antes de que el nav entre a producción, posiblemente con una
+    variante simplificada para tamaños chicos. No implementar todavía.
+  · CrystalFiveApproved.tsx todavía no expone API por faceta. Se resuelve
+    después de este mockup, de forma aditiva, sin tocar geometría ni
+    materiales.
+
+------------------------------------------------------------
+
+SECCIÓN 02 — EL PROBLEMA
+Headline:
+- Una sola persona no puede cargar todo el crecimiento de un negocio.
+
+Estructura propuesta:
+- Copy dominante.
+- Escena conceptual secundaria; no repetir una explosión completa.
+- Espacio lateral reservado para el fragmento guía.
+
+Movimiento:
+- El fragmento entra desde un borde después de la explosión.
+- Primera caída lenta con giro y pequeño rebote.
+- Últimas motas de polvo desaparecen.
+
+Mockup aprobado:
+- PENDIENTE: docs/home-mockups/02-problema-uno.png
+
+------------------------------------------------------------
+
+SECCIÓN 03 — EL OTRO PROBLEMA
+Headline:
+- Y muchos proveedores sueltos tampoco forman un equipo.
+
+Estructura propuesta:
+- Copy y escena en composición distinta de Problema 1.
+- Conexiones parciales, nunca una red completa.
+
+Movimiento:
+- El fragmento guía cruza hacia el carril opuesto mediante una curva amplia.
+- Giro parcial en profundidad.
+- Destello breve al pasar cerca de una conexión incompleta.
+
+Mockup aprobado:
+- PENDIENTE: docs/home-mockups/03-problema-dos.png
+
+------------------------------------------------------------
+
+SECCIÓN 04 — UN MISMO OBJETIVO
+Headline:
+- El crecimiento aparece cuando cada parte trabaja sobre el mismo objetivo.
+
+Estructura propuesta:
+- Momento de pausa y claridad visual.
+- Puede aparecer una huella/contorno sutil de Crystal 5, pero NO reconstruirlo.
+
+Movimiento:
+- El fragmento desacelera y se orienta hacia el objetivo.
+- Pulso de luz o alineación breve.
+- Continúa su recorrido sin convocar todavía al resto de piezas.
+
+Mockup aprobado:
+- PENDIENTE: docs/home-mockups/04-mismo-objetivo.png
+
+------------------------------------------------------------
+
+SECCIÓN 05 — CÓMO TRABAJAMOS
+Headline:
+- Un equipo. Cuatro motores funcionando juntos.
+
+Contenido:
+- Estrategia.
+- Creatividad.
+- Adquisición.
+- Web & Conversión.
+- Medición como capa transversal, no quinta card.
+
+Estructura propuesta:
+- Cuatro módulos con objetos del sistema.
+- Barras como recurso transversal.
+
+Movimiento:
+- El fragmento guía activa o roza el primer hito visual.
+- Continúa por un canal entre módulos sin tapar las cards.
+- Las cards mantienen reveals propios y secundarios.
+
+Mockup aprobado:
+- PENDIENTE: docs/home-mockups/05-como-trabajamos.png
+
+------------------------------------------------------------
+
+SECCIÓN 06 — QUÉ ACTIVAMOS
+Headline:
+- Activamos lo que tu negocio necesita para crecer.
+
+Contenido:
+- Carrusel horizontal de capacidades.
+- Objetos vitrificados del design system por capacidad.
+
+Movimiento:
+- Fragmento guía por un lateral, a menor velocidad que el carrusel.
+- Un solo reflejo coordinado con la entrada del módulo activo.
+
+Mockup aprobado:
+- PENDIENTE: docs/home-mockups/06-que-activamos.png
+
+------------------------------------------------------------
+
+SECCIÓN 07 — TRABAJOS
+Headline:
+- Trabajo real, pensado para hacer crecer marcas.
+
+Contenido:
+- Carrusel de videos y cards de texto.
+- CTA Ver casos.
+
+Movimiento:
+- El fragmento permanece en un borde exterior del track.
+- No cruza videos, controles ni modal.
+- Puede reflejar brevemente el color del contenido activo, sin cambiar su paleta.
+
+Mockup aprobado:
+- PENDIENTE: docs/home-mockups/07-trabajos.png
+
+------------------------------------------------------------
+
+SECCIÓN 08 — CON QUIÉNES TRABAJAMOS
+Headline:
+- Detrás de cada una hay un plan escrito.
+
+Contenido:
+- Marquee de logos.
+
+Movimiento:
+- Tramo de descanso.
+- El fragmento reduce giro y desciende casi verticalmente por un lateral.
+- No superponerlo a logos de clientes.
+
+Mockup aprobado:
+- PENDIENTE: docs/home-mockups/08-clientes.png
+
+------------------------------------------------------------
+
+SECCIÓN 09 — EMPECEMOS / CONTACTO
+Headline:
+- Hagamos crecer tu negocio.
+
+Contenido:
+- Eyebrow Empecemos.
+- Texto de cierre.
+- CTA Hablemos.
+
+Movimiento:
+- El fragmento guía se detiene en su posición definitiva.
+- Retorno de las piezas desde los bordes.
+- Reconstrucción completa de Crystal 5.
+- Aparición final de aristas y glow.
+- Reveal posterior de eyebrow, headline, texto y CTA.
+
+Checkpoint visual del mockup:
+- La reconstrucción utiliza exactamente el mismo Crystal 5 aprobado.
+- No aproximar su silueta a la V, no cambiar facetas y no modificar proporciones.
+- La relación con el isotipo se resuelve mediante eje, iluminación, material y
+  composición, nunca rediseñando el objeto narrativo.
+
+Mockup aprobado:
+- PENDIENTE: docs/home-mockups/09-empecemos.png
+
+======================================================================
+5. ORDEN DE PRODUCCIÓN DE MOCKUPS
+======================================================================
+
+Fase 1 — Narrativa principal:
+1. Hero.
+2. Problema 1.
+3. Problema 2.
+4. Mismo objetivo.
+5. Empecemos.
+
+Fase 2 — Contenido comercial:
+6. Cómo trabajamos.
+7. Qué activamos.
+8. Trabajos.
+9. Clientes.
+
+Fase 3 — Sistema global:
+10. Nav.
+11. Transiciones completas.
+12. Mobile.
+13. Reduced motion.
+
+======================================================================
+6. FORMATO DE CADA BLOQUE APROBADO
+======================================================================
+
+Cuando exista un mockup aprobado, completar en este archivo:
+
+MOCKUP APROBADO:
+- Imagen: docs/home-mockups/NN-nombre.png
+- Fecha:
+- Viewport de referencia:
+- Copy definitivo:
+- Assets utilizados:
+- Posición inicial del fragmento guía:
+- Posición final del fragmento guía:
+- Movimiento aprobado:
+- Comportamiento mobile:
+- Reduced motion:
+- Observaciones de implementación:
+
+No reemplazar una imagen aprobada sin conservar la versión anterior.
+
+======================================================================
+7. HANDOFF A CLAUDE CODE / CLAUDE CHAT / CODEX
+======================================================================
+
+CLAUDE CHAT
+- Usar para revisar estrategia, copy y coherencia del plan.
+- Debe leer PLAN_MAIN_HOME.txt y DESIGN_SYSTEM_CRYSTAL.txt completos.
+- No debe inventar assets ni cambiar geometrías aprobadas.
+
+CLAUDE CODE
+- Implementar únicamente secciones con mockup marcado como APROBADO.
+- Usar los assets listados en ASSET_MANIFEST.txt.
+- Respetar el motor de scroll existente y las reglas de performance.
+- No sustituir SVG por imágenes generadas.
+- No rediseñar durante la implementación.
+- Entregar cada sección por separado para auditoría.
+
+CODEX / RECURSOS DE DISEÑO Y AUDITORÍA
+- Crear o ajustar assets aislados dentro del design system.
+- Preparar mockups de cada sección.
+- Auditar fidelidad visual, responsive, movimiento y performance.
+- Registrar cada aprobación en este PLAN MAIN.
+
+Archivos que debe leer cualquier agente antes de trabajar:
+1. AGENTS.md
+2. docs/REPOSITORY_HANDOFF.txt
+3. docs/PLAN_MAIN_HOME.txt
+4. docs/DESIGN_SYSTEM_CRYSTAL.txt
+5. public/brand-approved/ASSET_MANIFEST.txt
+6. public/brand-approved/official/ASSETS_CONFIRMADOS.txt
+
+======================================================================
+8. ESTADO ACTUAL Y PRÓXIMO PASO
+======================================================================
+
+COMPLETADO
+- Design system original localizado y preservado.
+- Isotipo vertical identificado como identidad.
+- Crystal 5 ancho aprobado.
+- Fragmentos volumétricos aprobados.
+- Nueva narrativa de animación aprobada conceptualmente.
+- Carpeta de assets aprobados creada.
+- Reglas de construcción documentadas.
+- Mockup 01 — Hero: APROBADO (docs/home-mockups/01-hero.png,
+  ver Sección 01 para el detalle completo de copy, geometría y movimiento).
+
+PENDIENTE INMEDIATO
+- Crear y aprobar el mockup 02 — El problema.
+- Crear los keyframes aislados de explosión y fragmento guía para Hero,
+  a partir de lo ya aprobado en la Sección 01.
+
+NO INICIAR TODAVÍA
+- Implementación completa de la HOME.
+- Implementación productiva del mockup 01 — Hero (mockup aprobado, código
+  todavía no).
+- Mockup 02 en adelante.
+- Movimiento continuo definitivo.
+- Reemplazo masivo de secciones productivas.
