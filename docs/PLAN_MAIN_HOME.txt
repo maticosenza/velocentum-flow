@@ -1089,6 +1089,10 @@ FRAGMENTO GUÍA
 =====================================================================
 OTRAS REGLAS
 =====================================================================
+- SIN EXPLOSIÓN Y SIN RECONSTRUCCIÓN. En esta sección no hay piezas del
+  Crystal 5 más allá del fragmento guía. La reconstrucción sigue
+  reservada para "Empecemos".
+
 - Comportamiento mobile:
   · Pendiente de mockup propio. El track pasa a scroll horizontal nativo
     con snap, sin autoplay en hover: el tap abre el modal con sonido. El
