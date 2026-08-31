@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Velocentum — Mockup 03 · El otro problema</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#FF4B8D;--pink-soft:#FF85B8;--pink-deep:#D92F6E;--ink:#0E0E13;
+--on:#FFFFFF;--on-2:rgba(255,255,255,.62);--bd:rgba(255,255,255,.10);
+--sans:'Manrope',sans-serif;--mono:'Geist Mono',ui-monospace,monospace;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#08080C;color:var(--on);font-family:var(--sans)}
+.shell{width:1440px;max-width:100%;margin:0 auto;padding:26px 0}
+.meta{width:1440px;margin:0 0 16px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.meta h1{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.meta .s{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-2);margin-top:4px}
+.tgs{display:flex;gap:7px;flex-wrap:wrap}
+.tg{background:rgba(255,255,255,.06);border:1px solid var(--bd);color:var(--on);font-family:var(--mono);font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;padding:8px 13px;border-radius:999px;cursor:pointer}
+.tg.on{background:var(--pink);color:var(--ink);border-color:var(--pink)}
+
+.vp{position:relative;width:1440px;height:900px;background:var(--ink);overflow:hidden}
+.vp::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+ radial-gradient(84% 66% at 26% 46%, rgba(255,75,141,.07), transparent 64%),
+ radial-gradient(56% 44% at 88% 16%, rgba(255,133,184,.03), transparent 70%)}
+
+/* copy a la DERECHA y arriba: invierte el eje de la seccion 02 */
+.copy{position:absolute;right:72px;top:200px;width:560px;z-index:30;text-align:right}
+.eyebrow{font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--pink);line-height:1;margin-bottom:26px}
+.h2{font-weight:800;font-size:60px;line-height:1.02;letter-spacing:-.032em}
+.h2 em{font-style:normal;color:var(--pink)}
+.sub{margin-top:26px;margin-left:auto;font-size:1.02rem;line-height:1.55;color:var(--on-2);max-width:44ch}
+
+/* conexiones parciales, por debajo de las pildoras */
+.links-layer{position:absolute;inset:0;z-index:6;pointer-events:none}
+
+.pill{position:absolute;z-index:12}
+.pill svg{display:block;width:100%}
+.pill.far{position:absolute}
+.pill.far .p-body{filter:blur(1.55px);opacity:.44}
+.pill.far .p-label{position:absolute;left:0;top:0;width:100%;opacity:.62;filter:none}
+.pill.mid{opacity:.6}
+.pill.near{opacity:.94}
+
+/* fragmento guia cruzando hacia el carril izquierdo */
+.frag{position:absolute;left:598px;top:686px;width:98px;z-index:24;
+ transform:rotate(-58deg);filter:drop-shadow(0 10px 22px rgba(0,0,0,.55))}
+.frag svg{display:block;width:100%}
+
+.ann{position:absolute;inset:0;z-index:60;pointer-events:none;display:none}
+.ann.show{display:block}
+.ann text{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase}
+
+.note{width:1440px;margin:20px 0 0;border:1px solid var(--bd);border-radius:14px;padding:22px 24px;color:var(--on-2);line-height:1.65;font-size:.88rem}
+.note b{color:var(--on);font-weight:700}
+.note code{font-family:var(--mono);font-size:.85em;color:var(--pink)}
+.note ul{margin:10px 0 0 18px} .note li{margin-bottom:5px}
+</style></head><body><div class="shell">
+
+<div class="meta">
+  <div><h1>Mockup 03 · El otro problema · FINAL</h1>
+  <div class="s">Desktop 1440 × 900 · clusters con conexiones parciales · fragmento cruzando al carril izquierdo · aprobado 2026-08-31</div></div>
+  <div class="tgs">
+    <button class="tg" data-l="clusters">Clusters y conexiones</button>
+    <button class="tg" data-l="cruce">Cruce del fragmento</button>
+    <button class="tg" data-l="prof">Profundidades</button>
+    <button class="tg" data-l="grid">Grilla y cotas</button>
+  </div>
+</div>
+
+<div class="vp">
+
+  <div class="copy">
+    <div class="eyebrow">El otro problema</div>
+    <h2 class="h2">Y muchos proveedores sueltos <em>tampoco forman un equipo</em>.</h2>
+    <p class="sub">Cada uno hace bien su parte. Nadie mira el conjunto. Las decisiones quedan sin dueño y el negocio avanza a pedazos.</p>
+  </div>
+
+  <!-- conexiones parciales: solo dentro de cada cluster, mas una que no llega -->
+  <svg class="links-layer" viewBox="0 0 1440 900">
+    <g stroke="#FF4B8D" fill="none" stroke-linecap="round">
+      <path d="M196 236 L306 318" stroke-opacity=".3" stroke-width="1.1"/>
+      <path d="M470 452 L604 522" stroke-opacity=".42" stroke-width="1.3"/>
+      <path d="M232 604 L406 668" stroke-opacity=".34" stroke-width="1.2"/>
+      <path d="M604 522 L676 604" stroke-opacity=".26" stroke-width="1.1" stroke-dasharray="5 7"/>
+    </g>
+    <circle cx="676" cy="604" r="2.6" fill="#FF85B8" fill-opacity=".5"/>
+  </svg>
+
+  <div class="pill far" style="left:96px;top:186px;width:196px;transform:rotate(-8deg)"><svg class="p-body" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72"><rect x="1" y="1" width="298" height="70" rx="34" fill="#0E0E13" fill-opacity=".85" stroke="#FF4B8D" stroke-opacity=".75"/><circle cx="40" cy="36" r="16" fill="#FF4B8D" fill-opacity=".12" stroke="#FF4B8D" stroke-opacity=".8"/></svg><svg class="p-label" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72"><text x="40" y="42" text-anchor="middle" font-size="20" fill="#FF4B8D" font-family="Arial">&#9673;</text><text x="72" y="43" font-size="18" fill="#fff" font-family="Manrope, sans-serif" font-weight="700" letter-spacing=".4">ESTRATEGIA</text></svg></div>
+  <div class="pill far" style="left:214px;top:274px;width:182px;transform:rotate(5deg)"><svg class="p-body" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72"><rect x="1" y="1" width="298" height="70" rx="34" fill="#0E0E13" fill-opacity=".85" stroke="#FF4B8D" stroke-opacity=".75"/><circle cx="40" cy="36" r="16" fill="#FF4B8D" fill-opacity=".12" stroke="#FF4B8D" stroke-opacity=".8"/></svg><svg class="p-label" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72"><text x="40" y="42" text-anchor="middle" font-size="20" fill="#FF4B8D" font-family="Arial">&#9678;</text><text x="72" y="43" font-size="18" fill="#fff" font-family="Manrope, sans-serif" font-weight="700" letter-spacing=".4">AN&#193;LISIS</text></svg></div>
+  <div class="pill near" style="left:352px;top:396px;width:238px;transform:rotate(-6deg)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72"><rect x="1" y="1" width="298" height="70" rx="34" fill="#0E0E13" fill-opacity=".85" stroke="#FF4B8D" stroke-opacity=".75"/><circle cx="40" cy="36" r="16" fill="#FF4B8D" fill-opacity=".12" stroke="#FF4B8D" stroke-opacity=".8"/><text x="40" y="42" text-anchor="middle" font-size="20" fill="#FF4B8D" font-family="Arial">&#9635;</text><text x="72" y="43" font-size="18" fill="#fff" font-family="Manrope, sans-serif" font-weight="700" letter-spacing=".4">CONTENIDO</text></svg></div>
+  <div class="pill near" style="left:498px;top:476px;width:214px;transform:rotate(9deg)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72"><rect x="1" y="1" width="298" height="70" rx="34" fill="#0E0E13" fill-opacity=".85" stroke="#FF4B8D" stroke-opacity=".75"/><circle cx="40" cy="36" r="16" fill="#FF4B8D" fill-opacity=".12" stroke="#FF4B8D" stroke-opacity=".8"/><text x="40" y="42" text-anchor="middle" font-size="20" fill="#FF4B8D" font-family="Arial">&#8984;</text><text x="72" y="43" font-size="18" fill="#fff" font-family="Manrope, sans-serif" font-weight="700" letter-spacing=".4">DISE&#209;O</text></svg></div>
+  <div class="pill mid" style="left:128px;top:556px;width:210px;transform:rotate(7deg)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72"><rect x="1" y="1" width="298" height="70" rx="34" fill="#0E0E13" fill-opacity=".85" stroke="#FF4B8D" stroke-opacity=".75"/><circle cx="40" cy="36" r="16" fill="#FF4B8D" fill-opacity=".12" stroke="#FF4B8D" stroke-opacity=".8"/><text x="40" y="42" text-anchor="middle" font-size="20" fill="#FF4B8D" font-family="Arial">&#9636;</text><text x="72" y="43" font-size="18" fill="#fff" font-family="Manrope, sans-serif" font-weight="700" letter-spacing=".4">WEB</text></svg></div>
+  <div class="pill mid" style="left:300px;top:624px;width:224px;transform:rotate(-4deg)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72"><rect x="1" y="1" width="298" height="70" rx="34" fill="#0E0E13" fill-opacity=".85" stroke="#FF4B8D" stroke-opacity=".75"/><circle cx="40" cy="36" r="16" fill="#FF4B8D" fill-opacity=".12" stroke="#FF4B8D" stroke-opacity=".8"/><text x="40" y="42" text-anchor="middle" font-size="20" fill="#FF4B8D" font-family="Arial">&#991;</text><text x="72" y="43" font-size="18" fill="#fff" font-family="Manrope, sans-serif" font-weight="700" letter-spacing=".4">ADQUISICI&#211;N</text></svg></div>
+
+  <!-- fragmento guia en pleno cruce -->
+  <div class="frag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="112 84 88 90" class="frag-svg" aria-hidden="true"><defs><linearGradient id="cp-light-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF7FA" stop-opacity=".92"></stop><stop offset=".2" stop-color="#FFB1CE"></stop><stop offset=".56" stop-color="#F56B9D"></stop><stop offset="1" stop-color="#B32558"></stop></linearGradient><linearGradient id="cp-hot-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFB0CC"></stop><stop offset=".3" stop-color="#FF5C96"></stop><stop offset=".62" stop-color="#E82C70"></stop><stop offset="1" stop-color="#7C1C40"></stop></linearGradient><linearGradient id="cp-rose-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#F58FB4"></stop><stop offset=".38" stop-color="#CA3F72"></stop><stop offset="1" stop-color="#5B243B"></stop></linearGradient><linearGradient id="cp-graphite-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5D4C5B"></stop><stop offset=".48" stop-color="#332A37"></stop><stop offset="1" stop-color="#17141D"></stop></linearGradient><linearGradient id="cp-deep-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#9E315E"></stop><stop offset=".42" stop-color="#63213E"></stop><stop offset="1" stop-color="#261A27"></stop></linearGradient><linearGradient id="cp-glass-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".82"></stop><stop offset=".3" stop-color="#F6BDD1" stop-opacity=".52"></stop><stop offset="1" stop-color="#6C5364" stop-opacity=".32"></stop></linearGradient><linearGradient id="cp-edge-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".78"></stop><stop offset=".45" stop-color="#F4B3CA" stop-opacity=".58"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity=".46"></stop></linearGradient><radialGradient id="cp-ground-_R_19ra_" cx="50%" cy="10%" r="72%"><stop stop-color="#FF4B8D" stop-opacity=".34"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity="0"></stop></radialGradient><filter id="cp-glow-_R_19ra_" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4.2"></feGaussianBlur></filter><filter id="cp-piece-_R_19ra_" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="1" stdDeviation="1.3" flood-color="#120A12" flood-opacity=".76"></feDropShadow><feDropShadow dx="0" dy="0" stdDeviation=".55" flood-color="#FF4B8D" flood-opacity=".22"></feDropShadow></filter></defs><polygon points="139,102 164,89 193,116 117,166" fill="url(#cp-deep-_R_19ra_)" fill-opacity=".5" stroke="#4E1830" stroke-opacity=".5" stroke-width=".7" transform="translate(3 3.5)" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="139,102 164,89 193,116 117,166" fill="url(#cp-rose-_R_19ra_)" fill-opacity="0.74" stroke="url(#cp-edge-_R_19ra_)" stroke-width=".82" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 139,102 164,89" fill="url(#cp-deep-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 164,89 193,116" fill="url(#cp-light-_R_19ra_)" fill-opacity="0.31" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 193,116 117,166" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.4" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 117,166 139,102" fill="url(#cp-hot-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><path d="M153.25 118.25L139 102" fill="none" stroke="rgba(255,240,245,.62)" stroke-width=".48" vector-effect="non-scaling-stroke"></path><polygon points="148,118 167,101 158,126" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.5" stroke="rgba(255,222,233,.30)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon></svg></div>
+
+  <!-- ============ ANOTACIONES ============ -->
+
+  <svg class="ann" data-layer="clusters" viewBox="0 0 1440 900">
+    <g fill="none" stroke="#FF4B8D" stroke-opacity=".32" stroke-dasharray="5 6">
+      <rect x="76" y="164" width="360" height="216" rx="26"/>
+      <rect x="332" y="374" width="404" height="196" rx="26"/>
+      <rect x="108" y="534" width="440" height="190" rx="26"/>
+    </g>
+    <text x="86" y="156" fill="#FF4B8D" fill-opacity=".8">CLUSTER A</text>
+    <text x="342" y="366" fill="#FF4B8D" fill-opacity=".8">CLUSTER B</text>
+    <text x="118" y="526" fill="#FF4B8D" fill-opacity=".8">CLUSTER C</text>
+    <text x="86" y="782" fill="#FF4B8D" fill-opacity=".75">CONEXIONES SOLO DENTRO DE CADA CLUSTER</text>
+    <text x="86" y="800" fill="#FF85B8" fill-opacity=".58">NINGUNA LÍNEA UNE UN CLUSTER CON OTRO · NO HAY RED COMPLETA</text>
+    <path d="M700 620 L790 660" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="1"/>
+    <text x="798" y="664" fill="#FFFFFF" fill-opacity=".72">CONEXIÓN INCOMPLETA · SE CORTA SIN LLEGAR</text>
+  </svg>
+
+  <svg class="ann" data-layer="cruce" viewBox="0 0 1440 900">
+    <rect x="70" y="0" width="220" height="900" fill="#FF4B8D" fill-opacity=".08" stroke="#FF4B8D" stroke-opacity=".32" stroke-dasharray="6 5"/>
+    <text x="80" y="28" fill="#FF4B8D">CARRIL IZQUIERDO · DESTINO</text>
+    <rect x="808" y="176" width="560" height="368" fill="none" stroke="#FF4B8D" stroke-opacity=".3" stroke-dasharray="4 4"/>
+    <text x="1368" y="168" fill="#FF4B8D" fill-opacity=".6" text-anchor="end">ZONA PROTEGIDA DEL COPY · X 808–1368 · Y 176–544</text>
+
+    <path d="M1470 592 C 1300 604, 1130 660, 646 736" fill="none" stroke="#FFFFFF" stroke-opacity=".55" stroke-width="1.8" stroke-dasharray="7 5"/>
+    <path d="M646 736 C 440 786, 260 812, 150 900" fill="none" stroke="#FFFFFF" stroke-opacity=".26" stroke-width="1.5" stroke-dasharray="3 6"/>
+    <circle cx="646" cy="736" r="5.5" fill="#FFFFFF"/>
+
+    <circle cx="1424" cy="596" r="4.5" fill="#FFFFFF" fill-opacity=".85"/>
+    <text x="1400" y="622" fill="#FFFFFF" fill-opacity=".85" text-anchor="end">1 · EL RECORRIDO COMIENZA FUERA DEL BORDE DERECHO</text>
+    <text x="1368" y="656" fill="#FFFFFF" fill-opacity=".6" text-anchor="end">2 · ENTRA YA POR DEBAJO DEL COPY · NUNCA PISA SU ZONA</text>
+    <text x="1130" y="700" fill="#FFFFFF" fill-opacity=".6" text-anchor="end">3 · CRUZA LA FRANJA INFERIOR CON UNA CURVA AMPLIA</text>
+
+    <circle cx="676" cy="604" r="16" fill="#FF85B8" fill-opacity=".16" stroke="#FF85B8" stroke-opacity=".5"/>
+    <text x="702" y="600" fill="#FF85B8" fill-opacity=".85">4 · DESTELLO BREVE CERCA DE LA CONEXIÓN INCOMPLETA</text>
+
+    <text x="600" y="700" fill="#FFFFFF" fill-opacity=".85" text-anchor="end">FACETS[15] · EN PLENO CRUCE</text>
+    <text x="600" y="716" fill="#FFFFFF" fill-opacity=".5" text-anchor="end">GIRO PARCIAL EN PROFUNDIDAD · -58°</text>
+
+    <text x="196" y="852" fill="#FFFFFF" fill-opacity=".62">5 · CONTINÚA HACIA EL CARRIL IZQUIERDO</text>
+    <text x="196" y="870" fill="#FFFFFF" fill-opacity=".4">SALE POR ABAJO HACIA LA SECCIÓN 04</text>
+  </svg>
+
+  <svg class="ann" data-layer="prof" viewBox="0 0 1440 900">
+    <text x="820" y="640" fill="#FF85B8" fill-opacity=".8">TRES PLANOS, UNO POR CLUSTER</text>
+    <text x="820" y="660" fill="#FF85B8" fill-opacity=".55">A · LEJANO — CUERPO BLUR 1.55 OP .44 · ETIQUETA NÍTIDA OP .62</text>
+    <text x="820" y="678" fill="#FF85B8" fill-opacity=".55">B · CERCANO — OPACIDAD .94</text>
+    <text x="820" y="696" fill="#FF85B8" fill-opacity=".55">C · MEDIO — OPACIDAD .60</text>
+    <text x="820" y="722" fill="#FFFFFF" fill-opacity=".5">LA PROFUNDIDAD AGRUPA: CADA CLUSTER VIVE EN SU PROPIO PLANO</text>
+  </svg>
+
+  <svg class="ann" data-layer="grid" viewBox="0 0 1440 900">
+    <g stroke="#FF4B8D" stroke-opacity=".14">
+      <path d="M72 0V900M788 0V900M1368 0V900"/>
+      <path d="M0 200H1440" stroke-dasharray="6 6"/>
+      <path d="M0 536H1440" stroke-dasharray="6 6" stroke-opacity=".4"/>
+    </g>
+    <text x="1360" y="192" fill="#FF4B8D" fill-opacity=".6" text-anchor="end">COPY DERECHA · Y=200 A Y=536 · ANCHO 560</text>
+    <text x="80" y="30" fill="#FF4B8D" fill-opacity=".5">CAMPO DE CLUSTERS · X 76–736</text>
+    <text x="1188" y="890" fill="#FF4B8D" fill-opacity=".5">LIENZO 1440 × 900</text>
+  </svg>
+
+</div>
+
+<div class="note">
+  <b>Lectura de la escena.</b> Ahora las capacidades sí se agrupan, pero cada grupo funciona por su cuenta: hay conexiones adentro de cada cluster y ninguna entre ellos. Es la diferencia con la Sección 02, donde no había ninguna relación.
+  <ul>
+    <li><b>Eje invertido respecto de la 02.</b> Allá el copy estaba a la izquierda y la escena a la derecha; acá el copy va a la derecha, alineado a la derecha, y los clusters ocupan el campo izquierdo. El plan pide composición distinta y este es el cambio más legible.</li>
+    <li><b>Tres clusters de dos píldoras</b>, cada uno en su propio plano de profundidad: A lejano, B cercano, C medio. La profundidad refuerza el agrupamiento.</li>
+    <li><b>Conexiones parciales.</b> Una línea dentro de cada cluster, ninguna entre clusters. Nunca se forma una red.</li>
+    <li><b>La conexión incompleta</b> sale del cluster B y se corta en el vacío, marcada con línea discontinua y un punto tenue en su extremo. Es el elemento que justifica el destello del fragmento al pasar cerca.</li>
+    <li><b>El fragmento guía en pleno cruce.</b> Entra por el carril derecho viniendo de la 02, describe una curva amplia hacia el carril izquierdo y pasa por debajo de la zona del copy. Rotación -58°, bastante más girado que en la 02, para leer el giro parcial en profundidad.</li>
+    <li><b>El vacío inferior derecho es deliberado.</b> Funciona como corredor narrativo: muestra el espacio que el fragmento acaba de recorrer. No se rellena ni se compensa bajando el copy.</li>
+    <li><b>Sin polvo.</b> La estela de la explosión ya se agotó en la Sección 02.</li>
+  </ul>
+</div>
+
+</div>
+<script>
+document.querySelectorAll('.tg').forEach(b=>{
+  b.addEventListener('click',()=>{
+    b.classList.toggle('on');
+    document.querySelector('.ann[data-layer="'+b.dataset.l+'"]').classList.toggle('show');
+  });
+});
+</script></body></html>

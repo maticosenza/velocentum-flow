@@ -406,8 +406,104 @@ Movimiento:
 - Giro parcial en profundidad.
 - Destello breve al pasar cerca de una conexión incompleta.
 
-Mockup aprobado:
-- PENDIENTE: docs/home-mockups/03-problema-dos.png
+MOCKUP APROBADO:
+- Imagen: docs/home-mockups/03-problema-dos.png
+- HTML de referencia interactivo: docs/home-mockups/03-problema-mockup-final.html
+- Fecha: 2026-08-31
+- Viewport de referencia: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
+
+- Lectura de la escena:
+  · Las capacidades ahora SÍ se agrupan, pero cada grupo funciona por su
+    cuenta: hay conexiones dentro de cada cluster y ninguna entre ellos.
+  · Esa es la diferencia con la Sección 02, donde no existía ninguna
+    relación. Acá hay grupos; lo que falta es el sistema.
+  · Nunca se forma una red completa.
+
+- Copy definitivo:
+  · Eyebrow: "El otro problema" — Geist Mono 500, 0.7rem,
+    letter-spacing .22em, uppercase, color --pink.
+  · Headline: "Y muchos proveedores sueltos tampoco forman un equipo." —
+    Manrope 800, 60 px, line-height 1.02, letter-spacing -.032em,
+    ancho de caja 560 px, alineado a la DERECHA.
+    "tampoco forman un equipo" en --pink.
+  · Subtítulo: "Cada uno hace bien su parte. Nadie mira el conjunto. Las
+    decisiones quedan sin dueño y el negocio avanza a pedazos." —
+    Manrope 400, 1.02rem, line-height 1.55, medida 44ch, color --on-2,
+    alineado a la derecha.
+
+- Geometría de la composición:
+  · Lienzo 1440 × 900, sin overflow lateral.
+  · Copy a la DERECHA: right=72, y=200 a y=536, ancho 560 px, alineación
+    a la derecha. Invierte el eje de la Sección 02, que tiene el copy a la
+    izquierda. Es el cambio de composición que pide el plan.
+  · Campo de clusters: x 76–736.
+  · Zona protegida del copy: x 808–1368, y 176–544.
+  · Carril izquierdo de destino: x 70–290.
+
+- Clusters, tres grupos de dos píldoras, uno por plano de profundidad:
+  · Cluster A — LEJANO: ESTRATEGIA (left 96, top 186, 196 px, -8°) ·
+    ANÁLISIS (left 214, top 274, 182 px, +5°).
+    Tratamiento de capas separadas: cuerpo con blur 1.55 px y opacidad .44,
+    etiqueta nítida a opacidad .62, con la misma técnica de dos SVG
+    hermanos aprobada en la Sección 02.
+  · Cluster B — CERCANO, opacidad .94: CONTENIDO (left 352, top 396,
+    238 px, -6°) · DISEÑO (left 498, top 476, 214 px, +9°).
+  · Cluster C — MEDIO, opacidad .60: WEB (left 128, top 556, 210 px, +7°) ·
+    ADQUISICIÓN (left 300, top 624, 224 px, -4°).
+  · La profundidad refuerza el agrupamiento: no es solo proximidad, cada
+    cluster vive en su propio plano.
+
+- Conexiones parciales:
+  · Una línea dentro de cada cluster, ninguna entre clusters:
+    A: (196,236) → (306,318), stroke-opacity .30, ancho 1.1
+    B: (470,452) → (604,522), stroke-opacity .42, ancho 1.3
+    C: (232,604) → (406,668), stroke-opacity .34, ancho 1.2
+  · CONEXIÓN INCOMPLETA: sale de DISEÑO en (604,522) hacia (676,604),
+    stroke-dasharray 5 7, opacidad .26, terminada en un punto tenue de
+    radio 2.6 en --pink-soft. No llega a ningún destino.
+  · Las conexiones se renderizan por debajo de las píldoras (z-index 6).
+
+- Recorrido del fragmento guía (FACETS[15] con INCLUSIONS[6]):
+  1. El recorrido comienza FUERA del borde derecho del viewport,
+     entrando ya a media altura baja (≈ y 592).
+  2. Entra por debajo del copy y NUNCA pisa su zona protegida
+     (x 808–1368, y 176–544). Por eso no desciende por el carril derecho:
+     ese carril se superpone con la columna del copy en esta sección.
+  3. Cruza la franja inferior mediante una curva amplia hasta (646, 736).
+  4. Produce un destello breve al pasar cerca del extremo de la conexión
+     incompleta, en (676, 604).
+  5. Continúa hacia el carril izquierdo y sale por abajo, rumbo a la
+     Sección 04.
+  · Posición en el mockup: left 598, top 686, ancho 98 px, rotación -58°.
+    Bastante más girado que los -24° de la Sección 02, para que se lea el
+    giro parcial en profundidad durante el cruce.
+
+- Vacío inferior derecho:
+  · Es DELIBERADO y funciona como corredor narrativo: muestra el espacio
+    que el fragmento acaba de recorrer.
+  · No se rellena, no se baja el copy y no se mueve el cluster C. La
+    asimetría es intencional y evita tapar contenido.
+
+- Polvo:
+  · No hay. La estela de la explosión del Hero se agotó en la Sección 02.
+
+- Comportamiento mobile:
+  · Pendiente de mockup propio. Menos píldoras simultáneas, clusters
+    reducidos, el cruce del fragmento simplificado a un desplazamiento
+    vertical con giro leve.
+
+- Reduced motion:
+  · Sin cruce ni giro: el fragmento aparece en su posición final.
+  · Sin destello.
+  · Píldoras y conexiones estáticas.
+  · Ningún contenido esencial depende de la animación.
+
+- Relación con las secciones vecinas:
+  · Sección 02: capacidades dispersas, sin centro y sin ninguna conexión.
+  · Sección 03: clusters con conexiones parciales, sin sistema completo.
+  · Sección 04: el punto donde todo empieza a alinearse sobre un mismo
+    objetivo. La progresión debe leerse como dispersión → agrupamiento
+    incompleto → integración.
 
 ------------------------------------------------------------
 
@@ -623,17 +719,21 @@ COMPLETADO
 - Mockup 02 — El problema: APROBADO (docs/home-mockups/02-problema-uno.png,
   ver Sección 02 para el detalle completo de copy, geometría, técnica de los
   dos SVG hermanos, fragmento guía y movimiento).
+- Mockup 03 — El otro problema: APROBADO (docs/home-mockups/03-problema-dos.png,
+  ver Sección 03 para el detalle completo de copy invertido a la derecha,
+  clusters con conexiones parciales, trayectoria corregida del fragmento guía
+  y vacío inferior derecho como corredor narrativo).
 
 PENDIENTE INMEDIATO
-- Crear y aprobar el mockup 03 — El otro problema, con clusters parciales
-  que lo diferencien de la dispersión sin centro de la Sección 02.
+- Crear y aprobar el mockup 04 — Un mismo objetivo, que cierra la progresión
+  dispersión → agrupamiento incompleto → integración.
 - Crear los keyframes aislados de explosión y fragmento guía para Hero,
   a partir de lo ya aprobado en la Sección 01.
 
 NO INICIAR TODAVÍA
 - Implementación completa de la HOME.
-- Implementación productiva de los mockups 01 — Hero y 02 — El problema
-  (mockups aprobados, código todavía no).
-- Mockup 03 en adelante.
+- Implementación productiva de los mockups 01 — Hero, 02 — El problema y
+  03 — El otro problema (mockups aprobados, código todavía no).
+- Mockup 04 en adelante.
 - Movimiento continuo definitivo.
 - Reemplazo masivo de secciones productivas.
