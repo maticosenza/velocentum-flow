@@ -1223,10 +1223,33 @@ FRAGMENTO GUÍA (REQUISITO)
 - SE MANTIENE A 60 PX. Es menor que en el resto del recorrido para
   respetar el gutter de 72 px que deja el container: con su tamaño
   habitual de 78–84 px pisaría el frame.
-- ROTACIÓN -6°. Es el giro más bajo de todo el recorrido.
-  · Progresión completa: -58° (Sección 03) → -31° (04) → -46.5° (05) →
-    -14° (06) → -16° (07) → -6° (08). Se lee como una desaceleración
-    sostenida a lo largo de la HOME, coherente con el tramo de descanso.
+- ROTACIÓN -6°. Es la orientación más cercana a la vertical de todo el
+  recorrido.
+  · ORIENTACIONES POR SECCIÓN: -58° (Sección 03) → -138.3° (04) →
+    -46.5° (05) → -14° (06) → -16° (07) → -6° (08).
+  · ESTOS VALORES NO FORMAN UNA SERIE MONOTÓNICA y no deben leerse como
+    tal. Cada uno responde a una necesidad compositiva LOCAL:
+    – 03: giro parcial en profundidad durante el cruce hacia el carril
+      opuesto.
+    – 04: -138.3°, calculado para que el vértice agudo (117,166) apunte
+      al centro de la Mira. Es el valor de mayor magnitud del recorrido y
+      está en el medio, no al principio.
+    – 05: orientación vertical hacia el nodo 01, para activarlo a
+      distancia sin descender.
+    – 06 y 07: deriva y reposo. No apuntan a nada.
+    – 08: descenso casi vertical por el gutter.
+  · -31° NO FORMA PARTE DE LA PROGRESIÓN. Es el valor de la V1 RECHAZADA
+    de la Sección 04, descartado porque dejaba la punta del fragmento
+    apuntando hacia abajo en lugar de hacia la Mira.
+  · LA DESACELERACIÓN NO SE EXPRESA CON EL ÁNGULO DE ORIENTACIÓN. Se
+    expresa con tres parámetros del movimiento:
+    – VELOCIDAD DE TRASLACIÓN, que decrece de sección a sección;
+    – AMPLITUD DE LA TRAYECTORIA, que pasa de curvas amplias a tramos
+      casi rectos;
+    – VELOCIDAD ANGULAR ENTRE ESTADOS, es decir cuánto tarda el fragmento
+      en pasar de una orientación a la siguiente.
+    Los tres se definen al construir la animación, no en los mockups
+    estáticos.
 - DESCIENDE CASI VERTICALMENTE por el gutter derecho y SALE PARCIALMENTE
   POR EL BORDE DERECHO: en el mockup ocupa x 1398–1458, o sea 18 px fuera
   de cuadro.
