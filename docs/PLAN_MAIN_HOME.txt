@@ -646,15 +646,153 @@ Contenido:
 
 Estructura propuesta:
 - Cuatro módulos con objetos del sistema.
-- Barras como recurso transversal.
+- Medición como escala transversal derivada del ScrollAxis oficial.
 
 Movimiento:
-- El fragmento guía activa o roza el primer hito visual.
-- Continúa por un canal entre módulos sin tapar las cards.
+- El fragmento guía se alinea y activa el primer hito visual a distancia.
+- Continúa por el margen exterior y los canales, sin tapar las cards.
 - Las cards mantienen reveals propios y secundarios.
 
-Mockup aprobado:
-- PENDIENTE: docs/home-mockups/05-como-trabajamos.png
+MOCKUP APROBADO:
+- Imagen: docs/home-mockups/05-como-trabajamos.png
+- HTML de referencia interactivo: docs/home-mockups/05-como-trabajamos-mockup-final.html
+- Fecha: 2026-08-31
+- Viewport de referencia: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
+
+=====================================================================
+CAMBIO RESPECTO DE LA INDICACIÓN ORIGINAL DEL PLAN
+=====================================================================
+- La versión anterior de esta sección decía "Barras como recurso
+  transversal". ESA INDICACIÓN QUEDA REEMPLAZADA.
+- MOTIVO: el sistema tiene exactamente cuatro objetos (Mira, Prisma, Rayo
+  y Barras) y la sección necesita cuatro módulos MÁS una capa transversal.
+  Si las Barras se reservaban para la capa transversal, quedaban tres
+  objetos para cuatro cards. Las únicas salidas eran crear un objeto nuevo
+  —prohibido por las reglas— o dejar una card sin objeto, rompiendo la
+  uniformidad de la fila.
+- SOLUCIÓN APROBADA: los cuatro objetos van en las cards y la medición se
+  expresa como escala horizontal derivada del ScrollAxis oficial, que el
+  pack ya define para representar recorrido y progreso. No se creó ningún
+  asset nuevo.
+
+=====================================================================
+MAPEO DEFINITIVO DE LOS CUATRO MOTORES
+=====================================================================
+- 01 ESTRATEGIA        → MIRA    (official/objects/target.svg)
+     Foco y dirección, según el manifiesto.
+- 02 CREATIVIDAD       → PRISMA  (official/objects/prism.svg)
+     Una entrada, muchas salidas: es generar variantes a partir de un
+     insumo.
+- 03 ADQUISICIÓN       → RAYO    (official/objects/lightning.svg)
+     Ejecución y velocidad, según el manifiesto.
+- 04 WEB & CONVERSIÓN  → BARRAS  (official/objects/bars.svg)
+     Conversión es crecimiento medible.
+- Los cuatro se usan SIN MODIFICAR. Lo único que se hace al embeberlos es
+  renombrar los IDs de sus <defs>, porque cuatro SVG en la misma página
+  colisionan en gradientes y filtros con nombres iguales (glass, beam, g,
+  gl, front, side, top, inner, core, glow).
+
+- PRISMA: SE USA SIN RECORTAR NI MODIFICAR. Su viewBox es 520 × 260, más
+  apaisado que el resto, así que ajustado por altura se ve algo menos
+  presente que los otros tres. Se limita a max-height 92 px para que no
+  desborde el ancho de la card. NO se recorta el viewBox para "equilibrar"
+  el peso visual: eso sería modificar el asset oficial.
+
+=====================================================================
+MEDICIÓN — ESCALA TRANSVERSAL
+=====================================================================
+- Derivada del SCROLLAXIS OFICIAL (official/scroll/scroll-axis.svg): es el
+  mismo eje del pack, reorientado de vertical a horizontal.
+- Línea en y=596, stroke --pink a .26 de opacidad, ancho 1.1.
+- Ticks regulares cada 34 px.
+- UN NODO POR MÓDULO, alineado al centro de cada card: x = 225, 555, 885,
+  1215.
+- SIN ETIQUETA POR NODO. Una sola leyenda "MEDICIÓN" al inicio del eje, en
+  x=20 (separada del borde para que no se lea recortada). Si cada nodo
+  llevara rótulo propio, la escala empezaría a leerse como una quinta fila
+  de contenido.
+- ES UNA CAPA SECUNDARIA: atraviesa y relaciona los cuatro módulos, pero
+  nunca compite con los objetos ni parece una quinta card.
+
+=====================================================================
+GEOMETRÍA DE LA COMPOSICIÓN
+=====================================================================
+- Lienzo 1440 × 900, sin overflow lateral.
+- Copy CENTRADO arriba, y=104. Headline a 48 px (menor que las secciones
+  narrativas): acá el protagonista son las cards, no el copy.
+- Cuatro cards: y=380, alto 340, ancho 306, gap 24, márgenes 72.
+  Posiciones x: 72, 402, 732, 1062.
+- Estructura interna de card: objeto (118 px de alto fijo) → número en
+  mono → espacio flexible → título → descripción. El espacio flexible es
+  lo que mantiene los cuatro títulos alineados aunque los objetos tengan
+  proporciones distintas, y es por donde pasa la escala.
+- Escala en y=596.
+
+=====================================================================
+FRAGMENTO GUÍA — ACTIVACIÓN A DISTANCIA
+=====================================================================
+- POSICIÓN: alineado en el CANAL SUPERIOR, centrado exactamente sobre la
+  vertical del nodo 01 (x=225). left=179, top=280, ancho 92 px.
+- NO DESCIENDE HASTA EL NODO. Su cuerpo termina en y=374 y las cards
+  empiezan en y=380: NUNCA TOCA NI ATRAVIESA LA CARD.
+- ROTACIÓN CALCULADA: -46.5°.
+  · Vector centro-punta sin rotar: 136.5° (vértice agudo (117,166)).
+  · Vector deseado: 90°, exactamente vertical hacia abajo, hacia el nodo.
+  · Rotación = 90° - 136.5° = -46.5°.
+  · OBLIGACIÓN: si al implementar cambian la posición del fragmento, su
+    tamaño, la posición de las cards o la altura de la escala, la rotación
+    DEBE RECALCULARSE con el mismo procedimiento y verificarse
+    visualmente. No es un valor fijo: es el resultado de una relación
+    espacial.
+
+- ACTIVACIÓN MEDIANTE PULSO VERTICAL:
+  · Un haz vertical tenue baja desde la punta del fragmento (y=374) hasta
+    el nodo (y=596), en x=225.
+  · Gradiente vertical --pink-soft .42 → --pink .16 → --pink .50, con
+    desenfoque gaussiano.
+  · EL FRAGMENTO SEÑALA; EL PULSO HACE EL TRABAJO. El cuerpo del objeto
+    nunca entra en la card.
+- NODO 01 ACTIVO: se distingue de los otros tres con halo (círculo de
+  radio 15 en --pink al 18% con glow, más anillo de radio 13 en
+  --pink-soft al 50%) y NÚCLEO REFORZADO (radio 3 en vez de 2.2,
+  opacidad 1 en vez de .7, stroke 1.7 en vez de 1.3).
+
+=====================================================================
+RECORRIDO POSTERIOR — CINCO PASOS
+=====================================================================
+1. Entra por el CANAL SUPERIOR desde la derecha (y 276–376).
+2. Se alinea sobre el nodo 01 y lo activa a distancia.
+3. Va hacia el MARGEN EXTERIOR IZQUIERDO (x 0–72).
+4. DESCIENDE POR FUERA DE LA FILA DE CARDS, por ese margen, sin tocar
+   ninguna.
+5. Entra al CANAL INFERIOR (y 736–802) y sale hacia la Sección 06.
+
+- TRES ZONAS DOCUMENTADAS:
+  · CANAL SUPERIOR: y 276–376, entre el copy y los módulos.
+  · MARGEN EXTERIOR IZQUIERDO: x 0–72, a la altura de la fila de cards.
+  · CANAL INFERIOR: y 736–802, debajo de la fila.
+- EL FRAGMENTO NUNCA PASA POR ENCIMA DE UNA CARD. Todo su recorrido ocurre
+  dentro de esas tres zonas.
+
+=====================================================================
+OTRAS REGLAS DE LA SECCIÓN
+=====================================================================
+- SIN EXPLOSIÓN Y SIN RECONSTRUCCIÓN. El Crystal 5 no aparece en esta
+  sección, ni siquiera como huella. La reconstrucción sigue reservada para
+  "Empecemos".
+- Las cards mantienen reveals propios y secundarios, con desfase entre
+  ellas. Nunca compiten con el recorrido del fragmento.
+
+- Comportamiento mobile:
+  · Pendiente de mockup propio. Las cuatro cards pasan a columna o a
+    scroll horizontal, la escala se reorienta o se simplifica a un
+    indicador de progreso, y el fragmento acompaña por un solo lateral.
+
+- Reduced motion:
+  · Sin recorrido ni pulso: el fragmento aparece ya alineado y el nodo 01
+    ya activo.
+  · Cards visibles sin reveal escalonado.
+  · Ningún contenido esencial depende de la animación.
 
 ------------------------------------------------------------
 
@@ -835,18 +973,23 @@ COMPLETADO
   ver Sección 04 para el detalle completo de la escena de tres elementos sin
   píldoras, la huella de aristas sin reconstrucción, la Mira en el nodo central
   y el procedimiento de cálculo de la orientación del fragmento).
+- Mockup 05 — Cómo trabajamos: APROBADO (docs/home-mockups/05-como-trabajamos.png,
+  ver Sección 05 para el mapeo definitivo de los cuatro objetos a las cards, la
+  medición como escala derivada del ScrollAxis oficial que reemplaza la
+  indicación previa de "Barras como recurso transversal", la activación del
+  nodo 01 a distancia y las tres zonas de recorrido del fragmento).
 
 PENDIENTE INMEDIATO
-- Crear y aprobar el mockup 05 — Cómo trabajamos, primera sección de contenido
-  comercial después del punto de giro narrativo de la Sección 04.
+- Crear y aprobar el mockup 06 — Qué activamos, que continúa la fase de
+  contenido comercial iniciada en la Sección 05.
 - Crear los keyframes aislados de explosión y fragmento guía para Hero,
   a partir de lo ya aprobado en la Sección 01.
 
 NO INICIAR TODAVÍA
 - Implementación completa de la HOME.
 - Implementación productiva de los mockups 01 — Hero, 02 — El problema,
-  03 — El otro problema y 04 — Un mismo objetivo (mockups aprobados, código
-  todavía no).
-- Mockup 05 en adelante.
+  03 — El otro problema, 04 — Un mismo objetivo y 05 — Cómo trabajamos
+  (mockups aprobados, código todavía no).
+- Mockup 06 en adelante.
 - Movimiento continuo definitivo.
 - Reemplazo masivo de secciones productivas.

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Velocentum — Mockup 05 · Cómo trabajamos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#FF4B8D;--pink-soft:#FF85B8;--pink-deep:#D92F6E;--ink:#0E0E13;
+--on:#FFFFFF;--on-2:rgba(255,255,255,.62);--bd:rgba(255,255,255,.10);
+--sans:'Manrope',sans-serif;--mono:'Geist Mono',ui-monospace,monospace;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#08080C;color:var(--on);font-family:var(--sans)}
+.shell{width:1440px;max-width:100%;margin:0 auto;padding:26px 0}
+.meta{width:1440px;margin:0 0 16px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.meta h1{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.meta .s{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-2);margin-top:4px}
+.tgs{display:flex;gap:7px;flex-wrap:wrap}
+.tg{background:rgba(255,255,255,.06);border:1px solid var(--bd);color:var(--on);font-family:var(--mono);font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;padding:8px 13px;border-radius:999px;cursor:pointer}
+.tg.on{background:var(--pink);color:var(--ink);border-color:var(--pink)}
+
+.vp{position:relative;width:1440px;height:900px;background:var(--ink);overflow:hidden}
+.vp::before{content:"";position:absolute;inset:0;pointer-events:none;
+ background:radial-gradient(76% 52% at 50% 60%, rgba(255,75,141,.055), transparent 70%)}
+
+.copy{position:absolute;left:0;right:0;top:104px;text-align:center;z-index:30;padding:0 72px}
+.eyebrow{font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--pink);margin-bottom:20px}
+.h2{font-weight:800;font-size:48px;line-height:1.05;letter-spacing:-.03em}
+.h2 em{font-style:normal;color:var(--pink)}
+.sub{margin:20px auto 0;font-size:1rem;line-height:1.5;color:var(--on-2);max-width:56ch}
+
+.card{position:absolute;top:380px;width:306px;height:340px;z-index:14;
+ background:rgba(255,255,255,.028);border:1px solid var(--bd);border-radius:24px;
+ padding:26px 26px 30px;display:flex;flex-direction:column}
+.obj{height:118px;flex:0 0 118px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.obj svg{max-height:118px;max-width:100%;height:auto;width:auto}
+.obj-prisma svg{max-height:92px}
+.card .num{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;color:var(--pink);opacity:.75}
+.card h3{font-weight:800;font-size:1.32rem;letter-spacing:-.02em;margin:auto 0 10px}
+.card p{font-size:.9rem;line-height:1.5;color:var(--on-2)}
+
+.escala{position:absolute;inset:0;z-index:18;pointer-events:none}
+/* pulso vertical de activacion: senala el nodo sin que el cuerpo baje */
+.pulso{position:absolute;inset:0;z-index:16;pointer-events:none}
+
+.frag{position:absolute;left:179px;top:280px;width:92px;z-index:22;
+ transform:rotate(-46.5deg);filter:drop-shadow(0 10px 22px rgba(0,0,0,.5))}
+.frag svg{display:block;width:100%}
+
+.ann{position:absolute;inset:0;z-index:60;pointer-events:none;display:none}
+.ann.show{display:block}
+.ann text{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase}
+
+.note{width:1440px;margin:20px 0 0;border:1px solid var(--bd);border-radius:14px;padding:22px 24px;color:var(--on-2);line-height:1.65;font-size:.88rem}
+.note b{color:var(--on);font-weight:700}
+.note code{font-family:var(--mono);font-size:.85em;color:var(--pink)}
+.note ul{margin:10px 0 0 18px} .note li{margin-bottom:5px}
+</style></head><body><div class="shell">
+
+<div class="meta">
+  <div><h1>Mockup 05 · Cómo trabajamos · FINAL</h1>
+  <div class="s">Desktop 1440 × 900 · cuatro motores · activación a distancia del nodo 01 · aprobado 2026-08-31</div></div>
+  <div class="tgs">
+    <button class="tg" data-l="mapeo">Mapeo de objetos</button>
+    <button class="tg" data-l="escala">Escala transversal</button>
+    <button class="tg" data-l="canal">Recorrido del fragmento</button>
+    <button class="tg" data-l="grid">Grilla y cotas</button>
+  </div>
+</div>
+
+<div class="vp">
+
+  <div class="copy">
+    <div class="eyebrow">Cómo trabajamos</div>
+    <h2 class="h2">Un equipo. <em>Cuatro motores</em> funcionando juntos.</h2>
+    <p class="sub">Cada motor tiene su oficio. La medición los atraviesa a todos: es lo que permite saber si el conjunto avanza.</p>
+  </div>
+
+  <div class="card" style="left:72px">
+    <div class="obj obj-mira"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260"  aria-hidden="true">
+  
+  <defs>
+    <radialGradient id="mira-core" cx="38%" cy="30%" r="76%">
+      <stop stop-color="#fff"/>
+      <stop offset=".2" stop-color="#ffb6d0"/>
+      <stop offset=".55" stop-color="#ff4b8d"/>
+      <stop offset="1" stop-color="#bd245b"/>
+    </radialGradient>
+    <filter id="mira-glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+  <g fill="none" stroke="#fff" stroke-linecap="round">
+    <circle cx="130" cy="130" r="68" stroke-opacity=".86" stroke-width="1.35"/>
+    <circle cx="130" cy="130" r="32" stroke-opacity=".48" stroke-width="1"/>
+    <path d="M130 27v67M130 166v67M27 130h67M166 130h67" stroke-opacity=".76" stroke-width="1.15"/>
+    <path d="M130 16v11M130 233v11M16 130h11M233 130h11" stroke-opacity=".32" stroke-width=".8"/>
+  </g>
+  <circle cx="130" cy="130" r="22" fill="#ff4b8d" opacity=".24" filter="url(#mira-glow)"/>
+  <circle cx="130" cy="130" r="12" fill="url(#mira-core)"/>
+  <circle cx="126.5" cy="126.5" r="3" fill="#fff" opacity=".48"/>
+</svg>
+</div>
+    <span class="num">01</span>
+    <h3>Estrategia</h3>
+    <p>Definimos a dónde vamos y con qué prioridad.</p>
+  </div>
+  <div class="card" style="left:402px">
+    <div class="obj obj-prisma"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 260">
+<defs>
+ <linearGradient id="prisma-glass" x1="190" y1="30" x2="300" y2="220" gradientUnits="userSpaceOnUse"><stop stop-color="#fff" stop-opacity=".16"/><stop offset=".5" stop-color="#FF9BC0" stop-opacity=".12"/><stop offset="1" stop-color="#FF4B8D" stop-opacity=".18"/></linearGradient>
+ <linearGradient id="prisma-beam" x1="250" y1="0" x2="500" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset=".18" stop-color="#ffe76d"/><stop offset=".38" stop-color="#7dff6a"/><stop offset=".60" stop-color="#50c9ff"/><stop offset=".82" stop-color="#7c5cff"/><stop offset="1" stop-color="#FF4B8D" stop-opacity="0"/></linearGradient>
+ <filter id="prisma-g"><feGaussianBlur stdDeviation="5"/></filter>
+</defs>
+<path d="M16 136H170" stroke="#FF4B8D" stroke-opacity=".20" stroke-width="16" filter="url(#prisma-g)"/><path d="M16 136H170" stroke="#FF4B8D" stroke-opacity=".45" stroke-width="3"/>
+<polygon points="250,28 164,218 337,218" fill="url(#prisma-glass)" stroke="#FFB1CC" stroke-opacity=".82" stroke-width="2"/>
+<path d="M250 28L250 218M164 218L250 122 337 218" stroke="#fff" stroke-opacity=".18"/>
+<path d="M250 136L500 136" stroke="url(#prisma-beam)" stroke-width="13" filter="url(#prisma-g)"/><path d="M250 136L500 136" stroke="url(#prisma-beam)" stroke-width="5"/>
+</svg></div>
+    <span class="num">02</span>
+    <h3>Creatividad</h3>
+    <p>Convertimos una idea en muchas piezas que compiten.</p>
+  </div>
+  <div class="card" style="left:732px">
+    <div class="obj obj-rayo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 260"><defs><linearGradient id="rayo-g" x1="45" y1="20" x2="165" y2="240" gradientUnits="userSpaceOnUse"><stop stop-color="#fff" stop-opacity=".8"/><stop offset=".18" stop-color="#FF9BC0"/><stop offset=".55" stop-color="#FF4B8D"/><stop offset="1" stop-color="#981B4A"/></linearGradient><filter id="rayo-gl" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g filter="url(#rayo-gl)" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"><path d="M147 14L48 130h63L77 246l101-143h-58z" fill="url(#rayo-g)"/><path d="M147 14L91 111l29-8M48 130l63 0 10-27M77 246l34-116M178 103l-67 27" fill="none"/><path d="M72 155l59-54 18 26-63 48z" fill="#FF6B9D" fill-opacity=".28" stroke="none"/></g></svg></div>
+    <span class="num">03</span>
+    <h3>Adquisición</h3>
+    <p>Llevamos esas piezas al mercado y compramos atención.</p>
+  </div>
+  <div class="card" style="left:1062px">
+    <div class="obj obj-barras"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 280"  aria-hidden="true">
+  
+  <defs>
+    <linearGradient id="barras-front" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ffb3ce" stop-opacity=".58"/>
+      <stop offset=".22" stop-color="#c45882" stop-opacity=".5"/>
+      <stop offset=".64" stop-color="#6d2445" stop-opacity=".54"/>
+      <stop offset="1" stop-color="#ff4b8d" stop-opacity=".28"/>
+    </linearGradient>
+    <linearGradient id="barras-side" x1="0" y1="0" x2="1" y2=".8">
+      <stop stop-color="#502039" stop-opacity=".7"/>
+      <stop offset=".55" stop-color="#a52b5a" stop-opacity=".48"/>
+      <stop offset="1" stop-color="#ff4b8d" stop-opacity=".7"/>
+    </linearGradient>
+    <linearGradient id="barras-top" x1="0" y1="1" x2="1" y2="0">
+      <stop stop-color="#ff8eb7" stop-opacity=".82"/>
+      <stop offset=".5" stop-color="#ffd8e6" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#b8587c" stop-opacity=".74"/>
+    </linearGradient>
+    <linearGradient id="barras-inner" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#fff" stop-opacity=".3"/>
+      <stop offset=".48" stop-color="#ff99be" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#ff4b8d" stop-opacity=".34"/>
+    </linearGradient>
+    <filter id="barras-pinkGlow" x="-60%" y="-30%" width="220%" height="180%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+  </defs>
+  <ellipse cx="139" cy="232" rx="121" ry="13" fill="#ff4b8d" opacity=".14" filter="url(#barras-pinkGlow)"/>
+  <g stroke-linejoin="round">
+    <g>
+      <path d="M29 159 65 169v57l-36-9z" fill="url(#barras-front)" stroke="#ffd3e2" stroke-opacity=".78" stroke-width="1.35"/>
+      <path d="m65 169 14-9v57l-14 9z" fill="url(#barras-side)" stroke="#ff8db7" stroke-opacity=".72" stroke-width="1.2"/>
+      <path d="m29 159 14-8 36 9-14 9z" fill="url(#barras-top)" stroke="#fff4f8" stroke-opacity=".9" stroke-width="1.25"/>
+      <path d="M39 162v48l26 7M69 168v49" fill="none" stroke="url(#barras-inner)" stroke-width="1"/>
+    </g>
+    <g>
+      <path d="M99 105 139 116v110l-40-10z" fill="url(#barras-front)" stroke="#ffd3e2" stroke-opacity=".82" stroke-width="1.45"/>
+      <path d="m139 116 16-10v110l-16 10z" fill="url(#barras-side)" stroke="#ff8db7" stroke-opacity=".76" stroke-width="1.25"/>
+      <path d="m99 105 16-9 40 10-16 10z" fill="url(#barras-top)" stroke="#fff4f8" stroke-opacity=".92" stroke-width="1.3"/>
+      <path d="M110 108v100l29 8M144 114v102" fill="none" stroke="url(#barras-inner)" stroke-width="1.05"/>
+      <path d="m100 169 39 10 16-10" fill="none" stroke="#ff9fc1" stroke-opacity=".16"/>
+    </g>
+    <g>
+      <path d="M177 42 222 54v172l-45-11z" fill="url(#barras-front)" stroke="#ffe0eb" stroke-opacity=".86" stroke-width="1.55"/>
+      <path d="m222 54 17-11v172l-17 11z" fill="url(#barras-side)" stroke="#ff8db7" stroke-opacity=".8" stroke-width="1.35"/>
+      <path d="m177 42 17-10 45 11-17 11z" fill="url(#barras-top)" stroke="#fff7fa" stroke-opacity=".94" stroke-width="1.4"/>
+      <path d="M189 45v162l33 8M228 52v163" fill="none" stroke="url(#barras-inner)" stroke-width="1.1"/>
+      <path d="m178 115 44 11 17-10M178 178l44 11 17-10" fill="none" stroke="#ff9fc1" stroke-opacity=".16"/>
+    </g>
+  </g>
+  <path d="M18 228h235" stroke="#ff4b8d" stroke-opacity=".28" stroke-width=".9"/>
+</svg>
+</div>
+    <span class="num">04</span>
+    <h3>Web &amp; Conversión</h3>
+    <p>Ordenamos lo que pasa después del clic.</p>
+  </div>
+
+  <svg class="pulso" viewBox="0 0 1440 900">
+    <defs>
+      <linearGradient id="pulse-beam" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#FF85B8" stop-opacity=".42"/>
+        <stop offset="55%" stop-color="#FF4B8D" stop-opacity=".16"/>
+        <stop offset="100%" stop-color="#FF4B8D" stop-opacity=".5"/>
+      </linearGradient>
+      <filter id="pulse-glow" x="-300%" y="-40%" width="700%" height="180%"><feGaussianBlur stdDeviation="5"/></filter>
+    </defs>
+    <rect x="216" y="374" width="18" height="222" fill="url(#pulse-beam)" filter="url(#pulse-glow)" opacity=".55"/>
+    <path d="M225 374V596" stroke="url(#pulse-beam)" stroke-width="1.4"/>
+    <circle cx="225" cy="596" r="15" fill="#FF4B8D" fill-opacity=".18" filter="url(#pulse-glow)"/>
+    <circle cx="225" cy="596" r="13" fill="none" stroke="#FF85B8" stroke-opacity=".5" stroke-width="1"/>
+  </svg>
+
+  <svg class="escala" viewBox="0 0 1440 900">
+    <path d="M0 596H1440" stroke="#FF4B8D" stroke-opacity=".26" stroke-width="1.1"/>
+    <path d="M96 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M130 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M164 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M198 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M232 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M266 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M300 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M334 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M368 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M402 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M436 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M470 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M504 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M538 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M572 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M606 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M640 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M674 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M708 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M742 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M776 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M810 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M844 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M878 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M912 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M946 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M980 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M1014 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M1048 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M1082 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M1116 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M1150 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M1184 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M1218 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M1252 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M1286 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M1320 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M1354 592v8" stroke="#FF4B8D" stroke-opacity=".16"/><path d="M1388 592v8" stroke="#FF4B8D" stroke-opacity=".16"/>
+    <circle cx="225" cy="596" r="6.5" fill="#0E0E13" stroke="#FF4B8D" stroke-opacity=".95" stroke-width="1.7"/><circle cx="225" cy="596" r="3" fill="#FF4B8D" fill-opacity="1"/><circle cx="555" cy="596" r="6.5" fill="#0E0E13" stroke="#FF4B8D" stroke-opacity=".75" stroke-width="1.3"/><circle cx="555" cy="596" r="2.2" fill="#FF4B8D" fill-opacity="0.7"/><circle cx="885" cy="596" r="6.5" fill="#0E0E13" stroke="#FF4B8D" stroke-opacity=".75" stroke-width="1.3"/><circle cx="885" cy="596" r="2.2" fill="#FF4B8D" fill-opacity="0.7"/><circle cx="1215" cy="596" r="6.5" fill="#0E0E13" stroke="#FF4B8D" stroke-opacity=".75" stroke-width="1.3"/><circle cx="1215" cy="596" r="2.2" fill="#FF4B8D" fill-opacity="0.7"/>
+    <text x="20" y="582" font-family="Geist Mono" font-size="9" letter-spacing=".12em" fill="#FF4B8D" fill-opacity=".7">MEDICIÓN</text>
+  </svg>
+
+  <div class="frag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="112 84 88 90" class="frag-svg" aria-hidden="true"><defs><linearGradient id="cp-light-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF7FA" stop-opacity=".92"></stop><stop offset=".2" stop-color="#FFB1CE"></stop><stop offset=".56" stop-color="#F56B9D"></stop><stop offset="1" stop-color="#B32558"></stop></linearGradient><linearGradient id="cp-hot-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFB0CC"></stop><stop offset=".3" stop-color="#FF5C96"></stop><stop offset=".62" stop-color="#E82C70"></stop><stop offset="1" stop-color="#7C1C40"></stop></linearGradient><linearGradient id="cp-rose-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#F58FB4"></stop><stop offset=".38" stop-color="#CA3F72"></stop><stop offset="1" stop-color="#5B243B"></stop></linearGradient><linearGradient id="cp-graphite-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5D4C5B"></stop><stop offset=".48" stop-color="#332A37"></stop><stop offset="1" stop-color="#17141D"></stop></linearGradient><linearGradient id="cp-deep-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#9E315E"></stop><stop offset=".42" stop-color="#63213E"></stop><stop offset="1" stop-color="#261A27"></stop></linearGradient><linearGradient id="cp-glass-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".82"></stop><stop offset=".3" stop-color="#F6BDD1" stop-opacity=".52"></stop><stop offset="1" stop-color="#6C5364" stop-opacity=".32"></stop></linearGradient><linearGradient id="cp-edge-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".78"></stop><stop offset=".45" stop-color="#F4B3CA" stop-opacity=".58"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity=".46"></stop></linearGradient><radialGradient id="cp-ground-_R_19ra_" cx="50%" cy="10%" r="72%"><stop stop-color="#FF4B8D" stop-opacity=".34"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity="0"></stop></radialGradient><filter id="cp-glow-_R_19ra_" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4.2"></feGaussianBlur></filter><filter id="cp-piece-_R_19ra_" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="1" stdDeviation="1.3" flood-color="#120A12" flood-opacity=".76"></feDropShadow><feDropShadow dx="0" dy="0" stdDeviation=".55" flood-color="#FF4B8D" flood-opacity=".22"></feDropShadow></filter></defs><polygon points="139,102 164,89 193,116 117,166" fill="url(#cp-deep-_R_19ra_)" fill-opacity=".5" stroke="#4E1830" stroke-opacity=".5" stroke-width=".7" transform="translate(3 3.5)" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="139,102 164,89 193,116 117,166" fill="url(#cp-rose-_R_19ra_)" fill-opacity="0.74" stroke="url(#cp-edge-_R_19ra_)" stroke-width=".82" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 139,102 164,89" fill="url(#cp-deep-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 164,89 193,116" fill="url(#cp-light-_R_19ra_)" fill-opacity="0.31" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 193,116 117,166" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.4" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 117,166 139,102" fill="url(#cp-hot-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><path d="M153.25 118.25L139 102" fill="none" stroke="rgba(255,240,245,.62)" stroke-width=".48" vector-effect="non-scaling-stroke"></path><polygon points="148,118 167,101 158,126" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.5" stroke="rgba(255,222,233,.30)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon></svg></div>
+
+  <svg class="ann" data-layer="mapeo" viewBox="0 0 1440 900">
+    <text x="72" y="770" fill="#FF4B8D" fill-opacity=".85">MAPEO DEFINITIVO · CADA MOTOR CON UN OBJETO DEL SISTEMA</text>
+    <text x="72" y="790" fill="#FF85B8" fill-opacity=".62">ESTRATEGIA → MIRA · FOCO Y DIRECCIÓN</text>
+    <text x="72" y="806" fill="#FF85B8" fill-opacity=".62">CREATIVIDAD → PRISMA · UNA ENTRADA, MUCHAS SALIDAS</text>
+    <text x="72" y="822" fill="#FF85B8" fill-opacity=".62">ADQUISICIÓN → RAYO · EJECUCIÓN Y VELOCIDAD</text>
+    <text x="72" y="838" fill="#FF85B8" fill-opacity=".62">WEB &amp; CONVERSIÓN → BARRAS · CRECIMIENTO MEDIBLE</text>
+    <text x="72" y="862" fill="#FFFFFF" fill-opacity=".55">MEDICIÓN NO ES UNA QUINTA CARD: ES LA ESCALA QUE LAS CRUZA</text>
+    <text x="1368" y="770" fill="#FF4B8D" fill-opacity=".7" text-anchor="end">SIN OBJETOS NUEVOS</text>
+    <text x="1368" y="790" fill="#FF85B8" fill-opacity=".55" text-anchor="end">LOS CUATRO SALEN DE OFFICIAL/OBJECTS/ SIN MODIFICAR</text>
+  </svg>
+
+  <svg class="ann" data-layer="escala" viewBox="0 0 1440 900">
+    <path d="M0 596H1440" stroke="#FF85B8" stroke-opacity=".5" stroke-width="2"/>
+    <g fill="none" stroke="#FF85B8" stroke-opacity=".45" stroke-dasharray="3 4"><circle cx="225" cy="596" r="22"/><circle cx="555" cy="596" r="22"/><circle cx="885" cy="596" r="22"/><circle cx="1215" cy="596" r="22"/></g>
+    <text x="72" y="336" fill="#FF85B8" fill-opacity=".85">ESCALA DERIVADA DEL SCROLLAXIS OFICIAL</text>
+    <text x="72" y="352" fill="#FF85B8" fill-opacity=".55">EL EJE VERTICAL DEL PACK, REORIENTADO A HORIZONTAL</text>
+    <text x="1368" y="336" fill="#FFFFFF" fill-opacity=".62" text-anchor="end">CAPA SECUNDARIA · STROKE .26 · NO COMPITE CON LOS OBJETOS</text>
+    <text x="1368" y="352" fill="#FFFFFF" fill-opacity=".45" text-anchor="end">UN NODO POR MÓDULO · SIN ETIQUETA PROPIA</text>
+    <text x="720" y="666" fill="#FF85B8" fill-opacity=".6" text-anchor="middle">ATRAVIESA Y RELACIONA · NO ES UNA QUINTA CARD</text>
+  </svg>
+
+  <svg class="ann" data-layer="canal" viewBox="0 0 1440 900">
+    <rect x="0" y="276" width="1440" height="100" fill="#FF4B8D" fill-opacity=".06" stroke="#FF4B8D" stroke-opacity=".26" stroke-dasharray="6 5"/>
+    <text x="1368" y="268" fill="#FF4B8D" fill-opacity=".7" text-anchor="end">CANAL SUPERIOR</text>
+    <rect x="0" y="380" width="72" height="340" fill="#FF4B8D" fill-opacity=".07" stroke="#FF4B8D" stroke-opacity=".3" stroke-dasharray="6 5"/>
+    <text x="8" y="368" fill="#FF4B8D" fill-opacity=".8">MARGEN EXTERIOR</text>
+    <rect x="0" y="736" width="1440" height="66" fill="#FF4B8D" fill-opacity=".05" stroke="#FF4B8D" stroke-opacity=".2" stroke-dasharray="6 5"/>
+    <text x="1368" y="792" fill="#FF4B8D" fill-opacity=".55" text-anchor="end">CANAL INFERIOR · SALIDA HACIA LA SECCIÓN 06</text>
+
+    <path d="M1500 300 C 1100 320, 640 330, 295 327" fill="none" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="1.6" stroke-dasharray="7 5"/>
+    <path d="M225 327 C 150 330, 60 342, 36 410" fill="none" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="1.6" stroke-dasharray="7 5"/>
+    <path d="M36 410 V740 C 40 780, 120 776, 300 772" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1.5" stroke-dasharray="4 6"/>
+    <path d="M300 772 C 700 786, 1100 780, 1440 764" fill="none" stroke="#FFFFFF" stroke-opacity=".2" stroke-width="1.4" stroke-dasharray="3 7"/>
+
+    <circle cx="225" cy="327" r="5" fill="#FFFFFF"/>
+    <path d="M225 380 V576" stroke="#FF85B8" stroke-opacity=".55" stroke-width="1.3" stroke-dasharray="2 5"/>
+    <text x="251" y="316" fill="#FFFFFF" fill-opacity=".85">1 · SE ALINEA SOBRE EL NODO 01</text>
+    <text x="251" y="332" fill="#FFFFFF" fill-opacity=".5">SIN DESCENDER · PUNTA VERTICAL · -46.5°</text>
+    <text x="251" y="470" fill="#FF85B8" fill-opacity=".8">2 · LO ACTIVA A DISTANCIA</text>
+    <text x="251" y="486" fill="#FF85B8" fill-opacity=".5">PULSO VERTICAL · EL CUERPO NUNCA ENTRA EN LA CARD</text>
+    <text x="8" y="470" fill="#FFFFFF" fill-opacity=".7">3 · VA AL MARGEN</text>
+    <text x="8" y="486" fill="#FFFFFF" fill-opacity=".5">EXTERIOR IZQUIERDO</text>
+    <text x="8" y="610" fill="#FFFFFF" fill-opacity=".6">4 · DESCIENDE</text>
+    <text x="8" y="626" fill="#FFFFFF" fill-opacity=".45">POR FUERA DE LA FILA</text>
+    <text x="360" y="762" fill="#FFFFFF" fill-opacity=".55">5 · ENTRA AL CANAL INFERIOR Y SALE HACIA LA SECCIÓN 06</text>
+  </svg>
+
+  <svg class="ann" data-layer="grid" viewBox="0 0 1440 900">
+    <g stroke="#FF4B8D" stroke-opacity=".14">
+      <path d="M72 0V900M1368 0V900"/>
+      <path d="M72 340V760" stroke-dasharray="4 5"/><path d="M378 340V760" stroke-dasharray="4 5"/><path d="M402 340V760" stroke-dasharray="4 5"/><path d="M708 340V760" stroke-dasharray="4 5"/><path d="M732 340V760" stroke-dasharray="4 5"/><path d="M1038 340V760" stroke-dasharray="4 5"/><path d="M1062 340V760" stroke-dasharray="4 5"/><path d="M1368 340V760" stroke-dasharray="4 5"/>
+      <path d="M0 380H1440M0 720H1440" stroke-dasharray="6 6"/>
+    </g>
+    <text x="72" y="368" fill="#FF4B8D" fill-opacity=".6">CARDS · Y=380 · ALTO 340 · ANCHO 306 · GAP 24</text>
+    <text x="72" y="744" fill="#FF4B8D" fill-opacity=".5">ESCALA EN Y=596 · NODOS EN 225, 555, 885, 1215</text>
+    <text x="1188" y="890" fill="#FF4B8D" fill-opacity=".5">LIENZO 1440 × 900</text>
+  </svg>
+
+</div>
+
+<div class="note">
+  <b>Lectura de la escena.</b> Cuatro motores en fila, cada uno con su objeto del sistema, atravesados por una escala de medición que los relaciona sin ser uno más.
+  <ul>
+    <li><b>Mapeo definitivo.</b> Estrategia → Mira, Creatividad → Prisma, Adquisición → Rayo, Web &amp; Conversión → Barras. Los cuatro salen de <code>official/objects/</code> sin modificar; solo se renombraron los IDs de sus <code>&lt;defs&gt;</code> para evitar colisiones al embeber cuatro SVG en la misma página.</li>
+    <li><b>La medición es la escala, no una card.</b> Línea horizontal derivada del ScrollAxis oficial, con un nodo por módulo y ticks regulares, a .26 de opacidad. La leyenda "MEDICIÓN" aparece una sola vez al inicio del eje, separada del borde.</li>
+    <li><b>El fragmento se alinea y activa el nodo 01 a distancia.</b> Queda en el canal superior, centrado exactamente sobre la vertical del nodo (x=225) y con la punta apuntando hacia abajo a -46.5°. <b>Su cuerpo nunca atraviesa la card:</b> termina en y=374 y las cards empiezan en y=380.</li>
+    <li><b>La activación es un pulso vertical.</b> Un haz tenue baja desde el fragmento hasta el nodo y lo enciende: el nodo 01 queda con halo y núcleo más marcados que los otros tres. El fragmento señala; el pulso hace el trabajo.</li>
+    <li><b>Recorrido posterior por fuera de la fila.</b> Después de activar, el fragmento va al margen exterior izquierdo (x 0–72), desciende por ahí sin tocar ninguna card, y recién abajo entra al canal inferior y sale hacia la Sección 06.</li>
+    <li><b>Sin explosión y sin reconstrucción.</b> El Crystal 5 no aparece en esta sección, ni siquiera como huella.</li>
+  </ul>
+</div>
+
+</div>
+<script>
+document.querySelectorAll('.tg').forEach(b=>{
+  b.addEventListener('click',()=>{
+    b.classList.toggle('on');
+    document.querySelector('.ann[data-layer="'+b.dataset.l+'"]').classList.toggle('show');
+  });
+});
+</script></body></html>
