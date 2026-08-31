@@ -960,15 +960,147 @@ Headline:
 
 Contenido:
 - Carrusel de videos y cards de texto.
+- Marquee de tags.
 - CTA Ver casos.
 
 Movimiento:
-- El fragmento permanece en un borde exterior del track.
-- No cruza videos, controles ni modal.
+- El fragmento permanece en la franja exterior superior del track.
+- No cruza el track, videos, controles ni modal.
 - Puede reflejar brevemente el color del contenido activo, sin cambiar su paleta.
 
-Mockup aprobado:
-- PENDIENTE: docs/home-mockups/07-trabajos.png
+MOCKUP APROBADO:
+- Imagen: docs/home-mockups/07-trabajos.png
+- HTML de referencia interactivo: docs/home-mockups/07-trabajos-mockup-final.html
+- Fecha: 2026-08-31
+- Viewport de referencia: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
+
+=====================================================================
+PRINCIPIO DE LA SECCIÓN: EL SISTEMA GRÁFICO BAJA SU INTENSIDAD
+=====================================================================
+- Es la primera sección de la HOME donde el sistema deliberadamente NO se
+  muestra. Los videos son el diseño.
+- SIN piezas del Crystal 5, SIN objetos del sistema, SIN glow de fondo,
+  SIN atmósferas. Fondo liso --ink-deep.
+- El EYEBROW va en --on-dark-2 (gris), no en --pink, a diferencia del
+  resto de las secciones.
+- EL ÚNICO ROSA DEL BLOQUE está en los títulos de las cards de texto, en
+  el isotipo de esquina de esas cards y en el CTA.
+- El fragmento guía es el único elemento del sistema presente, y vive
+  fuera del track.
+
+=====================================================================
+CONTENIDO — FUENTE DE VERDAD
+=====================================================================
+Todo el contenido sale de src/components/sections/Trabajos.tsx, sin
+modificar: los trece videos con su playbackId, categoría y acción; las
+tres cards de texto; y los once tags del marquee.
+
+- SECUENCIA DEL TRACK: las cards de texto se insertan DESPUÉS del 4º, 8º
+  y 12º video. Total: 16 items.
+  · Card 1 — "Producción continua"
+  · Card 2 — "Cuatro rubros"
+  · Card 3 — "Pensado para funcionar"
+
+- MARQUEE DE TAGS: Meta Ads, Tracking con CAPI, Google Ads, Atribución
+  real, Product Ads, Optimización de ficha, Contenido para pauta, GA4,
+  Influencer marketing, Diseño de marca, Web y conversión.
+  · Estas herramientas son EVIDENCIA, no categorías. Viven acá y no en la
+    Sección 06, según lo ya aprobado en ese bloque.
+
+=====================================================================
+GEOMETRÍA DE LA COMPOSICIÓN
+=====================================================================
+- Lienzo 1440 × 900, sin overflow lateral.
+- Copy centrado arriba, y=64. Headline 44 px en dos líneas.
+- FRANJA EXTERIOR SUPERIOR DEL TRACK: y 196–292. Es la única zona donde
+  puede estar el fragmento guía.
+- Track: y=300, alto 356.
+  · Cards de video 9:16 de 200 × 356, radius 16.
+  · Cards de texto de 268 × 356.
+  · Gap 20 px.
+  · Ancho total del track: 3660 px contra 1440 de viewport.
+- CORTE EN AMBOS BORDES, con máscara de degradado de 96 px a cada lado:
+  siempre se lee que hay más material del que entra.
+- Marquee de tags: y=696.
+- CTA: y=766, centrado.
+
+=====================================================================
+CTA "VER CASOS" — DECISIÓN DE IMPLEMENTACIÓN
+=====================================================================
+- SE IMPLEMENTA EN HTML/CSS CON MANROPE, reproduciendo exactamente la
+  geometría, el borde, el espaciado y los estados del SVG oficial
+  official/cta/ver-casos-outline.svg.
+- EL SVG MAESTRO QUEDA INTACTO y sirve como referencia visual.
+- MOTIVO: el SVG lleva el texto embebido con su propia font-family. Si la
+  fuente no carga a tiempo, el botón cae a Arial y rompe la tipografía del
+  sitio. Un botón en HTML hereda la carga de fuentes de la página y además
+  permite estados de hover y focus accesibles.
+- Referencia geométrica del SVG: rect de 315 × 59, radius 7, borde con
+  gradiente #FF79AC → #FF4B8D → #C62461, y un segundo rect interior de
+  310 × 54 con stroke --pink al 6% y ancho 5, que produce el halo suave.
+  Texto en Manrope 700, 16 px, letter-spacing .25, más la flecha ↗.
+
+=====================================================================
+POSTERS — ESTADO DEL MOCKUP
+=====================================================================
+- LOS DEGRADADOS DEL MOCKUP SON PLACEHOLDERS. image.mux.com responde 403
+  desde el entorno donde se generó este mockup, así que cada card lleva un
+  degradado derivado de la paleta en lugar del thumbnail real.
+- NO REPRESENTAN APROBACIÓN del color, el encuadre ni la jerarquía final
+  de los videos. Esas decisiones se toman con los posters reales cargando.
+- En producción ya está implementado el poster correcto:
+  thumbnail.webp?width=500&fit_mode=smartcrop&time=1
+
+=====================================================================
+VERIFICACIÓN OBLIGATORIA ANTES DE CERRAR LA IMPLEMENTACIÓN
+=====================================================================
+Antes de dar por cerrada la implementación de Trabajos es OBLIGATORIO
+verificar los 13 playback IDs contra:
+  1. CATEGORÍA
+  2. ACCIÓN
+  3. POSTER REAL
+  4. ORDEN
+  5. POSICIÓN DE LAS TRES CARDS EDITORIALES
+
+- MOTIVO: el propio Trabajos.tsx documenta que el pareo entre playback ID
+  y categoría se tomó de un handoff y NO fue verificado contra los clips
+  de origen. Con los posters reales cargando, cualquier desajuste se ve a
+  simple vista.
+- Esta verificación es un requisito de cierre, no una tarea opcional.
+
+=====================================================================
+FRAGMENTO GUÍA
+=====================================================================
+- ENTRA RESPETANDO LA CONTINUIDAD DESDE LA SECCIÓN 06: llega por el borde
+  exterior con el que cerró esa sección. No reaparece en otro lado ni se
+  teletransporta.
+- PERMANECE EN LA FRANJA EXTERIOR SUPERIOR, entre el copy y el track
+  (y 196–292). Posición en el mockup: left 1302, top 204, ancho 78 px,
+  rotación -16°, opacidad .9. Ocupa y 204–284 y el track empieza en 300.
+- NO CRUZA EL TRACK, NI VIDEOS, NI CONTROLES, NI MODAL. Todo el rectángulo
+  del track (y 300–656, ancho completo) es zona prohibida.
+- NO ACTIVA NI SEÑALA NINGÚN TRABAJO. No hay relación entre su posición y
+  qué card está en reproducción o en hover.
+- REFLEJO: puede tomar brevemente el color del contenido activo, SIN
+  CAMBIAR SU PROPIA PALETA rosa y grafito. Es un reflejo, no un cambio de
+  material.
+- SALE HACIA LA SECCIÓN 08 siguiendo el recorrido definido en el plan.
+
+=====================================================================
+OTRAS REGLAS
+=====================================================================
+- Comportamiento mobile:
+  · Pendiente de mockup propio. El track pasa a scroll horizontal nativo
+    con snap, sin autoplay en hover: el tap abre el modal con sonido. El
+    fragmento acompaña por un lateral con presencia mínima.
+- Reduced motion:
+  · Sin autoplay en hover ni desplazamiento del marquee.
+  · El fragmento aparece en su posición, sin deriva.
+  · El video solo arranca por acción explícita del usuario.
+- Performance:
+  · Un solo video reproduciéndose a la vez, ya implementado con
+    IntersectionObserver que pausa la card al salir del viewport.
+  · minResolution 720p en el player, ya implementado.
 
 ------------------------------------------------------------
 
@@ -1124,18 +1256,26 @@ COMPLETADO
   de FACETS[15], las opacidades separadas de piezas y contenido, el reflejo
   único del módulo activo, el canal narrativo de ~100 px y la independencia
   entre el recorrido del fragmento y el carrusel).
+- Mockup 07 — Trabajos: APROBADO (docs/home-mockups/07-trabajos.png,
+  ver Sección 07 para la bajada de intensidad del sistema gráfico, los trece
+  videos con sus cards editoriales y tags tomados de Trabajos.tsx, los posters
+  como placeholders sin aprobación cromática, el CTA reconstruido en HTML/CSS
+  y la franja exterior donde vive el fragmento).
+  · REQUISITO DE CIERRE PENDIENTE: la auditoría de los 13 playback IDs contra
+    categoría, acción, poster real, orden y posición de las tres cards
+    editoriales, detallada en la Sección 07.
 
 PENDIENTE INMEDIATO
-- Crear y aprobar el mockup 07 — Trabajos, donde el fragmento continúa por el
-  borde exterior al salir de la Sección 06.
+- Crear y aprobar el mockup 08 — Con quiénes trabajamos, hacia donde sale el
+  fragmento al dejar la franja exterior de la Sección 07.
 - Crear los keyframes aislados de explosión y fragmento guía para Hero,
   a partir de lo ya aprobado en la Sección 01.
 
 NO INICIAR TODAVÍA
 - Implementación completa de la HOME.
 - Implementación productiva de los mockups 01 — Hero, 02 — El problema,
-  03 — El otro problema, 04 — Un mismo objetivo, 05 — Cómo trabajamos y
-  06 — Qué activamos (mockups aprobados, código todavía no).
-- Mockup 07 en adelante.
+  03 — El otro problema, 04 — Un mismo objetivo, 05 — Cómo trabajamos,
+  06 — Qué activamos y 07 — Trabajos (mockups aprobados, código todavía no).
+- Mockup 08 en adelante.
 - Movimiento continuo definitivo.
 - Reemplazo masivo de secciones productivas.
