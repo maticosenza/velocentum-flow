@@ -1318,11 +1318,15 @@ RECONSTRUCCIÓN — CINCO TIEMPOS
   el Crystal 5 real en cada uno de los cinco estados.
 
 - T1 — EL ANCLA: el fragmento guía FACETS[15] con INCLUSIONS[6] adherida
-  entra desde la salida de la Sección 08 y SE ASIENTA PRIMERO. Queda solo
+  entra desde la salida de la Sección 08 y SE ASIENTA PRIMERO. Son DOS
+  polígonos: la faceta y su inclusión interna. Queda solo
   y quieto: cuando el resto vuelve, ya hay algo a lo que sumarse.
 - T2 — ESTRUCTURA: llegan las SEIS FACETAS DE MAYOR SUPERFICIE.
-- T3 — RELLENO: llegan las ONCE FACETAS RESTANTES y las SIETE INCLUSIONES.
-  Segunda tanda, 200 ms después.
+- T3 — RELLENO: llegan las ONCE FACETAS RESTANTES y las SEIS INCLUSIONES
+  RESTANTES. Segunda tanda, 200 ms después.
+  · INCLUSIONS[6] NO llega acá: ya está asentada desde T1, adherida al
+    fragmento guía. La inclusión adherida PERSISTE EN TODOS LOS ESTADOS
+    POSTERIORES; no puede desaparecer y reaparecer.
 - T4 — CIERRE: con todas las caras en su lugar, recién ahí SE DIBUJAN LAS
   ARISTAS. Es el momento en que deja de ser un montón de piezas.
 - T5 — RESUELTO: aparecen el GLOW FINAL y el HILO, que baja hacia el copy
@@ -1333,6 +1337,14 @@ RECONSTRUCCIÓN — CINCO TIEMPOS
 - NO RECORREN AL REVÉS LAS TRAYECTORIAS DE LA EXPLOSIÓN DEL HERO.
 - NO HAY OVERSHOOT, NI REBOTE, NI UNA SEGUNDA EXPLOSIÓN.
 - EL CRYSTAL QUEDA ESTABLE DESPUÉS DEL ENSAMBLE.
+
+- CONTEO EXACTO DE PIEZAS POR ESTADO (verificable programáticamente sobre
+  el HTML de referencia):
+  · T1 —  2 polígonos: 1 faceta + 1 inclusión. Sin aristas, sin glow.
+  · T2 —  8 polígonos: 7 facetas + INCLUSIONS[6]. Sin aristas, sin glow.
+  · T3 — 25 polígonos: 18 facetas + 7 inclusiones. TODAVÍA SIN ARISTAS.
+  · T4 — 25 polígonos + ARISTAS. Sin glow.
+  · T5 — 25 polígonos + aristas + GLOW.
 - LA RECONSTRUCCIÓN OCURRE UNA SOLA VEZ EN TODA LA HOME y no se repite al
   scrollear hacia arriba.
 
