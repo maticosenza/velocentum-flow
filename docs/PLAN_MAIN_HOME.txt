@@ -1285,14 +1285,15 @@ Headline:
 Contenido:
 - Eyebrow Empecemos.
 - Texto de cierre.
-- CTA Hablemos.
+- Formulario de cinco campos.
+- CTA Quiero analizar mi negocio.
 
 Movimiento:
 - El fragmento guía se detiene en su posición definitiva.
 - Retorno de las piezas desde los bordes.
 - Reconstrucción completa de Crystal 5.
 - Aparición final de aristas y glow.
-- Reveal posterior de eyebrow, headline, texto y CTA.
+- Reveal posterior de eyebrow, headline, texto y formulario.
 
 Checkpoint visual del mockup:
 - La reconstrucción utiliza exactamente el mismo Crystal 5 aprobado.
@@ -1300,8 +1301,134 @@ Checkpoint visual del mockup:
 - La relación con el isotipo se resuelve mediante eje, iluminación, material y
   composición, nunca rediseñando el objeto narrativo.
 
-Mockup aprobado:
-- PENDIENTE: docs/home-mockups/09-empecemos.png
+MOCKUP APROBADO:
+- Imagen: docs/home-mockups/09-empecemos.png
+- HTML de referencia interactivo: docs/home-mockups/09-empecemos-mockup-final.html
+- Fecha: 2026-09-01
+- Lienzo del mockup: 1440 × 1090 (exportado a 2880 × 2180, escala 2×)
+- El contenido cierra en y=1032. La sección EXCEDE el viewport de 900 px de
+  referencia, y se muestra completa a propósito.
+
+=====================================================================
+RECONSTRUCCIÓN — CINCO TIEMPOS
+=====================================================================
+- EL PNG MUESTRA EL ESTADO FINAL COMPLETAMENTE RECONSTRUIDO. No se usa un
+  instante incompleto como imagen final. La coreografía se explica en la
+  capa de anotación "Coreografía del ensamble" del HTML de referencia, con
+  el Crystal 5 real en cada uno de los cinco estados.
+
+- T1 — EL ANCLA: el fragmento guía FACETS[15] con INCLUSIONS[6] adherida
+  entra desde la salida de la Sección 08 y SE ASIENTA PRIMERO. Queda solo
+  y quieto: cuando el resto vuelve, ya hay algo a lo que sumarse.
+- T2 — ESTRUCTURA: llegan las SEIS FACETAS DE MAYOR SUPERFICIE.
+- T3 — RELLENO: llegan las ONCE FACETAS RESTANTES y las SIETE INCLUSIONES.
+  Segunda tanda, 200 ms después.
+- T4 — CIERRE: con todas las caras en su lugar, recién ahí SE DIBUJAN LAS
+  ARISTAS. Es el momento en que deja de ser un montón de piezas.
+- T5 — RESUELTO: aparecen el GLOW FINAL y el HILO, que baja hacia el copy
+  y dispara el reveal del eyebrow, el headline, el texto y el formulario.
+
+- LAS PIEZAS LLEGAN ESCALONADAS DESDE EL BORDE MÁS CERCANO A SU POSICIÓN
+  FINAL.
+- NO RECORREN AL REVÉS LAS TRAYECTORIAS DE LA EXPLOSIÓN DEL HERO.
+- NO HAY OVERSHOOT, NI REBOTE, NI UNA SEGUNDA EXPLOSIÓN.
+- EL CRYSTAL QUEDA ESTABLE DESPUÉS DEL ENSAMBLE.
+- LA RECONSTRUCCIÓN OCURRE UNA SOLA VEZ EN TODA LA HOME y no se repite al
+  scrollear hacia arriba.
+
+- POR QUÉ NO SE LEE COMO UNA EXPLOSIÓN INVERTIDA: en una explosión
+  invertida todas las piezas parten de los bordes al mismo tiempo,
+  recorren sus trayectorias de salida en reversa y llegan juntas. Acá el
+  fragmento guía ya está en su lugar antes de que empiece nada, las demás
+  llegan en tandas escalonadas desde el borde más cercano a su destino, y
+  las aristas aparecen recién al final.
+
+- NOTA DE CONTEXTO: el Contacto.tsx de main documenta en un comentario que
+  ahí NO hay coreografía de facetas, porque en la narrativa V2 ese gesto ya
+  había ocurrido en Reveal y repetirlo se habría leído como una animación
+  nueva. Ese criterio es correcto PARA MAIN. En la narrativa del Plan
+  Maestro no aplica: la Sección 04 solo muestra una huella de aristas y de
+  la 05 a la 08 no hay reconstrucción de ningún tipo, así que la de la
+  Sección 09 es la primera y única del recorrido.
+
+=====================================================================
+CRYSTAL 5
+=====================================================================
+- Asset oficial completo: 18 facetas + 7 inclusiones, con sus aristas y su
+  glow. Materiales, facetas, inclusiones y estado final SIN MODIFICAR.
+- Tamaño: 376 px de ancho, centrado, stage en y=158.
+- NO se aproxima su silueta a la V, NO se cambian facetas y NO se
+  modifican proporciones.
+
+=====================================================================
+FORMULARIO
+=====================================================================
+- SE CONSERVAN EXACTAMENTE los cinco campos, labels, required, orden
+  semántico y asociación label/input de main
+  (src/components/sections/Contacto.tsx):
+  1. nombre    — "Nombre"
+  2. empresa   — "Empresa / Marca"
+  3. web       — "Web o Instagram"
+  4. objetivo  — "¿Qué querés hacer crecer?"
+  5. medio     — "Email o WhatsApp"
+  · Todos type="text", todos required, autoComplete off.
+  · Cada label asociado por htmlFor/id.
+  · CTA: "Quiero analizar mi negocio".
+- NO se agrega ni se quita ningún campo. NO se toma el CTA simplificado del
+  rebuild.
+
+- DESKTOP USA DOS COLUMNAS, ancho 620 px, column-gap 20, row-gap 16:
+  · Fila 1: Nombre | Empresa / Marca
+  · Fila 2: Web o Instagram | ¿Qué querés hacer crecer?
+  · Fila 3: Email o WhatsApp — ANCHO COMPLETO
+  · CTA — ANCHO COMPLETO
+- MOBILE VUELVE A UNA COLUMNA, conservando exactamente ese orden.
+- MOTIVO: la grilla reduce el peso vertical del formulario y hace que
+  Crystal, copy y CTA se perciban como un único cierre narrativo, en vez de
+  como una página de contacto con un objeto arriba.
+
+- DEUDA OBLIGATORIA ANTES DE PUBLICAR:
+  · EL DESTINO DEL FORMULARIO NO EXISTE. handleSubmit es hoy un
+    preventDefault() vacío. No hay backend, endpoint, email, WhatsApp ni
+    agenda confirmados en el repositorio.
+  · EL CTA QUE CIERRA TODA LA HOME NO ENVÍA A NINGÚN LADO.
+  · NO SE SIMULA UN ENVÍO EXITOSO NI SE INVENTA ENDPOINT, EMAIL, WHATSAPP
+    O AGENDA.
+  · Falta definir además: mensajes de error, aria-describedby, estado de
+    envío y confirmación con aria-live. Hoy la validación es únicamente la
+    nativa del navegador.
+  · Esta deuda BLOQUEA LA PUBLICACIÓN, no el mockup.
+
+=====================================================================
+MOVIMIENTO Y ACCESIBILIDAD
+=====================================================================
+- EL NAV VUELVE PROGRESIVAMENTE DE CLARO A OSCURO AL SALIR DE LA
+  SECCIÓN 08, en la misma franja de ~100 px y en sentido inverso. Es el
+  mismo componente cambiando de tema, no otro nav.
+- EL HILO (contacto-thread) tiene:
+  · núcleo de 2 px,
+  · degradado rosa que pierde intensidad al acercarse al copy
+    (#FF4B8D 0% → rgba(255,75,141,.72) 42% → rgba(255,75,141,.18) 100%),
+  · halo exterior de 12 px desenfocado al 30%,
+  · SIN pulsos fuertes ni glow excesivo.
+  · Nace del cristal y baja al copy: hace que el formulario se lea como
+    salida del sistema y no como un formulario debajo de un título.
+
+- REDUCED MOTION:
+  · MUESTRA INMEDIATAMENTE EL CRYSTAL FINAL, ya reconstruido, sin ensamble.
+  · TODO EL FORMULARIO DISPONIBLE, sin depender de la animación.
+  · Sin reveal escalonado, sin glow animado, sin crecimiento del hilo.
+  · La transición de tema del nav ocurre sin animación.
+- NINGÚN CONTENIDO ESENCIAL QUEDA OCULTO POR LA ANIMACIÓN.
+
+- LA SECCIÓN USA ALTURA DE CONTENIDO Y NO FUERZA min-height: 100vh.
+  · El contenido cierra en y=1032 sobre un lienzo de mockup de 1090.
+  · Con un viewport de 900 px, quedan debajo del fold la última fila del
+    formulario y el CTA.
+
+- Comportamiento mobile:
+  · Pendiente de mockup propio. Crystal reducido, formulario en una
+    columna con el mismo orden, y ensamble simplificado a menos tandas.
 
 ======================================================================
 5. ORDEN DE PRODUCCIÓN DE MOCKUPS
@@ -1429,18 +1556,42 @@ COMPLETADO
     el mockup son placeholders de texto, y reemplazar las dimensiones
     placeholder de Clientes.tsx por las reales cuando sean inspeccionables.
 
+- Mockup 09 — Empecemos / Contacto: APROBADO (docs/home-mockups/09-empecemos.png,
+  ver Sección 09 para el estado final ya reconstruido en el PNG, la coreografía
+  de cinco tiempos anclada en FACETS[15] + INCLUSIONS[6], el formulario real de
+  cinco campos de main en grilla de dos columnas y la altura de contenido sin
+  min-height: 100vh).
+  · REQUISITO DE CIERRE PENDIENTE: el destino real del formulario no existe.
+    Es deuda que BLOQUEA LA PUBLICACIÓN, no el mockup.
+
+ESTADO DE LOS MOCKUPS
+- 01 Hero — APROBADO
+- 02 El problema — APROBADO
+- 03 El otro problema — APROBADO
+- 04 Un mismo objetivo — APROBADO
+- 05 Cómo trabajamos — APROBADO
+- 06 Qué activamos — APROBADO
+- 07 Trabajos — APROBADO
+- 08 Con quiénes trabajamos — APROBADO
+- 09 Empecemos / Contacto — APROBADO
+
+LOS NUEVE MOCKUPS DE LA HOME ESTÁN APROBADOS.
+LA FASE DE DISEÑO DESKTOP QUEDA CERRADA.
+
 PENDIENTE INMEDIATO
-- Crear y aprobar el mockup 09 — Empecemos, donde el fragmento entra desde el
-  borde derecho y llega por fin la reconstrucción del Crystal 5.
-- Crear los keyframes aislados de explosión y fragmento guía para Hero,
-  a partir de lo ya aprobado en la Sección 01.
+- Definir el destino real del formulario de la Sección 09. Es deuda
+  bloqueante de publicación.
+- Resolver el gap técnico de CrystalFiveApproved.tsx: todavía no expone
+  API por faceta, necesaria para el ensamble de la Sección 09 y para el
+  Hero. Debe ser una extensión ADITIVA, sin tocar geometría ni materiales.
+- Variante simplificada del isotipo para tamaños pequeños (test a
+  16/24/32 px), pendiente desde la Sección 01.
+- Verificación obligatoria de los 13 playback IDs de Trabajos contra
+  categoría, acción, poster real, orden y posición de las cards
+  editoriales.
+- Mockups mobile de las nueve secciones.
 
 NO INICIAR TODAVÍA
-- Implementación completa de la HOME.
-- Implementación productiva de los mockups 01 — Hero, 02 — El problema,
-  03 — El otro problema, 04 — Un mismo objetivo, 05 — Cómo trabajamos,
-  06 — Qué activamos, 07 — Trabajos y 08 — Con quiénes trabajamos (mockups
-  aprobados, código todavía no).
-- Mockup 09 en adelante.
-- Movimiento continuo definitivo.
-- Reemplazo masivo de secciones productivas.
+- Migración a main.
+- Implementación productiva de cualquier sección.
+- Método y Casos.
