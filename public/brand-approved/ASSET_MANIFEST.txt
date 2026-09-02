@@ -26,6 +26,13 @@ No intercambiar sus funciones.
   Uso: navegación, firma, lockup y avatar.
   Regla: no explota, no se fragmenta y no recorre la HOME.
 
+  REQUISITO ABIERTO: PROBAR LA LEGIBILIDAD DEL ISOTIPO A 16, 24 Y 32 PX
+  ANTES DE QUE EL NAV ENTRE A PRODUCCIÓN. A 36 px de alto ya pierde
+  definición de facetas y se lee más como mancha que como objeto. Si a esos
+  tamaños no se sostiene, resolver con una variante simplificada para
+  tamaños chicos. No implementar todavía.
+  Registrado también en la Sección 01 de docs/PLAN_MAIN_HOME.txt.
+
 - Fuente funcional en código:
   src/components/brand/BrandLogoMark.tsx
 
@@ -177,8 +184,17 @@ APROBADO:
 - Separación de roles entre identidad y objeto narrativo.
 - Explosión radial en Hero + un fragmento guía + reconstrucción final.
 
-PENDIENTE:
+RESUELTO (se conserva el registro, no se borra):
 - Mockup individual de cada sección de la HOME.
-- Timings definitivos de movimiento.
+  · RESUELTO: los NUEVE MOCKUPS DESKTOP están APROBADOS y ubicados en
+    docs/home-mockups/. La fase de diseño desktop quedó cerrada.
 - Elección exacta del fragmento inferior que actuará como guía.
+  · RESUELTO: el fragmento guía es FACETS[15] con INCLUSIONS[6] adherida.
+    La inclusión viaja con la faceta y persiste en todos los estados.
+
+PENDIENTE:
+- Timings definitivos de movimiento.
 - Implementación productiva de la nueva narrativa.
+- Probar la legibilidad del isotipo a 16, 24 y 32 px antes de que el nav
+  entre a producción.
+- Mockups mobile de las nueve secciones.

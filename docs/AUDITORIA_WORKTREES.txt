@@ -1,4 +1,24 @@
 VELOCENTUM — AUDITORÍA DE RECONCILIACIÓN DE WORKTREES
+
+======================================================================
+DOCUMENTO HISTÓRICO — 2026-08-30
+======================================================================
+
+ESTE DOCUMENTO YA NO DESCRIBE EL ESTADO GIT VIGENTE. Se conserva completo,
+sin borrar nada, como registro de la situación previa a la integración.
+
+- SU ESTADO GIT YA NO ES VIGENTE. Las ramas, los HEAD y la descripción del
+  working tree sucio del rebuild corresponden al 2026-08-30, antes del merge
+  de integración. Para el estado actual, leer docs/REPOSITORY_HANDOFF.txt.
+- SU CLASIFICACIÓN DE CAMBIOS LOCALES SIGUE SIENDO ÚTIL. La sección 3, que
+  categoriza qué era asset, documentación y experimento de página, mantiene su
+  valor para entender qué se integró y qué quedó afuera.
+- EXISTÍAN QUINCE COMMITS DE DISEÑO ANTES DEL MERGE DE INTEGRACIÓN. Lo que
+  este informe describía como cambios locales sin commitear terminó
+  commiteado: el rango 09462d3..b77ce29 contiene 15 commits de diseño.
+
+======================================================================
+
 Versión: 2026-08-30
 Estado: informe de solo lectura. No se realizó ningún commit, merge, cambio de
 rama, reset, rebase ni modificación de código para producir este documento.

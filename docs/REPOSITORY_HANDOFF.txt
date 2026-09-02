@@ -1,6 +1,33 @@
 VELOCENTUM — HANDOFF DE REPOSITORIO Y WORKTREES
 Fecha de auditoría: 2026-08-30
+Actualizado: 2026-09-02
 Estado: confirmado mediante Git local
+
+======================================================================
+0. ESTADO VIGENTE — WORKTREE DE INTEGRACIÓN
+======================================================================
+
+- Worktree: /Users/maticosenza/velocentum-flow-integracion
+- Rama: integracion/home-desktop
+- Nació de origin/main.
+
+MERGE DE INTEGRACIÓN
+- Commit: 3f31093 "Integra el material aprobado de la HOME desktop
+  (9 mockups)".
+- Integra rebuild/home-cinematic en b77ce29.
+- MERGE ADITIVO: 155 archivos, 6621 inserciones, CERO BORRADOS y CERO
+  CONFLICTOS.
+
+SANEAMIENTO POSTERIOR, YA APROBADO
+- c995b7a — Saneamiento 1/3: reglas operativas reales en AGENTS.md y skill
+  actualizado a la fase aprobada.
+- c58ed55 — Saneamiento 2/3: CTA definitivo radio 999, CSS de BrandCTA y
+  BrandLogoMark, nav corregido y tipografía Manrope.
+
+ESTADO DE LAS OTRAS RAMAS
+- rebuild/home-cinematic PERMANECE CONGELADO, con sus 27 MB locales fuera de
+  la integración. No se toca.
+- main CONTINÚA EN a2dc171. La integración todavía no se migró a main.
 
 ======================================================================
 1. ACLARACIÓN PRINCIPAL
@@ -81,7 +108,8 @@ Esta implementación es referencia funcional valiosa, pero su dirección
 visual no debe imponerse sobre los nuevos mockups aprobados.
 
 El handoff detallado de esa ejecución se conserva en:
-- docs/MAIN_V3_SESSION_HANDOFF.md
+- .claude/SESSION_HANDOFF.md (versión vigente)
+- docs/MAIN_V3_SESSION_HANDOFF.md quedó como nota que remite a esa versión.
 
 ======================================================================
 5. ESTRATEGIA SEGURA DE CONTINUIDAD
@@ -119,4 +147,4 @@ ejecutar merges, commits, cherry-picks o cambios de rama sin autorización.
 4. docs/DESIGN_SYSTEM_CRYSTAL.txt
 5. public/brand-approved/ASSET_MANIFEST.txt
 6. public/brand-approved/official/ASSETS_CONFIRMADOS.txt
-7. docs/MAIN_V3_SESSION_HANDOFF.md, cuando se audite código V3 existente.
+7. .claude/SESSION_HANDOFF.md, cuando se audite código V3 existente.

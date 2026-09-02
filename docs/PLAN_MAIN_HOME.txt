@@ -269,9 +269,10 @@ MOCKUP APROBADO:
 - PENDIENTE FUTURO:
   · Variante simplificada del isotipo para tamaños pequeños. El isotipo a
     36 px de alto pierde definición de facetas: se lee más como mancha que
-    como objeto. El ASSET_MANIFEST ya pide un test a 16/24/32 px; conviene
-    resolverlo antes de que el nav entre a producción, posiblemente con una
-    variante simplificada para tamaños chicos. No implementar todavía.
+    como objeto.
+    REQUISITO: PROBAR LA LEGIBILIDAD DEL ISOTIPO A 16, 24 Y 32 PX ANTES DE
+    QUE EL NAV ENTRE A PRODUCCIÓN. Si a esos tamaños no se sostiene, resolver
+    con una variante simplificada para tamaños chicos. No implementar todavía.
   · CrystalFiveApproved.tsx todavía no expone API por faceta. Se resuelve
     después de este mockup, de forma aditiva, sin tocar geometría ni
     materiales.
@@ -493,6 +494,13 @@ MOCKUP APROBADO:
 
 - Polvo:
   · No hay. La estela de la explosión del Hero se agotó en la Sección 02.
+
+=====================================================================
+OTRAS REGLAS
+=====================================================================
+- SIN EXPLOSIÓN Y SIN RECONSTRUCCIÓN. En esta sección no hay piezas del
+  Crystal 5 más allá del fragmento guía. La reconstrucción sigue reservada
+  para "Empecemos".
 
 - Comportamiento mobile:
   · Pendiente de mockup propio. Menos píldoras simultáneas, clusters
