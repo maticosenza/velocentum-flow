@@ -1,0 +1,8 @@
+# Copias del código en 49fc3dc, materializadas con `git show`. Regenerables, no se versionan.
+baseline/
+# Fixtures derivados de la captura visual: los produce build-visual-fixtures.ts.
+# El único fixture versionado es artifacts/visual-fixture.html, que es el baseline.
+artifacts/fixture-*.html
+# Salida de Playwright.
+test-results/
+playwright-report/

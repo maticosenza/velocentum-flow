@@ -37,35 +37,66 @@ Rama: `integracion/home-desktop`. Dependencias ya instaladas con
 NO leer `docs/AUDITORIA_WORKTREES.txt` como estado actual: es histórico, su
 sección de Git ya no es válida.
 
-## BASELINE CONOCIDO DE TYPESCRIPT — 49fc3dc
+## BASELINE CONOCIDO DE TYPESCRIPT — API por faceta
 
-`bun x tsc --noEmit` falla hoy con **22 errores**. Son errores REALES de
+`bun x tsc --noEmit` falla hoy con **3 errores**. Son errores REALES de
 TypeScript, PREEXISTENTES, heredados del código V3 y no introducidos por el
 trabajo actual:
 
-- **11** en `src/components/brand/CrystalFiveApproved.tsx`
-- **8** en `src/components/brand/CrystalFragments.tsx`
 - **3** en `src/routes/crystal-review.tsx`
 
 Criterio: ningún trabajo debe SUMAR errores nuevos ni distintos respecto de
-estos 22. Si aparece uno nuevo, es del cambio en curso.
+estos 3. Si aparece uno nuevo, es del cambio en curso.
 
-**EL BASELINE ESTÁ ASOCIADO AL COMMIT `49fc3dc`.** Cuando un trabajo aprobado
-reduzca intencionalmente estos errores, `AGENTS.md` y `docs/HANDOFF_CURSOR.md`
-deben actualizarse EN EL MISMO COMMIT con el nuevo conteo. Nunca dejar un
-baseline obsoleto.
+**EL BASELINE ANTERIOR ERA 22 Y ESTABA ASOCIADO AL COMMIT `49fc3dc`**: 11 en
+`CrystalFiveApproved.tsx`, 8 en `CrystalFragments.tsx` y 3 en
+`crystal-review.tsx`. Los 19 de los dos componentes de marca se resolvieron
+JUNTO CON la API por faceta, como estaba previsto: eran índices posiblemente
+`undefined` bajo tipado estricto en las mismas estructuras que la API expone, y
+hoy pasan por un helper `at(arr, i)` que afirma el invariante en un solo lugar
+de cada archivo. Los 3 de `crystal-review` siguen sin tocarse.
 
-Los 19 de `CrystalFiveApproved` y `CrystalFragments` se resuelven JUNTO CON la
-API por faceta, no antes ni por separado, porque son índices posiblemente
-`undefined` bajo tipado estricto en las mismas estructuras que la API va a
-exponer. Los 3 de `crystal-review` no se tocan, salvo que la API obligue a
-actualizar únicamente su consumo.
+Cuando un trabajo aprobado reduzca intencionalmente estos errores, `AGENTS.md` y
+`docs/HANDOFF_CURSOR.md` deben actualizarse EN EL MISMO COMMIT con el nuevo
+conteo. Nunca dejar un baseline obsoleto.
 
-## Primer trabajo: infraestructura del Crystal 5
+## Primer trabajo: infraestructura del Crystal 5 — HECHO
 
-ANTES de implementar cualquier sección.
+El contrato fue aprobado e implementado. Lo que sigue queda como registro de lo
+acordado y de cómo se vuelve a verificar.
 
-**Objetivo:** agregar de forma ADITIVA una API por faceta a
+**Qué quedó en `CrystalFiveApproved.tsx`:**
+
+- `control?: CrystalFiveControl`. **Identidad = OMITIR `control`**, no pasarlo
+  vacío: `control={{}}` ya es modo controlado y monta los 25 wrappers.
+- `facetPoses` e `inclusionPoses` con las claves `15` y `6` EXCLUIDAS POR TIPO.
+  El fragmento guía se mueve sólo con `guidePose`, sobre el centroide de
+  `FACETS[15]`, en dos wrappers HERMANOS.
+- `glowOpacity`, `groundOpacity`, `edgesOpacity` son FACTORES sobre la base del
+  asset (glow 0.28 · suelo 0.62 · aristas 1), en rango 0 a 1. El HTML del
+  Mockup 09 expresa opacidades EFECTIVAS: hay que dividir por la base.
+- Constantes exportadas: `CRYSTAL_FIVE_FACET_COUNT`,
+  `CRYSTAL_FIVE_INCLUSION_COUNT`, `GUIDE_FACET_INDEX`, `GUIDE_INCLUSION_INDEX`,
+  `CRYSTAL_FIVE_T2_ARRIVING_FACETS` (las SEIS que llegan) y
+  `CRYSTAL_FIVE_T2_VISIBLE_FACETS` (las SIETE visibles, con el ancla).
+- `FACETS`, `INCLUSIONS` y `CRYSTAL_FIVE_EDGE_PATHS` exportados de sólo lectura.
+
+**Cómo se vuelve a verificar** (harness en `scripts/crystal-five/`):
+
+```
+bun run scripts/crystal-five/verify.ts            # DOM byte a byte + hash de datos visuales
+bun run scripts/crystal-five/verify-contract.ts   # contrato en runtime
+bun run scripts/crystal-five/verify-neighbors.ts  # los dos componentes vecinos no se movieron
+bun x tsc --noEmit -p scripts/crystal-five/tsconfig.contract.json   # exclusión por tipo de 15 y 6
+bun run scripts/crystal-five/build-visual-fixtures.ts
+bun x playwright test -c scripts/crystal-five/playwright.config.ts  # pixel diff cero
+```
+
+Los artefactos de `scripts/crystal-five/artifacts/` se regeneran desde el commit
+`49fc3dc` con `bun run scripts/crystal-five/capture-baseline.ts`; no se derivan
+del working tree.
+
+**Objetivo original:** agregar de forma ADITIVA una API por faceta a
 `CrystalFiveApproved.tsx` que permita animar cada polígono por separado, y
 resolver en el mismo trabajo los 19 errores de tipado de ese archivo y de
 `CrystalFragments.tsx`.
@@ -82,13 +113,9 @@ resolver en el mismo trabajo los 19 errores de tipado de ese archivo y de
 - NO tocar los 3 errores de `crystal-review` salvo que la API exija actualizar
   solo su consumo.
 
-**Procedimiento obligatorio:**
-
-1. **PROPONER PRIMERO el contrato de la API:** qué props se agregan, cómo se
-   identifica cada faceta e inclusión, cómo se pasa una pose, y qué pasa cuando
-   no se pasa nada.
-2. **PROPONER las TRES VERIFICACIONES OBLIGATORIAS del render por defecto.** Las
-   tres son requeridas; el DOM serializado solo no alcanza:
+**Las TRES VERIFICACIONES OBLIGATORIAS del render por defecto.** Las tres son
+requeridas; el DOM serializado solo no alcanza. Siguen vigentes para cualquier
+cambio futuro sobre este componente:
    a. **DOM SERIALIZADO** del componente aislado, sin props nuevas, comparado
       byte a byte contra la versión de `49fc3dc`, usando el mismo harness en
       ambos lados.
@@ -97,13 +124,11 @@ resolver en el mismo trabajo los 19 errores de tipado de ese archivo y de
       cambió.
    c. **CAPTURA VISUAL FIJA** del estado por defecto antes y después, con pixel
       diff cero, o explicación auditada de cualquier diferencia.
-3. **Esperar aprobación explícita** del contrato y de las tres verificaciones.
-4. **RECIÉN ENTONCES implementar.**
 
 ## Frentes abiertos, con su tipo de bloqueo
 
-- **API por faceta de `CrystalFiveApproved`** — BLOQUEA LA IMPLEMENTACIÓN
-  DESKTOP. Es el primer trabajo.
+- ~~**API por faceta de `CrystalFiveApproved`**~~ — RESUELTO. Ya no bloquea la
+  implementación desktop.
 - **Destino real del formulario** — BLOQUEA PUBLICACIÓN. `handleSubmit` es hoy
   un `preventDefault()` vacío; no hay backend, endpoint, email, WhatsApp ni
   agenda. Es decisión del dueño del proyecto, no de un agente.

@@ -82,14 +82,30 @@ const FLOW_A_TARGETS: Array<[number, number]> = [
 
 const FLOW_B_TARGETS: Array<[number, number]> = FLOW_A_TARGETS.map(([x, y]) => [280 - x, y]);
 
+/**
+ * Acceso indexado con el invariante afirmado en un solo lugar.
+ *
+ * El proyecto compila con `noUncheckedIndexedAccess`, así que todo índice dinámico
+ * devuelve `T | undefined`. Los recorridos de este archivo son sobre arrays propios y
+ * siempre están dentro de rango; en vez de repetir aserciones en cada uso, el invariante
+ * se comprueba acá y falla ruidosamente si alguna vez deja de valer.
+ */
+function at<T>(values: readonly T[], index: number): T {
+  const value = values[index];
+  if (value === undefined) {
+    throw new RangeError(`CrystalFragments: índice ${index} fuera de rango`);
+  }
+  return value;
+}
+
 function center(points: string): [number, number] {
   const values = points.split(/[ ,]+/).map(Number);
   let x = 0;
   let y = 0;
   const count = values.length / 2;
   for (let index = 0; index < values.length; index += 2) {
-    x += values[index];
-    y += values[index + 1];
+    x += at(values, index);
+    y += at(values, index + 1);
   }
   return [x / count, y / count];
 }
@@ -98,11 +114,11 @@ function subFacets(points: string): string[] {
   const values = points.split(/[ ,]+/).map(Number);
   const vertices: Array<[number, number]> = [];
   for (let index = 0; index < values.length; index += 2) {
-    vertices.push([values[index], values[index + 1]]);
+    vertices.push([at(values, index), at(values, index + 1)]);
   }
   const [cx, cy] = center(points);
   return vertices.map(([x, y], index) => {
-    const [nextX, nextY] = vertices[(index + 1) % vertices.length];
+    const [nextX, nextY] = at(vertices, (index + 1) % vertices.length);
     return `${cx},${cy} ${x},${y} ${nextX},${nextY}`;
   });
 }
@@ -110,7 +126,7 @@ function subFacets(points: string): string[] {
 function flowPoses(targets: Array<[number, number]>): Pose[] {
   return SHARDS.map((shard, index) => {
     const [cx, cy] = center(shard.points);
-    const [tx, ty] = targets[index];
+    const [tx, ty] = at(targets, index);
     return {
       x: tx - cx,
       y: ty - cy,
@@ -126,10 +142,10 @@ const BURST_ROTATIONS = [-24, 14, -8, 22, -14, 9, -19, 27, 18, -12, 16, -22, -17
 const BURST_SCALES = [
   0.7, 0.76, 0.82, 0.66, 1.12, 1.08, 0.74, 0.62, 0.68, 1.02, 0.78, 0.7, 0.72, 0.86, 0.69, 0.76,
 ];
-const BURST_POSES = flowPoses(BURST_TARGETS).map((pose, index) => ({
+const BURST_POSES: Pose[] = flowPoses(BURST_TARGETS).map((pose, index) => ({
   ...pose,
-  rotate: BURST_ROTATIONS[index],
-  scale: BURST_SCALES[index],
+  rotate: at(BURST_ROTATIONS, index),
+  scale: at(BURST_SCALES, index),
 }));
 
 function safeId(id: string) {
@@ -273,7 +289,7 @@ export function CrystalFragments({ layout = "cluster", className, style }: Cryst
       {SHARDS.map((shard, index) => {
         const [cx, cy] = center(shard.points);
         const facets = subFacets(shard.points);
-        const pose = poses[index];
+        const pose = at(poses, index);
         const transform = `translate(${pose.x} ${pose.y}) rotate(${pose.rotate} ${cx} ${cy}) translate(${cx} ${cy}) scale(${pose.scale ?? 1}) translate(${-cx} ${-cy})`;
         return (
           <g key={shard.points} transform={transform} filter={`url(#${id("depth")})`}>
@@ -296,7 +312,7 @@ export function CrystalFragments({ layout = "cluster", className, style }: Cryst
                 <polygon
                   key={points}
                   points={points}
-                  fill={facetFills[(index + facetIndex) % facetFills.length]}
+                  fill={at(facetFills, (index + facetIndex) % facetFills.length)}
                   fillOpacity={0.46 + ((index + facetIndex) % 3) * 0.09}
                   stroke="rgba(255,211,226,.34)"
                   strokeWidth=".2"

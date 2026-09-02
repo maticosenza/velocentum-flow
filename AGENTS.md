@@ -107,26 +107,27 @@ como estado Git actual.
 
 ---
 
-## BASELINE CONOCIDO DE TYPESCRIPT — 49fc3dc
+## BASELINE CONOCIDO DE TYPESCRIPT — API por faceta
 
-`bun x tsc --noEmit` falla con **22 errores REALES de TypeScript,
+`bun x tsc --noEmit` falla con **3 errores REALES de TypeScript,
 PREEXISTENTES**, heredados del código V3 y no introducidos por el trabajo
 actual:
 
-- **11** en `src/components/brand/CrystalFiveApproved.tsx`
-- **8** en `src/components/brand/CrystalFragments.tsx`
 - **3** en `src/routes/crystal-review.tsx`
 
-Ningún cambio debe **SUMAR errores nuevos ni distintos** respecto de esos 22.
+Ningún cambio debe **SUMAR errores nuevos ni distintos** respecto de esos 3.
 Si aparece uno nuevo, es del cambio en curso.
 
-**EL BASELINE ESTÁ ASOCIADO AL COMMIT `49fc3dc`.** Cuando un trabajo aprobado
-reduzca intencionalmente estos errores, `AGENTS.md` y `docs/HANDOFF_CURSOR.md`
-deben actualizarse **EN EL MISMO COMMIT** con el nuevo conteo. Nunca dejar un
-baseline obsoleto.
+**EL BASELINE ANTERIOR ERA 22 Y ESTABA ASOCIADO AL COMMIT `49fc3dc`**: 11 en
+`CrystalFiveApproved.tsx`, 8 en `CrystalFragments.tsx` y 3 en
+`crystal-review.tsx`. Los 19 de los dos componentes de marca se resolvieron
+junto con la API por faceta, como estaba previsto: eran accesos indexados
+posiblemente `undefined` bajo `noUncheckedIndexedAccess`, y ahora pasan por un
+helper `at(arr, i)` que afirma el invariante en un solo lugar de cada archivo.
 
-Los 19 de `CrystalFiveApproved` y `CrystalFragments` se resuelven **junto con la
-API por faceta**, no antes ni por separado.
+Cuando un trabajo aprobado reduzca intencionalmente estos errores, `AGENTS.md` y
+`docs/HANDOFF_CURSOR.md` deben actualizarse **EN EL MISMO COMMIT** con el nuevo
+conteo. Nunca dejar un baseline obsoleto.
 
 Detalle completo en `docs/HANDOFF_CURSOR.md`.
 
