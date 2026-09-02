@@ -1,12 +1,17 @@
 ---
 name: velocentum-design
-description: Design system y reglas de construcción del sitio velocentum.com. Usar SIEMPRE que se cree o modifique cualquier componente, sección, página o estilo de este repositorio. Cubre tokens de color, escala tipográfica, spacing, reglas de animación y performance, geometría del Crystal V, y las decisiones de marca que no se deben romper.
+description: Design system y reglas de construcción del sitio velocentum.com. Usar SIEMPRE que se cree o modifique cualquier componente, sección, página o estilo de este repositorio. Cubre tokens de color, tipografía Manrope y Geist Mono, spacing, reglas de animación y performance, el objeto narrativo CrystalFiveApproved, la identidad BrandLogoMark, y las decisiones de marca que no se deben romper. Complementa a docs/PLAN_MAIN_HOME.txt, que es la fuente de verdad; no lo reemplaza.
 ---
 
 # Velocentum — design system
 
 Sitio de marca de Velocentum, **equipo de crecimiento** (Argentina). Stack: TanStack Start +
 React + TypeScript + Tailwind v4. Sincroniza con Lovable.
+
+> **Jerarquía.** `docs/PLAN_MAIN_HOME.txt` es la fuente de verdad de composición, copy, CTA,
+> tipografía, geometría, narrativa y movimiento. `AGENTS.md` tiene las reglas operativas.
+> Este skill es **complementario**: aporta el detalle técnico y no reemplaza al plan. Si algo
+> de acá contradice al plan, manda el plan.
 
 Performance, pauta, contenido, diseño, web, tecnología, análisis y estrategia son **capacidades
 del equipo**, no el posicionamiento de la empresa. No presentar a Velocentum como agencia de
@@ -50,9 +55,9 @@ Los tokens ya están en `src/styles.css`. **No los redefinas ni los dupliques.**
 | Token | Hex | Uso |
 |---|---|---|
 | `--pink` | `#FF4B8D` | Acento principal, CTAs sólidos, focus ring, elementos activos |
-| `--pink-soft` | `#FF85B8` | Luz, facetas claras del Crystal V |
+| `--pink-soft` | `#FF85B8` | Luz, facetas claras del Crystal 5 |
 | `--pink-deep` | `#D92F6E` | Profundidad, facetas oscuras, acentos secundarios |
-| `--gradient-brand` | `linear-gradient(135deg, #FFB4CF 0%, #F77FA8 28%, #D32D68 62%, #7A193C 100%)` | Único gradiente decorativo permitido, reservado al Crystal V y tratamientos de marca |
+| `--gradient-brand` | `linear-gradient(135deg, #FFB4CF 0%, #F77FA8 28%, #D32D68 62%, #7A193C 100%)` | Único gradiente decorativo permitido, reservado al Crystal 5 y tratamientos de marca |
 
 `--violet` y `--brand` siguen existiendo como **alias temporales** (`--violet: var(--pink)`,
 `--brand: var(--pink-deep)`) para las secciones todavía no reconstruidas contra el nuevo sistema
@@ -64,8 +69,16 @@ directamente. Se limpian en Fase 2.
 - El fondo por defecto es `--ink-deep`, no blanco.
 - `--pink` aparece en: flechas de CTA, links, eje de medición, labels de sección, elementos activos.
 - **Botones sólidos: fondo `--pink`, texto e ícono `--ink`. Nunca texto blanco sobre rosa.**
-- **Nada de gradientes decorativos de fondo ni glows difusos.** El único gradiente permitido es
-  `--gradient-brand`, reservado al Crystal V.
+- **Nada de gradientes decorativos de fondo.** El único gradiente permitido es
+  `--gradient-brand`, reservado al Crystal 5 y a los tratamientos de marca.
+- **Glows: solo donde `PLAN_MAIN_HOME.txt` los especifica.** No se agregan por criterio propio.
+  Los casos aprobados hoy son:
+  · las **atmósferas aprobadas** de `public/brand-approved/official/atmosphere/`
+    (`pink-glow`, `dark-glass`, `orbit`, `network`), donde el plan las pide;
+  · el **glow final del cierre T5** de la Sección 09 — Empecemos, que aparece recién después
+    de las aristas;
+  · el halo del nodo 01 activo de la Sección 05, documentado en el plan.
+  Fuera de eso, nada de glows difusos. Las Secciones 07 y 08 los prohíben explícitamente.
 - **Nada de paletas multicolor.** Un color de acento por sección, siempre de la paleta.
 
 ---
@@ -76,34 +89,46 @@ directamente. Se limpian en Fase 2.
 
 | Rol | Familia | Dónde |
 |---|---|---|
-| Display | Satoshi | Títulos, cifras |
-| Body | Inter | Texto corrido |
-| Utility | Geist Mono | Eyebrows, labels, contadores, cotas, unidades |
+| Display | **Manrope** | Headlines, wordmark, cifras |
+| Body | **Manrope** | Texto corrido, subtítulos, etiquetas de píldoras, CTA |
+| Utility | **Geist Mono** | Eyebrows, labels, links de nav, contadores, cotas, unidades |
 
-El rebranding de Fase 1 **no cambia tipografía** — se conserva la base ya implementada para
-evitar retrabajo.
+Son las dos únicas familias del sitio. **Satoshi e Inter ya no se usan**: los nueve mockups
+aprobados de la HOME están tipografiados en Manrope + Geist Mono.
+
+Pesos cargados: Manrope 400, 700 y 800; Geist Mono 400 y 500.
 
 ### Escala — regla crítica
 
-| Nivel | Tamaño | Peso | Tracking |
-|---|---|---|---|
-| Display XL | `clamp(2.75rem, 7vw, 6.5rem)` | **500** | `-0.03em` |
-| Display L | `clamp(2rem, 4.5vw, 4rem)` | **500** | `-0.028em` |
-| Display M | `clamp(1.5rem, 2.6vw, 2.25rem)` | **600** | `-0.02em` |
-| Cifra / dato | `clamp(3rem, 6vw, 5.5rem)` | **800** | `-0.04em` |
+**Los headlines van en Manrope 800.** Valores del plan, por familia de sección:
 
-**El peso 800 se usa EXCLUSIVAMENTE para cifras numéricas.** Los títulos grandes van en 500.
-Esto es deliberado: el aire del sitio viene del peso liviano en tamaños grandes. Si te parece
-que "falta contraste", está bien así. No lo cambies a bold.
+| Nivel | Dónde | Tamaño | Peso | Line-height | Tracking |
+|---|---|---|---|---|---|
+| Display XL | Hero (Sección 01) | 72 px | **800** | 1 | `-0.035em` |
+| Display L | Narrativas (02, 03, 04) | 58–60 px | **800** | 1.02–1.04 | `-0.03 / -0.032em` |
+| Display M | Comerciales (05, 06, 07) | 44–48 px | **800** | 1.05 | `-0.03em` |
+| Cifra / dato | Datos y contadores | `clamp(3rem, 6vw, 5.5rem)` | **800** | 1 | `-0.04em` |
+
+En las secciones comerciales el headline baja de tamaño porque el protagonista son las cards,
+no el copy. El peso no baja: sigue en 800.
 
 La mono lleva todas las lecturas técnicas: coordenadas, contadores, unidades, estados, labels.
 Es lo que da la textura de instrumento.
 
-- Eyebrow: `0.75rem`, peso 500, `letter-spacing 0.12em`, uppercase.
+- Eyebrow: Geist Mono 500, `0.7rem`, `letter-spacing .22em`, uppercase, color `--pink`.
+  Excepción documentada: en la Sección 07 va en `--on-dark-2`, y en la 08 en `--ink-2`.
+- Links de nav: Geist Mono, `0.66rem`, `letter-spacing .13em`, uppercase.
 - Label: `0.6875rem`, peso 500, `letter-spacing 0.1em`, uppercase.
-- Body: `1rem`/1.5. Body L: `1.125rem`.
-- Medida de lectura: 52–72 caracteres. Nunca párrafos a todo el ancho del viewport.
+- Subtítulo / body: Manrope 400, `1.02rem`, line-height 1.5–1.55. Body L: `1.125rem`.
+- Wordmark "velocentum": Manrope 800, `1.22rem`, en minúscula.
+- Etiquetas de píldoras y CTA: Manrope 700.
+- Medida de lectura: 44–54ch en los subtítulos del plan; nunca párrafos a todo el ancho
+  del viewport.
 - Mayúsculas solo en eyebrows y labels.
+
+**Nada de texto tipografiado dentro de un SVG en producción.** Si la fuente no carga a tiempo,
+el SVG cae a Arial y rompe la tipografía del sitio. Los SVG maestros con texto embebido
+(por ejemplo los CTA de `official/cta/`) son referencia visual; el render va en HTML/CSS.
 
 ---
 
@@ -145,8 +170,10 @@ Exporta: `getScrollEngine`, `useScrollSubscription`, `useScrollRange`, `lerp`, `
    `{ start: 0, end: 0 }`, porque el rango por defecto asume que el elemento entra desde abajo
    del viewport y arranca en un progreso distinto de cero.
 6. **Lerp con factor `0.12`** para todo lo que se desplace con el scroll. Es lo que da la
-   sensación de peso. Excepción: transformaciones narrativas de ensamble (como el Crystal V del
-   Reveal) interpolan directo desde el progreso, sin lerp, para ser perfectamente reversibles.
+   sensación de peso. Excepción: las transformaciones narrativas de ensamble interpolan directo
+   desde el progreso, sin lerp. El ensamble aprobado es la reconstrucción del **Crystal 5** en la
+   Sección 09 — Empecemos; el plan exige que ocurra **una sola vez** y que no se repita al
+   scrollear hacia arriba, así que el estado final se retiene en vez de revertirse.
 
 ### prefers-reduced-motion
 
@@ -157,40 +184,58 @@ hasta que vencen los delays.
 
 ---
 
-## Crystal V
+## Objeto narrativo e identidad
 
-Reemplaza al isotipo anterior (las dos mitades violeta con muesca). Es el símbolo madre del
-sistema — deja de ser "un objeto más" y pasa a representar materialmente al equipo de
-crecimiento. Componente: `src/components/brand/CrystalV.tsx`.
+**Son dos cosas distintas y no se mezclan.** La regla vive en `docs/DESIGN_SYSTEM_CRYSTAL.txt`,
+sección 2.
 
-### Jerarquía
+### CrystalFiveApproved — el objeto narrativo
 
-1. **Crystal V Simple** — favicon, avatar, tamaños pequeños. Silueta limpia, mínima complejidad.
-2. **Crystal V Brand** — isotipo estándar, pocas facetas, lectura inmediata.
-3. **Crystal V Object** — versión facetada, volumétrica, animable. Para hero, reveal, transiciones
-   y piezas de branding.
+`src/components/brand/CrystalFiveApproved.tsx`. **Es el objeto narrativo de la HOME nueva** y el
+único que explota, se desplaza y se reconstruye.
 
-### Geometría
+- viewBox `0 0 240 184`. Silueta ancha, dos cuerpos cristalinos conectados.
+- 18 facetas (`FACETS`) + 7 inclusiones (`INCLUSIONS`), con sus aristas y su glow.
+- Materiales LIGHT / HOT / ROSE / GRAPHITE / DEEP / GLASS, definidos en
+  `docs/DESIGN_SYSTEM_CRYSTAL.txt` sección 3.
+- Maestros estáticos: `official/narrative/crystal-five-approved.svg` y
+  `official/narrative/crystal-five-fragments-volumetric-approved.svg`.
+- **Fragmento guía: `FACETS[15]` con `INCLUSIONS[6]` adherida.** Recorre la HOME entera de forma
+  continua y nunca se teletransporta entre secciones.
+- **Nunca reemplaza al isotipo del logotipo.** No se aproxima su silueta a la V, no se cambian
+  facetas y no se modifican proporciones.
+- Gap conocido: todavía no expone API por faceta. Cuando se resuelva, tiene que ser una
+  extensión **aditiva**, sin tocar geometría ni materiales.
 
-Fuente de verdad: `crystal-v-short-b.svg` del Asset Pack V2. **No aproximes ni redibujes los
-puntos de los polígonos** — son los del pack, tal cual, viewBox `0 0 220 180`. Cada faceta
-(polígono) va envuelta en su propio `<g>` para poder animarse individualmente sin tocar el
-`points` del polígono.
+### BrandLogoMark — la identidad
 
-Gradientes (`gradientUnits="userSpaceOnUse"` con coordenadas absolutas, igual razón que el
-isotipo anterior: sin eso cada mitad calcula su propio gradiente y se ve un salto de color en la
-costura):
-- Mitad izquierda: `#FFB4CF → #F77FA8 (28%) → #D32D68 (62%) → #7A193C (100%)`.
-- Mitad derecha: `#F8B2CC → #E782A5 (26%) → #C92B64 (58%) → #661532 (100%)`.
+`src/components/brand/BrandLogoMark.tsx`, que sirve
+`official/identity/isotipo-approved.svg`. Es el isotipo vertical aprobado.
 
-Los IDs de gradiente se generan con `useId()` y se sanitizan antes de usarse dentro de
-`url(#...)` (los dos puntos que agrega React en el id no son válidos ahí sin escapar).
+- Uso: navegación, firma, lockup y avatar.
+- **No explota, no se fragmenta y no recorre la HOME.**
+- En el nav va a 36 px de alto. Pendiente conocido: probar su legibilidad a 16, 24 y 32 px antes
+  de que el nav entre a producción, posiblemente con una variante simplificada.
 
-### Variantes del componente
+### CrystalV — legado
 
-- `variant="object"` — Crystal V completo, facetado, para hero/reveal/piezas expresivas.
-- `variant="mark"` — versión simplificada para nav y tamaños chicos: los dos polígonos
-  principales en `--pink`, sin facetas internas.
+`src/components/brand/CrystalV.tsx`. **No se usa para implementar la HOME nueva.** Se conserva
+por compatibilidad: las piezas V3 de main todavía dependen de él (`sequenceA/`, `sequenceB/`,
+`Hero`, `RevealSection`, `Nav`, `Servicios`, `Contacto`, `crystalVMotion.ts`).
+
+**No borrarlo ni modificarlo.** Su limpieza ocurre cuando esas piezas se retiren, no antes.
+
+### Técnica de embebido de SVG (vale para los tres)
+
+- **No aproximes ni redibujes los puntos de los polígonos.** Son los del asset aprobado, tal cual.
+- Cada faceta va envuelta en su propio `<g>` para animarse individualmente sin tocar su `points`.
+- Los gradientes usan `gradientUnits="userSpaceOnUse"` con coordenadas absolutas. Sin eso, cada
+  mitad calcula su propio gradiente y se ve un salto de color en la costura.
+- Los IDs de `defs` se generan con `useId()` y se sanitizan antes de usarse dentro de `url(#...)`
+  (los dos puntos que agrega React en el id no son válidos ahí sin escapar).
+- Al embeber varios SVG en la misma página, **renombrar únicamente los IDs de `defs` necesarios**
+  para evitar colisiones (`glass`, `beam`, `g`, `gl`, `front`, `side`, `top`, `inner`, `core`,
+  `glow`). No se toca nada más del asset.
 
 ---
 

@@ -20,6 +20,13 @@ Orden obligatorio de trabajo:
 No implementar toda la HOME a partir de una descripción general.
 No reinterpretar assets aprobados dentro del código.
 
+JERARQUÍA DE FUENTES
+- Este plan es fuente de verdad para composición, copy, CTA, tipografía,
+  geometría y narrativa.
+- Las fuentes funcionales enumeradas en AGENTS.md mandan solamente sobre sus
+  datos.
+- AGENTS.md contiene las reglas operativas.
+
 ======================================================================
 1. DECISIONES APROBADAS
 ======================================================================
