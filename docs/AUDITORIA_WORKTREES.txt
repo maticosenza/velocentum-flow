@@ -1,0 +1,217 @@
+VELOCENTUM — AUDITORÍA DE RECONCILIACIÓN DE WORKTREES
+Versión: 2026-08-30
+Estado: informe de solo lectura. No se realizó ningún commit, merge, cambio de
+rama, reset, rebase ni modificación de código para producir este documento.
+
+======================================================================
+1. ESTADO EXACTO DE main
+======================================================================
+
+- Worktree: /Users/maticosenza/velocentum-flow
+- Rama: main, HEAD a2dc171, sincronizada con origin/main, working tree limpio.
+- Contiene: HOME V2 (7 bloques) + V3 "Narrative Interaction System" completo
+  (11 commits, b91f45d...c6d4311), documentado en .claude/SESSION_HANDOFF.md
+  (idéntico a docs/MAIN_V3_SESSION_HANDOFF.md leído en el rebuild).
+- Arquitectura activa: SequenceA (Intro->Hero->Dolor1->Dolor2->Reveal, un pin)
+  -> SequenceB (Reveal->Motores->Servicios, otro pin) -> handoffs cortos sin
+  pin -> Trabajos (Mux) -> Clientes -> Contacto (formulario nuevo).
+- /metodo y /casos siguen como skeletons, no tocados, por freno explícito
+  previo.
+- package.json es IDÉNTICO entre main y rebuild/home-cinematic (diff vacío)
+  — no hay drift de dependencias, Mux incluido.
+
+======================================================================
+2. ESTADO EXACTO DE rebuild/home-cinematic
+======================================================================
+
+- Worktree: /Users/maticosenza/velocentum-flow-home-rebuild
+- Rama: rebuild/home-cinematic, base 09462d3 (0 commits ahead de esa base,
+  10 detrás de main; merge-base con main = 09462d3 mismo).
+- Working tree SUCIO: 9 archivos trackeados modificados sin commitear
+  (Nav.tsx, CrystalV.tsx, Hero.tsx, Contacto.tsx, Trabajos.tsx,
+  routeTree.gen.ts, __root.tsx, metodo.tsx, styles.css) más una gran
+  cantidad de archivos nuevos no trackeados: los 7 documentos leídos, el
+  paquete public/brand-approved/official/ completo, public/brand-v2/, los
+  componentes nuevos de marca (CrystalFiveApproved.tsx, BrandLogoMark.tsx,
+  BrandCTA.tsx, CrystalFragments.tsx, CrystalFive.tsx), y las rutas de
+  revisión (crystal-review.tsx, design-system-crystal.tsx, storyboard-a.tsx
+  + su CSS).
+- No hay ningún commit en esta rama todavía — todo es trabajo local sin
+  guardar.
+
+======================================================================
+3. CAMBIOS LOCALES DEL REBUILD, CATEGORIZADOS
+======================================================================
+
+--- (a) Assets y documentación aprobados — sin riesgo, listos para incorporar
+
+- docs/{REPOSITORY_HANDOFF,PLAN_MAIN_HOME,DESIGN_SYSTEM_CRYSTAL}.txt,
+  docs/MAIN_V3_SESSION_HANDOFF.md, public/brand-approved/ASSET_MANIFEST.txt,
+  public/brand-approved/official/ASSETS_CONFIRMADOS.txt.
+- public/brand-approved/official/ completo (identidad, narrativa, CTA,
+  objetos, fragmentos, scroll-axis, píldoras, tratamientos, atmósferas —
+  catálogo verificado in situ, coincide 1:1 con los manifiestos).
+- public/brand-v2/ (fuentes originales de trazabilidad, sin modificar).
+
+--- (b) Componentes aprobados — código nuevo, puramente aditivo, alineado
+        con las reglas
+
+- src/components/brand/CrystalFiveApproved.tsx — fuente canónica de
+  Crystal 5 (armado + fragmentos volumétricos). GAP TÉCNICO DETECTADO: no
+  expone API facetRef/edgesRef, por lo que no es animable por scroll con el
+  patrón actual de CrystalStage.tsx de V3 sin extenderlo (sin tocar su
+  geometría/materiales aprobados).
+- src/components/brand/BrandLogoMark.tsx — wrapper <img> del isotipo
+  aprobado. Bajo riesgo.
+- src/components/brand/BrandCTA.tsx — sistema de CTA (primary/outline/
+  compact). Bajo riesgo, requiere las clases CSS nuevas de styles.css
+  (.brand-cta*, verificadas presentes en el diff).
+- src/components/brand/CrystalFragments.tsx — familia de fragmentos de
+  referencia (documentada como ambientación secundaria, no la explosión de
+  Crystal 5).
+
+--- (c) Rutas de revisión y storyboard
+
+- src/routes/crystal-review.tsx y src/routes/design-system-crystal.tsx:
+  correctas, importan CrystalFiveApproved/CrystalFiveFragmentsApproved, son
+  herramientas de dev aisladas. Bajo riesgo.
+- src/routes/storyboard-a.tsx (+ storyboard-a.css, 941 líneas): MARCAR COMO
+  SUPERADO/INCOMPATIBLE. Importa CrystalFive (obsoleto, ver abajo) y
+  CrystalFragments, y su guion (JOURNEY_STAGES) hace explotar el cristal DOS
+  VECES — contradice directamente la "Decisión reemplazada" de
+  PLAN_MAIN_HOME.txt ("ya no se repetirá el ciclo completo de explosión/
+  rearmado por bloque"). No debe tratarse como aprobado pese a ser código
+  nuevo.
+
+--- (d) Modificaciones experimentales de la HOME (uncommitted, sobre
+        archivos existentes)
+
+- Nav.tsx: reemplaza el lockup CrystalV+texto por BrandLogoMark+wordmark+
+  tagline, y el CTA por BrandCTA ("Hablemos"). ALINEADO CON LAS REGLAS
+  APROBADAS (isotipo real, no CrystalV).
+- Trabajos.tsx: agrega <BrandCTA to="/casos" variant="outline">Ver
+  casos</BrandCTA> bajo el título. Aditivo, no toca Mux/video. Coincide con
+  Sección 07 del plan.
+- metodo.tsx: cambia un <a href="/#contacto"> legado (con violeta
+  pre-rebrand, #B9AEFF) por <BrandCTA> navegando con <Link> real. Mejora
+  aislada, no es una implementación de /metodo.
+- __root.tsx + styles.css (tipografía): quita Fontshare Satoshi + Google
+  Inter, agrega Google Manrope (700/800), mantiene Geist Mono. PUNTO
+  ABIERTO: ningún documento de los 7 leídos confirma explícitamente este
+  cambio tipográfico como aprobado — queda pendiente de confirmación antes
+  de adoptarlo.
+- styles.css (resto): agrega utilidades .brand-cta*, .nav-brand-mark,
+  .nav-wordmark-lockup, .nav-tagline, .hero-actions, .contacto-logo-mark; no
+  elimina ni modifica clases de las que depende V3 (.narrative-sticky,
+  .contacto-form, .hero-crystal-wrap, etc. — no aparecen tocadas en el
+  diff).
+- Hero.tsx: reemplaza el CTA único por dos BrandCTA ("Hablemos" + "Ver
+  método" hacia /metodo), pero SIGUE USANDO CrystalV (el componente viejo de
+  12 facetas, con el upgrade de materiales experimental), NO
+  CrystalFiveApproved.
+- Contacto.tsx: reemplaza CrystalV por CrystalFive — que es el wrapper
+  OBSOLETO (ver más abajo), no CrystalFiveApproved. El copy del CTA cambia
+  a "Hablemos" con clases brand-cta brand-cta-primary.
+- CrystalV.tsx: reescritura completa de la paleta de materiales (nuevos
+  gradientes light/dark/rose/glint por lado, overlays minerales, filtro de
+  grano feTurbulence, bordes más finos y luminosos) SOBRE LA GEOMETRÍA VIEJA
+  DE 12 FACETAS (CRYSTAL_V_FACET_COUNT sin cambios). Es un paso experimental
+  intermedio hacia el sistema de materiales del design system, pero no es
+  la fuente aprobada — esa es CrystalFiveApproved.tsx (18 facetas, viewBox
+  distinto).
+
+--- (e) Archivos potencialmente conflictivos con V3
+
+- Contacto.tsx: CONFLICTO REAL. main (c6d4311) reemplazó el CTA único por
+  el formulario de 5 campos + "Quiero analizar mi negocio"; el rebuild solo
+  tocó el bloque del cristal y el botón, sin formulario — son ediciones
+  sobre bases distintas que van a chocar textualmente al integrar.
+- styles.css: CONFLICTO PROBABLE POR VOLUMEN, no necesariamente por
+  contenido — V3 añadió mucho CSS propio (narrativa, formulario) que el
+  rebuild no tiene; ambos diffs parten de la misma base (09462d3) pero
+  divergen en secciones distintas del archivo, así que un merge automático
+  es plausible pero debe revisarse a mano.
+- Hero.tsx y Contacto.tsx (por el componente de cristal usado): ambos usan
+  hoy CrystalV/CrystalFive en lugar de CrystalFiveApproved, lo cual es
+  inconsistente con la propia dirección aprobada del rebuild y con V3 (que
+  usa CrystalStage/SequenceBStage sobre las 12 facetas de CrystalV, con su
+  propia coreografía). Ninguno de los dos worktrees hoy renderiza el
+  Crystal 5 aprobado en Hero/Contacto — es trabajo pendiente en ambos casos,
+  no algo que ya esté resuelto en un lado.
+- src/components/brand/CrystalFive.tsx: MARCAR COMO OBSOLETO/ENGAÑOSO — es
+  un wrapper delgado (CrystalFive({facetRef, edgesRef}) => <CrystalV
+  variant="object" .../>) que su propio docstring llama "el objeto
+  narrativo ancho" pero en realidad renderiza el CrystalV viejo. No debe
+  confundirse con CrystalFiveApproved.tsx. Actualmente es usado por
+  Contacto.tsx (rebuild) y por storyboard-a.tsx.
+
+======================================================================
+4. COMPONENTES V3 DE main A PRESERVAR
+======================================================================
+
+- src/components/narrative/{narrativeMotion.ts,NarrativeSequence.tsx} —
+  primitivas section-agnostic, reutilizables según indica explícitamente
+  REPOSITORY_HANDOFF.txt.
+- src/components/sections/sequenceA/* y sequenceB/* (poses, stages, beats)
+  — arquitectura de dos pines independientes.
+- ServiciosToTrabajosHandoff.tsx, ClientesToContactoHandoff.tsx — patrón de
+  transición corta sin pin.
+- Fallbacks estáticos pre-V3 (Hero, Dolores, RevealSection, Motores,
+  Servicios) usados sin modificar en mobile/reduced-motion.
+- Contacto.tsx con el formulario nuevo de 5 campos (commit c6d4311) — es el
+  punto de conflicto real con el rebuild, listado en 3(e).
+- Trabajos.tsx con el fix de pixelado Mux (minResolution="720p").
+- El bug fix de NarrativeSequence (deps [mode] en vez de [elementRef],
+  mapeo start:0/end:1) — debe sobrevivir cualquier refactor.
+
+======================================================================
+5. CONFIRMACIÓN DE QUE MUX QUEDA INTACTO
+======================================================================
+
+Confirmado por tres vías independientes: git diff --stat del rango
+09462d3..main no toca Trabajos.tsx en su lógica de Mux; el diff local del
+rebuild sobre Trabajos.tsx es puramente aditivo (un botón, no toca el
+<MuxPlayer>); y package.json es BYTE-IDÉNTICO entre ambos worktrees, así
+que la versión de @mux/mux-player-react no diverge. Ningún riesgo
+detectado.
+
+======================================================================
+6. ESTRATEGIA SEGURA DE INTEGRACIÓN (propuesta, pendiente de aprobación)
+======================================================================
+
+1. Commit de checkpoint en rebuild/home-cinematic, separado en al menos dos
+   commits: uno para assets/docs (categoría 3a) + componentes aprobados
+   (3b) + rutas de revisión limpias (3c: crystal-review,
+   design-system-crystal), y otro aparte para los experimentos de página
+   (3d) y storyboard-a (3c-superado), dejando claro en el mensaje que el
+   segundo grupo es exploratorio y no aprobado para producción.
+2. Crear una rama de integración desde main/a2dc171 (no desde el rebuild).
+3. Traer a esa rama solo: los 7 docs, el paquete official/, brand-v2/, y
+   los 4 componentes de marca limpios (CrystalFiveApproved, BrandLogoMark,
+   BrandCTA, CrystalFragments) — sin CrystalFive.tsx (obsoleto) ni
+   storyboard-a.*.
+4. Preservar intactos de main: Mux/Trabajos.tsx, Clientes.tsx, Contacto.tsx
+   (formulario V3), y las primitivas narrative*/sequence*.
+5. Antes de tocar Hero.tsx/Nav.tsx/Contacto.tsx reales: resolver el gap
+   técnico de CrystalFiveApproved.tsx (necesita facetRef/edgesRef para ser
+   animable) y decidir si Nav.tsx/Trabajos.tsx/metodo.tsx del rebuild
+   (categoría 3d, ya alineados con las reglas) se adoptan tal cual sobre la
+   rama de integración, ya que son de bajo riesgo y no dependen de la
+   narrativa nueva del Hero.
+6. Confirmar explícitamente si el cambio tipográfico (Manrope reemplazando
+   Satoshi+Inter) está aprobado o no — es el único punto sin respaldo
+   documental de los 7 archivos leídos.
+7. storyboard-a.tsx no se incorpora — su modelo narrativo (doble explosión)
+   quedó reemplazado por el plan actual; puede quedar como referencia
+   histórica en el rebuild o descartarse, a criterio del usuario.
+8. Recién después de eso, continuar con el mockup 01 de Hero
+   (docs/home-mockups/) usando CrystalFiveApproved como única fuente del
+   objeto narrativo, sin usar CrystalV ni CrystalFive.tsx.
+
+======================================================================
+ESTADO
+======================================================================
+
+Informe entregado. No se ejecutó ningún commit, merge, cambio de rama ni
+modificación de código. Se espera aprobación explícita antes de avanzar con
+la integración.

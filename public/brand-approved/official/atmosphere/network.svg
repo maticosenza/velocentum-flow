@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180" role="img" aria-labelledby="title">
+  <title id="title">Red de conexiones Velocentum</title>
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#1a121a"/>
+      <stop offset=".52" stop-color="#111117"/>
+      <stop offset="1" stop-color="#09090e"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ff4b8d" stop-opacity=".04"/>
+      <stop offset=".46" stop-color="#ff4b8d" stop-opacity=".42"/>
+      <stop offset="1" stop-color="#ff8eb7" stop-opacity=".06"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="2" y="2" width="356" height="176" rx="16" fill="url(#base)" stroke="#ff4b8d" stroke-opacity=".18"/>
+  <g fill="none" stroke="url(#line)" stroke-width="1" filter="url(#glow)">
+    <path d="M-18 136C35 51 68 40 114 94s81 59 127-8 95-34 139 15"/>
+    <path d="M-16 86C30 119 65 126 103 78s81-46 123 13 94 51 150-3"/>
+    <path d="M-12 162C55 103 91 109 126 143s77 25 120-40 82-64 128-35"/>
+    <path d="M16-10c18 53 55 74 91 60s73-2 93 48 65 68 94 18 50-74 82-53"/>
+    <path d="M72-14c-8 53 22 73 56 93s51 53 34 91"/>
+    <path d="M264-18c-7 49-41 61-61 90s-10 67 33 116"/>
+  </g>
+  <g fill="#ff8eb7">
+    <circle cx="102" cy="79" r="1.8" opacity=".65"/>
+    <circle cx="200" cy="98" r="1.5" opacity=".52"/>
+    <circle cx="246" cy="102" r="1.7" opacity=".58"/>
+    <circle cx="126" cy="143" r="1.4" opacity=".42"/>
+  </g>
+</svg>

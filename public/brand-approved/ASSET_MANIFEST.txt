@@ -1,0 +1,145 @@
+VELOCENTUM — ASSETS APROBADOS
+Versión: 2026-08-30
+
+Este manifiesto separa identidad, objeto narrativo y recursos auxiliares.
+No intercambiar sus funciones.
+
+1. REFERENCIA MAESTRA
+
+- reference/design-system-board-source.png
+  Board general original. Es la referencia de lenguaje visual, paleta,
+  tratamientos, fragmentación y jerarquías.
+
+- reference/design-system-crystal-approved.png
+  Board visual específico del Crystal 5, sus fragmentos, materiales y
+  narrativa de movimiento.
+
+2. IDENTIDAD — FUENTES OFICIALES
+
+- official/identity/isotipo-approved.svg
+  Archivo maestro vectorial del isotipo vertical aprobado.
+  Es la fuente utilizada por la navegación y los lockups web.
+
+- official/identity/isotipo-approved-2048.png
+  Exportación PNG HD de 2048 × 1955 px, con transparencia real.
+
+  Uso: navegación, firma, lockup y avatar.
+  Regla: no explota, no se fragmenta y no recorre la HOME.
+
+- Fuente funcional en código:
+  src/components/brand/BrandLogoMark.tsx
+
+3. OBJETO NARRATIVO — CRYSTAL 5
+
+- official/narrative/crystal-five-approved.svg
+  Archivo maestro estático del Crystal 5 armado.
+
+- official/narrative/crystal-five-approved.png
+  Preview aprobado del Crystal 5 armado: silueta ancha, doble cuerpo,
+  rosas y grafitos intercalados, imperfecciones internas.
+
+- official/narrative/crystal-five-fragments-volumetric-approved.svg
+  Archivo maestro estático de la rotura volumétrica.
+
+- official/narrative/crystal-five-fragments-volumetric-approved.png
+  Preview aprobado de la rotura correspondiente: fragmentos con caras,
+  espesor oscuro, reflejos, distintos tamaños y chips de contorno.
+
+- Fuente vectorial funcional compartida por ambos estados:
+  src/components/brand/CrystalFiveApproved.tsx
+
+- Vista interna para regenerar el board:
+  /design-system-crystal
+
+4. BIBLIOTECA OFICIAL CONSOLIDADA
+
+Todos los recursos aprobados del storyboard están reunidos físicamente en
+public/brand-approved/official/. Ya no hace falta buscarlos en carpetas de
+extracción o reconstrucción.
+
+OBJETO NARRATIVO
+- official/narrative/crystal-five-approved.svg
+- official/narrative/crystal-five-approved.png
+- official/narrative/crystal-five-fragments-volumetric-approved.svg
+- official/narrative/crystal-five-fragments-volumetric-approved.png
+- Fuente vectorial animable: src/components/brand/CrystalFiveApproved.tsx
+
+BOTONES CTA
+- official/cta/hablemos-primary.svg + .png
+- official/cta/hablemos-hover.svg + .png
+- official/cta/ver-metodo-outline.svg + .png
+- official/cta/ver-casos-outline.svg + .png
+- Fuente funcional: src/components/brand/BrandCTA.tsx
+- Estados funcionales: primary, outline, compact y hover.
+
+OBJETOS
+- official/objects/prism.svg + .png: análisis y diagnóstico.
+- official/objects/lightning.svg + .png: adquisición, ejecución y velocidad.
+- official/objects/bars.svg + .png: medición, proyección y resultados.
+- official/objects/target.svg + .png: foco, objetivo y conversión.
+
+FRAGMENTACIÓN Y RECORRIDO
+- official/fragments/fragment-cluster-system.svg + .png: familia visual de referencia.
+- official/scroll/scroll-axis.svg + .png: progreso y recorrido.
+
+PÍLDORAS
+- official/pills/strategy.svg + .png
+- official/pills/acquisition.svg + .png
+- official/pills/content.svg + .png
+- official/pills/analysis.svg + .png
+- official/pills/web.svg + .png
+- official/pills/design.svg + .png
+
+TRATAMIENTOS
+- official/treatments/solid.svg + .png
+- official/treatments/outline.svg + .png
+- official/treatments/graded.svg + .png
+- official/treatments/translucent.svg + .png
+
+ATMÓSFERAS
+- official/atmosphere/pink-glow.svg + .png
+- official/atmosphere/dark-glass.svg + .png
+- official/atmosphere/orbit.svg + .png
+- official/atmosphere/network.svg + .png
+
+Las fuentes de origen siguen conservadas, sin modificaciones, en
+public/brand-v2/ para trazabilidad.
+
+5. DOCUMENTACIÓN VINCULADA
+
+- docs/DESIGN_SYSTEM_CRYSTAL.txt
+  Construcción exacta y reglas para futuros pedidos.
+
+- docs/PLAN_MAIN_HOME.txt
+  Estructura de la HOME, narrativa de movimiento y flujo de aprobación.
+
+- docs/home-mockups/
+  Lugar obligatorio para incorporar cada mockup aprobado antes de implementar.
+
+- docs/REPOSITORY_HANDOFF.txt
+  Relación entre main y rebuild/home-cinematic, commits y estrategia segura
+  para preservar la implementación existente.
+
+- docs/MAIN_V3_SESSION_HANDOFF.md
+  Estado funcional detallado de la HOME V3 existente en main.
+
+- AGENTS.md
+  Reglas operativas obligatorias del repositorio.
+
+6. ESTADO
+
+APROBADO:
+- Isotipo vertical vectorial y exportación HD transparente.
+- Crystal 5 armado de silueta ancha.
+- Rotura volumétrica correspondiente.
+- Prisma, rayo, barras y mira.
+- Píldoras, scroll axis, tratamientos visuales y atmósferas.
+- Sistema CTA primary, outline, compact y hover.
+- Separación de roles entre identidad y objeto narrativo.
+- Explosión radial en Hero + un fragmento guía + reconstrucción final.
+
+PENDIENTE:
+- Mockup individual de cada sección de la HOME.
+- Timings definitivos de movimiento.
+- Elección exacta del fragmento inferior que actuará como guía.
+- Implementación productiva de la nueva narrativa.

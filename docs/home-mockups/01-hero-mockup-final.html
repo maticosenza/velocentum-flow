@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Velocentum — Mockup 01 · Hero · V2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#FF4B8D; --pink-soft:#FF85B8; --pink-deep:#D92F6E;
+  --ink:#0E0E13; --surface:#1A1A23;
+  --on:#FFFFFF; --on-2:rgba(255,255,255,.62);
+  --bd:rgba(255,255,255,.10);
+  --sans:'Manrope',sans-serif; --mono:'Geist Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#08080C;color:var(--on);font-family:var(--sans)}
+.shell{width:1440px;max-width:100%;margin:0 auto;padding:26px 0}
+.meta{width:1440px;margin:0 0 16px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.meta h1{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.meta .s{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-2);margin-top:4px}
+.tgs{display:flex;gap:7px;flex-wrap:wrap}
+.tg{background:rgba(255,255,255,.06);border:1px solid var(--bd);color:var(--on);font-family:var(--mono);font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;padding:8px 13px;border-radius:999px;cursor:pointer}
+.tg.on{background:var(--pink);color:var(--ink);border-color:var(--pink)}
+
+/* ================= LIENZO REAL 1440 x 900 ================= */
+.vp{position:relative;width:1440px;height:900px;background:var(--ink);overflow:hidden}
+.vp::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(122% 92% at 50% 80%, rgba(255,75,141,.13), transparent 62%),
+  radial-gradient(68% 52% at 16% 6%, rgba(255,133,184,.05), transparent 70%)}
+
+/* ---------- nav ---------- */
+.nav{position:absolute;top:0;left:0;right:0;height:80px;display:flex;align-items:center;justify-content:space-between;padding:0 72px;z-index:40}
+.lock{display:flex;align-items:center;gap:13px}
+.lock .iso{height:36px;width:auto;display:block}
+.wm{font-weight:800;font-size:1.22rem;letter-spacing:-.028em;line-height:1}
+.tag{display:block;font-family:var(--mono);font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--pink);margin-top:4px}
+.links{display:flex;gap:34px}
+.links a{font-family:var(--mono);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--on-2);text-decoration:none}
+.navcta{display:inline-flex;align-items:center;gap:9px;background:var(--pink);color:var(--ink);border-radius:999px;padding:11px 21px;font-weight:700;font-size:.8rem;text-decoration:none}
+.navcta .arw{color:var(--pink-deep);font-weight:800}
+
+/* ---------- copy · termina en y=456 ---------- */
+.copy{position:absolute;top:128px;left:0;right:0;text-align:center;z-index:30;padding:0 72px}
+.eyebrow{font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--pink);line-height:1;margin-bottom:20px}
+.h1{font-weight:800;font-size:72px;line-height:1;letter-spacing:-.035em;max-width:1050px;margin:0 auto}
+.h1 em{font-style:normal;color:var(--pink)}
+.sub{margin:24px auto 0;max-width:54ch;font-size:1.02rem;line-height:1.5;color:var(--on-2)}
+.ctas{margin-top:30px;display:flex;gap:14px;justify-content:center}
+.cta{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:15px 30px;font-weight:700;font-size:.94rem;line-height:1;text-decoration:none}
+.cta.pri{background:var(--pink);color:var(--ink)}
+.cta.pri .arw{color:var(--pink-deep);font-weight:800}
+.cta.out{border:1.4px solid rgba(255,75,141,.62);color:var(--on)}
+.cta.out .arw{color:var(--pink)}
+
+/* ---------- crystal · 500px, stage y=470 ---------- */
+.stage{position:absolute;left:50%;top:470px;transform:translateX(-50%);width:500px;z-index:20}
+.stage svg{width:100%;display:block}
+
+/* ---------- pildoras · assets oficiales ---------- */
+.pill{position:absolute;z-index:10}
+.pill svg{display:block;width:100%}
+.pill.far{filter:blur(2.5px);opacity:.32}
+.pill.mid{opacity:.6}
+.pill.near{opacity:.9}
+
+/* ---------- anotaciones ---------- */
+.ann{position:absolute;inset:0;z-index:60;pointer-events:none;display:none}
+.ann.show{display:block}
+.ann text{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase}
+
+.note{width:1440px;margin:20px 0 0;border:1px solid var(--bd);border-radius:14px;padding:22px 24px;color:var(--on-2);line-height:1.65;font-size:.88rem}
+.note b{color:var(--on);font-weight:700}
+.note code{font-family:var(--mono);font-size:.85em;color:var(--pink)}
+.note ul{margin:10px 0 0 18px}
+.note li{margin-bottom:5px}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<div class="meta">
+  <div>
+    <h1>Mockup 01 · Hero · FINAL</h1>
+    <div class="s">Desktop 1440 × 900 real · momento previo a la explosión · assets oficiales · aprobado 2026-08-31</div>
+  </div>
+  <div class="tgs">
+    <button class="tg" data-l="explosion">Campo de explosión</button>
+    <button class="tg" data-l="carril">Carriles</button>
+    <button class="tg" data-l="luz">Luz</button>
+    <button class="tg" data-l="guia">Fragmento guía</button>
+    <button class="tg" data-l="grid">Grilla y cotas</button>
+  </div>
+</div>
+
+<div class="vp" id="vp">
+
+  <!-- ============ NAV · isotipo oficial exacto ============ -->
+  <nav class="nav">
+    <div class="lock">
+      <svg class="iso" viewBox="0 0 220 210" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="iso-left-light" x1="20" y1="18" x2="85" y2="151" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF1F7"/><stop offset="0.24" stop-color="#FFB5CE"/><stop offset="0.68" stop-color="#F05A91"/><stop offset="1" stop-color="#9D274F"/></linearGradient>
+          <linearGradient id="iso-left-hot" x1="38" y1="32" x2="112" y2="124" gradientUnits="userSpaceOnUse"><stop stop-color="#FF8DB4"/><stop offset="0.5" stop-color="#FF5C94"/><stop offset="1" stop-color="#B7285A"/></linearGradient>
+          <linearGradient id="iso-right-light" x1="201" y1="28" x2="128" y2="198" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF3F8"/><stop offset="0.22" stop-color="#F6A7C4"/><stop offset="0.64" stop-color="#D64D7D"/><stop offset="1" stop-color="#8A2348"/></linearGradient>
+          <linearGradient id="iso-right-hot" x1="169" y1="55" x2="124" y2="198" gradientUnits="userSpaceOnUse"><stop stop-color="#FF6CA0"/><stop offset="0.48" stop-color="#E73773"/><stop offset="1" stop-color="#A31F4E"/></linearGradient>
+          <linearGradient id="iso-deep" x1="67" y1="64" x2="135" y2="196" gradientUnits="userSpaceOnUse"><stop stop-color="#463746"/><stop offset="0.58" stop-color="#302431"/><stop offset="1" stop-color="#6F1D3C"/></linearGradient>
+          <linearGradient id="iso-edge" x1="16" y1="18" x2="203" y2="198" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF8FB" stop-opacity="0.96"/><stop offset="0.48" stop-color="#F3B2C9" stop-opacity="0.7"/><stop offset="1" stop-color="#FF6D9E" stop-opacity="0.78"/></linearGradient>
+          <filter id="iso-glow" x="-35%" y="-30%" width="170%" height="170%"><feGaussianBlur stdDeviation="4.8"/></filter>
+        </defs>
+        <path d="M13 18L65 27L91 66L114 121L151 49L205 28L169 142L129 199L58 142Z" fill="#D8326C" opacity="0.2" filter="url(#iso-glow)"/>
+        <g stroke-linejoin="round">
+          <path d="M16 18L66 27L92 66L114 121L151 50L203 29L170 142L129 198L59 142Z" fill="url(#iso-deep)" stroke="url(#iso-edge)" stroke-width="1.35"/>
+          <path d="M16 18L34 31L59 142Z" fill="url(#iso-left-light)"/>
+          <path d="M16 18L66 27L92 66Z" fill="#3A303D"/>
+          <path d="M16 18L92 66L34 31Z" fill="#6B5366" fill-opacity="0.74"/>
+          <path d="M34 31L80 73L59 142Z" fill="url(#iso-left-hot)"/>
+          <path d="M34 31L92 66L80 73Z" fill="#F78FB2" fill-opacity="0.88"/>
+          <path d="M80 73L72 111L59 142Z" fill="#C92D62"/>
+          <path d="M80 73L92 66L114 121L72 111Z" fill="#3A303D"/>
+          <path d="M59 142L72 111L114 121Z" fill="#4B3447"/>
+          <path d="M59 142L114 121L129 198Z" fill="#6E2647"/>
+          <path d="M59 142L96 136L129 198Z" fill="#8E2D54" fill-opacity="0.7"/>
+          <path d="M203 29L151 50L173 72Z" fill="#685265"/>
+          <path d="M203 29L173 72L170 142Z" fill="url(#iso-right-light)"/>
+          <path d="M151 50L173 72L137 94Z" fill="#332A37"/>
+          <path d="M151 50L137 94L114 121Z" fill="#B42A59"/>
+          <path d="M173 72L145 111L137 94Z" fill="#E13B73"/>
+          <path d="M173 72L170 142L145 111Z" fill="#C3547B"/>
+          <path d="M137 94L145 111L114 121Z" fill="url(#iso-right-hot)"/>
+          <path d="M145 111L170 142L129 198Z" fill="#8E3155"/>
+          <path d="M114 121L145 111L129 198Z" fill="url(#iso-right-hot)"/>
+          <path d="M114 121L125 139L129 198Z" fill="#FF4D89" fill-opacity="0.74"/>
+          <g fill="none" stroke="url(#iso-edge)" stroke-width="0.9" stroke-opacity="0.76">
+            <path d="M16 18L92 66L114 121L151 50L203 29"/>
+            <path d="M34 31L80 73L72 111L59 142L129 198L170 142L173 72"/>
+            <path d="M59 142L114 121L129 198"/>
+            <path d="M151 50L137 94L145 111L114 121"/>
+            <path d="M92 66L72 111L96 136"/>
+            <path d="M173 72L137 94"/>
+          </g>
+          <g fill="none" stroke="#FFF8FB" stroke-width="0.48" stroke-opacity="0.34">
+            <path d="M19 20L65 29L89 66"/><path d="M201 31L153 52L116 121"/><path d="M61 141L128 195L168 141"/>
+          </g>
+        </g>
+      </svg>
+      <div>
+        <div class="wm">velocentum</div>
+      </div>
+    </div>
+    <div class="links"><a href="#">Método</a><a href="#">Trabajos</a><a href="#">Casos</a></div>
+    <a class="navcta" href="#">Hablemos <span class="arw">→</span></a>
+  </nav>
+
+  <!-- ============ COPY ============ -->
+  <div class="copy">
+    <div class="eyebrow">Equipo de crecimiento</div>
+    <h2 class="h1">Estamos en el negocio de<br><em>hacer crecer negocios</em>.</h2>
+    <p class="sub">Estrategia, creatividad, adquisición y medición. Primero analizamos tu negocio. Después armamos el plan.</p>
+    <div class="ctas">
+      <a class="cta pri" href="#">Hablemos <span class="arw">→</span></a>
+      <a class="cta out" href="#">Ver método <span class="arw">→</span></a>
+    </div>
+  </div>
+
+  <!-- ============ PILDORAS · SVG oficiales sin modificar ============ -->
+  <div class="pill far"  style="left:60px;   top:470px; width:190px; transform:rotate(-7deg)">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72"><rect x="1" y="1" width="298" height="70" rx="34" fill="#0E0E13" fill-opacity=".85" stroke="#FF4B8D" stroke-opacity=".75"/><circle cx="40" cy="36" r="16" fill="#FF4B8D" fill-opacity=".12" stroke="#FF4B8D" stroke-opacity=".8"/><text x="40" y="42" text-anchor="middle" font-size="20" fill="#FF4B8D" font-family="Arial">◉</text><text x="72" y="43" font-size="18" fill="#fff" font-family="Manrope, sans-serif" font-weight="700" letter-spacing=".4">ESTRATEGIA</text></svg>
+  </div>
+  <div class="pill far"  style="right:66px;  top:442px; width:180px; transform:rotate(6deg)">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72"><rect x="1" y="1" width="298" height="70" rx="34" fill="#0E0E13" fill-opacity=".85" stroke="#FF4B8D" stroke-opacity=".75"/><circle cx="40" cy="36" r="16" fill="#FF4B8D" fill-opacity=".12" stroke="#FF4B8D" stroke-opacity=".8"/><text x="40" y="42" text-anchor="middle" font-size="20" fill="#FF4B8D" font-family="Arial">◎</text><text x="72" y="43" font-size="18" fill="#fff" font-family="Manrope, sans-serif" font-weight="700" letter-spacing=".4">ANÁLISIS</text></svg>
+  </div>
+  <div class="pill mid" style="left:96px;   top:620px; width:210px; transform:rotate(4deg)">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72"><rect x="1" y="1" width="298" height="70" rx="34" fill="#0E0E13" fill-opacity=".85" stroke="#FF4B8D" stroke-opacity=".75"/><circle cx="40" cy="36" r="16" fill="#FF4B8D" fill-opacity=".12" stroke="#FF4B8D" stroke-opacity=".8"/><text x="40" y="42" text-anchor="middle" font-size="20" fill="#FF4B8D" font-family="Arial">▣</text><text x="72" y="43" font-size="18" fill="#fff" font-family="Manrope, sans-serif" font-weight="700" letter-spacing=".4">CONTENIDO</text></svg>
+  </div>
+  <div class="pill mid" style="right:104px; top:656px; width:205px; transform:rotate(-5deg)">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72"><rect x="1" y="1" width="298" height="70" rx="34" fill="#0E0E13" fill-opacity=".85" stroke="#FF4B8D" stroke-opacity=".75"/><circle cx="40" cy="36" r="16" fill="#FF4B8D" fill-opacity=".12" stroke="#FF4B8D" stroke-opacity=".8"/><text x="40" y="42" text-anchor="middle" font-size="20" fill="#FF4B8D" font-family="Arial">ϟ</text><text x="72" y="43" font-size="18" fill="#fff" font-family="Manrope, sans-serif" font-weight="700" letter-spacing=".4">ADQUISICIÓN</text></svg>
+  </div>
+  <div class="pill near" style="left:232px;  top:786px; width:195px; transform:rotate(-3deg)">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72"><rect x="1" y="1" width="298" height="70" rx="34" fill="#0E0E13" fill-opacity=".85" stroke="#FF4B8D" stroke-opacity=".75"/><circle cx="40" cy="36" r="16" fill="#FF4B8D" fill-opacity=".12" stroke="#FF4B8D" stroke-opacity=".8"/><text x="40" y="42" text-anchor="middle" font-size="20" fill="#FF4B8D" font-family="Arial">▤</text><text x="72" y="43" font-size="18" fill="#fff" font-family="Manrope, sans-serif" font-weight="700" letter-spacing=".4">WEB</text></svg>
+  </div>
+  <div class="pill near" style="right:60px;  top:736px; width:188px; transform:rotate(5deg)">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72"><rect x="1" y="1" width="298" height="70" rx="34" fill="#0E0E13" fill-opacity=".85" stroke="#FF4B8D" stroke-opacity=".75"/><circle cx="40" cy="36" r="16" fill="#FF4B8D" fill-opacity=".12" stroke="#FF4B8D" stroke-opacity=".8"/><text x="40" y="42" text-anchor="middle" font-size="20" fill="#FF4B8D" font-family="Arial">⌘</text><text x="72" y="43" font-size="18" fill="#fff" font-family="Manrope, sans-serif" font-weight="700" letter-spacing=".4">DISEÑO</text></svg>
+  </div>
+
+  <!-- ============ CRYSTAL 5 · asset oficial sin modificar ============ -->
+  <div class="stage">
+    <svg viewBox="0 0 240 184" aria-hidden="true"><defs><linearGradient id="cp-light-_R_15ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF7FA" stop-opacity=".92"></stop><stop offset=".2" stop-color="#FFB1CE"></stop><stop offset=".56" stop-color="#F56B9D"></stop><stop offset="1" stop-color="#B32558"></stop></linearGradient><linearGradient id="cp-hot-_R_15ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFB0CC"></stop><stop offset=".3" stop-color="#FF5C96"></stop><stop offset=".62" stop-color="#E82C70"></stop><stop offset="1" stop-color="#7C1C40"></stop></linearGradient><linearGradient id="cp-rose-_R_15ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#F58FB4"></stop><stop offset=".38" stop-color="#CA3F72"></stop><stop offset="1" stop-color="#5B243B"></stop></linearGradient><linearGradient id="cp-graphite-_R_15ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5D4C5B"></stop><stop offset=".48" stop-color="#332A37"></stop><stop offset="1" stop-color="#17141D"></stop></linearGradient><linearGradient id="cp-deep-_R_15ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#9E315E"></stop><stop offset=".42" stop-color="#63213E"></stop><stop offset="1" stop-color="#261A27"></stop></linearGradient><linearGradient id="cp-glass-_R_15ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".82"></stop><stop offset=".3" stop-color="#F6BDD1" stop-opacity=".52"></stop><stop offset="1" stop-color="#6C5364" stop-opacity=".32"></stop></linearGradient><linearGradient id="cp-edge-_R_15ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".78"></stop><stop offset=".45" stop-color="#F4B3CA" stop-opacity=".58"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity=".46"></stop></linearGradient><radialGradient id="cp-ground-_R_15ra_" cx="50%" cy="10%" r="72%"><stop stop-color="#FF4B8D" stop-opacity=".34"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity="0"></stop></radialGradient><filter id="cp-glow-_R_15ra_" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4.2"></feGaussianBlur></filter><filter id="cp-piece-_R_15ra_" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="1" stdDeviation="1.3" flood-color="#120A12" flood-opacity=".76"></feDropShadow><feDropShadow dx="0" dy="0" stdDeviation=".55" flood-color="#FF4B8D" flood-opacity=".22"></feDropShadow></filter></defs><path d="M20 23L82 37L111 86L124 78L168 39L221 22L193 116L117 166L44 118Z" fill="#DF2868" opacity=".28" filter="url(#cp-glow-_R_15ra_)"></path><ellipse cx="118" cy="166" rx="57" ry="9" fill="url(#cp-ground-_R_15ra_)" opacity=".62"></ellipse><g stroke="url(#cp-edge-_R_15ra_)" stroke-width=".72" stroke-linejoin="round" vector-effect="non-scaling-stroke" filter="url(#cp-piece-_R_15ra_)"><polygon points="20,23 82,37 62,54" fill="url(#cp-glass-_R_15ra_)" fill-opacity="0.72"></polygon><polygon points="20,23 62,54 44,118" fill="url(#cp-hot-_R_15ra_)" fill-opacity="0.9"></polygon><polygon points="62,54 82,37 111,86 91,72" fill="url(#cp-graphite-_R_15ra_)" fill-opacity="0.92"></polygon><polygon points="62,54 91,72 72,92" fill="url(#cp-light-_R_15ra_)" fill-opacity="0.88"></polygon><polygon points="62,54 72,92 44,118" fill="url(#cp-rose-_R_15ra_)" fill-opacity="0.9"></polygon><polygon points="72,92 111,86 104,108" fill="url(#cp-deep-_R_15ra_)" fill-opacity="0.84"></polygon><polygon points="72,92 104,108 44,118" fill="url(#cp-graphite-_R_15ra_)" fill-opacity="0.78"></polygon><polygon points="44,118 104,108 117,166" fill="url(#cp-rose-_R_15ra_)" fill-opacity="0.76"></polygon><polygon points="104,108 111,86 117,166" fill="url(#cp-deep-_R_15ra_)" fill-opacity="0.88"></polygon><polygon points="221,22 168,39 181,59" fill="url(#cp-glass-_R_15ra_)" fill-opacity="0.64"></polygon><polygon points="221,22 181,59 193,116" fill="url(#cp-light-_R_15ra_)" fill-opacity="0.9"></polygon><polygon points="168,39 124,78 150,72 181,59" fill="url(#cp-graphite-_R_15ra_)" fill-opacity="0.86"></polygon><polygon points="150,72 124,78 139,102" fill="url(#cp-hot-_R_15ra_)" fill-opacity="0.94"></polygon><polygon points="150,72 181,59 164,89" fill="url(#cp-rose-_R_15ra_)" fill-opacity="0.88"></polygon><polygon points="164,89 181,59 193,116" fill="url(#cp-graphite-_R_15ra_)" fill-opacity="0.88"></polygon><polygon points="139,102 164,89 193,116 117,166" fill="url(#cp-rose-_R_15ra_)" fill-opacity="0.74"></polygon><polygon points="124,78 139,102 117,166" fill="url(#cp-deep-_R_15ra_)" fill-opacity="0.9"></polygon><polygon points="111,86 124,78 139,102 117,166 104,108" fill="url(#cp-graphite-_R_15ra_)" fill-opacity="0.58"></polygon><polygon points="31,37 54,49 45,76" fill="url(#cp-light-_R_15ra_)" fill-opacity="0.3" stroke-width=".38" stroke-opacity=".2"></polygon><polygon points="51,108 73,95 65,114" fill="url(#cp-hot-_R_15ra_)" fill-opacity="0.42" stroke-width=".38" stroke-opacity=".2"></polygon><polygon points="82,43 102,72 91,68" fill="url(#cp-deep-_R_15ra_)" fill-opacity="0.56" stroke-width=".38" stroke-opacity=".2"></polygon><polygon points="108,112 117,99 114,145" fill="url(#cp-glass-_R_15ra_)" fill-opacity="0.28" stroke-width=".38" stroke-opacity=".2"></polygon><polygon points="146,82 161,76 153,96" fill="url(#cp-hot-_R_15ra_)" fill-opacity="0.42" stroke-width=".38" stroke-opacity=".2"></polygon><polygon points="173,69 195,47 187,86" fill="url(#cp-deep-_R_15ra_)" fill-opacity="0.46" stroke-width=".38" stroke-opacity=".2"></polygon><polygon points="148,118 167,101 158,126" fill="url(#cp-graphite-_R_15ra_)" fill-opacity="0.5" stroke-width=".38" stroke-opacity=".2"></polygon></g><g fill="none" stroke="url(#cp-edge-_R_15ra_)" stroke-width=".66" stroke-opacity=".64" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M20 23L82 37L111 86L124 78L168 39L221 22"></path><path d="M20 23L44 118L117 166L193 116L221 22"></path><path d="M62 54L111 86L104 108L117 166"></path><path d="M181 59L124 78L139 102L117 166"></path></g>
+      <g class="ann-guia" style="display:none">
+        <polygon points="139,102 164,89 193,116 117,166" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-dasharray="4 3" vector-effect="non-scaling-stroke"/>
+        <polygon points="148,118 167,101 158,126" fill="none" stroke="#FFE9F1" stroke-width="1.1" stroke-dasharray="2 2" vector-effect="non-scaling-stroke"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- ============ ANOTACIONES ============ -->
+
+  <svg class="ann" data-layer="grid" viewBox="0 0 1440 900">
+    <g stroke="#FF4B8D" stroke-opacity=".14" stroke-width="1">
+      <path d="M72 0V900M1368 0V900"/>
+      <path d="M195 0V900M1245 0V900" stroke-opacity=".08"/>
+      <path d="M720 0V900" stroke-dasharray="6 6" stroke-opacity=".28"/>
+      <path d="M0 80H1440" stroke-dasharray="6 6"/>
+      <path d="M0 456H1440" stroke-dasharray="6 6" stroke-opacity=".4"/>
+      <path d="M0 470H1440" stroke-dasharray="3 4" stroke-opacity=".55"/>
+      <path d="M0 853H1440" stroke-dasharray="6 6" stroke-opacity=".22"/>
+    </g>
+    <text x="726" y="24" fill="#FF4B8D" fill-opacity=".72">EJE CENTRAL · ISOTIPO Y CRYSTAL 5</text>
+    <text x="80" y="74" fill="#FF4B8D" fill-opacity=".5">NAV 80</text>
+    <text x="80" y="450" fill="#FF4B8D" fill-opacity=".62">FIN DEL COPY · Y=456</text>
+    <text x="80" y="486" fill="#FF4B8D" fill-opacity=".78">STAGE CRYSTAL 5 · Y=470 · 500 PX</text>
+    <text x="1160" y="486" fill="#FF4B8D" fill-opacity=".6">GAP DECLARADO 14 PX · AIRE ÓPTICO ≈ 60 PX</text>
+    <text x="80" y="847" fill="#FF4B8D" fill-opacity=".45">BASE DEL STAGE · Y=853</text>
+    <text x="1188" y="24" fill="#FF4B8D" fill-opacity=".5">LIENZO 1440 × 900</text>
+  </svg>
+
+  <svg class="ann" data-layer="explosion" viewBox="0 0 1440 900">
+    <g fill="none" stroke="#FF4B8D" stroke-opacity=".3" stroke-dasharray="5 6">
+      <circle cx="720" cy="662" r="175"/><circle cx="720" cy="662" r="330"/><circle cx="720" cy="662" r="520"/>
+    </g>
+    <g stroke="#FF85B8" stroke-opacity=".4" stroke-width="1.4">
+      <path d="M720 662L420 300M720 662L1020 300M720 662L230 600M720 662L1210 600M720 662L500 900M720 662L940 900M720 662L1300 810M720 662L140 810"/>
+    </g>
+    <circle cx="720" cy="662" r="5" fill="#FF4B8D"/>
+    <text x="738" y="658" fill="#FF4B8D">ORIGEN DE LA EXPLOSIÓN</text>
+    <text x="738" y="676" fill="#FF85B8" fill-opacity=".72">RADIAL HACIA LOS CUATRO BORDES</text>
+    <text x="738" y="692" fill="#FF85B8" fill-opacity=".72">ALGUNAS PIEZAS VOLUMÉTRICAS SALEN DE CUADRO</text>
+    <text x="738" y="708" fill="#FF85B8" fill-opacity=".5">PROPORCIÓN EXACTA: A DEFINIR CON LA ANIMACIÓN</text>
+    <text x="1030" y="292" fill="#FF85B8" fill-opacity=".62">PROFUNDIDAD CERCANA</text>
+    <text x="150" y="828" fill="#FF85B8" fill-opacity=".62">PROFUNDIDAD LEJANA</text>
+  </svg>
+
+  <svg class="ann" data-layer="carril" viewBox="0 0 1440 900">
+    <rect x="1150" y="80" width="220" height="820" fill="#FF4B8D" fill-opacity=".07" stroke="#FF4B8D" stroke-opacity=".3" stroke-dasharray="6 5"/>
+    <rect x="70" y="80" width="220" height="820" fill="#FF4B8D" fill-opacity=".04" stroke="#FF4B8D" stroke-opacity=".18" stroke-dasharray="6 5"/>
+    <text x="1160" y="104" fill="#FF4B8D">CARRIL DERECHO · SALIDA INICIAL</text>
+    <text x="80" y="104" fill="#FF4B8D" fill-opacity=".55">CARRIL IZQUIERDO · CRUCE EN SECCIÓN 03</text>
+    <rect x="195" y="112" width="1050" height="352" fill="none" stroke="#FF4B8D" stroke-opacity=".26" stroke-dasharray="4 4"/>
+    <text x="203" y="480" fill="#FF4B8D" fill-opacity=".55">ZONA PROTEGIDA · EL FRAGMENTO NUNCA LA ATRAVIESA</text>
+    <path d="M789 715 C 900 762, 1060 812, 1258 884" fill="none" stroke="#FFFFFF" stroke-opacity=".66" stroke-width="1.7" stroke-dasharray="7 5"/>
+    <circle cx="789" cy="715" r="5.5" fill="#FFFFFF"/>
+    <text x="804" y="704" fill="#FFFFFF" fill-opacity=".85">FACETS[15] · CENTROIDE ≈ 789, 715</text>
+    <text x="804" y="720" fill="#FFFFFF" fill-opacity=".55">SALIDA POR EL CARRIL INFERIOR DERECHO</text>
+  </svg>
+
+  <svg class="ann" data-layer="luz" viewBox="0 0 1440 900">
+    <defs><marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#FFD9E7"/></marker></defs>
+    <g stroke="#FFD9E7" stroke-opacity=".55" stroke-width="1.5" marker-end="url(#ar)">
+      <path d="M92 96L184 188"/><path d="M96 60L152 116"/><path d="M600 500L680 580"/>
+    </g>
+    <circle cx="82" cy="86" r="17" fill="#FFD9E7" fill-opacity=".16" stroke="#FFD9E7" stroke-opacity=".5"/>
+    <text x="110" y="70" fill="#FFD9E7">FUENTE ÚNICA · ARRIBA-IZQUIERDA</text>
+    <text x="110" y="88" fill="#FFD9E7" fill-opacity=".62">YA PRESENTE EN LOS GRADIENTES OFICIALES DE AMBOS ASSETS</text>
+    <text x="692" y="592" fill="#FFD9E7" fill-opacity=".62">MISMO VECTOR EN CRYSTAL 5</text>
+  </svg>
+
+</div>
+
+<div class="note">
+  <b>Correcciones aplicadas en V2.</b>
+  <ul>
+    <li><b>Lienzo real.</b> El contenedor mide 1440 × 900 exactos. El padding vive en un shell externo de ancho automático, así que ya no empuja el viewport ni genera overflow.</li>
+    <li><b>Assets oficiales sin modificar.</b> Isotipo de <code>identity/isotipo-approved.svg</code>, Crystal 5 de <code>narrative/crystal-five-approved.svg</code> y las seis píldoras de <code>official/pills/</code>, embebidos tal cual.</li>
+    <li><b>Geist Mono</b> en eyebrow, tagline, links de nav y toda la capa de anotación.</li>
+    <li><b>Sin superposición.</b> El copy cierra en y=456 y el stage abre en y=470. Como el Crystal 5 arranca al 12% de su propio viewBox, el aire óptico real entre los CTA y la primera arista es de unos 60 px.</li>
+    <li><b>Headline en dos líneas</b> a 72 px, medida máxima 1050 px, corte forzado después de "de".</li>
+    <li><b>Crystal 5 a 500 px</b>, stage en y=470, base en y=853.</li>
+    <li><b>Proporción de salida sin fijar.</b> La anotación solo indica que algunas piezas volumétricas salen de cuadro; el porcentaje se define al construir la animación.</li>
+  </ul>
+  <br>
+  <b>Píldoras.</b> Los seis SVG de <code>official/pills/</code> quedan intactos como archivos maestros. En el mockup y en la implementación sus etiquetas se renderizan en Manrope 700; la geometría, el pill y los iconos siguen siendo los oficiales.
+</div>
+
+</div>
+<script>
+document.querySelectorAll('.tg').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const l=b.dataset.l; b.classList.toggle('on');
+    if(l==='guia'){
+      const g=document.querySelector('.ann-guia');
+      g.style.display = g.style.display==='none' ? 'block' : 'none';
+      return;
+    }
+    document.querySelector(`.ann[data-layer="${l}"]`).classList.toggle('show');
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Velocentum — Mockup 07 · Trabajos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#FF4B8D;--pink-soft:#FF85B8;--ink:#0E0E13;--on:#FFFFFF;
+--on-2:rgba(255,255,255,.62);--bd:rgba(255,255,255,.10);
+--sans:'Manrope',sans-serif;--mono:'Geist Mono',ui-monospace,monospace;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#08080C;color:var(--on);font-family:var(--sans)}
+.shell{width:1440px;max-width:100%;margin:0 auto;padding:26px 0}
+.meta{width:1440px;margin:0 0 16px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.meta h1{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.meta .s{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-2);margin-top:4px}
+.tgs{display:flex;gap:7px;flex-wrap:wrap}
+.tg{background:rgba(255,255,255,.06);border:1px solid var(--bd);color:var(--on);font-family:var(--mono);font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;padding:8px 13px;border-radius:999px;cursor:pointer}
+.tg.on{background:var(--pink);color:var(--ink);border-color:var(--pink)}
+
+/* el sistema grafico baja su intensidad: fondo casi liso, sin glow */
+.vp{position:relative;width:1440px;height:900px;background:var(--ink);overflow:hidden}
+
+.copy{position:absolute;left:0;right:0;top:64px;text-align:center;z-index:30}
+.eyebrow{font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--on-2);margin-bottom:16px}
+.h2{font-weight:800;font-size:44px;line-height:1.06;letter-spacing:-.03em}
+
+.track{position:absolute;top:300px;left:0;right:0;height:356px;z-index:14}
+.vcard{position:absolute;top:0;width:200px;height:356px;border-radius:16px;overflow:hidden;border:1px solid var(--bd)}
+.poster{position:absolute;inset:0}
+.scrim{position:absolute;inset:0;background:linear-gradient(transparent 48%,rgba(14,14,19,.92))}
+.play{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;
+ background:rgba(14,14,19,.5);border:1px solid rgba(255,255,255,.45);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
+.vmeta{position:absolute;left:16px;right:16px;bottom:15px}
+.cat{font-weight:800;font-size:.98rem;letter-spacing:-.01em}
+.acc{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-2);margin-top:3px}
+.tcard{position:absolute;top:0;width:268px;height:356px;border-radius:16px;border:1px solid var(--bd);
+ background:rgba(255,255,255,.026);padding:26px;display:flex;flex-direction:column;justify-content:center;position:absolute}
+.tcard h3{font-weight:800;font-size:1.2rem;letter-spacing:-.02em;color:var(--pink);margin-bottom:10px}
+.tcard p{font-size:.92rem;line-height:1.45;font-weight:700}
+.tcard .iso{position:absolute;right:24px;bottom:24px;opacity:.4}
+
+.fade{position:absolute;top:292px;height:372px;width:96px;z-index:20;pointer-events:none}
+.fade.l{left:0;background:linear-gradient(90deg,var(--ink) 16%,transparent)}
+.fade.r{right:0;background:linear-gradient(270deg,var(--ink) 16%,transparent)}
+
+.mq{position:absolute;top:696px;left:0;right:0;overflow:hidden;z-index:12;
+ -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+ mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.mq-track{display:flex;gap:10px;width:max-content}
+.tag{border:1px solid var(--bd);border-radius:999px;padding:8px 16px;font-family:var(--mono);
+ font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;color:var(--on-2);white-space:nowrap}
+
+.cta{position:absolute;left:50%;top:766px;transform:translateX(-50%);width:300px;z-index:22}
+.cta svg{width:100%;display:block}
+
+.frag{position:absolute;left:1302px;top:204px;width:78px;z-index:24;
+ transform:rotate(-16deg);filter:drop-shadow(0 8px 18px rgba(0,0,0,.5));opacity:.9}
+.frag svg{display:block;width:100%}
+
+.ann{position:absolute;inset:0;z-index:60;pointer-events:none;display:none}
+.ann.show{display:block}
+.ann text{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase}
+
+.note{width:1440px;margin:20px 0 0;border:1px solid var(--bd);border-radius:14px;padding:22px 24px;color:var(--on-2);line-height:1.65;font-size:.88rem}
+.note b{color:var(--on);font-weight:700}
+.note code{font-family:var(--mono);font-size:.85em;color:var(--pink)}
+.note ul{margin:10px 0 0 18px} .note li{margin-bottom:5px}
+</style></head><body><div class="shell">
+
+<div class="meta">
+  <div><h1>Mockup 07 · Trabajos · FINAL</h1>
+  <div class="s">Desktop 1440 × 900 · los videos son el diseño · sistema gráfico al mínimo · aprobado 2026-08-31</div></div>
+  <div class="tgs">
+    <button class="tg" data-l="jerarquia">Jerarquía visual</button>
+    <button class="tg" data-l="track">Track y secuencia</button>
+    <button class="tg" data-l="frag">Borde exterior</button>
+    <button class="tg" data-l="grid">Grilla y cotas</button>
+  </div>
+</div>
+
+<div class="vp">
+
+  <div class="copy">
+    <div class="eyebrow">Trabajos</div>
+    <h2 class="h2">Trabajo real,<br>pensado para hacer crecer marcas.</h2>
+  </div>
+
+  <div class="track">
+    <div class="vcard" style="left:-64px">
+      <div class="poster" style="background:linear-gradient(152deg,#2B2733,#5B4A57)"></div>
+      <div class="scrim"></div>
+      <span class="play"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 5.5 L19 12 L7 18.5 Z" fill="#fff"/></svg></span>
+      <div class="vmeta"><p class="cat">Real Estate</p><p class="acc">Street view</p></div>
+    </div>
+    <div class="vcard" style="left:156px">
+      <div class="poster" style="background:linear-gradient(152deg,#4A2334,#8E3355)"></div>
+      <div class="scrim"></div>
+      <span class="play"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 5.5 L19 12 L7 18.5 Z" fill="#fff"/></svg></span>
+      <div class="vmeta"><p class="cat">Comunidad</p><p class="acc">Community</p></div>
+    </div>
+    <div class="vcard" style="left:376px">
+      <div class="poster" style="background:linear-gradient(152deg,#4E2340,#A83866)"></div>
+      <div class="scrim"></div>
+      <span class="play"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 5.5 L19 12 L7 18.5 Z" fill="#fff"/></svg></span>
+      <div class="vmeta"><p class="cat">Moda</p><p class="acc">Shooting</p></div>
+    </div>
+    <div class="vcard" style="left:596px">
+      <div class="poster" style="background:linear-gradient(152deg,#262430,#4E4150)"></div>
+      <div class="scrim"></div>
+      <span class="play"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 5.5 L19 12 L7 18.5 Z" fill="#fff"/></svg></span>
+      <div class="vmeta"><p class="cat">Real Estate</p><p class="acc">Shooting</p></div>
+    </div>
+    <div class="tcard" style="left:816px">
+      <div><h3>Producción continua</h3><p>Cada semana sale material nuevo. No es una campaña suelta, es un sistema.</p></div>
+      <svg class="iso" viewBox="0 0 100 87.6" width="24" height="24">
+        <path d="M 49.8 87.6 L 0 0 L 65.7 0 L 44.2 38.2 L 35.8 23.9 L 40.7 14.3 L 24.6 14.3 L 49.8 58 Z" fill="#FF4B8D"/>
+        <path d="M 49.65 58 L 82.9 0 L 100 0 L 49.65 87.6 Z" fill="#FF4B8D"/>
+      </svg>
+    </div>
+    <div class="vcard" style="left:1104px">
+      <div class="poster" style="background:linear-gradient(152deg,#54263F,#B84072)"></div>
+      <div class="scrim"></div>
+      <span class="play"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 5.5 L19 12 L7 18.5 Z" fill="#fff"/></svg></span>
+      <div class="vmeta"><p class="cat">Moda</p><p class="acc">Streetwear</p></div>
+    </div>
+    <div class="vcard" style="left:1324px">
+      <div class="poster" style="background:linear-gradient(152deg,#3B2438,#7A3560)"></div>
+      <div class="scrim"></div>
+      <span class="play"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 5.5 L19 12 L7 18.5 Z" fill="#fff"/></svg></span>
+      <div class="vmeta"><p class="cat">Indumentaria</p><p class="acc">Fashion shoot</p></div>
+    </div>
+    <div class="vcard" style="left:1544px">
+      <div class="poster" style="background:linear-gradient(152deg,#452431,#8A3A58)"></div>
+      <div class="scrim"></div>
+      <span class="play"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 5.5 L19 12 L7 18.5 Z" fill="#fff"/></svg></span>
+      <div class="vmeta"><p class="cat">Comunidad</p><p class="acc">Merchandising</p></div>
+    </div>
+    <div class="vcard" style="left:1764px">
+      <div class="poster" style="background:linear-gradient(152deg,#402438,#8E3B66)"></div>
+      <div class="scrim"></div>
+      <span class="play"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 5.5 L19 12 L7 18.5 Z" fill="#fff"/></svg></span>
+      <div class="vmeta"><p class="cat">Indumentaria</p><p class="acc">Shooting</p></div>
+    </div>
+    <div class="tcard" style="left:1984px">
+      <div><h3>Cuatro rubros</h3><p>Indumentaria, gastronomía, real estate y comunidad. Distinto producto, mismo método.</p></div>
+      <svg class="iso" viewBox="0 0 100 87.6" width="24" height="24">
+        <path d="M 49.8 87.6 L 0 0 L 65.7 0 L 44.2 38.2 L 35.8 23.9 L 40.7 14.3 L 24.6 14.3 L 49.8 58 Z" fill="#FF4B8D"/>
+        <path d="M 49.65 58 L 82.9 0 L 100 0 L 49.65 87.6 Z" fill="#FF4B8D"/>
+      </svg>
+    </div>
+    <div class="vcard" style="left:2272px">
+      <div class="poster" style="background:linear-gradient(152deg,#4C2440,#A63C6E)"></div>
+      <div class="scrim"></div>
+      <span class="play"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 5.5 L19 12 L7 18.5 Z" fill="#fff"/></svg></span>
+      <div class="vmeta"><p class="cat">Moda</p><p class="acc">Producción</p></div>
+    </div>
+    <div class="vcard" style="left:2492px">
+      <div class="poster" style="background:linear-gradient(152deg,#472740,#9C3C6C)"></div>
+      <div class="scrim"></div>
+      <span class="play"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 5.5 L19 12 L7 18.5 Z" fill="#fff"/></svg></span>
+      <div class="vmeta"><p class="cat">Moda</p><p class="acc">Shooting</p></div>
+    </div>
+    <div class="vcard" style="left:2712px">
+      <div class="poster" style="background:linear-gradient(152deg,#3E2432,#7E3455)"></div>
+      <div class="scrim"></div>
+      <span class="play"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 5.5 L19 12 L7 18.5 Z" fill="#fff"/></svg></span>
+      <div class="vmeta"><p class="cat">Comunidad</p><p class="acc">Casual</p></div>
+    </div>
+    <div class="vcard" style="left:2932px">
+      <div class="poster" style="background:linear-gradient(152deg,#4A2C2A,#9B4A44)"></div>
+      <div class="scrim"></div>
+      <span class="play"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 5.5 L19 12 L7 18.5 Z" fill="#fff"/></svg></span>
+      <div class="vmeta"><p class="cat">Gastronomía</p><p class="acc">Behind the scenes</p></div>
+    </div>
+    <div class="tcard" style="left:3152px">
+      <div><h3>Pensado para funcionar</h3><p>Cada pieza nace con un objetivo de negocio, no con un objetivo de calendario.</p></div>
+      <svg class="iso" viewBox="0 0 100 87.6" width="24" height="24">
+        <path d="M 49.8 87.6 L 0 0 L 65.7 0 L 44.2 38.2 L 35.8 23.9 L 40.7 14.3 L 24.6 14.3 L 49.8 58 Z" fill="#FF4B8D"/>
+        <path d="M 49.65 58 L 82.9 0 L 100 0 L 49.65 87.6 Z" fill="#FF4B8D"/>
+      </svg>
+    </div>
+    <div class="vcard" style="left:3440px">
+      <div class="poster" style="background:linear-gradient(152deg,#53302C,#A85248)"></div>
+      <div class="scrim"></div>
+      <span class="play"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 5.5 L19 12 L7 18.5 Z" fill="#fff"/></svg></span>
+      <div class="vmeta"><p class="cat">Gastronomía</p><p class="acc">Producción</p></div>
+    </div>
+  </div>
+  <div class="fade l"></div>
+  <div class="fade r"></div>
+
+  <div class="mq"><div class="mq-track"><span class="tag">Meta Ads</span><span class="tag">Tracking con CAPI</span><span class="tag">Google Ads</span><span class="tag">Atribución real</span><span class="tag">Product Ads</span><span class="tag">Optimización de ficha</span><span class="tag">Contenido para pauta</span><span class="tag">GA4</span><span class="tag">Influencer marketing</span><span class="tag">Diseño de marca</span><span class="tag">Web y conversión</span><span class="tag">Meta Ads</span><span class="tag">Tracking con CAPI</span><span class="tag">Google Ads</span><span class="tag">Atribución real</span><span class="tag">Product Ads</span><span class="tag">Optimización de ficha</span><span class="tag">Contenido para pauta</span><span class="tag">GA4</span><span class="tag">Influencer marketing</span><span class="tag">Diseño de marca</span><span class="tag">Web y conversión</span></div></div>
+  <div class="cta"><svg xmlns="http://www.w3.org/2000/svg" width="360" height="92" viewBox="0 0 360 92">
+  <defs>
+    <linearGradient id="cta-cases" x1="22" y1="16" x2="338" y2="76" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#15131A" stop-opacity="0.94"/>
+      <stop offset="1" stop-color="#0E0E13" stop-opacity="0.86"/>
+    </linearGradient>
+    <linearGradient id="cta-cases-edge" x1="22" y1="16" x2="338" y2="76" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF79AC"/>
+      <stop offset="0.55" stop-color="#FF4B8D"/>
+      <stop offset="1" stop-color="#C62461"/>
+    </linearGradient>
+  </defs>
+  <rect x="22.5" y="16.5" width="315" height="59" rx="7" fill="url(#cta-cases)" stroke="url(#cta-cases-edge)"/>
+  <rect x="25" y="19" width="310" height="54" rx="5" fill="none" stroke="#FF4B8D" stroke-opacity="0.06" stroke-width="5"/>
+  <text x="148" y="51" fill="#FFFFFF" font-family="Manrope, Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle" letter-spacing="0.25">VER CASOS</text>
+  <text x="280" y="52" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle">↗</text>
+</svg>
+</div>
+  <div class="frag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="112 84 88 90" class="frag-svg" aria-hidden="true"><defs><linearGradient id="cp-light-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF7FA" stop-opacity=".92"></stop><stop offset=".2" stop-color="#FFB1CE"></stop><stop offset=".56" stop-color="#F56B9D"></stop><stop offset="1" stop-color="#B32558"></stop></linearGradient><linearGradient id="cp-hot-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFB0CC"></stop><stop offset=".3" stop-color="#FF5C96"></stop><stop offset=".62" stop-color="#E82C70"></stop><stop offset="1" stop-color="#7C1C40"></stop></linearGradient><linearGradient id="cp-rose-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#F58FB4"></stop><stop offset=".38" stop-color="#CA3F72"></stop><stop offset="1" stop-color="#5B243B"></stop></linearGradient><linearGradient id="cp-graphite-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5D4C5B"></stop><stop offset=".48" stop-color="#332A37"></stop><stop offset="1" stop-color="#17141D"></stop></linearGradient><linearGradient id="cp-deep-_R_19ra_" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#9E315E"></stop><stop offset=".42" stop-color="#63213E"></stop><stop offset="1" stop-color="#261A27"></stop></linearGradient><linearGradient id="cp-glass-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".82"></stop><stop offset=".3" stop-color="#F6BDD1" stop-opacity=".52"></stop><stop offset="1" stop-color="#6C5364" stop-opacity=".32"></stop></linearGradient><linearGradient id="cp-edge-_R_19ra_" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".78"></stop><stop offset=".45" stop-color="#F4B3CA" stop-opacity=".58"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity=".46"></stop></linearGradient><radialGradient id="cp-ground-_R_19ra_" cx="50%" cy="10%" r="72%"><stop stop-color="#FF4B8D" stop-opacity=".34"></stop><stop offset="1" stop-color="#FF4B8D" stop-opacity="0"></stop></radialGradient><filter id="cp-glow-_R_19ra_" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4.2"></feGaussianBlur></filter><filter id="cp-piece-_R_19ra_" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="1" stdDeviation="1.3" flood-color="#120A12" flood-opacity=".76"></feDropShadow><feDropShadow dx="0" dy="0" stdDeviation=".55" flood-color="#FF4B8D" flood-opacity=".22"></feDropShadow></filter></defs><polygon points="139,102 164,89 193,116 117,166" fill="url(#cp-deep-_R_19ra_)" fill-opacity=".5" stroke="#4E1830" stroke-opacity=".5" stroke-width=".7" transform="translate(3 3.5)" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="139,102 164,89 193,116 117,166" fill="url(#cp-rose-_R_19ra_)" fill-opacity="0.74" stroke="url(#cp-edge-_R_19ra_)" stroke-width=".82" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 139,102 164,89" fill="url(#cp-deep-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 164,89 193,116" fill="url(#cp-light-_R_19ra_)" fill-opacity="0.31" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 193,116 117,166" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.4" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><polygon points="153.25,118.25 117,166 139,102" fill="url(#cp-hot-_R_19ra_)" fill-opacity="0.22" stroke="rgba(255,222,233,.34)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon><path d="M153.25 118.25L139 102" fill="none" stroke="rgba(255,240,245,.62)" stroke-width=".48" vector-effect="non-scaling-stroke"></path><polygon points="148,118 167,101 158,126" fill="url(#cp-graphite-_R_19ra_)" fill-opacity="0.5" stroke="rgba(255,222,233,.30)" stroke-width=".36" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polygon></svg></div>
+
+  <svg class="ann" data-layer="jerarquia" viewBox="0 0 1440 900">
+    <text x="72" y="836" fill="#FF4B8D" fill-opacity=".85">EL SISTEMA GRÁFICO BAJA SU INTENSIDAD</text>
+    <text x="72" y="856" fill="#FF85B8" fill-opacity=".6">SIN PIEZAS DEL CRYSTAL · SIN OBJETOS · SIN GLOW DE FONDO</text>
+    <text x="72" y="872" fill="#FF85B8" fill-opacity=".6">EYEBROW EN GRIS, NO EN ROSA · FONDO LISO</text>
+    <text x="1368" y="836" fill="#FFFFFF" fill-opacity=".62" text-anchor="end">LOS VIDEOS SON EL DISEÑO</text>
+    <text x="1368" y="856" fill="#FFFFFF" fill-opacity=".45" text-anchor="end">EL ÚNICO ROSA DEL BLOQUE ESTÁ EN LAS CARDS DE TEXTO Y EL CTA</text>
+  </svg>
+
+  <svg class="ann" data-layer="track" viewBox="0 0 1440 900">
+    <text x="72" y="286" fill="#FF4B8D" fill-opacity=".7">13 VIDEOS + 3 CARDS DE TEXTO · TRAS EL 4º, 8º Y 12º</text>
+    <text x="1368" y="286" fill="#FF4B8D" fill-opacity=".55" text-anchor="end">SECUENCIA REAL DE TRABAJOS.TSX</text>
+    <rect x="0" y="292" width="96" height="372" fill="#FF4B8D" fill-opacity=".07" stroke="#FF4B8D" stroke-opacity=".22" stroke-dasharray="5 5"/>
+    <rect x="1344" y="292" width="96" height="372" fill="#FF4B8D" fill-opacity=".07" stroke="#FF4B8D" stroke-opacity=".22" stroke-dasharray="5 5"/>
+    <text x="720" y="690" fill="#FFFFFF" fill-opacity=".5" text-anchor="middle">CORTE EN AMBOS BORDES · EL TRACK MIDE 3660 PX Y CONTINÚA FUERA DE CUADRO</text>
+    <text x="720" y="708" fill="#FF85B8" fill-opacity=".5" text-anchor="middle">VIDEOS 9:16 DE 200×356 · CARDS DE TEXTO DE 268 PX · GAP 20</text>
+    <text x="72" y="688" fill="#FF4B8D" fill-opacity=".6">MARQUEE DE TAGS · HERRAMIENTAS COMO EVIDENCIA, NO COMO CATEGORÍAS</text>
+    <text x="720" y="756" fill="#FF4B8D" fill-opacity=".7" text-anchor="middle">CTA OFICIAL VER CASOS · OUTLINE</text>
+  </svg>
+
+  <svg class="ann" data-layer="frag" viewBox="0 0 1440 900">
+    <rect x="0" y="196" width="1440" height="96" fill="#FF4B8D" fill-opacity=".06" stroke="#FF4B8D" stroke-opacity=".26" stroke-dasharray="6 5"/>
+    <text x="72" y="188" fill="#FF4B8D" fill-opacity=".75">BORDE EXTERIOR SUPERIOR DEL TRACK · ÚNICA ZONA PERMITIDA</text>
+    <rect x="0" y="300" width="1440" height="356" fill="none" stroke="#FFFFFF" stroke-opacity=".22" stroke-dasharray="4 5"/>
+    <text x="720" y="478.0" fill="#FFFFFF" fill-opacity=".45" text-anchor="middle">ZONA PROHIBIDA · NO CRUZA VIDEOS, CONTROLES NI MODAL</text>
+    <path d="M-40 250 C 400 262, 900 254, 1341 244" fill="none" stroke="#FFFFFF" stroke-opacity=".4" stroke-width="1.5" stroke-dasharray="7 5"/>
+    <path d="M1341 244 C 1400 250, 1440 262, 1500 280" fill="none" stroke="#FFFFFF" stroke-opacity=".22" stroke-width="1.4" stroke-dasharray="3 6"/>
+    <circle cx="1341" cy="244" r="5" fill="#FFFFFF"/>
+    <text x="1317" y="228" fill="#FFFFFF" fill-opacity=".85" text-anchor="end">FACETS[15] · PERMANECE EN EL BORDE</text>
+    <text x="1317" y="244" fill="#FFFFFF" fill-opacity=".5" text-anchor="end">VIENE DEL BORDE EXTERIOR DE LA SECCIÓN 06</text>
+    <text x="1317" y="260" fill="#FFFFFF" fill-opacity=".38" text-anchor="end">REFLEJO BREVE DEL COLOR ACTIVO · SIN CAMBIAR SU PALETA</text>
+  </svg>
+
+  <svg class="ann" data-layer="grid" viewBox="0 0 1440 900">
+    <g stroke="#FF4B8D" stroke-opacity=".14">
+      <path d="M72 0V900M1368 0V900M720 0V900" stroke-dasharray="6 6"/>
+      <path d="M0 300H1440M0 656H1440M0 696H1440M0 766H1440" stroke-dasharray="6 6"/>
+    </g>
+    <text x="80" y="294" fill="#FF4B8D" fill-opacity=".55">TRACK Y=300</text>
+    <text x="80" y="690" fill="#FF4B8D" fill-opacity=".5">MARQUEE Y=696</text>
+    <text x="80" y="760" fill="#FF4B8D" fill-opacity=".5">CTA Y=766</text>
+    <text x="1188" y="890" fill="#FF4B8D" fill-opacity=".5">LIENZO 1440 × 900</text>
+  </svg>
+
+</div>
+
+<div class="note">
+  <b>Lectura de la escena.</b> Acá el sistema gráfico se corre del medio: no hay piezas del Crystal, ni objetos, ni glow de fondo. El único rosa del bloque está en las cards de texto y en el CTA.
+  <ul>
+    <li><b>Contenido real.</b> Los trece videos, sus categorías y acciones, las tres cards de texto y los once tags salen tal cual de <code>src/components/sections/Trabajos.tsx</code>. La secuencia también: las cards de texto van después del 4º, 8º y 12º video.</li>
+    <li><b>Los posters son placeholders.</b> <code>image.mux.com</code> responde 403 desde el entorno donde se genera este mockup, así que cada card lleva un degradado derivado de la paleta en lugar del thumbnail real. En producción va <code>thumbnail.webp?width=500&amp;fit_mode=smartcrop&amp;time=1</code>, como ya está implementado.</li>
+    <li><b>Corte en ambos bordes.</b> El track mide 3660 px contra 1440 de viewport, así que siempre se lee que hay más material del que entra.</li>
+    <li><b>El marquee de tags es evidencia, no categorías.</b> Meta Ads, CAPI, GA4 y el resto viven acá, no en la Sección 06, según lo ya aprobado.</li>
+    <li><b>El fragmento guía permanece en el borde exterior superior del track</b>, la franja entre el copy y los videos. Ocupa y 204–284 y el track empieza en 300: no cruza videos, controles ni modal. Viene del borde exterior con el que cerró la Sección 06.</li>
+    <li><b>Reflejo del color activo.</b> Puede tomar brevemente el color del contenido en reproducción, sin cambiar su propia paleta rosa y grafito.</li>
+  </ul>
+</div>
+
+</div>
+<script>
+document.querySelectorAll('.tg').forEach(b=>{
+  b.addEventListener('click',()=>{
+    b.classList.toggle('on');
+    document.querySelector('.ann[data-layer="'+b.dataset.l+'"]').classList.toggle('show');
+  });
+});
+</script></body></html>

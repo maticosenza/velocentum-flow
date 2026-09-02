@@ -1,0 +1,209 @@
+VELOCENTUM — DESIGN SYSTEM DE CRISTAL
+Versión: 2026-08-30
+Estado: reglas aprobadas para futuros recursos
+
+======================================================================
+1. PRINCIPIO VISUAL
+======================================================================
+
+La apariencia de piedra/cristal NO se crea con una textura de ruido aplicada
+sobre una figura geométrica. Se construye combinando:
+
+1. Una silueta irregular reconocible.
+2. Facetas internas asimétricas.
+3. Gradientes diferentes por cara.
+4. Superposición parcial de rosas, grafito y vidrio.
+5. Líneas muy finas blanco/rosa.
+6. Reflejos localizados, nunca iluminación uniforme.
+7. Algunas caras llenas y otras casi transparentes.
+8. Imperfecciones pequeñas que rompen la simetría.
+
+La referencia maestra es:
+public/brand-approved/reference/design-system-board-source.png
+
+El board específico del objeto aprobado es:
+public/brand-approved/reference/design-system-crystal-approved.png
+
+======================================================================
+2. ROLES QUE NO SE DEBEN MEZCLAR
+======================================================================
+
+ISOTIPO VERTICAL
+- Representa la identidad Velocentum.
+- Se usa en navegación, firma, avatar y lockup.
+- Mantiene su forma vertical original.
+- No explota y no participa del recorrido narrativo.
+
+CRYSTAL 5
+- Es el objeto narrativo exclusivo de la HOME.
+- Tiene una silueta ancha y dos cuerpos cristalinos conectados.
+- Puede explotar, desplazarse y reconstruirse.
+- Nunca reemplaza el isotipo del logotipo.
+
+FRAGMENTOS
+- Nacen de las facetas reales del Crystal 5.
+- No son triángulos genéricos ni una familia independiente.
+- Deben conservar la paleta, los reflejos y el espesor del objeto armado.
+
+OBJETOS DE SERVICIO
+- Prisma, rayo, barras y mira explican capacidades concretas.
+- No compiten con Crystal 5 ni participan de su explosión.
+
+======================================================================
+3. CONSTRUCCIÓN EXACTA DEL CRYSTAL 5 APROBADO
+======================================================================
+
+Formato:
+- Fuente: SVG vectorial implementado en React.
+- ViewBox: 0 0 240 184.
+- Fuente funcional: src/components/brand/CrystalFiveApproved.tsx.
+- Silueta exterior:
+  M20 23 L82 37 L111 86 L124 78 L168 39 L221 22
+  L193 116 L117 166 L44 118 Z
+
+Geometría:
+- 18 facetas principales.
+- Dos cuerpos cristalinos con centros distintos: no convergen en un punto
+  matemáticamente perfecto.
+- Unión central irregular para mantener la lectura de “doble diamante”.
+- Cortes internos diferentes en cada lado; no espejar caras.
+- 7 inclusiones secundarias de baja opacidad para crear imperfecciones.
+
+Materiales vectoriales:
+
+LIGHT
+- #FFF7FA / 92%
+- #FFB1CE
+- #F56B9D
+- #B32558
+
+HOT
+- #FFB0CC
+- #FF5C96
+- #E82C70
+- #7C1C40
+
+ROSE
+- #F58FB4
+- #CA3F72
+- #5B243B
+
+GRAPHITE
+- #5D4C5B
+- #332A37
+- #17141D
+
+DEEP
+- #9E315E
+- #63213E
+- #261A27
+
+GLASS
+- #FFFFFF / 82%
+- #F6BDD1 / 52%
+- #6C5364 / 32%
+
+Bordes:
+- Gradiente blanco → rosa.
+- Stroke principal: 0.72 en el viewBox del recurso.
+- Stroke auxiliar: 0.66.
+- Opacidad aproximada: 0.58–0.78.
+- Terminaciones redondeadas únicamente en las aristas continuas.
+
+Profundidad:
+- Glow magenta muy suave detrás de la silueta.
+- Sombra inferior elíptica, nunca un pedestal sólido.
+- Dos sombras discretas: una negra de contacto y una rosa de emisión.
+- No aplicar grano procedural, textura fotográfica ni ruido uniforme.
+
+Imperfecciones:
+- Son polígonos internos pequeños con opacidad 0.28–0.56.
+- Deben seguir la dirección de una faceta existente.
+- No deben formar una grilla ni repetir el mismo ángulo.
+- Su contorno se mantiene alrededor de 20% de opacidad.
+
+======================================================================
+4. CONSTRUCCIÓN EXACTA DE LOS FRAGMENTOS VOLUMÉTRICOS
+======================================================================
+
+Origen:
+- Se reutilizan las mismas 18 facetas del Crystal 5 armado.
+- Cada faceta conserva su material base antes de desplazarse.
+
+Volumen por fragmento:
+1. Cara posterior desplazada 3 px en X y 3.5 px en Y.
+2. Cara posterior en material DEEP, 50% de opacidad.
+3. Cara frontal con el gradiente original.
+4. Subfacetas creadas desde el centro hacia cada vértice.
+5. Alternancia LIGHT / GRAPHITE / HOT / DEEP en las subfacetas.
+6. Reflejo fino desde el centro hacia un vértice principal.
+7. Borde blanco/rosa de 0.82.
+
+Composición aprobada:
+- Núcleo irregular con fragmentos medianos y grandes.
+- Chips pequeños alrededor.
+- Cuatro piezas aproximadamente quedan en tratamiento de contorno.
+- Rotaciones distintas; no formar círculo perfecto ni grilla.
+- Escalas aproximadas: 0.33–0.68 respecto de la faceta original.
+- El conjunto debe sentirse como una explosión congelada, no como iconos.
+
+======================================================================
+5. REGLAS PARA FUTUROS PEDIDOS
+======================================================================
+
+HACER
+- Pedir “mismo sistema de facetas del isotipo Velocentum”.
+- Especificar silueta, función y estado: armado, fragmentado o en movimiento.
+- Mantener alternancia de rosa luminoso, rosa profundo, grafito y vidrio.
+- Usar cortes asimétricos y reflejos localizados.
+- Construir en SVG para conservar escala y animabilidad.
+- Mostrar siempre el objeto aislado antes de integrarlo en una sección.
+
+NO HACER
+- No usar una textura de ruido para fingir piedra.
+- No generar el logo o el Crystal 5 mediante IA raster.
+- No usar simetría bilateral perfecta en las facetas.
+- No llenar todo con negro/bordó.
+- No convertir los fragmentos en triángulos planos.
+- No inventar partículas que no provengan de las caras del Crystal 5.
+- No usar bordes blancos gruesos.
+- No aplicar una lluvia continua de fragmentos sobre toda la página.
+
+Plantilla para futuros pedidos:
+
+“Crear [OBJETO] dentro del design system de cristal Velocentum. Usar SVG,
+facetas internas asimétricas, gradientes HOT/ROSE/GRAPHITE/DEEP/GLASS,
+aristas blanco-rosa muy finas y reflejos localizados. No usar ruido ni
+textura uniforme. El objeto debe tener volumen por superposición de caras,
+no por sombreado genérico. Entregar primero aislado en estado [ESTADO] y,
+si se fragmenta, reutilizar exactamente sus facetas.”
+
+======================================================================
+6. ARCHIVOS DE REFERENCIA
+======================================================================
+
+- Board maestro:
+  public/brand-approved/reference/design-system-board-source.png
+
+- Board visual del Crystal 5:
+  public/brand-approved/reference/design-system-crystal-approved.png
+
+- Isotipo aprobado:
+  public/brand-approved/official/identity/isotipo-approved.svg
+
+- Exportación HD transparente del isotipo:
+  public/brand-approved/official/identity/isotipo-approved-2048.png
+
+- Crystal 5 aprobado:
+  public/brand-approved/official/narrative/crystal-five-approved.svg
+  public/brand-approved/official/narrative/crystal-five-approved.png
+
+- Fragmentos volumétricos aprobados:
+  public/brand-approved/official/narrative/crystal-five-fragments-volumetric-approved.svg
+  public/brand-approved/official/narrative/crystal-five-fragments-volumetric-approved.png
+
+- Fuente vectorial:
+  src/components/brand/CrystalFiveApproved.tsx
+
+- Biblioteca oficial completa (objetos, píldoras, tratamientos y atmósferas):
+  public/brand-approved/official/

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180" role="img" aria-labelledby="title">
+  <title id="title">Órbita luminosa Velocentum</title>
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#231922"/>
+      <stop offset=".55" stop-color="#111117"/>
+      <stop offset="1" stop-color="#09090e"/>
+    </linearGradient>
+    <radialGradient id="planet" cx="38%" cy="25%" r="78%">
+      <stop stop-color="#ff9bc0" stop-opacity=".56"/>
+      <stop offset=".28" stop-color="#ff4b8d" stop-opacity=".23"/>
+      <stop offset=".62" stop-color="#6d1838" stop-opacity=".06"/>
+      <stop offset="1" stop-color="#08080d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ffb9d2" stop-opacity=".94"/>
+      <stop offset=".33" stop-color="#ff4b8d" stop-opacity=".76"/>
+      <stop offset=".72" stop-color="#9c2450" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#ff4b8d" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+  </defs>
+  <rect x="2" y="2" width="356" height="176" rx="16" fill="url(#base)" stroke="#ff4b8d" stroke-opacity=".2"/>
+  <circle cx="87" cy="191" r="148" fill="url(#planet)"/>
+  <circle cx="87" cy="191" r="148" fill="none" stroke="url(#rim)" stroke-width="2.2" filter="url(#soft)"/>
+  <circle cx="87" cy="191" r="148" fill="none" stroke="url(#rim)" stroke-width="1.1"/>
+  <path d="M18 16h122" stroke="#fff" stroke-opacity=".06"/>
+</svg>
