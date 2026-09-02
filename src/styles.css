@@ -138,8 +138,8 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --font-display: "Satoshi", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
 
   --radius-sm: var(--radius-6);
@@ -464,7 +464,82 @@
   }
 }
 
+/* ---------- Brand CTA ---------- */
+/* Geometría vigente del sistema CTA: radio 999, fondo --pink y texto --ink
+   (6.09:1 de contraste). Los SVG maestros de official/cta/, con su radio
+   chico, texto blanco (3.16:1) y flecha diagonal, quedan como referencia
+   histórica reemplazada. Ver ASSET_MANIFEST.txt. */
+
+@utility brand-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 999px;
+  padding: 15px 30px;
+  font-weight: 700;
+  font-size: 0.94rem;
+  line-height: 1;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--pink);
+    outline-offset: 2px;
+  }
+
+  &:hover .brand-cta-arrow {
+    transform: translateX(4px);
+  }
+}
+
+@utility brand-cta-arrow {
+  display: inline-block;
+  transition: transform var(--dur-micro) var(--ease-out-soft);
+}
+
+@utility brand-cta-primary {
+  background: var(--pink);
+  color: var(--ink);
+
+  & .brand-cta-arrow {
+    color: var(--pink-deep);
+    font-weight: 800;
+  }
+}
+
+@utility brand-cta-outline {
+  border: 1.4px solid rgba(255, 75, 141, 0.62);
+  color: var(--on-dark);
+
+  & .brand-cta-arrow {
+    color: var(--pink);
+  }
+}
+
+@utility brand-cta-compact {
+  padding: 11px 21px;
+  font-size: 0.8rem;
+}
+
+/* ---------- Brand logo mark ---------- */
+/* Sin height propia: la altura la fija el contexto de uso (nav-brand-mark),
+   para que el isotipo conserve su proporción en cada lockup. */
+
+@utility brand-logo-mark {
+  display: block;
+  width: auto;
+}
+
 /* ---------- Nav ---------- */
+
+@utility nav-brand-mark {
+  height: 36px;
+}
+
+@utility nav-wordmark-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
 
 @utility nav-fixed {
   background-color: transparent;
@@ -481,19 +556,22 @@
   }
 }
 
+/* Valores del HTML aprobado del Mockup 01:
+   .wm{font-weight:800;font-size:1.22rem;letter-spacing:-.028em;line-height:1} */
 @utility nav-wordmark {
   font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: 1.22rem;
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  line-height: 1;
   color: var(--on-dark);
 }
 
 @utility nav-link {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
   color: var(--on-dark-2);
   transition: color var(--dur-micro) var(--ease-out-soft);

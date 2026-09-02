@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import MuxPlayer from "@mux/mux-player-react";
 import type MuxPlayerElement from "@mux/mux-player";
 import { Marquee } from "@/components/Marquee";
+import { BrandCTA } from "@/components/brand/BrandCTA";
 
 type Trabajo = {
   playbackId: string;
@@ -396,6 +397,11 @@ export function Trabajos() {
           <br />
           pensado para hacer crecer marcas.
         </h2>
+        <div className="mt-8">
+          <BrandCTA to="/casos" variant="outline">
+            Ver casos
+          </BrandCTA>
+        </div>
       </div>
 
       <div

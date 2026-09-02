@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { useScrollSubscription } from "@/hooks/useScrollEngine";
-import { CrystalV } from "@/components/brand/CrystalV";
+import { BrandLogoMark } from "@/components/brand/BrandLogoMark";
+import { BrandCTA } from "@/components/brand/BrandCTA";
 
 const NAV_LINKS: Array<{ label: string; to: string; hash?: string }> = [
   { label: "Método", to: "/metodo" },
@@ -29,8 +30,14 @@ export function Nav() {
       data-scrolled={scrolled ? "true" : "false"}
     >
       <div className="container-v flex items-center justify-between py-5">
-        <Link to="/" className="flex shrink-0 items-center gap-2" aria-label="Velocentum, inicio">
-          <CrystalV variant="mark" className="block" style={{ height: 22, width: "auto" }} />
+        {/* Lockup sin bajada: la bajada de marca vive solo como eyebrow del
+            Hero y no se repite acá (Mockup 01). */}
+        <Link
+          to="/"
+          className="nav-wordmark-lockup shrink-0"
+          aria-label="Velocentum, inicio"
+        >
+          <BrandLogoMark className="nav-brand-mark" />
           <span className="nav-wordmark">velocentum</span>
         </Link>
 
@@ -47,16 +54,10 @@ export function Nav() {
           ))}
         </nav>
 
-        <Link
-          to="/"
-          hash="contacto"
-          className="nav-cta inline-flex shrink-0 items-center gap-2 rounded-full bg-pink text-ink"
-        >
-          Reservá tu análisis
-          <span className="nav-cta-arrow" style={{ color: "var(--ink)" }} aria-hidden="true">
-            →
-          </span>
-        </Link>
+        {/* BrandCTA ya renderiza su propio Link: no se envuelve en otro. */}
+        <BrandCTA to="/" hash="contacto" size="compact" className="shrink-0">
+          Hablemos
+        </BrandCTA>
       </div>
     </header>
   );

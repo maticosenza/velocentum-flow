@@ -72,6 +72,45 @@ BOTONES CTA
 - Fuente funcional: src/components/brand/BrandCTA.tsx
 - Estados funcionales: primary, outline, compact y hover.
 
+- ESTADO DE ESTOS SVG: REFERENCIA HISTÓRICA REEMPLAZADA.
+  Los cuatro maestros dibujan la geometría anterior —radio pequeño, texto
+  blanco y flecha diagonal— que YA NO SE IMPLEMENTA. Los archivos se
+  conservan intactos como registro; no se reproducen y no se modifican.
+
+- SISTEMA VIGENTE. Tres variantes, no una.
+
+  SISTEMA COMÚN, compartido por las tres:
+  · HTML/CSS. Nada de texto embebido en SVG.
+  · Radio 999.
+  · Manrope 700.
+  · Flecha →.
+  · Padding base 15px 30px.
+
+  PRIMARY:
+  · Fondo --pink.
+  · Texto --ink.
+  · Flecha --pink-deep.
+  · Contraste 6.09:1.
+  · El primary histórico se reemplazó porque su texto blanco sobre rosa da
+    3.16:1, por debajo del mínimo de 4.5:1.
+  · Uso: "Hablemos", "Quiero analizar mi negocio".
+
+  OUTLINE:
+  · Fondo transparente.
+  · Borde 1.4px rgba(255,75,141,.62).
+  · Texto --on-dark.
+  · Flecha --pink.
+  · Uso: "Ver método" y "Ver casos".
+
+  COMPACT:
+  · Modificador de tamaño, combinable con primary u outline.
+  · Padding 11px 21px.
+  · Font-size .8rem.
+  · Uso: el CTA del nav.
+
+- BrandCTA.tsx SIGUE SIENDO LA FUENTE FUNCIONAL. Ante cualquier discrepancia
+  entre los SVG maestros y el componente, manda el componente.
+
 OBJETOS
 - official/objects/prism.svg + .png: análisis y diagnóstico.
 - official/objects/lightning.svg + .png: adquisición, ejecución y velocidad.

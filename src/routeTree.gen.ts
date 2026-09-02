@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CasosRouteImport } from './routes/casos'
+import { Route as CrystalReviewRouteImport } from './routes/crystal-review'
+import { Route as DesignSystemCrystalRouteImport } from './routes/design-system-crystal'
 import { Route as MetodoRouteImport } from './routes/metodo'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +25,16 @@ const CasosRoute = CasosRouteImport.update({
   path: '/casos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CrystalReviewRoute = CrystalReviewRouteImport.update({
+  id: '/crystal-review',
+  path: '/crystal-review',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesignSystemCrystalRoute = DesignSystemCrystalRouteImport.update({
+  id: '/design-system-crystal',
+  path: '/design-system-crystal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MetodoRoute = MetodoRouteImport.update({
   id: '/metodo',
   path: '/metodo',
@@ -32,30 +44,45 @@ const MetodoRoute = MetodoRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/casos': typeof CasosRoute
+  '/crystal-review': typeof CrystalReviewRoute
+  '/design-system-crystal': typeof DesignSystemCrystalRoute
   '/metodo': typeof MetodoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/casos': typeof CasosRoute
+  '/crystal-review': typeof CrystalReviewRoute
+  '/design-system-crystal': typeof DesignSystemCrystalRoute
   '/metodo': typeof MetodoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/casos': typeof CasosRoute
+  '/crystal-review': typeof CrystalReviewRoute
+  '/design-system-crystal': typeof DesignSystemCrystalRoute
   '/metodo': typeof MetodoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/casos' | '/metodo'
+  fullPaths:
+    '/' | '/casos' | '/crystal-review' | '/design-system-crystal' | '/metodo'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/casos' | '/metodo'
-  id: '__root__' | '/' | '/casos' | '/metodo'
+  to: '/' | '/casos' | '/crystal-review' | '/design-system-crystal' | '/metodo'
+  id:
+    | '__root__'
+    | '/'
+    | '/casos'
+    | '/crystal-review'
+    | '/design-system-crystal'
+    | '/metodo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CasosRoute: typeof CasosRoute
+  CrystalReviewRoute: typeof CrystalReviewRoute
+  DesignSystemCrystalRoute: typeof DesignSystemCrystalRoute
   MetodoRoute: typeof MetodoRoute
 }
 
@@ -75,6 +102,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CasosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/crystal-review': {
+      id: '/crystal-review'
+      path: '/crystal-review'
+      fullPath: '/crystal-review'
+      preLoaderRoute: typeof CrystalReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/design-system-crystal': {
+      id: '/design-system-crystal'
+      path: '/design-system-crystal'
+      fullPath: '/design-system-crystal'
+      preLoaderRoute: typeof DesignSystemCrystalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/metodo': {
       id: '/metodo'
       path: '/metodo'
@@ -88,6 +129,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CasosRoute: CasosRoute,
+  CrystalReviewRoute: CrystalReviewRoute,
+  DesignSystemCrystalRoute: DesignSystemCrystalRoute,
   MetodoRoute: MetodoRoute,
 }
 export const routeTree = rootRouteImport

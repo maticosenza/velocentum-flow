@@ -38,7 +38,7 @@ export function BrandCTA({
     >
       <span>{children}</span>
       <span className="brand-cta-arrow" aria-hidden="true">
-        ↗
+        →
       </span>
     </Link>
   );

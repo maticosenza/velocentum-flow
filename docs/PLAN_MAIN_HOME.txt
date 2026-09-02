@@ -1034,18 +1034,58 @@ GEOMETRÍA DE LA COMPOSICIÓN
 =====================================================================
 CTA "VER CASOS" — DECISIÓN DE IMPLEMENTACIÓN
 =====================================================================
-- SE IMPLEMENTA EN HTML/CSS CON MANROPE, reproduciendo exactamente la
-  geometría, el borde, el espaciado y los estados del SVG oficial
-  official/cta/ver-casos-outline.svg.
-- EL SVG MAESTRO QUEDA INTACTO y sirve como referencia visual.
-- MOTIVO: el SVG lleva el texto embebido con su propia font-family. Si la
-  fuente no carga a tiempo, el botón cae a Arial y rompe la tipografía del
-  sitio. Un botón en HTML hereda la carga de fuentes de la página y además
-  permite estados de hover y focus accesibles.
-- Referencia geométrica del SVG: rect de 315 × 59, radius 7, borde con
-  gradiente #FF79AC → #FF4B8D → #C62461, y un segundo rect interior de
-  310 × 54 con stroke --pink al 6% y ancho 5, que produce el halo suave.
-  Texto en Manrope 700, 16 px, letter-spacing .25, más la flecha ↗.
+- SE IMPLEMENTA SEGÚN LA SECCIÓN 01, con el mismo sistema CTA que el resto
+  de la HOME. No tiene geometría propia.
+- "VER CASOS" USA LA VARIANTE OUTLINE. NO LLEVA FONDO ROSA NI TEXTO TINTA:
+  esos son atributos de la variante primary, que acá no se usa.
+- SE IMPLEMENTA EN HTML/CSS CON MANROPE.
+- MOTIVO PARA NO USAR EL TEXTO EMBEBIDO EN EL SVG: el SVG lleva el texto con
+  su propia font-family. Si la fuente no carga a tiempo, el botón cae a Arial
+  y rompe la tipografía del sitio. Un botón en HTML hereda la carga de fuentes
+  de la página y además permite estados de hover y focus accesibles.
+- official/cta/ver-casos-outline.svg queda como REFERENCIA HISTÓRICA
+  REEMPLAZADA. El archivo maestro no se modifica, pero su geometría —rect de
+  315 × 59, radius 7, texto blanco y flecha ↗— YA NO SE REPRODUCE.
+- Fuente funcional: src/components/brand/BrandCTA.tsx, variante outline.
+
+=====================================================================
+SISTEMA CTA — VARIANTES
+=====================================================================
+Aplica a toda la HOME, no solo a esta sección.
+
+SISTEMA COMÚN, compartido por las tres variantes:
+- HTML/CSS. Nada de texto embebido en SVG.
+- Radio 999.
+- Manrope 700.
+- Flecha →.
+- Padding base 15px 30px.
+
+PRIMARY:
+- Fondo --pink.
+- Texto --ink.
+- Flecha --pink-deep.
+- Contraste 6.09:1.
+- POR QUÉ SE REEMPLAZÓ EL PRIMARY HISTÓRICO: dibujaba texto blanco sobre
+  rosa, que da 3.16:1 y no alcanza el mínimo de 4.5:1. --ink sobre el mismo
+  rosa da 6.09:1 y sí lo alcanza.
+- Uso: "Hablemos" (Sección 01), "Quiero analizar mi negocio" (Sección 09).
+
+OUTLINE:
+- Fondo transparente.
+- Borde 1.4px rgba(255,75,141,.62).
+- Texto --on-dark.
+- Flecha --pink.
+- Uso: "Ver método" (Sección 01) y "VER CASOS" (esta sección).
+
+COMPACT:
+- Modificador de tamaño, combinable con primary u outline.
+- Padding 11px 21px.
+- Font-size .8rem.
+- Uso: el CTA del nav.
+
+Los SVG maestros de official/cta/, con su radio pequeño, texto blanco y
+flecha diagonal, siguen siendo REFERENCIAS HISTÓRICAS REEMPLAZADAS. No se
+modifican.
 
 =====================================================================
 POSTERS — ESTADO DEL MOCKUP

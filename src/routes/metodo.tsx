@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
+import { BrandCTA } from "@/components/brand/BrandCTA";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/metodo")({
@@ -92,15 +93,9 @@ function Metodo() {
             Y no termina en una propuesta si no hay algo real que proponer. Si tu negocio todavía no
             está para invertir en pauta, te lo vamos a decir.
           </p>
-          <a
-            href="/#contacto"
-            className="hero-cta body-base mt-8 inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 font-medium text-on-dark"
-          >
+          <BrandCTA to="/" hash="contacto" className="mt-8">
             Reservá tu análisis de negocio
-            <span className="hero-cta-arrow" style={{ color: "#B9AEFF" }} aria-hidden="true">
-              →
-            </span>
-          </a>
+          </BrandCTA>
         </div>
       </section>
     </>
