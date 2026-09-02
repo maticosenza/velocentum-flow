@@ -1,0 +1,41 @@
+---
+description: Reglas del proyecto Velocentum — HOME
+alwaysApply: true
+---
+
+# Velocentum — lectura obligatoria
+
+Las reglas de este proyecto NO viven en este archivo. Viven en los documentos
+del repositorio. Este archivo solo obliga a leerlos.
+
+Antes de cualquier trabajo, leer en este orden:
+
+1. `AGENTS.md` — jerarquía de fuentes de verdad y las doce reglas operativas.
+   Es la fuente canónica y compartida entre herramientas.
+2. `docs/HANDOFF_CURSOR.md` — estado actual, baseline de TypeScript, primer
+   trabajo y frentes abiertos.
+3. `docs/PLAN_MAIN_HOME.txt` — completo. Fuente de verdad visual y narrativa:
+   composición, copy, CTA, tipografía, geometría, movimiento.
+4. `.claude/skills/velocentum-design/SKILL.md` — MARKDOWN OBLIGATORIO con las
+   reglas técnicas: animación, motor de scroll, quality floor, dependencias y
+   accesibilidad. Cursor no lo carga como skill, así que hay que abrirlo y
+   leerlo como cualquier otro archivo.
+5. `docs/DESIGN_SYSTEM_CRYSTAL.txt` — antes de tocar cualquier SVG.
+6. `public/brand-approved/ASSET_MANIFEST.txt` y
+   `public/brand-approved/official/ASSETS_CONFIRMADOS.txt`.
+7. El PNG y el HTML de la sección a trabajar, en `docs/home-mockups/`. El HTML
+   contiene capas de anotación que el PNG no muestra y que definen
+   trayectorias, zonas prohibidas y conteos.
+8. `docs/REPOSITORY_HANDOFF.txt` — relación entre ramas y worktrees.
+
+`docs/AUDITORIA_WORKTREES.txt` es un documento histórico. No leerlo como estado
+actual.
+
+Recordatorios que no admiten excepción:
+
+- Usar `bun`, nunca npm ni npx. Type-check con `bun x tsc --noEmit`.
+- Baseline conocido de TypeScript en `49fc3dc`: 22 errores preexistentes,
+  detallados en el handoff. No sumar errores nuevos. Si un trabajo aprobado los
+  reduce, actualizar el baseline en el mismo commit.
+- No agregar librerías de animación.
+- No rediseñar durante la implementación: ante ambigüedad, preguntar.

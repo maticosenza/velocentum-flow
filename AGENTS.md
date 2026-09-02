@@ -38,13 +38,20 @@ Fuera de esos datos enumerados manda PLAN_MAIN_HOME. Si existe una discrepancia
 
 ## Orden de lectura obligatorio
 
-1. `docs/PLAN_MAIN_HOME.txt` completo.
-2. `docs/DESIGN_SYSTEM_CRYSTAL.txt`, antes de tocar cualquier SVG.
-3. `public/brand-approved/ASSET_MANIFEST.txt` y
+Este archivo, `AGENTS.md`, se lee primero. Después, en este orden:
+
+1. `docs/HANDOFF_CURSOR.md` — estado, baseline y primer trabajo.
+2. `docs/PLAN_MAIN_HOME.txt` — completo y fuente de verdad.
+3. `.claude/skills/velocentum-design/SKILL.md` — reglas técnicas detalladas de
+   animación, motor de scroll, quality floor, dependencias y accesibilidad.
+   **Cursor debe leerlo como Markdown**, aunque no cargue skills de Claude
+   automáticamente.
+4. `docs/DESIGN_SYSTEM_CRYSTAL.txt`, antes de tocar cualquier SVG.
+5. `public/brand-approved/ASSET_MANIFEST.txt` y
    `public/brand-approved/official/ASSETS_CONFIRMADOS.txt`.
-4. PNG y HTML aprobados de la sección a implementar. **El HTML contiene capas de
+6. PNG y HTML aprobados de la sección a implementar. **El HTML contiene capas de
    anotación ausentes en el PNG.**
-5. `docs/REPOSITORY_HANDOFF.txt`.
+7. `docs/REPOSITORY_HANDOFF.txt`.
 
 `docs/AUDITORIA_WORKTREES.txt` es un documento **histórico** y no debe leerse
 como estado Git actual.
@@ -97,6 +104,31 @@ como estado Git actual.
 
 12. **El repositorio sincroniza con Lovable.** No hacer force push, rebase, amend
     ni squash sobre commits publicados.
+
+---
+
+## BASELINE CONOCIDO DE TYPESCRIPT — 49fc3dc
+
+`bun x tsc --noEmit` falla con **22 errores REALES de TypeScript,
+PREEXISTENTES**, heredados del código V3 y no introducidos por el trabajo
+actual:
+
+- **11** en `src/components/brand/CrystalFiveApproved.tsx`
+- **8** en `src/components/brand/CrystalFragments.tsx`
+- **3** en `src/routes/crystal-review.tsx`
+
+Ningún cambio debe **SUMAR errores nuevos ni distintos** respecto de esos 22.
+Si aparece uno nuevo, es del cambio en curso.
+
+**EL BASELINE ESTÁ ASOCIADO AL COMMIT `49fc3dc`.** Cuando un trabajo aprobado
+reduzca intencionalmente estos errores, `AGENTS.md` y `docs/HANDOFF_CURSOR.md`
+deben actualizarse **EN EL MISMO COMMIT** con el nuevo conteo. Nunca dejar un
+baseline obsoleto.
+
+Los 19 de `CrystalFiveApproved` y `CrystalFragments` se resuelven **junto con la
+API por faceta**, no antes ni por separado.
+
+Detalle completo en `docs/HANDOFF_CURSOR.md`.
 
 ---
 
