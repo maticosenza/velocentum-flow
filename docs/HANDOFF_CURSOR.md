@@ -122,3 +122,18 @@ Una sección por vez, empezando por la que corresponda después de la
 infraestructura. Cada bloque se entrega para auditoría antes de seguir.
 
 Ante cualquier ambigüedad: preguntar, no completar con criterio propio.
+
+## Referencias visuales no vinculantes
+
+`docs/REFERENCIAS_VISUALES.md` registra tres sitios como material de
+inspiración para las **futuras páginas Método y Casos**.
+
+- **NO forma parte del orden obligatorio de lectura para la primera tarea.**
+- **NO modifica la HOME aprobada:** `docs/PLAN_MAIN_HOME.txt` y sus nueve
+  mockups desktop siguen siendo la autoridad, y las referencias no autorizan
+  copiar diseño, código, contenido ni assets.
+- Método y Casos necesitan planes y mockups propios antes de implementarse.
+
+**La primera tarea de Cursor sigue siendo proponer el contrato de la API por
+faceta y sus verificaciones antes de escribir código**, como se detalla más
+arriba en "Primer trabajo: infraestructura del Crystal 5".
