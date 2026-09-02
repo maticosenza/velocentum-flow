@@ -13,16 +13,15 @@ import {
   BASELINE_COMMIT,
   canonicalJson,
   extractVisualData,
-  materializeBaselineComponent,
+  importBaselineCrystal,
   renderMarkup,
   sha256,
   visualFixtureHtml,
 } from "./lib.ts";
 
-const baselineFile = materializeBaselineComponent();
-const mod = (await import(baselineFile)) as { CrystalFiveApproved: React.ComponentType<object> };
+const baseline = await importBaselineCrystal();
 
-const markup = renderMarkup(mod.CrystalFiveApproved);
+const markup = renderMarkup(baseline.CrystalFiveApproved);
 const visual = extractVisualData(markup);
 const geometryJson = canonicalJson(visual);
 
@@ -38,9 +37,13 @@ console.log(`baseline commit : ${BASELINE_COMMIT}`);
 console.log(`baseline blob   : ${BASELINE_BLOB}`);
 console.log(`dom bytes       : ${markup.length}`);
 console.log(`dom sha256      : ${sha256(markup)}   (= sha256 del archivo baseline-dom.html)`);
-console.log(`geometry sha256 : ${sha256(geometryJson)}   (= sha256 del archivo baseline-geometry.json)`);
+console.log(
+  `geometry sha256 : ${sha256(geometryJson)}   (= sha256 del archivo baseline-geometry.json)`,
+);
 console.log(`facetas         : ${visual.facets.length}`);
 console.log(`inclusiones     : ${visual.inclusions.length}`);
 console.log(`edge paths      : ${visual.edgePaths.length}`);
-console.log(`defs            : ${visual.defs.length} nodos, ${visual.defs.reduce((n, d) => n + d.children.length, 0)} hijos`);
+console.log(
+  `defs            : ${visual.defs.length} nodos, ${visual.defs.reduce((n, d) => n + d.children.length, 0)} hijos`,
+);
 console.log(`orden de pintura: ${visual.paintOrder.join(" ")}`);

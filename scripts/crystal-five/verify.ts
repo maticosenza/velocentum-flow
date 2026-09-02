@@ -11,11 +11,10 @@
  * pintura, con las 25 piezas presentes en el árbol.
  */
 import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { CrystalFiveApproved } from "../../src/components/brand/CrystalFiveApproved.tsx";
 import {
   ARTIFACT_FILES,
   BASELINE_COMMIT,
-  REPO_ROOT,
   canonicalJson,
   extractVisualData,
   parseSvg,
@@ -30,12 +29,6 @@ const record = (name: string, ok: boolean, detail: string) => {
   results.push({ name, ok, detail });
   console.log(`${ok ? "OK  " : "FAIL"}  ${name}\n      ${detail.split("\n").join("\n      ")}`);
 };
-
-const componentModule = (await import(resolve(REPO_ROOT, "src/components/brand/CrystalFiveApproved.tsx"))) as Record<
-  string,
-  unknown
->;
-const CrystalFiveApproved = componentModule["CrystalFiveApproved"] as React.ComponentType<Record<string, unknown>>;
 
 // --- (a) DOM serializado -----------------------------------------------------
 const baselineDom = readFileSync(ARTIFACT_FILES.dom, "utf8");
@@ -85,20 +78,16 @@ record(
 );
 
 // --- Modo controlado con poses identidad ------------------------------------
-let controlledDom: string | null = null;
-try {
-  controlledDom = renderMarkup(CrystalFiveApproved, { control: {} });
-} catch (error) {
-  controlledDom = null;
-  console.log(`      (modo controlado no disponible aún: ${(error as Error).message})`);
-}
+const controlledDom = renderMarkup(CrystalFiveApproved, { control: {} });
 
-if (controlledDom && controlledDom !== currentDom) {
+if (controlledDom !== currentDom) {
   const controlledVisual = extractVisualData(controlledDom);
   const baselineVisual = JSON.parse(baselineGeometry) as ReturnType<typeof extractVisualData>;
   const controlledSvg = parseSvg(controlledDom);
   const controlledNodes = walk(controlledSvg);
-  const wrappers = controlledNodes.filter((n) => n.tag === "g" && n.attrs["transform"] !== undefined);
+  const wrappers = controlledNodes.filter(
+    (n) => n.tag === "g" && n.attrs["transform"] !== undefined,
+  );
 
   record(
     "control identidad: 25 wrappers de pieza presentes",
@@ -120,7 +109,9 @@ if (controlledDom && controlledDom !== currentDom) {
   record(
     "control identidad: datos del asset intactos",
     sameAsset,
-    sameAsset ? "facetas, inclusiones, defs, aristas, glow y suelo sin cambios" : "hay divergencia en los datos del asset",
+    sameAsset
+      ? "facetas, inclusiones, defs, aristas, glow y suelo sin cambios"
+      : "hay divergencia en los datos del asset",
   );
 }
 

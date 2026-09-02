@@ -58,7 +58,10 @@ async function pixelDiff(page: import("@playwright/test").Page, a: Buffer, b: Bu
       }
       return { differentPixels, maxChannelDelta, width: imgA.width, height: imgA.height };
     },
-    [`data:image/png;base64,${a.toString("base64")}`, `data:image/png;base64,${b.toString("base64")}`],
+    [
+      `data:image/png;base64,${a.toString("base64")}`,
+      `data:image/png;base64,${b.toString("base64")}`,
+    ],
   );
 }
 

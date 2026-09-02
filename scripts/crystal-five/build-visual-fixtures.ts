@@ -8,27 +8,26 @@
  */
 import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { CrystalFiveApproved } from "../../src/components/brand/CrystalFiveApproved.tsx";
 import {
   ARTIFACTS_DIR,
-  REPO_ROOT,
-  materializeBaselineComponent,
+  importBaselineCrystal,
   renderMarkup,
   sha256,
   visualFixtureHtml,
 } from "./lib.ts";
 
-const baseline = (await import(materializeBaselineComponent())) as Record<string, any>;
-const current = (await import(resolve(REPO_ROOT, "src/components/brand/CrystalFiveApproved.tsx"))) as Record<string, any>;
+const baseline = await importBaselineCrystal();
 
 const targets = [
-  { file: "fixture-antes.html", markup: renderMarkup(baseline["CrystalFiveApproved"]) },
-  { file: "fixture-despues.html", markup: renderMarkup(current["CrystalFiveApproved"]) },
-  { file: "fixture-controlado.html", markup: renderMarkup(current["CrystalFiveApproved"], { control: {} }) },
+  { file: "fixture-antes.html", markup: renderMarkup(baseline.CrystalFiveApproved) },
+  { file: "fixture-despues.html", markup: renderMarkup(CrystalFiveApproved) },
+  { file: "fixture-controlado.html", markup: renderMarkup(CrystalFiveApproved, { control: {} }) },
   // Canario: una diferencia visual deliberada y mínima. Si el pixel diff no la detecta,
   // el cero de las otras comparaciones no significa nada.
   {
     file: "fixture-canario.html",
-    markup: renderMarkup(current["CrystalFiveApproved"], { control: { groundOpacity: 0.2258064516 } }),
+    markup: renderMarkup(CrystalFiveApproved, { control: { groundOpacity: 0.2258064516 } }),
   },
 ];
 

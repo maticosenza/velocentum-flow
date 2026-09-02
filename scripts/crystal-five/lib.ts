@@ -16,7 +16,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { createElement, type ComponentType } from "react";
+import { createElement, type ComponentType, type CSSProperties } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -33,7 +33,11 @@ export const BASELINE_BLOB = "35dd78422808950292dd161a1d51c1a76e857a9d";
 export const BASELINE_COMPONENT_FILE = resolve(BASELINE_DIR, "CrystalFiveApproved.baseline.tsx");
 
 function git(args: string[]): string {
-  return execFileSync("git", args, { cwd: REPO_ROOT, encoding: "utf8", maxBuffer: 32 * 1024 * 1024 });
+  return execFileSync("git", args, {
+    cwd: REPO_ROOT,
+    encoding: "utf8",
+    maxBuffer: 32 * 1024 * 1024,
+  });
 }
 
 /** Materializa un archivo tal como estaba en BASELINE_COMMIT. */
@@ -56,6 +60,68 @@ export function materializeBaselineComponent(): string {
     throw new Error(`blob del baseline ${actualBlob} != esperado ${BASELINE_BLOB}`);
   }
   return dest;
+}
+
+// ---------------------------------------------------------------------------
+// Módulos materializados desde el commit
+// ---------------------------------------------------------------------------
+
+/** Props de los componentes de marca en 49fc3dc: ahí todavía no existía `control`. */
+type BrandComponentProps = { className?: string; style?: CSSProperties };
+
+/** La superficie que este harness consume de CrystalFiveApproved.tsx en 49fc3dc. */
+export type BaselineCrystalModule = {
+  CrystalFiveApproved: ComponentType<BrandComponentProps>;
+  CrystalFiveFragmentsApproved: ComponentType<BrandComponentProps>;
+};
+
+/** Ídem para CrystalFragments.tsx en 49fc3dc. */
+export type BaselineFragmentsModule = {
+  CrystalFragments: ComponentType<BrandComponentProps & { layout?: string }>;
+};
+
+/**
+ * Importa un módulo materializado y comprueba que exporte lo que se declara.
+ *
+ * El archivo se genera en runtime con `git show`, así que su tipo no se puede inferir
+ * estáticamente. En vez de dejarlo en `any`, se declara la superficie esperada y se
+ * verifica antes de devolverla: si el commit dejara de exportar alguno de esos nombres,
+ * falla acá con un mensaje claro en vez de romper más adelante.
+ */
+async function importBaselineModule<T extends object>(
+  file: string,
+  exportNames: Array<keyof T>,
+): Promise<T> {
+  const loaded: unknown = await import(file);
+  if (typeof loaded !== "object" || loaded === null) {
+    throw new TypeError(`${file} no exporta un módulo`);
+  }
+  const record = loaded as Record<string, unknown>;
+  for (const name of exportNames) {
+    if (typeof record[String(name)] !== "function") {
+      throw new TypeError(`${file} no exporta el componente ${String(name)}`);
+    }
+  }
+  return loaded as T;
+}
+
+/** El CrystalFiveApproved.tsx de 49fc3dc, materializado y verificado. */
+export function importBaselineCrystal(): Promise<BaselineCrystalModule> {
+  return importBaselineModule<BaselineCrystalModule>(materializeBaselineComponent(), [
+    "CrystalFiveApproved",
+    "CrystalFiveFragmentsApproved",
+  ]);
+}
+
+/** El CrystalFragments.tsx de 49fc3dc, materializado y verificado. */
+export function importBaselineFragments(): Promise<BaselineFragmentsModule> {
+  return importBaselineModule<BaselineFragmentsModule>(
+    materializeFromBaseline(
+      "src/components/brand/CrystalFragments.tsx",
+      "CrystalFragments.baseline.tsx",
+    ),
+    ["CrystalFragments"],
+  );
 }
 
 /** El fuente del componente en el working tree, para comparaciones de procedencia. */
@@ -116,7 +182,9 @@ export function parseSvg(markup: string): SvgNode {
   while ((match = TAG_RE.exec(markup)) !== null) {
     if (match.index !== cursor) {
       const stray = markup.slice(cursor, match.index);
-      throw new Error(`markup no cubierto por el parser en ${cursor}: ${JSON.stringify(stray.slice(0, 80))}`);
+      throw new Error(
+        `markup no cubierto por el parser en ${cursor}: ${JSON.stringify(stray.slice(0, 80))}`,
+      );
     }
     cursor = match.index + match[0].length;
 
@@ -141,10 +209,17 @@ export function parseSvg(markup: string): SvgNode {
   }
 
   if (cursor !== markup.length) {
-    throw new Error(`markup con cola sin parsear: ${JSON.stringify(markup.slice(cursor, cursor + 80))}`);
+    throw new Error(
+      `markup con cola sin parsear: ${JSON.stringify(markup.slice(cursor, cursor + 80))}`,
+    );
   }
   if (stack.length !== 1) {
-    throw new Error(`tags sin cerrar: ${stack.slice(1).map((n) => n.tag).join(", ")}`);
+    throw new Error(
+      `tags sin cerrar: ${stack
+        .slice(1)
+        .map((n) => n.tag)
+        .join(", ")}`,
+    );
   }
   const svg = root.children[0];
   if (!svg || svg.tag !== "svg" || root.children.length !== 1) {
@@ -164,7 +239,9 @@ export function walk(node: SvgNode): SvgNode[] {
 
 /** El uid que useId inyectó en los ids de defs, para poder normalizarlo. */
 export function detectUid(svg: SvgNode): string {
-  const withId = walk(svg).find((n) => typeof n.attrs["id"] === "string" && n.attrs["id"].startsWith("cp-light-"));
+  const withId = walk(svg).find(
+    (n) => typeof n.attrs["id"] === "string" && n.attrs["id"].startsWith("cp-light-"),
+  );
   if (!withId) {
     throw new Error("no se encontró el gradiente cp-light-<uid> para detectar el uid");
   }
@@ -186,7 +263,12 @@ export type PolygonData = {
 
 export type VisualData = {
   svg: Record<string, string>;
-  defs: Array<{ tag: string; id: string; attrs: Record<string, string>; children: Array<{ tag: string; attrs: Record<string, string> }> }>;
+  defs: Array<{
+    tag: string;
+    id: string;
+    attrs: Record<string, string>;
+    children: Array<{ tag: string; attrs: Record<string, string> }>;
+  }>;
   glow: Record<string, string>;
   ground: Record<string, string>;
   facetGroup: Record<string, string>;
@@ -245,7 +327,10 @@ export function extractVisualData(markup: string): VisualData {
     tag: node.tag,
     id: (node.attrs["id"] ?? "").split(uid).join("UID"),
     attrs: normalizeAttrs(node.attrs, uid),
-    children: node.children.map((child) => ({ tag: child.tag, attrs: normalizeAttrs(child.attrs, uid) })),
+    children: node.children.map((child) => ({
+      tag: child.tag,
+      attrs: normalizeAttrs(child.attrs, uid),
+    })),
   }));
 
   const outside = all.filter((n) => !defsSet.has(n) && n !== svg);
@@ -266,13 +351,17 @@ export function extractVisualData(markup: string): VisualData {
   if (!ellipseNode) throw new Error("falta <ellipse> del suelo");
 
   const groups = outside.filter((n) => n.tag === "g");
-  const facetGroupNode = groups.find((n) => typeof n.attrs["filter"] === "string" && n.attrs["filter"].includes("cp-piece-"));
+  const facetGroupNode = groups.find(
+    (n) => typeof n.attrs["filter"] === "string" && n.attrs["filter"].includes("cp-piece-"),
+  );
   const edgesGroupNode = groups.find((n) => n.attrs["fill"] === "none");
   if (!facetGroupNode) throw new Error("falta el grupo de piezas (filter cp-piece)");
   if (!edgesGroupNode) throw new Error("falta el grupo de aristas (fill=none)");
 
   const paintOrder = outside
-    .filter((n) => n === glowNode || n === ellipseNode || n.tag === "polygon" || edgeNodes.includes(n))
+    .filter(
+      (n) => n === glowNode || n === ellipseNode || n.tag === "polygon" || edgeNodes.includes(n),
+    )
     .map((n) => {
       if (n === glowNode) return "glow";
       if (n === ellipseNode) return "ground";

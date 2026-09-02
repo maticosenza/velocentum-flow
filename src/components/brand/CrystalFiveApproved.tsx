@@ -133,6 +133,12 @@ export type CrystalPiecePose = {
   opacity: number;
 };
 
+// Supresión localizada de react-refresh/only-export-components, exclusiva para esa regla.
+// Este archivo exporta a propósito el componente, los tipos y las constantes públicas del
+// contrato aprobado, y esa superficie está verificada y cerrada. La regla existe para que
+// Fast Refresh funcione en desarrollo; no justifica reorganizar una API pública ya
+// aprobada moviendo constantes, tipos o helpers a otro módulo.
+// eslint-disable-next-line react-refresh/only-export-components
 export const CRYSTAL_PIECE_POSE_IDENTITY: CrystalPiecePose = {
   x: 0,
   y: 0,

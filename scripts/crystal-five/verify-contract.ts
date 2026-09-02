@@ -2,12 +2,24 @@
  * Verificaciones del contrato de la API por faceta (comportamiento en runtime).
  * La exclusión por tipo de las claves 15 y 6 se verifica aparte, en type-contract.ts.
  */
-import { resolve } from "node:path";
-import { REPO_ROOT, parseSvg, renderMarkup, walk, type SvgNode } from "./lib.ts";
-
-const mod = (await import(resolve(REPO_ROOT, "src/components/brand/CrystalFiveApproved.tsx"))) as Record<string, any>;
-const Crystal = mod["CrystalFiveApproved"];
-const IDENTITY = mod["CRYSTAL_PIECE_POSE_IDENTITY"];
+import {
+  CRYSTAL_FIVE_EDGE_PATHS,
+  CRYSTAL_FIVE_FACET_COUNT,
+  CRYSTAL_FIVE_INCLUSION_COUNT,
+  CRYSTAL_FIVE_T2_ARRIVING_FACETS,
+  CRYSTAL_FIVE_T2_VISIBLE_FACETS,
+  CRYSTAL_PIECE_POSE_IDENTITY,
+  CrystalFiveApproved,
+  FACETS,
+  GUIDE_FACET_INDEX,
+  GUIDE_INCLUSION_INDEX,
+  INCLUSIONS,
+  type CrystalFiveApprovedProps,
+  type CrystalPiecePose,
+  type FacetIndex,
+  type InclusionIndex,
+} from "../../src/components/brand/CrystalFiveApproved.tsx";
+import { parseSvg, renderMarkup, walk, type SvgNode } from "./lib.ts";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail: string) => {
@@ -20,18 +32,26 @@ const shape = (markup: string): string =>
     .map((n) => `${n.tag}[${Object.keys(n.attrs).sort().join(",")}]`)
     .join(" ");
 
-const pose = (over: Partial<Record<string, number>> = {}) => ({ ...IDENTITY, ...over });
+const pose = (over: Partial<CrystalPiecePose> = {}): CrystalPiecePose => ({
+  ...CRYSTAL_PIECE_POSE_IDENTITY,
+  ...over,
+});
 
-const vacio = renderMarkup(Crystal, { control: {} });
-const cargado = renderMarkup(Crystal, {
-  control: {
-    facetPoses: { 0: pose({ x: 12, rotate: 30 }), 7: pose({ opacity: 0 }), 17: pose({ scale: 0.4 }) },
-    inclusionPoses: { 2: pose({ y: -8, opacity: 0.3 }) },
-    guidePose: pose({ x: 5, y: -3, rotate: 12, scale: 1.2, opacity: 0.8 }),
-    glowOpacity: 0.5,
-    groundOpacity: 0.2258064516,
-    edgesOpacity: 0.25,
+const render = (control: CrystalFiveApprovedProps["control"]) =>
+  renderMarkup(CrystalFiveApproved, { control });
+
+const vacio = render({});
+const cargado = render({
+  facetPoses: {
+    0: pose({ x: 12, rotate: 30 }),
+    7: pose({ opacity: 0 }),
+    17: pose({ scale: 0.4 }),
   },
+  inclusionPoses: { 2: pose({ y: -8, opacity: 0.3 }) },
+  guidePose: pose({ x: 5, y: -3, rotate: 12, scale: 1.2, opacity: 0.8 }),
+  glowOpacity: 0.5,
+  groundOpacity: 0.2258064516,
+  edgesOpacity: 0.25,
 });
 
 check(
@@ -72,15 +92,26 @@ check(
 );
 
 // --- nada se ausenta del DOM -------------------------------------------------
-const apagado = renderMarkup(Crystal, {
-  control: {
-    facetPoses: Object.fromEntries([...Array(18).keys()].filter((i) => i !== 15).map((i) => [i, pose({ opacity: 0 })])),
-    inclusionPoses: Object.fromEntries([...Array(7).keys()].filter((i) => i !== 6).map((i) => [i, pose({ opacity: 0 })])),
-    guidePose: pose({ opacity: 0 }),
-    glowOpacity: 0,
-    groundOpacity: 0,
-    edgesOpacity: 0,
-  },
+const apagadas = <K extends number>(count: number, guide: number) =>
+  Object.fromEntries(
+    Array.from({ length: count }, (_, index) => index)
+      .filter((index) => index !== guide)
+      .map((index) => [index, pose({ opacity: 0 })]),
+  ) as Partial<Record<K, CrystalPiecePose>>;
+
+const apagado = render({
+  facetPoses: apagadas<Exclude<FacetIndex, typeof GUIDE_FACET_INDEX>>(
+    CRYSTAL_FIVE_FACET_COUNT,
+    GUIDE_FACET_INDEX,
+  ),
+  inclusionPoses: apagadas<Exclude<InclusionIndex, typeof GUIDE_INCLUSION_INDEX>>(
+    CRYSTAL_FIVE_INCLUSION_COUNT,
+    GUIDE_INCLUSION_INDEX,
+  ),
+  guidePose: pose({ opacity: 0 }),
+  glowOpacity: 0,
+  groundOpacity: 0,
+  edgesOpacity: 0,
 });
 const apagadoNodes = walk(parseSvg(apagado));
 check(
@@ -95,7 +126,11 @@ const layerOpacityOf = (markup: string) => {
   const glow = nodes.find((n) => n.tag === "path" && n.attrs["filter"]?.includes("cp-glow-"));
   const ground = nodes.find((n) => n.tag === "ellipse");
   const edges = nodes.find((n) => n.tag === "g" && n.attrs["fill"] === "none");
-  return { glow: glow?.attrs["opacity"], ground: ground?.attrs["opacity"], edges: edges?.attrs["opacity"] };
+  return {
+    glow: glow?.attrs["opacity"],
+    ground: ground?.attrs["opacity"],
+    edges: edges?.attrs["opacity"],
+  };
 };
 
 const factor1 = layerOpacityOf(vacio);
@@ -112,7 +147,7 @@ check(
   `0.62 * 0.2258064516 = ${conFactores.ground}`,
 );
 
-const excedido = layerOpacityOf(renderMarkup(Crystal, { control: { glowOpacity: 4, groundOpacity: -2, edgesOpacity: 9 } }));
+const excedido = layerOpacityOf(render({ glowOpacity: 4, groundOpacity: -2, edgesOpacity: 9 }));
 check(
   "los factores no pueden superar el original ni bajar de cero",
   Number(excedido.glow) === 0.28 && Number(excedido.ground) === 0 && Number(excedido.edges) === 1,
@@ -127,24 +162,24 @@ const fillOpacities = (markup: string) =>
     .join(",");
 check(
   "el fillOpacity base de los polígonos no cambia con las poses ni con los factores",
-  fillOpacities(vacio) === fillOpacities(cargado) && fillOpacities(vacio) === fillOpacities(apagado),
+  fillOpacities(vacio) === fillOpacities(cargado) &&
+    fillOpacities(vacio) === fillOpacities(apagado),
   fillOpacities(vacio),
 );
 
 // --- constantes exportadas ---------------------------------------------------
-const c = mod as Record<string, any>;
 check(
   "constantes de la coreografía",
-  c["CRYSTAL_FIVE_FACET_COUNT"] === 18 &&
-    c["CRYSTAL_FIVE_INCLUSION_COUNT"] === 7 &&
-    c["GUIDE_FACET_INDEX"] === 15 &&
-    c["GUIDE_INCLUSION_INDEX"] === 6 &&
-    JSON.stringify(c["CRYSTAL_FIVE_T2_ARRIVING_FACETS"]) === "[1,7,10,11,16,17]" &&
-    JSON.stringify(c["CRYSTAL_FIVE_T2_VISIBLE_FACETS"]) === "[1,7,10,11,15,16,17]" &&
-    c["FACETS"][15].points === guideFacetPoints &&
-    c["INCLUSIONS"][6].points === guideInclusionPoints &&
-    c["CRYSTAL_FIVE_EDGE_PATHS"].length === 4,
-  `18/7 piezas, guía 15/6, T2 llegan ${c["CRYSTAL_FIVE_T2_ARRIVING_FACETS"]?.length} y visibles ${c["CRYSTAL_FIVE_T2_VISIBLE_FACETS"]?.length}`,
+  CRYSTAL_FIVE_FACET_COUNT === 18 &&
+    CRYSTAL_FIVE_INCLUSION_COUNT === 7 &&
+    GUIDE_FACET_INDEX === 15 &&
+    GUIDE_INCLUSION_INDEX === 6 &&
+    JSON.stringify(CRYSTAL_FIVE_T2_ARRIVING_FACETS) === "[1,7,10,11,16,17]" &&
+    JSON.stringify(CRYSTAL_FIVE_T2_VISIBLE_FACETS) === "[1,7,10,11,15,16,17]" &&
+    FACETS[GUIDE_FACET_INDEX].points === guideFacetPoints &&
+    INCLUSIONS[GUIDE_INCLUSION_INDEX].points === guideInclusionPoints &&
+    CRYSTAL_FIVE_EDGE_PATHS.length === 4,
+  `18/7 piezas, guía 15/6, T2 llegan ${CRYSTAL_FIVE_T2_ARRIVING_FACETS.length} y visibles ${CRYSTAL_FIVE_T2_VISIBLE_FACETS.length}`,
 );
 
 console.log(`\n${failures === 0 ? "todas" : "faltan"}: ${failures} fallos`);

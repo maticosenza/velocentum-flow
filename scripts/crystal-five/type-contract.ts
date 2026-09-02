@@ -24,7 +24,11 @@ const controlVacio: Props = { control: {} };
 // El fragmento guía se mueve SOLO con guidePose.
 const guiaOk: CrystalFiveControl = { guidePose: CRYSTAL_PIECE_POSE_IDENTITY };
 const facetasNormales: CrystalFiveControl = {
-  facetPoses: { 0: CRYSTAL_PIECE_POSE_IDENTITY, 14: CRYSTAL_PIECE_POSE_IDENTITY, 16: CRYSTAL_PIECE_POSE_IDENTITY },
+  facetPoses: {
+    0: CRYSTAL_PIECE_POSE_IDENTITY,
+    14: CRYSTAL_PIECE_POSE_IDENTITY,
+    16: CRYSTAL_PIECE_POSE_IDENTITY,
+  },
   inclusionPoses: { 0: CRYSTAL_PIECE_POSE_IDENTITY, 5: CRYSTAL_PIECE_POSE_IDENTITY },
 };
 

@@ -23,14 +23,14 @@ bun run scripts/crystal-five/capture-baseline.ts
 
 ## Artefactos
 
-| archivo | qué es |
-| --- | --- |
-| `artifacts/baseline-commit.txt` | el commit al que está anclado el baseline |
-| `artifacts/baseline-dom.html` | `renderToStaticMarkup` del componente de 49fc3dc, sin `control` |
-| `artifacts/baseline-dom.sha256` | `shasum -a 256` del archivo anterior |
-| `artifacts/baseline-geometry.json` | datos visuales canónicos extraídos de ese DOM |
-| `artifacts/baseline-geometry.sha256` | `shasum -a 256` del archivo anterior |
-| `artifacts/visual-fixture.html` | página de captura del baseline: viewport y fondo fijos, sin animaciones |
+| archivo                              | qué es                                                                  |
+| ------------------------------------ | ----------------------------------------------------------------------- |
+| `artifacts/baseline-commit.txt`      | el commit al que está anclado el baseline                               |
+| `artifacts/baseline-dom.html`        | `renderToStaticMarkup` del componente de 49fc3dc, sin `control`         |
+| `artifacts/baseline-dom.sha256`      | `shasum -a 256` del archivo anterior                                    |
+| `artifacts/baseline-geometry.json`   | datos visuales canónicos extraídos de ese DOM                           |
+| `artifacts/baseline-geometry.sha256` | `shasum -a 256` del archivo anterior                                    |
+| `artifacts/visual-fixture.html`      | página de captura del baseline: viewport y fondo fijos, sin animaciones |
 
 `baseline/` y `artifacts/fixture-*.html` son derivados regenerables y no se versionan.
 
