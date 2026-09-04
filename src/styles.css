@@ -1268,19 +1268,54 @@
   gap: 10px;
 }
 
+/* UN ÚNICO NAV. La variante clara de la Sección 08 es una transición de
+   ESTILOS sobre este mismo elemento: misma geometría, misma altura, mismo
+   padding. `--nav-light` va de 0 (tratamiento oscuro) a 1 (variante clara) y lo
+   escribe el nav por frame de scroll, desde useNavLight. */
 @utility nav-fixed {
+  --nav-light: 0;
   background-color: transparent;
   backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
-  transition:
-    background-color 300ms var(--ease-out-soft),
-    backdrop-filter 300ms var(--ease-out-soft);
+  transition: backdrop-filter 300ms var(--ease-out-soft);
 
   &[data-scrolled="true"] {
-    background-color: rgba(14, 14, 19, 0.72);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
   }
+
+  &[data-scrolled="true"] .nav-skins {
+    opacity: 1;
+  }
+}
+
+/* Las dos pieles se cruzan SOLO con opacity. La aparición al scrollear vive en
+   el contenedor y el cruce de tema en cada piel, así que el cruce progresivo no
+   arrastra la transición de 300 ms del contenedor y nunca queda a destiempo del
+   scroll. */
+@utility nav-skins {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 300ms var(--ease-out-soft);
+  pointer-events: none;
+}
+
+@utility nav-skin-dark {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(14, 14, 19, 0.72);
+  opacity: calc(1 - var(--nav-light));
+}
+
+/* Borde inferior muy fino, como inset shadow: un `border` sumaría 1 px de alto
+   y la variante clara debe conservar la geometría exacta del nav aprobado. */
+@utility nav-skin-light {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.78);
+  box-shadow: inset 0 -1px 0 rgba(20, 14, 26, 0.07);
+  opacity: var(--nav-light);
 }
 
 /* Valores del HTML aprobado del Mockup 01:
@@ -1291,7 +1326,7 @@
   font-weight: 800;
   letter-spacing: -0.028em;
   line-height: 1;
-  color: var(--on-dark);
+  color: color-mix(in srgb, var(--ink) calc(var(--nav-light, 0) * 100%), var(--on-dark));
 }
 
 @utility nav-link {
@@ -1300,11 +1335,11 @@
   font-weight: 500;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: var(--on-dark-2);
+  color: color-mix(in srgb, var(--ink-2) calc(var(--nav-light, 0) * 100%), var(--on-dark-2));
   transition: color var(--dur-micro) var(--ease-out-soft);
 
   &:hover {
-    color: var(--on-dark);
+    color: color-mix(in srgb, var(--ink) calc(var(--nav-light, 0) * 100%), var(--on-dark));
   }
 }
 
@@ -1619,35 +1654,89 @@
   }
 }
 
-/* ---------- Clientes ---------- */
+/* ---------- Clientes (Sección 08) ---------- */
 
-/* Light background on purpose — a deliberate change of rhythm after five
-   dark scenes (Hero through Motores/Trabajos). --surface (pure white), not
-   --surface-2 (pink-tinted): the previous pass read as washed-out pink
-   rather than a premium neutral break. */
+/* ÚNICA SECCIÓN CLARA DE LA HOME. --surface, BLANCO PURO, no --surface-2
+   (rosado): ese pase se leía deslavado en vez de como un corte neutro premium.
+   El cambio de fondo es el gesto principal y no hace falta ningún otro: sin
+   objetos, sin piezas, sin atmósferas. */
 @utility clientes-section {
+  position: relative;
+  overflow: hidden;
   background-color: var(--surface);
 }
 
-/* A bordered, elevated card around the logo wall instead of a bare row on
-   the page background — gives the section structure ("prueba de
-   autoridad"), not just a change of backdrop color. */
+/* Mismo lienzo de referencia 1440 × 900 del resto de la HOME, pero con ALTURA
+   DE CONTENIDO: no fuerza 100vh. La altura la pasa la sección desde
+   CLIENTES_CANVAS_HEIGHT, así que el bloque siguiente arranca inmediatamente
+   después del frame. `overflow:hidden` porque el fragmento guía empalma sus
+   tramos FUERA del lienzo. */
+@utility clientes-canvas {
+  --u: min(100vw / 1440, 100svh / 900);
+  position: relative;
+  width: calc(1440 * var(--u));
+  margin-inline: auto;
+  overflow: hidden;
+}
+
+/* Eyebrow en tinta y headline en tinta: la sección clara invierte la paleta de
+   texto de `scene-eyebrow` y `scene-h2`. Van como reglas descendientes y no como
+   utilities sueltas porque el orden entre dos utilities de una sola clase no
+   está garantizado y `scene-h2` ganaba, dejando el headline blanco sobre
+   blanco. */
+.clientes-canvas .clientes-eyebrow {
+  margin-bottom: calc(18 * var(--u));
+  color: var(--ink-2);
+}
+
+.clientes-canvas .clientes-headline {
+  font-size: calc(46 * var(--u));
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-inline: auto;
+}
+
+/* EL FRAME ES UNA CARD, NO UNA FILA DESNUDA: le da al muro de logos estructura
+   de prueba de autoridad. Borde #E1DCE5 y sombra 0 16px 44px rgba(20,14,26,.07):
+   más presencia que el pase anterior (--border y 0 24px 48px rgba(14,14,19,.06)),
+   que sobre blanco puro casi no se percibía. Sin rosa y sin peso de card. */
 @utility clientes-frame {
-  border: 1px solid var(--border);
-  border-radius: var(--radius-28);
+  position: absolute;
+  z-index: 14;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid #e1dce5;
+  border-radius: calc(28 * var(--u));
   background-color: var(--surface);
-  box-shadow: 0 24px 48px rgba(14, 14, 19, 0.06);
-  padding-block: 40px;
+  box-shadow: 0 calc(16 * var(--u)) calc(44 * var(--u)) rgba(20, 14, 26, 0.07);
+  /* Máscara de degradado en ambos extremos, sobre el frame entero como en el
+     mockup aprobado: la card se desvanece con sus logos, no los recorta. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+
+  /* El marquee trae su propia máscara idéntica; encadenarlas duplicaría el
+     degradado. Acá la máscara vive en la card. */
+  & .marquee-viewport {
+    width: 100%;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  /* Con reduced motion el marquee cae a una fila estática y centrada. */
+  & .marquee-static {
+    width: 100%;
+  }
 }
 
 @utility clientes-logo {
-  height: 36px;
+  height: calc(36 * var(--u));
   width: auto;
   object-fit: contain;
-  margin-inline: 28px;
-  /* Kept legible at rest (grayscale .55/opacity .78, not the near-invisible
-     grayscale(1)/opacity .5 the previous pass used) — logos should read
-     clearly without needing a hover to reveal identity. */
+  margin-inline: calc(28 * var(--u));
+  /* Legibles en reposo (grayscale .55 / opacidad .78): los logos tienen que
+     leerse sin necesitar un hover que revele la identidad. */
   filter: grayscale(0.55);
   opacity: 0.78;
   transition:
@@ -1662,15 +1751,24 @@
   }
 }
 
+/* SVG INTACTO: lo único propio de esta sección es la SOMBRA. El drop-shadow
+   negro que usa el fragmento en el resto de la HOME se lee como una mancha
+   sucia sobre blanco. Sombra rosa suave, sin glow. */
+@utility clientes-guide {
+  & .scene-guide-node {
+    filter: drop-shadow(0 calc(10 * var(--u)) calc(20 * var(--u)) rgba(217, 47, 110, 0.28))
+      drop-shadow(0 calc(2 * var(--u)) calc(4 * var(--u)) rgba(217, 47, 110, 0.18));
+  }
+}
+
 @media (max-width: 767px) {
-  .clientes-frame {
-    padding-block: 28px;
-    border-radius: var(--radius-20);
+  .clientes-logo {
+    height: calc(30 * var(--u));
+    margin-inline: calc(20 * var(--u));
   }
 
-  .clientes-logo {
-    height: 30px;
-    margin-inline: 20px;
+  .clientes-frame {
+    border-radius: calc(20 * var(--u));
   }
 }
 

@@ -1,4 +1,18 @@
+import { useRef } from "react";
 import { Marquee } from "@/components/Marquee";
+import { SceneGuideFragment } from "@/components/scene/SceneGuideFragment";
+import { u } from "@/components/scene/sceneUnits";
+import { useNavLightRegion } from "@/hooks/useNavLight";
+import { useReveal } from "@/hooks/useReveal";
+import {
+  CLIENTES_CANVAS_HEIGHT,
+  CLIENTES_COPY,
+  CLIENTES_COPY_BOX,
+  CLIENTES_FRAME,
+  CLIENTES_GUIDE_PATH,
+  CLIENTES_GUIDE_REST,
+  CLIENTES_MARQUEE_DURATION,
+} from "@/components/sections/home/clientesSceneContent";
 
 // These sit in src/assets/logos/ as Lovable asset manifests (*.png.asset.json,
 // uploaded straight to Lovable's CDN rather than checked in as binaries), so
@@ -61,17 +75,56 @@ const CLIENT_LOGOS = [
 const LOGO_WIDTH_PLACEHOLDER = 120;
 const LOGO_HEIGHT = 34;
 
+/**
+ * Sección 08 — Con quiénes trabajamos.
+ *
+ * ÚNICA SECCIÓN CLARA DE LA HOME. El cambio de fondo es el gesto principal y no
+ * hace falta ningún otro: sin objetos, sin piezas, sin atmósferas. Fondo
+ * --surface, BLANCO PURO, no --surface-2: ese pase se leía deslavado en vez de
+ * como un corte neutro premium.
+ *
+ * TRAMO DE DESCANSO. No hay explosión ni reconstrucción: la única pieza del
+ * Crystal 5 en cuadro es el fragmento guía de paso.
+ *
+ * ALTURA DE CONTENIDO, no 100vh: la sección cierra en 612 y el bloque siguiente
+ * arranca inmediatamente después.
+ */
 export function Clientes() {
-  return (
-    <section className="section-v clientes-section">
-      <div className="container-v text-center">
-        <span className="eyebrow text-ink-2">Con quiénes trabajamos</span>
-        <h2 className="display-l mt-4 text-ink">Detrás de cada una hay un plan escrito.</h2>
-      </div>
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const copyRef = useReveal<HTMLDivElement>();
 
-      <div className="container-v mt-16">
-        <div className="clientes-frame">
-          <Marquee duration={42}>
+  // El nav conserva UN ÚNICO COMPONENTE y solo cambia de tema mientras esta
+  // sección lo atraviesa. El cruce es progresivo sobre una franja de ~100 px,
+  // en las dos direcciones.
+  useNavLightRegion(sectionRef);
+
+  return (
+    <section ref={sectionRef} className="clientes-section">
+      <div className="clientes-canvas" style={{ height: u(CLIENTES_CANVAS_HEIGHT) }}>
+        <div
+          ref={copyRef}
+          className="scene-copy scene-copy-center reveal"
+          data-revealed="false"
+          style={{
+            top: u(CLIENTES_COPY_BOX.top),
+            paddingInline: u(CLIENTES_COPY_BOX.paddingInline),
+          }}
+        >
+          <span className="scene-eyebrow clientes-eyebrow">{CLIENTES_COPY.eyebrow}</span>
+          <h2 className="scene-h2 clientes-headline">{CLIENTES_COPY.headline}</h2>
+        </div>
+
+        {/* El frame es una CARD, no una fila desnuda. */}
+        <div
+          className="clientes-frame"
+          style={{
+            left: u(CLIENTES_FRAME.left),
+            top: u(CLIENTES_FRAME.top),
+            width: u(CLIENTES_FRAME.width),
+            height: u(CLIENTES_FRAME.height),
+          }}
+        >
+          <Marquee duration={CLIENTES_MARQUEE_DURATION}>
             {CLIENT_LOGOS.map((logo) => (
               <img
                 key={logo.src}
@@ -84,6 +137,18 @@ export function Clientes() {
               />
             ))}
           </Marquee>
+        </div>
+
+        {/* SVG INTACTO: lo único propio de esta sección es la sombra rosa. El
+            drop-shadow negro del resto de la HOME se lee como una mancha sucia
+            sobre blanco. */}
+        <div className="clientes-guide" aria-hidden="true">
+          <SceneGuideFragment
+            sectionRef={sectionRef}
+            spec={CLIENTES_GUIDE_PATH}
+            restLocal={CLIENTES_GUIDE_REST}
+            zIndex={24}
+          />
         </div>
       </div>
     </section>
