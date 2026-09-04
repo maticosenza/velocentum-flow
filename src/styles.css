@@ -634,6 +634,12 @@
     opacity: var(--pill-opacity, 1);
     transform: none;
   }
+
+  /* Sección 06: sin reflejo. */
+  .scene-module-sheen-band {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 /* ---------- Escenas de la Secuencia A (Secciones 02, 03 y 04) ---------- */
@@ -1028,6 +1034,161 @@
 @utility scene-scale-pulse {
   opacity: 0;
   will-change: opacity;
+}
+
+/* ---- Carrusel de capacidades (Sección 06) ---- */
+
+@utility scene-rail-viewport {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 14;
+}
+
+@utility scene-rail {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+@utility scene-module {
+  position: absolute;
+  top: 0;
+  width: calc(280 * var(--u));
+  height: calc(316 * var(--u));
+  padding: calc(24 * var(--u)) calc(22 * var(--u)) calc(26 * var(--u));
+  border: 1px solid var(--border-dark);
+  border-radius: calc(22 * var(--u));
+  background: rgba(255, 255, 255, 0.024);
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  overflow: hidden;
+}
+
+@utility scene-module-active {
+  background: rgba(255, 75, 141, 0.055);
+  border-color: rgba(255, 75, 141, 0.45);
+}
+
+/* El estado inactivo baja el CONTENIDO, no el módulo: con una opacidad global
+   las facetas más oscuras desaparecían sobre el fondo. */
+@utility scene-module-piece {
+  height: calc(118 * var(--u));
+  flex: 0 0 calc(118 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: calc(12 * var(--u));
+  opacity: 0.8;
+
+  .scene-module-active & {
+    opacity: 1;
+  }
+}
+
+@utility scene-module-piece-svg {
+  max-height: calc(118 * var(--u));
+  max-width: 100%;
+  height: auto;
+  width: auto;
+  filter: drop-shadow(0 calc(8 * var(--u)) calc(18 * var(--u)) rgba(0, 0, 0, 0.55));
+}
+
+@utility scene-module-num {
+  font-family: var(--font-mono);
+  font-size: calc(9.6 * var(--u));
+  letter-spacing: 0.14em;
+  color: var(--pink);
+  opacity: 0.62;
+
+  .scene-module-active & {
+    opacity: 1;
+  }
+}
+
+@utility scene-module-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: calc(18.56 * var(--u));
+  letter-spacing: -0.02em;
+  color: var(--on-dark);
+  margin: auto 0 calc(8 * var(--u));
+  opacity: 0.62;
+
+  .scene-module-active & {
+    opacity: 1;
+  }
+}
+
+@utility scene-module-text {
+  font-family: var(--font-sans);
+  font-size: calc(13.6 * var(--u));
+  line-height: 1.5;
+  color: var(--on-dark-2);
+  opacity: 0.62;
+
+  .scene-module-active & {
+    opacity: 1;
+  }
+}
+
+/* UN SOLO reflejo en toda la sección, recortado al módulo activo. Entra con el
+   módulo, no con el paso del fragmento: son capas narrativas independientes. */
+@utility scene-module-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@utility scene-module-sheen-band {
+  position: absolute;
+  top: calc(-40 * var(--u));
+  bottom: calc(-40 * var(--u));
+  width: calc(110 * var(--u));
+  left: calc(-160 * var(--u));
+  background: linear-gradient(90deg, transparent, #ffffff 45%, var(--pink-soft) 75%, transparent);
+  opacity: 0;
+  transform: skewX(-16deg) translate3d(0, 0, 0);
+  will-change: transform, opacity;
+
+  [data-revealed="true"] & {
+    animation: scene-sheen 1100ms var(--ease-out-soft) 260ms 1 both;
+  }
+}
+
+@keyframes scene-sheen {
+  0% {
+    opacity: 0;
+    transform: skewX(-16deg) translate3d(0, 0, 0);
+  }
+  35% {
+    opacity: 0.18;
+  }
+  100% {
+    opacity: 0;
+    transform: skewX(-16deg) translate3d(calc(460 * var(--u)), 0, 0);
+  }
+}
+
+/* Corte en ambos bordes: la lista continúa fuera de cuadro. */
+@utility scene-rail-fade {
+  position: absolute;
+  z-index: 20;
+  pointer-events: none;
+}
+
+@utility scene-rail-fade-left {
+  left: 0;
+  background: linear-gradient(90deg, var(--ink-deep) 14%, transparent);
+}
+
+@utility scene-rail-fade-right {
+  right: 0;
+  background: linear-gradient(270deg, var(--ink-deep) 14%, transparent);
 }
 
 /* ---------- Brand CTA ---------- */
