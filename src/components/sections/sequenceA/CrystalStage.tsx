@@ -1,32 +1,27 @@
-import { useEffect, useRef, useState, type RefObject } from "react";
-import { CrystalV, CRYSTAL_V_FACET_COUNT } from "@/components/brand/CrystalV";
+import { useCallback, useEffect, useRef, type RefObject } from "react";
+import { CrystalV } from "@/components/brand/CrystalV";
+import { HeroCrystal } from "@/components/hero/HeroCrystal";
 import {
   applyPoses,
+  beatLocalProgress,
   interpolatePoses,
   interpolateScalar,
-  poseTransform,
 } from "@/components/narrative/narrativeMotion";
 import { useNarrativeContext } from "@/components/narrative/NarrativeSequence";
-import { ASSEMBLED, CRYSTAL_KEYFRAMES, EDGE_OPACITY_KEYFRAMES, SCATTER_NARROW } from "./poses";
-
-// Wider/more violent than any scroll-driven pose (3.1x position, 1.6x
-// rotation on top of Hero's own disassembly) — this is a fracture, not a
-// disassembly. Same values the pre-V3 CrystalIntro used.
-const INTRO_FRACTURE = SCATTER_NARROW.map((p) => ({
-  ...p,
-  x: p.x * 3.1,
-  y: p.y * 3.1,
-  rotate: p.rotate * 1.6,
-}));
-
-const INTRO_HOLD_MS = 150;
-const INTRO_STAGGER_MS = 14;
-const INTRO_OUT_MS = 480;
-const INTRO_BACK_MS = 520;
-const INTRO_OUT_SPAN = INTRO_STAGGER_MS * (CRYSTAL_V_FACET_COUNT - 1) + INTRO_OUT_MS;
-const INTRO_TOTAL_MS = INTRO_HOLD_MS + INTRO_OUT_SPAN + INTRO_BACK_MS + 80;
+import { BEATS, CRYSTAL_KEYFRAMES, EDGE_OPACITY_KEYFRAMES } from "./poses";
 
 const CRYSTAL_ASPECT = 180 / 220; // CrystalV's own viewBox height/width
+
+/**
+ * Fundido de entrada del Crystal V legado al arrancar Dolor1. Misma ventana de
+ * 0.06 que usan los beats para su crossfade, pero DESPUÉS del límite del Hero
+ * y no antes: durante toda la ventana del Hero el objeto es el Crystal 5.
+ */
+const LEGACY_FADE_IN = 0.06;
+
+function legacyCrystalVisibility(progress: number): number {
+  return Math.min(Math.max((progress - BEATS.dolor1.start) / LEGACY_FADE_IN, 0), 1);
+}
 
 type Rect = { top: number; left: number; width: number; height: number };
 
@@ -143,65 +138,34 @@ type CrystalStageProps = {
 };
 
 /**
- * The single Crystal V shared by every beat of Sequence A. Mounted once,
- * its twelve facet <g> refs are the same DOM nodes from the moment the
- * page loads (auto-play intro) through Hero, Dolor1, Dolor2 and Reveal —
- * this is the literal implementation of "identidad persistente de
- * shards", not twelve elements re-created per section.
+ * El objeto compartido de la Secuencia A, en dos ramas:
+ *
+ * - Beat Hero (progreso 0 a 0.25): el Crystal 5 aprobado, vía HeroCrystal y la
+ *   API por faceta de CrystalFiveApproved — armado, explosión radial, polvo y
+ *   salida del fragmento guía (Sección 01 del plan).
+ * - Dolor1, Dolor2 y Reveal (0.25 a 1): el Crystal V legado, exactamente con
+ *   las poses, rects y aristas de siempre (poses.ts). Lo único nuevo es que
+ *   queda apagado durante el Hero y se funde al comenzar Dolor1; esas tres
+ *   secciones migran a Crystal 5 cuando les toque, con sus propios mockups.
  *
  * Only ever rendered in "pinned" mode (see SequenceA.tsx) — pinned mode
  * already implies !reducedMotion (useNarrativeMode's contract), so there
  * is no reduced-motion branch to handle here: the static fallback tree
- * (pre-V3 Hero/Dolores/RevealSection) covers that case entirely on its
- * own, with its own already-reduced-motion-safe components.
+ * (Hero/Dolores/RevealSection) covers that case entirely on its own.
  */
 export function CrystalStage({ heroSlotRef, revealSlotRef }: CrystalStageProps) {
   const { subscribe } = useNarrativeContext();
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const facetRefs = useRef<Array<SVGGElement | null>>([]);
   const edgesRef = useRef<SVGGElement | null>(null);
-  const [introDone, setIntroDone] = useState(false);
-  const lastProgressRef = useRef(0);
   const { heroRectRef, revealRectRef, freeRect } = useCrystalRects(heroSlotRef, revealSlotRef);
 
-  useEffect(() => {
-    const timers: Array<ReturnType<typeof setTimeout>> = [];
-
-    timers.push(
-      setTimeout(() => {
-        facetRefs.current.forEach((el, i) => {
-          const target = INTRO_FRACTURE[i];
-          if (!el || !target) return;
-          const stagger = i * INTRO_STAGGER_MS;
-          el.style.transition = `transform ${INTRO_OUT_MS}ms var(--ease-in-out-firm) ${stagger}ms`;
-          el.style.transform = poseTransform(target);
-        });
-      }, INTRO_HOLD_MS),
-    );
-
-    timers.push(
-      setTimeout(() => {
-        facetRefs.current.forEach((el, i) => {
-          const target = ASSEMBLED[i];
-          if (!el || !target) return;
-          const stagger = i * INTRO_STAGGER_MS * 0.6;
-          el.style.transition = `transform ${INTRO_BACK_MS}ms var(--ease-out-soft) ${stagger}ms`;
-          el.style.transform = poseTransform(target);
-        });
-      }, INTRO_HOLD_MS + INTRO_OUT_SPAN),
-    );
-
-    timers.push(
-      setTimeout(() => {
-        facetRefs.current.forEach((el) => {
-          if (el) el.style.transition = "";
-        });
-        setIntroDone(true);
-      }, INTRO_TOTAL_MS),
-    );
-
-    return () => timers.forEach(clearTimeout);
-  }, []);
+  /** HeroCrystal recibe el progreso LOCAL del beat Hero, ya recortado a 0..1. */
+  const subscribeHero = useCallback(
+    (fn: (local: number) => void) =>
+      subscribe((progress) => fn(beatLocalProgress(progress, BEATS.hero.start, BEATS.hero.end))),
+    [subscribe],
+  );
 
   useEffect(() => {
     function applyFromProgress(progress: number) {
@@ -226,37 +190,33 @@ export function CrystalStage({ heroSlotRef, revealSlotRef }: CrystalStageProps) 
         wrapRef.current.style.left = `${(rect.left - (w - rect.width) / 2).toFixed(1)}px`;
         wrapRef.current.style.width = `${w.toFixed(1)}px`;
         wrapRef.current.style.height = `${h.toFixed(1)}px`;
+        wrapRef.current.style.opacity = legacyCrystalVisibility(progress).toFixed(3);
       }
     }
 
-    if (!introDone) return;
-    // Once the auto-play hands off, immediately catch up to wherever
-    // scroll already is (handles the edge case of scrolling during the
-    // ~1.1s intro) instead of waiting for the next scroll event.
-    applyFromProgress(lastProgressRef.current);
-    return subscribe((progress) => {
-      lastProgressRef.current = progress;
-      applyFromProgress(progress);
-    });
-  }, [introDone, subscribe, heroRectRef, revealRectRef, freeRect]);
+    return subscribe(applyFromProgress);
+  }, [subscribe, heroRectRef, revealRectRef, freeRect]);
 
   return (
-    <div
-      ref={wrapRef}
-      className="hero-crystal-wrap pointer-events-none absolute"
-      style={{ top: 0, left: 0, width: 200, height: 200 * CRYSTAL_ASPECT }}
-    >
-      <CrystalV
-        variant="object"
-        className="h-full w-full"
-        facetRef={(el, i) => {
-          facetRefs.current[i] = el;
-        }}
-        edgesRef={(el) => {
-          edgesRef.current = el;
-          if (el) el.style.opacity = "1";
-        }}
-      />
-    </div>
+    <>
+      <HeroCrystal subscribe={subscribeHero} />
+      <div
+        ref={wrapRef}
+        className="hero-crystal-wrap pointer-events-none absolute"
+        style={{ top: 0, left: 0, width: 200, height: 200 * CRYSTAL_ASPECT, opacity: 0 }}
+      >
+        <CrystalV
+          variant="object"
+          className="h-full w-full"
+          facetRef={(el, i) => {
+            facetRefs.current[i] = el;
+          }}
+          edgesRef={(el) => {
+            edgesRef.current = el;
+            if (el) el.style.opacity = "1";
+          }}
+        />
+      </div>
+    </>
   );
 }

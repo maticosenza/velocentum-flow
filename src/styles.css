@@ -328,96 +328,245 @@
   min-height: 100svh;
 }
 
-/* Hero-only headline adaptation, 900px and up: the text column (capped at
-   900-960px from xl onward, see .hero-text-col) is never wide enough for
-   display-xl's own max (6.5rem) to hold "Estamos en el negocio de" on one
-   line — at that scale it wraps into three or four lines instead of the
-   required two. display-xl itself (the global scale) stays untouched; only
-   this Hero-specific override changes. No upper bound: the same tension
-   exists at 1440px+ as it does at 1024px, since the column width barely
-   grows past xl. */
-@media (min-width: 900px) {
-  .hero-headline {
-    font-size: clamp(2.25rem, 4.4vw, 4.75rem);
-  }
-}
+/* ---------- Hero · Sección 01 (Mockup 01 aprobado) ---------- */
 
-/* Small physical objects of the material system, not flat tags: a real
-   capsule (radius-full, not the old 14px squircle), an inner top highlight
-   (::before) standing in for a glass sheen, and a thin diagonal facet
-   reflection (::after) — kept subtle so it reads as a cut edge, not a
-   glare. The fall uses a single restrained overshoot (control point 1.08,
-   not the old 1.3) over a slightly longer duration: weight, then settle,
-   never a cartoon bounce. */
-@utility hero-pill {
+/* Lienzo de referencia 1440 × 900. `--u` es UN píxel de referencia: a
+   1440 × 900 vale exactamente 1px y por encima escala en proporción. Se toma
+   el mínimo de los dos ejes para que la composición completa entre siempre en
+   el viewport sin recortar el stage. Ninguna posición del Hero es absoluta ni
+   depende de breakpoints propios: todo son múltiplos de --u leídos del plan. */
+@utility hero-canvas {
+  --u: min(100vw / 1440, 100svh / 900);
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 52px;
-  padding-inline: 22px;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(255, 255, 255, 0.38);
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 0.66rem;
-  text-transform: uppercase;
-  letter-spacing: 1.3px;
-  white-space: nowrap;
+  width: calc(1440 * var(--u));
+  height: calc(900 * var(--u));
+}
+
+/* Modo pinned: overlay centrado en el viewport sticky, alineado arriba para
+   conservar la relación nav → copy del mockup. Sin transform, para no crear
+   stacking context: las capas de píldoras (10), Crystal 5 (20) y copy (30)
+   tienen que intercalarse aunque vivan en subárboles distintos. */
+@utility hero-canvas-overlay {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 720 * var(--u));
+}
+
+@utility hero-canvas-static {
+  margin-inline: auto;
+}
+
+@utility hero-static {
+  position: relative;
   overflow: hidden;
-  isolation: isolate;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.55),
-    inset 0 -10px 14px rgba(0, 0, 0, 0.16);
-  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.4));
+  background-color: var(--ink-deep);
+}
+
+/* ---- Píldoras: tres planos de profundidad ---- */
+
+@utility hero-pills {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* El slot recibe el parallax por scroll (transform imperativo); la entrada
+   vive en .hero-pill, el hijo, para que las dos transiciones no compitan. */
+@utility hero-pill-slot {
+  position: absolute;
+  will-change: transform;
+}
+
+@utility hero-pill {
   opacity: 0;
-  transform: translateY(-140px) rotate(-8deg);
+  transform: translate3d(0, calc(18 * var(--u)), 0);
   transition:
-    transform 950ms cubic-bezier(0.2, 1.08, 0.34, 1),
-    opacity 950ms cubic-bezier(0.2, 1.08, 0.34, 1);
+    opacity 900ms var(--ease-out-soft),
+    transform 900ms var(--ease-out-soft);
+  will-change: opacity, transform;
+
+  &[data-revealed="true"] {
+    opacity: var(--pill-opacity, 1);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Plano lejano: blur 2.5 px + opacidad .32, aprobado como presencia
+   ambiental aunque su texto no sea del todo legible. No se toca. */
+@utility hero-pill-far {
+  --pill-opacity: 0.32;
+  filter: blur(calc(2.5 * var(--u)));
+}
+
+@utility hero-pill-mid {
+  --pill-opacity: 0.6;
+}
+
+@utility hero-pill-near {
+  --pill-opacity: 0.9;
+}
+
+@utility hero-pill-body {
+  position: relative;
+  width: 100%;
+}
+
+@utility hero-pill-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Etiqueta en HTML, Manrope 700, sobre la geometría oficial del SVG. left y
+   font-size los fija el componente en proporción al ancho de la píldora
+   (x=72/300, 18/72 del asset). */
+@utility hero-pill-label {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+/* ---- Stage del Crystal 5: y=470, 500 px, centrado en x=720 ---- */
+
+@utility hero-stage {
+  position: absolute;
+  left: calc(470 * var(--u));
+  top: calc(470 * var(--u));
+  width: calc(500 * var(--u));
+  aspect-ratio: 240 / 184;
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* Estado A — entrada contenida: sin overshoot, sin glow extra. */
+@utility hero-stage-enter {
+  opacity: 0;
+  transform: translate3d(0, calc(14 * var(--u)), 0) scale(0.97);
+  transition:
+    opacity 1100ms var(--ease-out-soft),
+    transform 1100ms var(--ease-out-soft);
+  will-change: opacity, transform;
+
+  &[data-revealed="true"] {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@utility hero-stage-breath {
+  will-change: transform;
+}
+
+/* Estado A — respiración mínima. Sólo transform, sólo mientras el objeto está
+   armado (HeroCrystal quita la clase cuando arranca la explosión). */
+@utility hero-stage-breathing {
+  animation: hero-breath 7s ease-in-out infinite;
+}
+
+@keyframes hero-breath {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, calc(-3 * var(--u)), 0) scale(1.006);
+  }
+}
+
+/* overflow visible: las piezas salen del viewBox al explotar. */
+@utility hero-crystal-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+@utility hero-crystal-layer {
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* Estado C — polvo: una capa SVG liviana con el mismo lienzo (viewBox
+   1440 × 900), sin filtros. */
+@utility hero-dust {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+@utility hero-dust-mote {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
   will-change: transform, opacity;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: radial-gradient(
-      120% 80% at 50% -10%,
-      rgba(255, 255, 255, 0.55),
-      transparent 60%
-    );
-    pointer-events: none;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: -60%;
-    left: 14%;
-    width: 22%;
-    height: 220%;
-    background: rgba(255, 255, 255, 0.4);
-    transform: rotate(18deg);
-    filter: blur(1px);
-    pointer-events: none;
-  }
 }
 
-@utility hero-pill-rosa {
-  background:
-    linear-gradient(160deg, #ffa9c8 0%, #ff4b8d 52%, #c72862 100%);
-  color: #ffffff;
+/* ---- Copy: arranca en y=128, cierra en y≈456 ---- */
+
+@utility hero-copy {
+  position: absolute;
+  top: calc(128 * var(--u));
+  left: 0;
+  right: 0;
+  z-index: 30;
+  padding-inline: calc(72 * var(--u));
+  text-align: center;
 }
 
-@utility hero-pill-blanca {
-  background: linear-gradient(160deg, #ffffff 0%, #fff0f6 55%, #ffc0d8 100%);
-  color: var(--ink);
+/* Geist Mono 500, 0.7rem (11.2 px), .22em, uppercase, --pink. */
+@utility hero-eyebrow {
+  display: block;
+  margin-bottom: calc(20 * var(--u));
+  font-family: var(--font-mono);
+  font-size: calc(11.2 * var(--u));
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--pink);
 }
 
-@utility hero-pill-deep {
-  background: linear-gradient(160deg, #eb6f9c 0%, #d92f6e 50%, #7c1638 100%);
-  color: #ffffff;
+/* Manrope 800, 72 px, line-height 1, -.035em, medida máxima 1050 px. */
+@utility hero-h1 {
+  max-width: calc(1050 * var(--u));
+  margin-inline: auto;
+  font-family: var(--font-display);
+  font-size: calc(72 * var(--u));
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--on-dark);
+}
+
+@utility hero-h1-accent {
+  color: var(--pink);
+}
+
+/* Manrope 400, 1.02rem (16.32 px), line-height 1.5, 54ch, --on-dark-2. */
+@utility hero-sub {
+  max-width: 54ch;
+  margin: calc(24 * var(--u)) auto 0;
+  font-family: var(--font-sans);
+  font-size: calc(16.32 * var(--u));
+  line-height: 1.5;
+  color: var(--on-dark-2);
+}
+
+@utility hero-ctas {
+  display: flex;
+  justify-content: center;
+  gap: calc(14 * var(--u));
+  margin-top: calc(30 * var(--u));
 }
 
 /* A soft self-shadow on the object itself (not a background glow — that
@@ -460,6 +609,22 @@
   }
 
   .marquee-track {
+    animation: none;
+  }
+
+  /* Hero: sin explosión ni trayectoria (el modo pinned nunca se monta con
+     reduced motion). El estado final de píldoras y stage no depende de JS. */
+  .hero-pill {
+    opacity: var(--pill-opacity, 1);
+    transform: none;
+  }
+
+  .hero-stage-enter {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-stage-breathing {
     animation: none;
   }
 }
