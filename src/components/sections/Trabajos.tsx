@@ -3,6 +3,19 @@ import MuxPlayer from "@mux/mux-player-react";
 import type MuxPlayerElement from "@mux/mux-player";
 import { Marquee } from "@/components/Marquee";
 import { BrandCTA } from "@/components/brand/BrandCTA";
+import { SceneGuideFragment } from "@/components/scene/SceneGuideFragment";
+import { u } from "@/components/scene/sceneUnits";
+import { useReveal } from "@/hooks/useReveal";
+import {
+  TRABAJOS_COPY,
+  TRABAJOS_COPY_BOX,
+  TRABAJOS_CTA_TOP,
+  TRABAJOS_GUIDE_OPACITY,
+  TRABAJOS_GUIDE_PATH,
+  TRABAJOS_GUIDE_REST,
+  TRABAJOS_MARQUEE_TOP,
+  TRABAJOS_TRACK,
+} from "@/components/sections/home/trabajosSceneContent";
 
 type Trabajo = {
   playbackId: string;
@@ -228,6 +241,8 @@ function VideoCard({
         />
       )}
 
+      <span className="trabajos-video-scrim" aria-hidden="true" />
+
       <div className="trabajos-video-overlay">
         <p className="trabajos-video-categoria">{trabajo.categoria}</p>
         <p className="trabajos-video-accion">{trabajo.accion}</p>
@@ -305,14 +320,19 @@ export function Trabajos() {
   const [modalTrabajo, setModalTrabajo] = useState<Trabajo | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
 
+  const sectionRef = useRef<HTMLElement | null>(null);
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const activePlayerRef = useRef<MuxPlayerElement | null>(null);
   const cardElsRef = useRef(new Map<string, HTMLElement>());
   const dragRef = useRef({ isDown: false, moved: false });
   const lastTriggerRef = useRef<HTMLElement | null>(null);
+  const copyRef = useReveal<HTMLDivElement>();
 
   useEffect(() => {
     setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    // Arranca cortado por el borde izquierdo, como el mockup, sin dejar
+    // contenido inalcanzable: el track sigue siendo arrastrable.
+    if (viewportRef.current) viewportRef.current.scrollLeft = 64;
   }, []);
 
   // Auto-pause the previewing card if it scrolls out of view without a
@@ -389,60 +409,111 @@ export function Trabajos() {
   }
 
   return (
-    <section className="section-v">
-      <div className="container-v text-center">
-        <span className="eyebrow text-on-dark-2">Trabajos</span>
-        <h2 className="display-l mx-auto mt-4 text-on-dark">
-          Trabajo real,
-          <br />
-          pensado para hacer crecer marcas.
-        </h2>
-        <div className="mt-8">
+    <section ref={sectionRef} className="scene-static" id="trabajos">
+      <div className="scene-canvas scene-canvas-static">
+        <div
+          ref={copyRef}
+          className="scene-copy scene-copy-center reveal"
+          data-revealed="false"
+          style={{
+            top: u(TRABAJOS_COPY_BOX.top),
+            paddingInline: u(TRABAJOS_COPY_BOX.paddingInline),
+          }}
+        >
+          {/* En gris, no en rosa: acá el sistema gráfico baja su intensidad. */}
+          <span className="scene-eyebrow trabajos-eyebrow">{TRABAJOS_COPY.eyebrow}</span>
+          <h2 className="scene-h2 trabajos-headline">
+            {TRABAJOS_COPY.headlineLine1}
+            <br />
+            {TRABAJOS_COPY.headlineLine2}
+          </h2>
+        </div>
+
+        {/* El fragmento guía vive SÓLO en la franja exterior superior. Refleja
+            brevemente que hay contenido activo, sin cambiar su propia paleta. */}
+        <div
+          className="trabajos-guide"
+          data-active={previewId ? "true" : "false"}
+          aria-hidden="true"
+        >
+          <SceneGuideFragment
+            sectionRef={sectionRef}
+            spec={TRABAJOS_GUIDE_PATH}
+            restLocal={TRABAJOS_GUIDE_REST}
+            opacity={TRABAJOS_GUIDE_OPACITY}
+            zIndex={24}
+          />
+        </div>
+
+        <div
+          ref={viewportRef}
+          className="trabajos-track-viewport"
+          onMouseDown={handleMouseDown}
+          style={{ top: u(TRABAJOS_TRACK.top), height: u(TRABAJOS_TRACK.height) }}
+        >
+          <div className="trabajos-track">
+            {CAROUSEL_ITEMS.map((item) =>
+              item.kind === "video" ? (
+                <VideoCard
+                  key={item.trabajo.playbackId}
+                  trabajo={item.trabajo}
+                  isPreviewing={previewId === item.trabajo.playbackId}
+                  reducedMotion={reducedMotion}
+                  onHoverStart={() => handleHoverStart(item.trabajo.playbackId)}
+                  onHoverEnd={() => handleHoverEnd(item.trabajo.playbackId)}
+                  onOpen={(trigger) => openModal(item.trabajo, trigger)}
+                  cardRef={(el) => {
+                    if (el) cardElsRef.current.set(item.trabajo.playbackId, el);
+                    else cardElsRef.current.delete(item.trabajo.playbackId);
+                  }}
+                  playerRef={(el) => {
+                    activePlayerRef.current = el;
+                  }}
+                />
+              ) : (
+                <TextCard key={item.text.titulo} content={item.text} />
+              ),
+            )}
+          </div>
+        </div>
+
+        <div
+          className="trabajos-fade trabajos-fade-left"
+          style={{
+            top: u(TRABAJOS_TRACK.fadeTop),
+            height: u(TRABAJOS_TRACK.fadeHeight),
+            width: u(TRABAJOS_TRACK.fade),
+          }}
+          aria-hidden="true"
+        />
+        <div
+          className="trabajos-fade trabajos-fade-right"
+          style={{
+            top: u(TRABAJOS_TRACK.fadeTop),
+            height: u(TRABAJOS_TRACK.fadeHeight),
+            width: u(TRABAJOS_TRACK.fade),
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Las herramientas son EVIDENCIA, no categorías. */}
+        <div className="trabajos-marquee" style={{ top: u(TRABAJOS_MARQUEE_TOP) }}>
+          <Marquee duration={30} reverse>
+            {TAGS.map((tag) => (
+              <span key={tag} className="trabajos-tag">
+                {tag}
+              </span>
+            ))}
+          </Marquee>
+        </div>
+
+        {/* Variante outline, en HTML/CSS: el SVG maestro lleva su texto embebido
+            y caería a Arial si la fuente no carga. */}
+        <div className="trabajos-cta" style={{ top: u(TRABAJOS_CTA_TOP) }}>
           <BrandCTA to="/casos" variant="outline">
-            Ver casos
+            {TRABAJOS_COPY.cta}
           </BrandCTA>
         </div>
-      </div>
-
-      <div
-        ref={viewportRef}
-        className="trabajos-track-viewport mt-16"
-        onMouseDown={handleMouseDown}
-      >
-        <div className="trabajos-track">
-          {CAROUSEL_ITEMS.map((item) =>
-            item.kind === "video" ? (
-              <VideoCard
-                key={item.trabajo.playbackId}
-                trabajo={item.trabajo}
-                isPreviewing={previewId === item.trabajo.playbackId}
-                reducedMotion={reducedMotion}
-                onHoverStart={() => handleHoverStart(item.trabajo.playbackId)}
-                onHoverEnd={() => handleHoverEnd(item.trabajo.playbackId)}
-                onOpen={(trigger) => openModal(item.trabajo, trigger)}
-                cardRef={(el) => {
-                  if (el) cardElsRef.current.set(item.trabajo.playbackId, el);
-                  else cardElsRef.current.delete(item.trabajo.playbackId);
-                }}
-                playerRef={(el) => {
-                  activePlayerRef.current = el;
-                }}
-              />
-            ) : (
-              <TextCard key={item.text.titulo} content={item.text} />
-            ),
-          )}
-        </div>
-      </div>
-
-      <div className="mt-10">
-        <Marquee duration={30} reverse>
-          {TAGS.map((tag) => (
-            <span key={tag} className="trabajos-tag">
-              {tag}
-            </span>
-          ))}
-        </Marquee>
       </div>
 
       {modalTrabajo && <TrabajosModal trabajo={modalTrabajo} onClose={closeModal} />}

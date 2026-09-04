@@ -1674,12 +1674,30 @@
   }
 }
 
-/* ---------- Trabajos ---------- */
+/* ---------- Trabajos (Sección 07) ---------- */
+/* El sistema gráfico baja su intensidad: fondo liso, sin glow, sin objetos.
+   Los videos son el diseño. El único rosa vive en las cards de texto y el CTA. */
+
+/* Headline 44 px en dos líneas, y el eyebrow en gris. */
+@utility trabajos-headline {
+  font-size: calc(44 * var(--u));
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  margin-inline: auto;
+}
+
+@utility trabajos-eyebrow {
+  margin-bottom: calc(16 * var(--u));
+  color: var(--on-dark-2);
+}
 
 @utility trabajos-track-viewport {
-  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 14;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  overflow-y: hidden;
   cursor: grab;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -1689,34 +1707,30 @@
   }
 
   &[data-dragging="true"] {
-    scroll-snap-type: none;
     cursor: grabbing;
   }
 }
 
 @utility trabajos-track {
   display: flex;
-  gap: 20px;
-  padding-inline: clamp(20px, 5vw, 80px);
+  gap: calc(20 * var(--u));
+  height: 100%;
+  width: max-content;
 }
 
-/* Border is an extremely subtle pink hairline (not the heavy pink frame
-   the spec explicitly rules out) — consistent with the same treatment on
-   Motores/Servicios instead of the old neutral --border-dark. */
 @utility trabajos-video-card {
   position: relative;
-  flex: 0 0 260px;
-  aspect-ratio: 9 / 16;
+  flex: 0 0 calc(200 * var(--u));
+  height: 100%;
   overflow: hidden;
-  border-radius: var(--radius-20);
-  border: 1px solid rgba(255, 75, 141, 0.14);
+  border-radius: calc(16 * var(--u));
+  border: 1px solid var(--border-dark);
   background-color: var(--ink-deep-2);
   cursor: pointer;
-  scroll-snap-align: start;
   transition: border-color var(--dur-section) var(--ease-out-soft);
 
   &:hover {
-    border-color: rgba(255, 75, 141, 0.4);
+    border-color: rgba(255, 255, 255, 0.28);
   }
 }
 
@@ -1731,23 +1745,31 @@
 
 @utility trabajos-video-overlay {
   position: absolute;
-  inset-inline: 0;
-  bottom: 0;
-  padding: 16px;
-  background: linear-gradient(to bottom, transparent 45%, rgba(14, 14, 19, 0.9));
+  inset-inline: calc(16 * var(--u));
+  bottom: calc(15 * var(--u));
+  z-index: 2;
+}
+
+@utility trabajos-video-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(transparent 48%, rgba(14, 14, 19, 0.92));
+  pointer-events: none;
 }
 
 @utility trabajos-video-categoria {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1rem;
+  font-weight: 800;
+  font-size: calc(15.68 * var(--u));
+  letter-spacing: -0.01em;
   color: var(--on-dark);
 }
 
 @utility trabajos-video-accion {
-  margin-top: 4px;
+  margin-top: calc(3 * var(--u));
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: calc(9.6 * var(--u));
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--on-dark-2);
@@ -1755,73 +1777,117 @@
 
 @utility trabajos-play-button {
   position: absolute;
-  top: 50%;
+  top: 46%;
   left: 50%;
+  z-index: 2;
   transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 54px;
-  height: 54px;
+  width: calc(46 * var(--u));
+  height: calc(46 * var(--u));
   border-radius: var(--radius-full);
   background-color: rgba(14, 14, 19, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 @utility trabajos-text-card {
   position: relative;
-  flex: 0 0 330px;
-  aspect-ratio: 9 / 13;
+  flex: 0 0 calc(268 * var(--u));
+  height: 100%;
   display: flex;
-  align-items: center;
-  border-radius: var(--radius-20);
-  background-color: var(--ink-deep-2);
+  flex-direction: column;
+  justify-content: center;
+  border-radius: calc(16 * var(--u));
+  background-color: rgba(255, 255, 255, 0.026);
   border: 1px solid var(--border-dark);
-  padding: 30px;
-  scroll-snap-align: start;
+  padding: calc(26 * var(--u));
 }
 
-/* Deliberately quieter than a video card's own on-hover label: these are
-   breathers between clips, not content competing with the videos for
-   attention. */
 @utility trabajos-text-title {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--on-dark-2);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: calc(19.2 * var(--u));
+  letter-spacing: -0.02em;
+  color: var(--pink);
+  margin-bottom: calc(10 * var(--u));
 }
 
 @utility trabajos-text-body {
-  margin-top: 14px;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 1.05rem;
-  line-height: 1.4;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: calc(14.72 * var(--u));
+  line-height: 1.45;
   color: var(--on-dark);
 }
 
 @utility trabajos-text-isotype {
   position: absolute;
-  right: 20px;
-  bottom: 20px;
+  right: calc(24 * var(--u));
+  bottom: calc(24 * var(--u));
+}
+
+/* Corte en ambos bordes: siempre se lee que hay más material del que entra. */
+@utility trabajos-fade {
+  position: absolute;
+  z-index: 20;
+  pointer-events: none;
+}
+
+@utility trabajos-fade-left {
+  left: 0;
+  background: linear-gradient(90deg, var(--ink-deep) 16%, transparent);
+}
+
+@utility trabajos-fade-right {
+  right: 0;
+  background: linear-gradient(270deg, var(--ink-deep) 16%, transparent);
+}
+
+@utility trabajos-marquee {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 12;
 }
 
 @utility trabajos-tag {
   display: inline-flex;
   align-items: center;
-  margin-inline: 10px;
-  padding: 9px 18px;
+  margin-inline: calc(5 * var(--u));
+  padding: calc(8 * var(--u)) calc(16 * var(--u));
   border: 1px solid var(--border-dark);
   border-radius: var(--radius-full);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: calc(10.24 * var(--u));
   letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--on-dark-2);
+  white-space: nowrap;
+}
+
+@utility trabajos-cta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 22;
+  display: flex;
+  justify-content: center;
+}
+
+/* Reflejo breve del contenido activo. Sube la luz propia del fragmento; NO
+   cambia su paleta rosa y grafito ni lo vincula a ninguna card en particular. */
+@utility trabajos-guide {
+  & .scene-guide-node {
+    transition: filter 420ms var(--ease-out-soft);
+  }
+
+  &[data-active="true"] .scene-guide-node {
+    filter: drop-shadow(0 calc(8 * var(--u)) calc(18 * var(--u)) rgba(0, 0, 0, 0.5))
+      drop-shadow(0 0 calc(10 * var(--u)) rgba(255, 133, 184, 0.55));
+  }
 }
 
 @utility trabajos-modal-backdrop {
@@ -1848,12 +1914,6 @@
   font-size: 2rem;
   line-height: 1;
   color: var(--on-dark);
-}
-
-@media (max-width: 899px) {
-  .trabajos-video-card {
-    flex: 0 0 200px;
-  }
 }
 
 /* ---------- Contacto ---------- */
