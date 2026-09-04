@@ -13,6 +13,19 @@
 // CENTRO del fragmento.
 
 import { beatLocalProgress } from "@/components/narrative/narrativeMotion";
+import {
+  easeInCubic,
+  easeInOutCubic,
+  easeInOutSine,
+  easeOutCubic,
+  pointAtS,
+  rotationAtS,
+  sAtLocal,
+  type Cubic,
+  type Point,
+  type RotationStop,
+  type TimingStop,
+} from "@/components/scene/scenePath";
 import { guideFragmentHeight } from "@/components/brand/guideFragmentGeometry";
 import { SCENE_CANVAS } from "@/components/scene/sceneUnits";
 import { BEATS, type BeatWindow } from "./poses";
@@ -20,14 +33,7 @@ import { PROBLEMA_UNO_GUIDE_POSE } from "./problemaUnoContent";
 import { PROBLEMA_DOS_GUIDE_POSE } from "./problemaDosContent";
 import { MISMO_OBJETIVO_GUIDE_BOX, MISMO_OBJETIVO_GUIDE_ROTATION } from "./mismoObjetivoContent";
 
-export type Point = { x: number; y: number };
-
-type Cubic = { from: Point; c1: Point; c2: Point; to: Point; sFrom: number; sTo: number };
-
-type Easing = (t: number) => number;
-
-/** Tramo de la línea de tiempo: progreso local → parámetro `s` del recorrido. */
-type TimingStop = { from: number; to: number; sFrom: number; sTo: number; ease: Easing };
+export type { Point } from "@/components/scene/scenePath";
 
 type SceneGuide = {
   beat: BeatWindow;
@@ -36,64 +42,8 @@ type SceneGuide = {
   path: Cubic[];
   timing: TimingStop[];
   /** Rotación en grados, por tramos sobre `s`. */
-  rotation: Array<{ s: number; deg: number }>;
+  rotation: RotationStop[];
 };
-
-const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
-const easeOutCubic: Easing = (t) => 1 - Math.pow(1 - t, 3);
-const easeInCubic: Easing = (t) => t * t * t;
-const easeInOutCubic: Easing = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-const easeInOutSine: Easing = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
-
-function window01(p: number, start: number, end: number): number {
-  return clamp01((p - start) / (end - start));
-}
-
-function cubicAt(segment: Cubic, t: number): Point {
-  const q = 1 - t;
-  const { from, c1, c2, to } = segment;
-  return {
-    x: q * q * q * from.x + 3 * q * q * t * c1.x + 3 * q * t * t * c2.x + t * t * t * to.x,
-    y: q * q * q * from.y + 3 * q * q * t * c1.y + 3 * q * t * t * c2.y + t * t * t * to.y,
-  };
-}
-
-function pointAtS(path: Cubic[], s: number): Point {
-  const clamped = clamp01(s);
-  for (const segment of path) {
-    if (clamped <= segment.sTo || segment === path[path.length - 1]) {
-      const span = segment.sTo - segment.sFrom || 1;
-      return cubicAt(segment, clamp01((clamped - segment.sFrom) / span));
-    }
-  }
-  const last = path[path.length - 1];
-  return last ? last.to : { x: 0, y: 0 };
-}
-
-function sAtLocal(timing: TimingStop[], local: number): number {
-  for (const stop of timing) {
-    if (local <= stop.to || stop === timing[timing.length - 1]) {
-      const t = window01(local, stop.from, stop.to);
-      return stop.sFrom + (stop.sTo - stop.sFrom) * stop.ease(t);
-    }
-  }
-  return 0;
-}
-
-function rotationAtS(stops: Array<{ s: number; deg: number }>, s: number): number {
-  const clamped = clamp01(s);
-  for (let index = 0; index < stops.length - 1; index += 1) {
-    const a = stops[index];
-    const b = stops[index + 1];
-    if (!a || !b) break;
-    if (clamped <= b.s || index === stops.length - 2) {
-      const span = b.s - a.s || 1;
-      const t = clamp01((clamped - a.s) / span);
-      return a.deg + (b.deg - a.deg) * t;
-    }
-  }
-  return stops[0]?.deg ?? 0;
-}
 
 // ---------------------------------------------------------------------------
 // Sección 02 — El problema

@@ -911,6 +911,125 @@
   color: var(--on-dark-2);
 }
 
+/* ---------- Secciones de módulos (05, 06 y 07) ---------- */
+/* Scroll normal, no pin: cada una es una sección independiente sobre el mismo
+   lienzo de referencia 1440 × 900. */
+
+@utility scene-guide-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ---- Copy de sección de módulos ---- */
+
+/* Headline 48 px: acá el protagonista son las cards, no el copy. */
+@utility scene-h2-module {
+  font-size: calc(48 * var(--u));
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-inline: auto;
+}
+
+@utility scene-eyebrow-tight {
+  margin-bottom: calc(20 * var(--u));
+}
+
+@utility scene-sub-tight {
+  margin-top: calc(20 * var(--u));
+  font-size: calc(16 * var(--u));
+  line-height: 1.5;
+}
+
+/* ---- Cards de motor (Sección 05) ---- */
+
+@utility scene-card {
+  position: absolute;
+  z-index: 14;
+  width: calc(306 * var(--u));
+  height: calc(340 * var(--u));
+  padding: calc(26 * var(--u)) calc(26 * var(--u)) calc(30 * var(--u));
+  border: 1px solid var(--border-dark);
+  border-radius: calc(24 * var(--u));
+  background: rgba(255, 255, 255, 0.028);
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+/* Alto fijo: es lo que, junto con el espacio flexible de abajo, mantiene los
+   cuatro títulos alineados aunque los objetos tengan proporciones distintas. */
+@utility scene-card-object {
+  height: calc(118 * var(--u));
+  flex: 0 0 calc(118 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: calc(14 * var(--u));
+}
+
+@utility scene-card-object-svg {
+  max-height: calc(118 * var(--u));
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+
+/* El Prisma se limita por altura, SIN recortar su viewBox 520 × 260. */
+@utility scene-card-object-wide {
+  max-height: calc(92 * var(--u));
+}
+
+@utility scene-card-num {
+  font-family: var(--font-mono);
+  font-size: calc(9.92 * var(--u));
+  letter-spacing: 0.14em;
+  color: var(--pink);
+  opacity: 0.75;
+}
+
+/* `margin-top: auto` es el ESPACIO FLEXIBLE: sin él, el Prisma desalinea su card. */
+@utility scene-card-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: calc(21.12 * var(--u));
+  letter-spacing: -0.02em;
+  color: var(--on-dark);
+  margin: auto 0 calc(10 * var(--u));
+}
+
+@utility scene-card-text {
+  font-family: var(--font-sans);
+  font-size: calc(14.4 * var(--u));
+  line-height: 1.5;
+  color: var(--on-dark-2);
+}
+
+/* ---- Escala de medición (Sección 05) ---- */
+
+@utility scene-scale {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 18;
+  pointer-events: none;
+}
+
+@utility scene-scale-legend {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  fill: var(--pink);
+  fill-opacity: 0.7;
+}
+
+/* El haz de activación arranca apagado y sólo sube por progreso de scroll. */
+@utility scene-scale-pulse {
+  opacity: 0;
+  will-change: opacity;
+}
+
 /* ---------- Brand CTA ---------- */
 /* Geometría vigente del sistema CTA: radio 999, fondo --pink y texto --ink
    (6.09:1 de contraste). Los SVG maestros de official/cta/, con su radio

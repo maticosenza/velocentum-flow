@@ -4,38 +4,26 @@
 // componente (regla react-refresh/only-export-components) y para que la
 // coreografía pueda importar las medidas sin arrastrar JSX.
 //
-// Nada de esto se copia del asset: sale de las constantes que
-// `CrystalFiveApproved` exporta, y las caras internas se derivan con la misma
-// regla que aplica `CrystalFiveFragmentsApproved`. Lo verifica
-// `scripts/crystal-five/verify-guide-fragment.ts`.
+// La construcción volumétrica es la genérica de `facetPieceGeometry.ts`, la
+// misma que usan las piezas de capacidad de la Sección 06. Lo único propio del
+// fragmento guía es la inclusión adherida y su encuadre, que es el de los
+// mockups aprobados 02 a 07.
 
-import {
-  FACETS,
-  GUIDE_FACET_INDEX,
-  GUIDE_INCLUSION_INDEX,
-  INCLUSIONS,
-} from "./CrystalFiveApproved";
+import { GUIDE_FACET_INDEX, GUIDE_INCLUSION_INDEX, INCLUSIONS } from "./CrystalFiveApproved";
+import { facetPieceGeometry, type Point } from "./facetPieceGeometry";
 
-export type Point = [number, number];
+export type { Point };
 
-function parsePoints(points: string): Point[] {
-  const values = points.split(/[ ,]+/).map(Number);
-  const out: Point[] = [];
-  for (let index = 0; index + 1 < values.length; index += 2) {
-    out.push([values[index] ?? 0, values[index + 1] ?? 0]);
-  }
-  return out;
-}
+const GUIDE_GEOMETRY = facetPieceGeometry(GUIDE_FACET_INDEX);
 
-function centroidOf(vertices: Point[]): Point {
-  const sum = vertices.reduce<Point>((acc, v) => [acc[0] + v[0], acc[1] + v[1]], [0, 0]);
-  return [sum[0] / vertices.length, sum[1] / vertices.length];
-}
-
-export const GUIDE_FACET = FACETS[GUIDE_FACET_INDEX];
+export const GUIDE_FACET = {
+  points: GUIDE_GEOMETRY.points,
+  material: GUIDE_GEOMETRY.material,
+  opacity: GUIDE_GEOMETRY.opacity,
+};
 export const GUIDE_INCLUSION = INCLUSIONS[GUIDE_INCLUSION_INDEX];
-export const GUIDE_VERTICES = parsePoints(GUIDE_FACET.points);
-export const GUIDE_CENTROID = centroidOf(GUIDE_VERTICES);
+export const GUIDE_VERTICES = GUIDE_GEOMETRY.vertices;
+export const GUIDE_CENTROID = GUIDE_GEOMETRY.centroid;
 
 /**
  * El vértice más agudo de FACETS[15]: 37.7° de ángulo interno, contra 136.4°
@@ -55,23 +43,11 @@ export function guideFragmentHeight(width: number): number {
   return (width * GUIDE_FRAGMENT_VIEWBOX.height) / GUIDE_FRAGMENT_VIEWBOX.width;
 }
 
-// Misma regla de materiales que CrystalFiveFragmentsApproved aplica a la faceta
-// de índice 15: alternancia LIGHT / GRAPHITE / HOT / DEEP y opacidad escalonada.
-const FACE_MATERIALS = ["light", "graphite", "hot", "deep"] as const;
-
 /** Las cuatro caras internas, trianguladas desde el centroide hacia cada arista. */
-export const GUIDE_INNER_FACES = GUIDE_VERTICES.map((vertex, index) => {
-  const next = GUIDE_VERTICES[(index + 1) % GUIDE_VERTICES.length] ?? vertex;
-  const step = GUIDE_FACET_INDEX + index;
-  return {
-    points: `${GUIDE_CENTROID[0]},${GUIDE_CENTROID[1]} ${vertex[0]},${vertex[1]} ${next[0]},${next[1]}`,
-    material: FACE_MATERIALS[step % FACE_MATERIALS.length] ?? "light",
-    opacity: 0.22 + (step % 3) * 0.09,
-  };
-});
+export const GUIDE_INNER_FACES = GUIDE_GEOMETRY.innerFaces;
 
 /** Reflejo fino desde el centroide hacia el primer vértice. */
-export const GUIDE_HIGHLIGHT = `M${GUIDE_CENTROID[0]} ${GUIDE_CENTROID[1]}L${GUIDE_VERTICES[0]?.[0] ?? 0} ${GUIDE_VERTICES[0]?.[1] ?? 0}`;
+export const GUIDE_HIGHLIGHT = GUIDE_GEOMETRY.highlight;
 
 /**
  * Rotación, en grados, que deja el VÉRTICE AGUDO del fragmento apuntando al

@@ -1,4 +1,6 @@
 import { useId, type CSSProperties } from "react";
+import { CrystalPieceDefs } from "./CrystalPieceDefs";
+import { safePieceId } from "./facetPieceGeometry";
 import {
   GUIDE_FACET,
   GUIDE_FRAGMENT_VIEWBOX,
@@ -30,51 +32,8 @@ import {
  * componente vecino, que sigan coincidiendo stop por stop.
  */
 
-function safeId(value: string) {
-  return value.replace(/[^a-zA-Z0-9_-]/g, "");
-}
-
-function GuideDefs({ uid }: { uid: string }) {
-  return (
-    <defs>
-      <linearGradient id={`gf-light-${uid}`} x1="0" y1="0" x2="1" y2="1">
-        <stop stopColor="#FFF7FA" stopOpacity=".92" />
-        <stop offset=".2" stopColor="#FFB1CE" />
-        <stop offset=".56" stopColor="#F56B9D" />
-        <stop offset="1" stopColor="#B32558" />
-      </linearGradient>
-      <linearGradient id={`gf-hot-${uid}`} x1="0" y1="0" x2="1" y2="1">
-        <stop stopColor="#FFB0CC" />
-        <stop offset=".3" stopColor="#FF5C96" />
-        <stop offset=".62" stopColor="#E82C70" />
-        <stop offset="1" stopColor="#7C1C40" />
-      </linearGradient>
-      <linearGradient id={`gf-rose-${uid}`} x1="1" y1="0" x2="0" y2="1">
-        <stop stopColor="#F58FB4" />
-        <stop offset=".38" stopColor="#CA3F72" />
-        <stop offset="1" stopColor="#5B243B" />
-      </linearGradient>
-      <linearGradient id={`gf-graphite-${uid}`} x1="0" y1="0" x2="1" y2="1">
-        <stop stopColor="#5D4C5B" />
-        <stop offset=".48" stopColor="#332A37" />
-        <stop offset="1" stopColor="#17141D" />
-      </linearGradient>
-      <linearGradient id={`gf-deep-${uid}`} x1="1" y1="0" x2="0" y2="1">
-        <stop stopColor="#9E315E" />
-        <stop offset=".42" stopColor="#63213E" />
-        <stop offset="1" stopColor="#261A27" />
-      </linearGradient>
-      <linearGradient id={`gf-edge-${uid}`} x1="0" y1="0" x2="1" y2="1">
-        <stop stopColor="#FFFFFF" stopOpacity=".78" />
-        <stop offset=".45" stopColor="#F4B3CA" stopOpacity=".58" />
-        <stop offset="1" stopColor="#FF4B8D" stopOpacity=".46" />
-      </linearGradient>
-    </defs>
-  );
-}
-
 export function GuideFragment({ className, style }: { className?: string; style?: CSSProperties }) {
-  const uid = safeId(useId());
+  const uid = safePieceId(useId());
   const fill = (material: string) => `url(#gf-${material}-${uid})`;
   const { x, y, width, height } = GUIDE_FRAGMENT_VIEWBOX;
 
@@ -85,7 +44,7 @@ export function GuideFragment({ className, style }: { className?: string; style?
       style={style}
       aria-hidden="true"
     >
-      <GuideDefs uid={uid} />
+      <CrystalPieceDefs uid={uid} />
 
       {/* Espesor: cara posterior desplazada 3 / 3.5, en material DEEP al 50 %. */}
       <polygon
