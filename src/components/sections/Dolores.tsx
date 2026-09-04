@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
+import { ProblemaUnoComposition } from "@/components/sections/sequenceA/ProblemaUnoComposition";
 import { useReveal } from "@/hooks/useReveal";
 import { useScrollRange } from "@/hooks/useScrollEngine";
 import {
@@ -99,42 +100,25 @@ function Target({ x, y, size = 50 }: { x: number; y: number; size?: number }) {
   );
 }
 
+/**
+ * Sección 02 — El problema, fallback estático.
+ *
+ * Lo renderiza NarrativeSequence en modo "static" (por debajo de 900 px y con
+ * prefers-reduced-motion): la misma composición aprobada del Mockup 02, con el
+ * fragmento guía en su pose final y sin caída ni giro. Ningún contenido esencial
+ * depende de la animación.
+ */
 function Dolor1() {
-  const sceneRef = useReveal<HTMLDivElement>();
-  const gradientId = useId();
+  const [play, setPlay] = useState(false);
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setPlay(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   return (
-    <section className="dolor-section bg-ink-deep">
-      <div className="container-v grid grid-cols-1 items-center gap-10 md:grid-cols-2">
-        <div className="order-2 md:order-1">
-          <span className="eyebrow text-on-dark-2">El problema</span>
-          <h2 className="display-l dolor-headline mt-4 text-on-dark">
-            Una sola persona no puede cargar
-            <br />
-            todo el crecimiento de un negocio.
-          </h2>
-        </div>
-
-        <div ref={sceneRef} className="dolor-scene order-1 md:order-2">
-          <svg
-            aria-hidden="true"
-            className="absolute inset-0 h-full w-full"
-            viewBox={FRAGMENT_VIEWBOX}
-          >
-            <FragmentGradientDefs id={gradientId} />
-            {FRAGMENTS.map((fragment, i) => (
-              <FragmentShard
-                key={i}
-                fragment={fragment}
-                index={i}
-                cluster={0}
-                gradientId={gradientId}
-              />
-            ))}
-            <Target x={218} y={168} size={54} />
-          </svg>
-        </div>
-      </div>
+    <section className="scene-static">
+      <ProblemaUnoComposition mode="static" play={play} />
     </section>
   );
 }

@@ -1,84 +1,49 @@
-import { useEffect, useRef } from "react";
-import { beatVisibility } from "@/components/narrative/narrativeMotion";
+import { useEffect, useRef, useState } from "react";
+import { beatLocalProgress, beatVisibility } from "@/components/narrative/narrativeMotion";
 import { useNarrativeContext } from "@/components/narrative/NarrativeSequence";
 import { BEATS } from "./poses";
+import { ProblemaUnoComposition } from "./ProblemaUnoComposition";
 
-// Descentered crosshair — "una persona no alcanza": the reticle sits off
-// to one side of the viewport, never aimed at the crystal field's own
-// center. Fixed viewport position (not tied to the crystal's own
-// interpolated rect) — it's commentary on the scene, not part of it.
-function Target() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 100 100"
-      style={{
-        position: "absolute",
-        right: "12%",
-        bottom: "14%",
-        width: 96,
-        height: 96,
-      }}
-    >
-      <circle
-        cx="50"
-        cy="50"
-        r="34"
-        fill="none"
-        stroke="var(--on-dark)"
-        strokeOpacity="0.5"
-        strokeWidth="1.5"
-      />
-      <circle
-        cx="50"
-        cy="50"
-        r="18"
-        fill="none"
-        stroke="var(--on-dark)"
-        strokeOpacity="0.5"
-        strokeWidth="1"
-      />
-      <path
-        d="M50 4v20M50 76v20M4 50h20M76 50h20"
-        stroke="var(--on-dark)"
-        strokeOpacity="0.5"
-        strokeWidth="1.5"
-      />
-      <circle cx="50" cy="50" r="6" fill="var(--pink)" />
-    </svg>
-  );
-}
+/** El polvo se agota temprano: es estela del Hero, no ambiente de la sección. */
+const DUST_FADE_END = 0.34;
 
 /**
- * Pinned-mode Dolor1 overlay: headline only, positioned clear of the big
- * dispersed crystal field CrystalStage paints centered behind it (see
- * CrystalStage's "free" rect during this window). The fragmentation
- * itself is the shared crystal's job, not this beat's.
+ * Sección 02 — El problema, en modo pinned.
+ *
+ * El fragmento guía no se pinta acá: lo pinta GuideFragmentStage, que lo mueve
+ * de forma continua entre esta sección y las dos siguientes.
  */
 export function Dolor1Beat() {
   const { subscribe } = useNarrativeContext();
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const dustRef = useRef<SVGSVGElement | null>(null);
+  const playedRef = useRef(false);
+  const [play, setPlay] = useState(false);
 
   useEffect(() => {
     return subscribe((progress) => {
       const visibility = beatVisibility(progress, BEATS.dolor1.start, BEATS.dolor1.end);
       if (rootRef.current) rootRef.current.style.opacity = visibility.toFixed(3);
+
+      // La entrada de las píldoras arranca cuando la escena empieza a aparecer,
+      // no al montar: si no, se pierde antes de que la sección se vea. Es UN
+      // solo setState en toda la vida del beat, no uno por frame.
+      if (visibility > 0 && !playedRef.current) {
+        playedRef.current = true;
+        setPlay(true);
+      }
+
+      const local = beatLocalProgress(progress, BEATS.dolor1.start, BEATS.dolor1.end);
+      if (dustRef.current) {
+        const fade = 1 - Math.min(1, local / DUST_FADE_END);
+        dustRef.current.style.opacity = fade.toFixed(3);
+      }
     });
   }, [subscribe]);
 
   return (
-    <div ref={rootRef} className="absolute inset-0">
-      <Target />
-      <div className="container-v absolute inset-0 flex items-center">
-        <div className="max-w-[560px] text-left">
-          <span className="eyebrow text-on-dark-2">El problema</span>
-          <h2 className="display-l dolor-headline mt-4 text-on-dark">
-            Una sola persona no puede cargar
-            <br />
-            todo el crecimiento de un negocio.
-          </h2>
-        </div>
-      </div>
+    <div ref={rootRef} className="absolute inset-0" style={{ opacity: 0 }}>
+      <ProblemaUnoComposition mode="pinned" play={play} dustRef={dustRef} />
     </div>
   );
 }

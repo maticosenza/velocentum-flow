@@ -13,14 +13,17 @@ import { BEATS, CRYSTAL_KEYFRAMES, EDGE_OPACITY_KEYFRAMES } from "./poses";
 const CRYSTAL_ASPECT = 180 / 220; // CrystalV's own viewBox height/width
 
 /**
- * Fundido de entrada del Crystal V legado al arrancar Dolor1. Misma ventana de
- * 0.06 que usan los beats para su crossfade, pero DESPUÉS del límite del Hero
- * y no antes: durante toda la ventana del Hero el objeto es el Crystal 5.
+ * Fundido de entrada del Crystal V legado.
+ *
+ * Ya no aparece ni en el Hero ni en la Sección 02: esas dos escenas tienen sus
+ * propios mockups aprobados y en la 02 no hay Crystal completo, sólo píldoras
+ * dispersas y el fragmento guía. Queda sirviendo a Dolor2 y Reveal hasta que
+ * esas dos secciones se migren, cada una con su mockup.
  */
 const LEGACY_FADE_IN = 0.06;
 
 function legacyCrystalVisibility(progress: number): number {
-  return Math.min(Math.max((progress - BEATS.dolor1.start) / LEGACY_FADE_IN, 0), 1);
+  return Math.min(Math.max((progress - BEATS.dolor2.start) / LEGACY_FADE_IN, 0), 1);
 }
 
 type Rect = { top: number; left: number; width: number; height: number };
@@ -143,10 +146,10 @@ type CrystalStageProps = {
  * - Beat Hero (progreso 0 a 0.25): el Crystal 5 aprobado, vía HeroCrystal y la
  *   API por faceta de CrystalFiveApproved — armado, explosión radial, polvo y
  *   salida del fragmento guía (Sección 01 del plan).
- * - Dolor1, Dolor2 y Reveal (0.25 a 1): el Crystal V legado, exactamente con
- *   las poses, rects y aristas de siempre (poses.ts). Lo único nuevo es que
- *   queda apagado durante el Hero y se funde al comenzar Dolor1; esas tres
- *   secciones migran a Crystal 5 cuando les toque, con sus propios mockups.
+ * - Dolor2 y Reveal (0.5 a 1): el Crystal V legado, exactamente con las poses,
+ *   rects y aristas de siempre (poses.ts). Queda apagado durante el Hero y la
+ *   Sección 02, y se funde al comenzar Dolor2; esas dos secciones migran a
+ *   Crystal 5 cuando les toque, con sus propios mockups.
  *
  * Only ever rendered in "pinned" mode (see SequenceA.tsx) — pinned mode
  * already implies !reducedMotion (useNarrativeMode's contract), so there

@@ -8,14 +8,14 @@ import { HeroBeat } from "./HeroBeat";
 import { Dolor1Beat } from "./Dolor1Beat";
 import { Dolor2Beat } from "./Dolor2Beat";
 import { RevealBeat } from "./RevealBeat";
-import { AmbientShards } from "./AmbientShards";
+import { GuideFragmentStage } from "./GuideFragmentStage";
 
 // Total pin: four beats (Hero/Dolor1/Dolor2/Reveal), each a quarter of the
-// shared progress — see poses.ts BEATS. The pre-scroll "Intro" isn't a
-// beat of its own: it's CrystalStage's on-mount auto-play, seeding the
-// exact facet elements this pin goes on to control (see CrystalStage's
-// own comment for why that's the point). All four beats now have their
-// pinned-mode renderer — Sequence A is complete.
+// shared progress — see poses.ts BEATS.
+//
+// AmbientShards se retiró: la Sección 02 aprobada es explícita en que no hay
+// lluvia ni grupos de fragmentos, y la 03 tampoco los tiene. El único fragmento
+// que recorre la secuencia es el guía (GuideFragmentStage).
 export function SequenceA() {
   const heroSlotRef = useRef<HTMLDivElement | null>(null);
   const revealSlotRef = useRef<HTMLDivElement | null>(null);
@@ -34,7 +34,7 @@ export function SequenceA() {
       }
     >
       <CrystalStage heroSlotRef={heroSlotRef} revealSlotRef={revealSlotRef} />
-      <AmbientShards />
+      <GuideFragmentStage />
       <HeroBeat slotRef={heroSlotRef} />
       <Dolor1Beat />
       <Dolor2Beat />

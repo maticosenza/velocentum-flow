@@ -337,7 +337,6 @@
    depende de breakpoints propios: todo son múltiplos de --u leídos del plan. */
 @utility hero-canvas {
   --u: min(100vw / 1440, 100svh / 900);
-  position: relative;
   width: calc(1440 * var(--u));
   height: calc(900 * var(--u));
 }
@@ -353,6 +352,7 @@
 }
 
 @utility hero-canvas-static {
+  position: relative;
   margin-inline: auto;
 }
 
@@ -627,6 +627,213 @@
   .hero-stage-breathing {
     animation: none;
   }
+
+  /* Secciones 02, 03 y 04: sin trayectorias ni entradas desfasadas. El
+     contenido queda completo y en su estado final sin depender de JS. */
+  .scene-pill {
+    opacity: var(--pill-opacity, 1);
+    transform: none;
+  }
+}
+
+/* ---------- Escenas de la Secuencia A (Secciones 02, 03 y 04) ---------- */
+
+/* Mismo lienzo de referencia 1440 × 900 del Hero. `overflow:hidden` acá sí,
+   porque el fragmento guía empalma sus tramos FUERA del lienzo: sin recorte,
+   en un viewport más ancho que 16:10 el empalme se vería al costado. */
+@utility scene-canvas {
+  --u: min(100vw / 1440, 100svh / 900);
+  width: calc(1440 * var(--u));
+  height: calc(900 * var(--u));
+  overflow: hidden;
+}
+
+@utility scene-canvas-overlay {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 720 * var(--u));
+}
+
+@utility scene-canvas-static {
+  position: relative;
+  margin-inline: auto;
+}
+
+/* Contenedor del fallback estático de una escena. */
+@utility scene-static {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--ink-deep);
+}
+
+/* ---- Píldoras de capacidad ---- */
+
+@utility scene-pills {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+@utility scene-pill-slot {
+  position: absolute;
+}
+
+/* Entran con desfase y quedan donde están: no explotan ni se reagrupan. */
+@utility scene-pill {
+  opacity: 0;
+  transform: translate3d(0, calc(14 * var(--u)), 0);
+  transition:
+    opacity 760ms var(--ease-out-soft),
+    transform 760ms var(--ease-out-soft);
+  will-change: opacity, transform;
+
+  &[data-revealed="true"] {
+    opacity: var(--pill-opacity, 1);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* En estas secciones las píldoras SON la escena, no atmósfera: ninguna puede
+   quedar muda. Por eso el plano lejano no baja la opacidad global — desenfoca
+   sólo el cuerpo y deja la etiqueta nítida (ver ScenePill). */
+@utility scene-pill-far {
+  --pill-opacity: 1;
+}
+
+@utility scene-pill-mid {
+  --pill-opacity: 0.52;
+}
+
+@utility scene-pill-near {
+  --pill-opacity: 0.92;
+}
+
+@utility scene-pill-body {
+  position: relative;
+  width: 100%;
+}
+
+@utility scene-pill-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Cuerpo del plano lejano: el blur se aplica al ELEMENTO, así que vale
+   1.55 px de pantalla escalados por --u y no unidades del viewBox. */
+@utility scene-pill-capsule-far {
+  filter: blur(calc(1.55 * var(--u)));
+  opacity: 0.44;
+}
+
+@utility scene-pill-glyph-far {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.62;
+}
+
+@utility scene-pill-label {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+@utility scene-pill-label-far {
+  opacity: 0.62;
+}
+
+/* ---- Polvo residual (estela del Hero, sólo en la transición) ---- */
+
+@utility scene-dust {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 8;
+  pointer-events: none;
+}
+
+/* ---- Fragmento guía ---- */
+
+@utility scene-guide-layer {
+  z-index: 24;
+  pointer-events: none;
+}
+
+@utility scene-guide-node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 calc(10 * var(--u)) calc(22 * var(--u)) rgba(0, 0, 0, 0.55));
+}
+
+/* Pose fija del fallback estático. */
+@utility scene-guide-slot {
+  position: absolute;
+  z-index: 24;
+  pointer-events: none;
+  filter: drop-shadow(0 calc(10 * var(--u)) calc(22 * var(--u)) rgba(0, 0, 0, 0.55));
+}
+
+@utility scene-guide-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- Copy ---- */
+
+@utility scene-copy {
+  position: absolute;
+  z-index: 30;
+}
+
+@utility scene-copy-left {
+  text-align: left;
+}
+
+@utility scene-eyebrow {
+  display: block;
+  margin-bottom: calc(26 * var(--u));
+  font-family: var(--font-mono);
+  font-size: calc(11.2 * var(--u));
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--pink);
+}
+
+/* Manrope 800, 60 px, line-height 1.02, letter-spacing -.032em. */
+@utility scene-h2 {
+  font-family: var(--font-display);
+  font-size: calc(60 * var(--u));
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.032em;
+  color: var(--on-dark);
+}
+
+@utility scene-h2-accent {
+  color: var(--pink);
+}
+
+@utility scene-sub {
+  margin-top: calc(26 * var(--u));
+  font-family: var(--font-sans);
+  font-size: calc(16.32 * var(--u));
+  line-height: 1.55;
+  color: var(--on-dark-2);
 }
 
 /* ---------- Brand CTA ---------- */

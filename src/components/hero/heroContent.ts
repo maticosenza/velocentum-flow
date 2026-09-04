@@ -12,6 +12,9 @@
 // styles.css): a 1440 × 900 valen exactamente lo que dice el mockup y por
 // encima escalan en proporción.
 
+import { PILL_CAPABILITIES, PILL_SVG, type PillId } from "@/components/scene/pillCatalog";
+import { u } from "@/components/scene/sceneUnits";
+
 export const HERO_COPY = {
   eyebrow: "Equipo de crecimiento",
   headlineLine1: "Estamos en el negocio de",
@@ -65,7 +68,7 @@ export type HeroPillPlane = "far" | "mid" | "near";
 export type HeroPillSide = "left" | "right";
 
 export type HeroPillDef = {
-  id: "strategy" | "analysis" | "content" | "acquisition" | "web" | "design";
+  id: PillId;
   label: string;
   /** Glifo del icono tal como está en official/pills/<id>.svg. */
   icon: string;
@@ -77,6 +80,9 @@ export type HeroPillDef = {
   width: number;
   rotate: number;
 };
+
+/** Sólo la disposición: la etiqueta y el icono salen del catálogo compartido. */
+type HeroPillLayout = Omit<HeroPillDef, "label" | "icon">;
 
 /**
  * Tres planos de profundidad aprobados. El plano lejano queda aprobado como
@@ -93,88 +99,25 @@ export const HERO_PILL_PLANES: Record<
 };
 
 /** Orden de entrada: primero el plano lejano, después el medio, al final el cercano. */
-export const HERO_PILLS: readonly HeroPillDef[] = [
-  {
-    id: "strategy",
-    label: "ESTRATEGIA",
-    icon: "◉",
-    plane: "far",
-    side: "left",
-    inset: 60,
-    top: 470,
-    width: 190,
-    rotate: -7,
-  },
-  {
-    id: "analysis",
-    label: "ANÁLISIS",
-    icon: "◎",
-    plane: "far",
-    side: "right",
-    inset: 66,
-    top: 442,
-    width: 180,
-    rotate: 6,
-  },
-  {
-    id: "content",
-    label: "CONTENIDO",
-    icon: "▣",
-    plane: "mid",
-    side: "left",
-    inset: 96,
-    top: 620,
-    width: 210,
-    rotate: 4,
-  },
-  {
-    id: "acquisition",
-    label: "ADQUISICIÓN",
-    icon: "ϟ",
-    plane: "mid",
-    side: "right",
-    inset: 104,
-    top: 656,
-    width: 205,
-    rotate: -5,
-  },
-  {
-    id: "web",
-    label: "WEB",
-    icon: "▤",
-    plane: "near",
-    side: "left",
-    inset: 232,
-    top: 786,
-    width: 195,
-    rotate: -3,
-  },
-  {
-    id: "design",
-    label: "DISEÑO",
-    icon: "⌘",
-    plane: "near",
-    side: "right",
-    inset: 60,
-    top: 736,
-    width: 188,
-    rotate: 5,
-  },
+const HERO_PILL_LAYOUT: readonly HeroPillLayout[] = [
+  { id: "strategy", plane: "far", side: "left", inset: 60, top: 470, width: 190, rotate: -7 },
+  { id: "analysis", plane: "far", side: "right", inset: 66, top: 442, width: 180, rotate: 6 },
+  { id: "content", plane: "mid", side: "left", inset: 96, top: 620, width: 210, rotate: 4 },
+  { id: "acquisition", plane: "mid", side: "right", inset: 104, top: 656, width: 205, rotate: -5 },
+  { id: "web", plane: "near", side: "left", inset: 232, top: 786, width: 195, rotate: -3 },
+  { id: "design", plane: "near", side: "right", inset: 60, top: 736, width: 188, rotate: 5 },
 ];
 
-/** Geometría del SVG oficial de píldora (official/pills/*.svg, viewBox 0 0 300 72). */
-export const HERO_PILL_SVG = {
-  viewBox: "0 0 300 72",
-  width: 300,
-  height: 72,
-  /** El label empieza en x=72 y su font-size es 18: 24 % y 6 % del ancho. */
-  labelLeftRatio: 72 / 300,
-  labelFontRatio: 18 / 300,
-  /** letter-spacing .4 sobre 18 px. */
-  labelLetterSpacingEm: 0.4 / 18,
-} as const;
+export const HERO_PILLS: readonly HeroPillDef[] = HERO_PILL_LAYOUT.map((layout) => ({
+  ...layout,
+  label: PILL_CAPABILITIES[layout.id].label,
+  icon: PILL_CAPABILITIES[layout.id].icon,
+}));
 
-/** `calc(n * var(--u))` — n en px de referencia. */
-export function u(px: number): string {
-  return `calc(${px} * var(--u))`;
-}
+/**
+ * Geometría del SVG oficial de píldora. Vive en el catálogo compartido: la usan
+ * también las Secciones 02 y 03.
+ */
+export const HERO_PILL_SVG = PILL_SVG;
+
+export { u };

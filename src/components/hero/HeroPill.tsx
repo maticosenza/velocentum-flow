@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { PillCapsule, PillIcon } from "@/components/scene/PillShapes";
 import { cn } from "@/lib/utils";
 import { HERO_PILL_SVG, u, type HeroPillDef, type HeroPillPlane } from "./heroContent";
 
@@ -46,30 +47,11 @@ export function HeroPill({ pill, index, play, slotRef }: HeroPillProps) {
         style={{ transitionDelay: `${PILL_ENTRY_DELAY_MS + index * PILL_STAGGER_MS}ms` }}
       >
         <div className="hero-pill-body" style={{ transform: `rotate(${pill.rotate}deg)` }}>
+          {/* Geometría e icono del asset maestro official/pills/<id>.svg, compartidos
+              con las Secciones 02 y 03 (ver components/scene/PillShapes.tsx). */}
           <svg viewBox={HERO_PILL_SVG.viewBox} className="hero-pill-svg" aria-hidden="true">
-            <rect
-              x="1"
-              y="1"
-              width="298"
-              height="70"
-              rx="34"
-              fill="#0E0E13"
-              fillOpacity=".85"
-              stroke="#FF4B8D"
-              strokeOpacity=".75"
-            />
-            <circle
-              cx="40"
-              cy="36"
-              r="16"
-              fill="#FF4B8D"
-              fillOpacity=".12"
-              stroke="#FF4B8D"
-              strokeOpacity=".8"
-            />
-            <text x="40" y="42" textAnchor="middle" fontSize="20" fill="#FF4B8D" fontFamily="Arial">
-              {pill.icon}
-            </text>
+            <PillCapsule />
+            <PillIcon glyph={pill.icon} />
           </svg>
           <span className="hero-pill-label" style={labelStyle}>
             {pill.label}
