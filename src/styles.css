@@ -675,6 +675,11 @@
   pointer-events: none;
 }
 
+/* La Sección 03 sube las píldoras por encima de la capa de conexiones. */
+@utility scene-pills-front {
+  z-index: 12;
+}
+
 @utility scene-pill-slot {
   position: absolute;
 }
@@ -692,21 +697,6 @@
     opacity: var(--pill-opacity, 1);
     transform: translate3d(0, 0, 0);
   }
-}
-
-/* En estas secciones las píldoras SON la escena, no atmósfera: ninguna puede
-   quedar muda. Por eso el plano lejano no baja la opacidad global — desenfoca
-   sólo el cuerpo y deja la etiqueta nítida (ver ScenePill). */
-@utility scene-pill-far {
-  --pill-opacity: 1;
-}
-
-@utility scene-pill-mid {
-  --pill-opacity: 0.52;
-}
-
-@utility scene-pill-near {
-  --pill-opacity: 0.92;
 }
 
 @utility scene-pill-body {
@@ -749,6 +739,26 @@
 
 @utility scene-pill-label-far {
   opacity: 0.62;
+}
+
+/* ---- Conexiones parciales (Sección 03) ---- */
+
+/* Por debajo de las píldoras: los grupos se leen primero, la conexión después. */
+@utility scene-links {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 6;
+  pointer-events: none;
+}
+
+/* El halo del destello escala sobre su propio centro y arranca apagado. */
+@utility scene-link-flash {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: opacity, transform;
 }
 
 /* ---- Polvo residual (estela del Hero, sólo en la transición) ---- */
@@ -800,6 +810,11 @@
 
 @utility scene-copy-left {
   text-align: left;
+}
+
+/* Invierte el eje de la Sección 02. */
+@utility scene-copy-right {
+  text-align: right;
 }
 
 @utility scene-eyebrow {

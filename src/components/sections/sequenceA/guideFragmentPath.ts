@@ -17,6 +17,7 @@ import { guideFragmentHeight } from "@/components/brand/guideFragmentGeometry";
 import { SCENE_CANVAS } from "@/components/scene/sceneUnits";
 import { BEATS, type BeatWindow } from "./poses";
 import { PROBLEMA_UNO_GUIDE_POSE } from "./problemaUnoContent";
+import { PROBLEMA_DOS_GUIDE_POSE } from "./problemaDosContent";
 
 export type Point = { x: number; y: number };
 
@@ -154,7 +155,70 @@ const GUIDE_02: SceneGuide = {
   ],
 };
 
-const SCENES: readonly SceneGuide[] = [GUIDE_02];
+// ---------------------------------------------------------------------------
+// Sección 03 — El otro problema
+// ---------------------------------------------------------------------------
+
+/** Centro de la pose aprobada del mockup 03. */
+const KEY_03: Point = {
+  x: PROBLEMA_DOS_GUIDE_POSE.left + PROBLEMA_DOS_GUIDE_POSE.width / 2,
+  y: PROBLEMA_DOS_GUIDE_POSE.top + guideFragmentHeight(PROBLEMA_DOS_GUIDE_POSE.width) / 2,
+};
+
+/**
+ * Cruce hacia el carril izquierdo.
+ *
+ * El recorrido COMIENZA FUERA del borde derecho y entra ya a media altura baja
+ * (≈ y 584), por debajo del copy. No desciende por el carril derecho: en esta
+ * sección ese carril se superpone con la columna del copy. Cruza la franja
+ * inferior con una curva amplia y sale por abajo a la izquierda.
+ * Los puntos de control son los de la capa de anotación "Cruce" del mockup.
+ */
+const GUIDE_03: SceneGuide = {
+  beat: BEATS.dolor2,
+  width: PROBLEMA_DOS_GUIDE_POSE.width,
+  path: [
+    {
+      from: { x: 1580, y: 576 },
+      c1: { x: 1300, y: 604 },
+      c2: { x: 1130, y: 660 },
+      to: KEY_03,
+      sFrom: 0,
+      sTo: 0.55,
+    },
+    {
+      from: KEY_03,
+      c1: { x: 440, y: 786 },
+      c2: { x: 260, y: 812 },
+      to: { x: 150, y: 900 },
+      sFrom: 0.55,
+      sTo: 0.85,
+    },
+    {
+      from: { x: 150, y: 900 },
+      c1: { x: 110, y: 950 },
+      c2: { x: 80, y: 1000 },
+      to: { x: 50, y: 1070 },
+      sFrom: 0.85,
+      sTo: 1,
+    },
+  ],
+  timing: [
+    { from: 0, to: 0.5, sFrom: 0, sTo: 0.55, ease: easeInOutCubic },
+    { from: 0.5, to: 0.82, sFrom: 0.55, sTo: 0.85, ease: easeInOutSine },
+    { from: 0.82, to: 1, sFrom: 0.85, sTo: 1, ease: easeInCubic },
+  ],
+  // Giro parcial en profundidad durante el cruce: bastante más girado que los
+  // -24° de la Sección 02, y continúa desde donde quedó allá.
+  rotation: [
+    { s: 0, deg: -44 },
+    { s: 0.55, deg: PROBLEMA_DOS_GUIDE_POSE.rotate },
+    { s: 0.85, deg: -70 },
+    { s: 1, deg: -78 },
+  ],
+};
+
+const SCENES: readonly SceneGuide[] = [GUIDE_02, GUIDE_03];
 
 export type GuidePose = {
   /** Centro del fragmento, en unidades del lienzo. */
@@ -205,4 +269,24 @@ export function guideFragmentIsOffCanvas(pose: GuidePose): boolean {
     pose.y + radius < 0 ||
     pose.y - radius > SCENE_CANVAS.height
   );
+}
+
+/**
+ * Distancia, en unidades del lienzo, entre el fragmento guía y un punto de la
+ * escena. La Sección 03 la usa para el destello del extremo de la conexión
+ * incompleta: el destello ocurre "al pasar cerca", no en un progreso fijo, así
+ * que se deriva de la propia trayectoria.
+ */
+export function guideDistanceTo(progress: number, point: Point): number {
+  const pose = guideFragmentPose(progress);
+  if (!pose.active) return Infinity;
+  return Math.hypot(pose.x - point.x, pose.y - point.y);
+}
+
+/** Intensidad del destello, 0 a 1, según la cercanía al punto. */
+export function guideProximityFlash(progress: number, point: Point, reach: number): number {
+  const distance = guideDistanceTo(progress, point);
+  if (!Number.isFinite(distance) || distance >= reach) return 0;
+  const t = 1 - distance / reach;
+  return t * t;
 }

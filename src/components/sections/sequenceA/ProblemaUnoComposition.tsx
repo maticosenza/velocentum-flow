@@ -10,6 +10,7 @@ import {
   PROBLEMA_UNO_DUST,
   PROBLEMA_UNO_GUIDE_POSE,
   PROBLEMA_UNO_PILLS,
+  PROBLEMA_UNO_PLANE_OPACITY,
 } from "./problemaUnoContent";
 
 export const PROBLEMA_UNO_ENTRY_DELAYS = {
@@ -76,7 +77,13 @@ export function ProblemaUnoComposition({ mode, play, dustRef }: ProblemaUnoCompo
 
       <div className="scene-pills" aria-hidden="true">
         {PROBLEMA_UNO_PILLS.map((pill, index) => (
-          <ScenePill key={pill.id} pill={pill} index={index} play={play} />
+          <ScenePill
+            key={pill.id}
+            pill={pill}
+            index={index}
+            play={play}
+            planeOpacity={PROBLEMA_UNO_PLANE_OPACITY[pill.plane]}
+          />
         ))}
       </div>
 

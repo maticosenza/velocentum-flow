@@ -8,7 +8,7 @@
 // Todas las medidas están en píxeles del lienzo de referencia 1440 × 900 y en
 // render se multiplican por `--u` (ver .scene-canvas en styles.css).
 
-import type { ScenePillDef } from "@/components/scene/ScenePill";
+import type { ScenePillDef, ScenePlane } from "@/components/scene/ScenePill";
 
 export const PROBLEMA_UNO_COPY = {
   eyebrow: "El problema",
@@ -36,6 +36,18 @@ export const PROBLEMA_UNO_FIELD = { left: 646, right: 1244 } as const;
 
 /** Carril derecho reservado, heredado del Hero. */
 export const PROBLEMA_UNO_LANE = { left: 1150, right: 1370 } as const;
+
+/**
+ * Opacidad por plano. El plano lejano queda en 1: su profundidad la resuelve el
+ * tratamiento de capas separadas (cuerpo desenfocado, etiqueta nítida), no una
+ * opacidad global, porque acá las píldoras SON la escena y ninguna puede quedar
+ * muda.
+ */
+export const PROBLEMA_UNO_PLANE_OPACITY: Record<ScenePlane, number> = {
+  far: 1,
+  mid: 0.52,
+  near: 0.92,
+};
 
 /**
  * Seis capacidades dispersas: sin centro, sin eje y sin agrupamiento. Ninguna se

@@ -23,12 +23,6 @@ export type ScenePillDef = {
   rotate: number;
 };
 
-const PLANE_CLASS: Record<ScenePlane, string> = {
-  far: "scene-pill-far",
-  mid: "scene-pill-mid",
-  near: "scene-pill-near",
-};
-
 /**
  * Una píldora de capacidad sobre el lienzo de una escena.
  *
@@ -46,10 +40,16 @@ export function ScenePill({
   pill,
   index,
   play,
+  planeOpacity,
 }: {
   pill: ScenePillDef;
   index: number;
   play: boolean;
+  /**
+   * Opacidad del plano, que cambia por sección: la 02 usa .52 / .92 y la 03
+   * .60 / .94. Vive en el módulo de contenido de cada escena, no en el CSS.
+   */
+  planeOpacity: number;
 }) {
   const capability = PILL_CAPABILITIES[pill.id];
   const slotStyle: CSSProperties = {
@@ -57,6 +57,10 @@ export function ScenePill({
     top: u(pill.top),
     width: u(pill.width),
   };
+  const wrapperStyle: CSSProperties = {
+    "--pill-opacity": planeOpacity,
+    transitionDelay: `${SCENE_PILL_ENTRY_DELAY_MS + index * SCENE_PILL_STAGGER_MS}ms`,
+  } as CSSProperties;
   const labelStyle: CSSProperties = {
     left: `${PILL_SVG.labelLeftRatio * 100}%`,
     fontSize: u(pill.width * PILL_SVG.labelFontRatio),
@@ -66,13 +70,7 @@ export function ScenePill({
 
   return (
     <div className="scene-pill-slot" style={slotStyle}>
-      <div
-        className={cn("scene-pill", PLANE_CLASS[pill.plane])}
-        data-revealed={play ? "true" : "false"}
-        style={{
-          transitionDelay: `${SCENE_PILL_ENTRY_DELAY_MS + index * SCENE_PILL_STAGGER_MS}ms`,
-        }}
-      >
+      <div className="scene-pill" data-revealed={play ? "true" : "false"} style={wrapperStyle}>
         <div className="scene-pill-body" style={{ transform: `rotate(${pill.rotate}deg)` }}>
           <svg
             viewBox={PILL_SVG.viewBox}
