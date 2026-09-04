@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { NarrativeSequence } from "@/components/narrative/NarrativeSequence";
 import { Hero } from "@/components/hero/Hero";
 import { Dolor1, Dolor2 } from "@/components/sections/Dolores";
@@ -10,16 +9,14 @@ import { Dolor2Beat } from "./Dolor2Beat";
 import { RevealBeat } from "./RevealBeat";
 import { GuideFragmentStage } from "./GuideFragmentStage";
 
-// Total pin: four beats (Hero/Dolor1/Dolor2/Reveal), each a quarter of the
-// shared progress — see poses.ts BEATS.
+// Pin total: cuatro beats (Hero / El problema / El otro problema / Un mismo
+// objetivo), cada uno un cuarto del progreso compartido — ver BEATS en poses.ts.
 //
-// AmbientShards se retiró: la Sección 02 aprobada es explícita en que no hay
-// lluvia ni grupos de fragmentos, y la 03 tampoco los tiene. El único fragmento
-// que recorre la secuencia es el guía (GuideFragmentStage).
+// AmbientShards se retiró: las Secciones 02 y 03 aprobadas son explícitas en que
+// no hay lluvia ni grupos de fragmentos. El único fragmento que recorre la
+// secuencia es el guía (GuideFragmentStage), continuo entre las Secciones 02, 03
+// y 04.
 export function SequenceA() {
-  const heroSlotRef = useRef<HTMLDivElement | null>(null);
-  const revealSlotRef = useRef<HTMLDivElement | null>(null);
-
   return (
     <NarrativeSequence
       beatCount={4}
@@ -33,12 +30,12 @@ export function SequenceA() {
         </>
       }
     >
-      <CrystalStage heroSlotRef={heroSlotRef} revealSlotRef={revealSlotRef} />
+      <CrystalStage />
       <GuideFragmentStage />
-      <HeroBeat slotRef={heroSlotRef} />
+      <HeroBeat />
       <Dolor1Beat />
       <Dolor2Beat />
-      <RevealBeat slotRef={revealSlotRef} />
+      <RevealBeat />
     </NarrativeSequence>
   );
 }

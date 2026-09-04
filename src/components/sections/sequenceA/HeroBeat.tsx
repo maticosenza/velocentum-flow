@@ -6,8 +6,12 @@ import { useNarrativeContext } from "@/components/narrative/NarrativeSequence";
 import { BEATS } from "./poses";
 
 type HeroBeatProps = {
-  /** Slot real del stage que CrystalStage mide para la rama legada de Crystal V. */
-  slotRef: RefObject<HTMLDivElement | null>;
+  /**
+   * Slot del stage, opcional. Existía para que CrystalStage midiera la rama
+   * legada de Crystal V; esa rama ya no existe y el Crystal 5 se posiciona por
+   * las coordenadas del lienzo, no por medición.
+   */
+  slotRef?: RefObject<HTMLDivElement | null>;
 };
 
 /**
@@ -50,7 +54,7 @@ export function HeroBeat({ slotRef }: HeroBeatProps) {
       <HeroComposition
         mode="pinned"
         play={play}
-        stageRef={slotRef}
+        {...(slotRef ? { stageRef: slotRef } : {})}
         pillSlotRef={(el, index) => {
           pillSlotRefs.current[index] = el;
         }}

@@ -817,6 +817,66 @@
   text-align: right;
 }
 
+/* Cierra el vaivén lateral de la 02 y la 03: es parte de lo que comunica la
+   pausa de la Sección 04. */
+@utility scene-copy-center {
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+/* ---- Sección 04: huella, Mira y pulso ---- */
+
+/* El headline de las secciones narrativas baja a 58 px en la 04. */
+@utility scene-h2-objetivo {
+  font-size: calc(58 * var(--u));
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  margin-inline: auto;
+}
+
+@utility scene-footprint {
+  position: absolute;
+  z-index: 8;
+  pointer-events: none;
+}
+
+@utility scene-footprint-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@utility scene-target {
+  position: absolute;
+  z-index: 14;
+  pointer-events: none;
+}
+
+@utility scene-target-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@utility scene-target-pulse-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 15;
+  pointer-events: none;
+}
+
+/* Pulso breve en el núcleo, sobre su propio centro. Arranca apagado: la Mira
+   oficial no se toca y el pulso vive en esta capa aparte. */
+@utility scene-target-pulse {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: opacity, transform;
+}
+
 @utility scene-eyebrow {
   display: block;
   margin-bottom: calc(26 * var(--u));

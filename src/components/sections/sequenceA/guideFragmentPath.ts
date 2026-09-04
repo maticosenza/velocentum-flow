@@ -18,6 +18,7 @@ import { SCENE_CANVAS } from "@/components/scene/sceneUnits";
 import { BEATS, type BeatWindow } from "./poses";
 import { PROBLEMA_UNO_GUIDE_POSE } from "./problemaUnoContent";
 import { PROBLEMA_DOS_GUIDE_POSE } from "./problemaDosContent";
+import { MISMO_OBJETIVO_GUIDE_BOX, MISMO_OBJETIVO_GUIDE_ROTATION } from "./mismoObjetivoContent";
 
 export type Point = { x: number; y: number };
 
@@ -218,7 +219,91 @@ const GUIDE_03: SceneGuide = {
   ],
 };
 
-const SCENES: readonly SceneGuide[] = [GUIDE_02, GUIDE_03];
+// ---------------------------------------------------------------------------
+// Sección 04 — Un mismo objetivo
+// ---------------------------------------------------------------------------
+
+/** Centro de la pose aprobada del mockup 04. */
+const KEY_04: Point = {
+  x: MISMO_OBJETIVO_GUIDE_BOX.left + MISMO_OBJETIVO_GUIDE_BOX.width / 2,
+  y: MISMO_OBJETIVO_GUIDE_BOX.top + guideFragmentHeight(MISMO_OBJETIVO_GUIDE_BOX.width) / 2,
+};
+
+/** Ventana de `s` en la que el fragmento viaja ya orientado hacia la Mira. */
+const AIM_WINDOW = { from: 0.42, to: 0.62 } as const;
+
+/**
+ * Llega desde el carril izquierdo, desacelera y se orienta.
+ *
+ * La trayectoria pasa de CURVA AMPLIA a LÍNEA, que es como se lee una
+ * desaceleración: el tramo entre la pose aprobada y (644, 594) es casi recto y
+ * apunta al objetivo, así que sostener la rotación calculada mantiene la punta
+ * sobre la Mira durante todo ese trecho. Después sale por abajo a la derecha,
+ * SOLO: no arrastra ni convoca a las demás piezas.
+ */
+const GUIDE_04: SceneGuide = {
+  beat: BEATS.reveal,
+  width: MISMO_OBJETIVO_GUIDE_BOX.width,
+  path: [
+    {
+      from: { x: -160, y: 414 },
+      c1: { x: 60, y: 470 },
+      c2: { x: 260, y: 546 },
+      to: KEY_04,
+      sFrom: 0,
+      sTo: AIM_WINDOW.from,
+    },
+    {
+      from: KEY_04,
+      c1: { x: 466, y: 600 },
+      c2: { x: 556, y: 596 },
+      to: { x: 644, y: 594 },
+      sFrom: AIM_WINDOW.from,
+      sTo: AIM_WINDOW.to,
+    },
+    {
+      from: { x: 644, y: 594 },
+      c1: { x: 724, y: 606 },
+      c2: { x: 800, y: 620 },
+      to: { x: 876, y: 640 },
+      sFrom: AIM_WINDOW.to,
+      sTo: 0.74,
+    },
+    {
+      from: { x: 876, y: 640 },
+      c1: { x: 1010, y: 690 },
+      c2: { x: 1140, y: 760 },
+      to: { x: 1230, y: 900 },
+      sFrom: 0.74,
+      sTo: 0.9,
+    },
+    {
+      from: { x: 1230, y: 900 },
+      c1: { x: 1286, y: 954 },
+      c2: { x: 1326, y: 1010 },
+      to: { x: 1356, y: 1080 },
+      sFrom: 0.9,
+      sTo: 1,
+    },
+  ],
+  timing: [
+    { from: 0, to: 0.45, sFrom: 0, sTo: AIM_WINDOW.from, ease: easeOutCubic },
+    { from: 0.45, to: 0.58, sFrom: AIM_WINDOW.from, sTo: 0.47, ease: easeInOutSine },
+    { from: 0.58, to: 0.72, sFrom: 0.47, sTo: AIM_WINDOW.to, ease: easeInOutSine },
+    { from: 0.72, to: 1, sFrom: AIM_WINDOW.to, sTo: 1, ease: easeInCubic },
+  ],
+  // La rotación de la ventana de puntería NO es un número escrito a mano: sale
+  // de guideAimRotation con la posición y el tamaño reales del fragmento y el
+  // centro real de la Mira (ver mismoObjetivoContent.ts).
+  rotation: [
+    { s: 0, deg: -78 },
+    { s: AIM_WINDOW.from, deg: MISMO_OBJETIVO_GUIDE_ROTATION },
+    { s: AIM_WINDOW.to, deg: MISMO_OBJETIVO_GUIDE_ROTATION },
+    { s: 1, deg: MISMO_OBJETIVO_GUIDE_ROTATION - 40 },
+  ],
+};
+
+const SCENES: readonly SceneGuide[] = [GUIDE_02, GUIDE_03, GUIDE_04];
 
 export type GuidePose = {
   /** Centro del fragmento, en unidades del lienzo. */
@@ -289,4 +374,19 @@ export function guideProximityFlash(progress: number, point: Point, reach: numbe
   if (!Number.isFinite(distance) || distance >= reach) return 0;
   const t = 1 - distance / reach;
   return t * t;
+}
+
+/**
+ * Pulso de luz breve en el núcleo de la Mira, durante la alineación.
+ *
+ * Se deriva de la misma ventana de puntería que usa la rotación: sube mientras
+ * el fragmento se orienta y baja cuando retoma su salida.
+ */
+export function objetivoPulse(progress: number): number {
+  if (progress < BEATS.reveal.start || progress >= BEATS.reveal.end) return 0;
+  const local = beatLocalProgress(progress, BEATS.reveal.start, BEATS.reveal.end);
+  const s = sAtLocal(GUIDE_04.timing, local);
+  if (s <= AIM_WINDOW.from || s >= AIM_WINDOW.to) return 0;
+  const t = (s - AIM_WINDOW.from) / (AIM_WINDOW.to - AIM_WINDOW.from);
+  return Math.sin(Math.PI * t) ** 2;
 }
