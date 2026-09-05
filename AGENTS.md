@@ -26,13 +26,22 @@ enumerados**:
 
 | Fuente funcional | Manda solamente sobre |
 |---|---|
-| `src/components/sections/Contacto.tsx` | campos, labels y `required` del formulario |
-| `src/components/sections/Servicios.tsx` | capacidades y nombres |
+| `src/components/sections/Contacto.tsx` | campos, labels y `required` del formulario de la ruta `/contacto` (tres campos) |
+| `src/components/sections/home/comoTrabajamosContent.ts` | los cuatro motores: nombres, numeración y textos (Sección 05) |
+| `src/components/sections/home/queActivamosContent.ts` | las capacidades de la Sección 06, **mientras esa sección exista** |
 | `src/components/sections/Clientes.tsx` | clientes y logos |
 | `src/components/sections/Trabajos.tsx` | playback IDs, categorías, acciones y tags |
 
 Fuera de esos datos enumerados manda PLAN_MAIN_HOME. Si existe una discrepancia
 **dentro** de esos datos, conservar la fuente funcional y reportarla.
+
+**Las secciones 05 y 06 vivas leen de esos dos módulos**, no de
+`Servicios.tsx` ni de `Motores.tsx`. `routes/index.tsx` renderiza
+`ComoTrabajamos` y `QueActivamos`; a `Servicios.tsx` y `Motores.tsx` sólo los
+importa `src/components/sections/sequenceB/`, **y a `sequenceB/` no lo importa
+nadie: es código muerto pendiente de decisión.** Se mantienen actualizados por
+coherencia, pero no mandan sobre nada renderizado. Cuando se decida qué pasa
+con `sequenceB/`, revisar también esta tabla.
 
 ---
 
@@ -73,16 +82,17 @@ como estado Git actual.
    los IDs de `defs` necesarios para evitar colisiones.
 
 3. **Implementar únicamente secciones con bloque `MOCKUP APROBADO`**, una por vez
-   y con auditoría posterior.
+   y con auditoría posterior. **La HOME tiene ocho secciones**: la 06 «Qué
+   activamos» se absorbió dentro de la 05.
 
 4. **No rediseñar durante la implementación.** Ante una ambigüedad, preguntar.
 
-5. Las rotaciones calculadas de **-138.3°** en la Sección 04 y **-46.5°** en la
-   Sección 05 deben **recalcularse** si cambia posición, tamaño o destino.
+5. **ELIMINADA.** Fijaba las rotaciones calculadas de -138.3° en la Sección 04
+   y -46.5° en la Sección 05. Dependían del fragmento guía, que ya no existe.
+   El número no se reutiliza: la numeración se conserva para no romper las
+   referencias por número del plan y de la documentación.
 
 6. **Una sola explosión, en el Hero. Una sola reconstrucción, en Empecemos.**
-   El fragmento guía es `FACETS[15]` con `INCLUSIONS[6]` adherida. Su recorrido
-   es continuo y nunca se teletransporta entre secciones.
 
 7. **`useScrollEngine` es la única fuente de scroll.** Un solo rAF global, sin
    lecturas de layout durante el scroll y usando `transform` y `opacity` para
@@ -97,13 +107,21 @@ como estado Git actual.
    externos reales pueden usar `<a>` con sus atributos de seguridad
    correspondientes.
 
-10. **Respetar reduced motion en las nueve secciones.** Ningún contenido esencial
+10. **Respetar reduced motion en las ocho secciones.** Ningún contenido esencial
     puede depender de una animación.
 
 11. **No inventar copy, cifras, clientes, endpoints ni assets.**
 
-12. **El repositorio sincroniza con Lovable.** No hacer force push, rebase, amend
-    ni squash sobre commits publicados.
+12. **El repositorio sincroniza con Lovable.** La rama conectada es
+    `integracion/home-desktop`. No hacer force push, rebase, amend ni squash
+    sobre commits publicados de esa rama.
+
+---
+
+## BASELINE CONOCIDO DE LINT
+
+`bun run lint` cierra con **0 errores y 8 warnings**. Ningún cambio debe sumar
+errores nuevos ni warnings nuevos respecto de ese baseline.
 
 ---
 

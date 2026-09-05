@@ -1,8 +1,6 @@
 import { useRef, type ComponentType } from "react";
 import { useReveal } from "@/hooks/useReveal";
-import { CrystalV } from "@/components/brand/CrystalV";
 import {
-  ConnectedClusterIcon,
   FragmentClusterIcon,
   LightningIcon,
   PrismIcon,
@@ -11,43 +9,31 @@ import {
 
 type Servicio = { name: string; text: string; Icon: ComponentType<{ className?: string }> };
 
-// Six approved services, no seventh — tracking/medición is transversal to
-// the whole operation (see Motores), not its own card here either.
-// Object language deliberately overlaps with Motores where the capability
-// does (Estrategia -> Prism, Web & Conversión -> Target, etc.): Motores
-// explains how the team works, this section explains what gets activated,
-// so reusing the same object per capability keeps one system legible
-// instead of inventing a second icon language.
+// Cuatro motores, no seis capacidades. La Sección 06 "Qué activamos" se
+// absorbió dentro de la Sección 05 "Cómo trabajamos": Branding quedó dentro
+// de Creatividad e Influencer Marketing sale del sitio por ahora. Estos son
+// los mismos cuatro motores que define Motores.tsx, con el mismo lenguaje de
+// objetos por motor, para que el sistema se lea como uno solo.
 const SERVICIOS: Servicio[] = [
   {
-    name: "Estrategia & Growth",
-    text: "El plan que conecta objetivos de negocio con decisiones de marketing.",
+    name: "Estrategia",
+    text: "Primero entendemos el negocio. Después armamos el plan.",
     Icon: PrismIcon,
   },
   {
-    name: "Contenido & Creatividad",
-    text: "Piezas pensadas para cada plataforma, no un mismo asset reciclado.",
+    name: "Creatividad",
+    text: "Piezas pensadas para funcionar, no solo para llenar el feed.",
     Icon: FragmentClusterIcon,
   },
   {
-    name: "Paid Media",
-    text: "Presupuesto distribuido donde el dato dice que rinde, no donde parece.",
+    name: "Adquisición",
+    text: "Campañas que se miden por venta real, no por clics.",
     Icon: LightningIcon,
   },
   {
     name: "Web & Conversión",
-    text: "Sitios y fichas que le sacan fricción al camino de compra.",
+    text: "Sitios y fichas pensados para convertir, no solo para existir.",
     Icon: TargetStructureIcon,
-  },
-  {
-    name: "Branding",
-    text: "Una identidad que se sostiene igual en cada punto de contacto.",
-    Icon: (props) => <CrystalV variant="object" {...props} />,
-  },
-  {
-    name: "Influencer Marketing",
-    text: "Voces reales para audiencias reales, no números inflados.",
-    Icon: ConnectedClusterIcon,
   },
 ];
 
@@ -102,15 +88,15 @@ export function Servicios() {
   return (
     <section className="section-v bg-ink-deep">
       <div className="container-v text-center">
-        <span className="eyebrow text-on-dark-2">Qué activamos</span>
+        <span className="eyebrow text-on-dark-2">Cómo trabajamos</span>
         <h2 className="display-l mx-auto mt-4 text-on-dark">
-          Activamos lo que tu negocio
+          Un equipo. Cuatro motores
           <br />
-          necesita para crecer.
+          funcionando juntos.
         </h2>
         <p className="body-l mx-auto mt-4 max-w-[56ch] text-on-dark-2">
-          No todos los negocios necesitan lo mismo. Primero entendemos dónde estás; después
-          definimos qué capacidades activar.
+          No son áreas separadas que se pasan el trabajo. Es un mismo equipo empujando desde cuatro
+          lados.
         </p>
       </div>
 

@@ -2,9 +2,16 @@
 // docs/PLAN_MAIN_HOME.txt (bloque MOCKUP APROBADO, 2026-08-31) y en
 // docs/home-mockups/06-que-activamos-mockup-final.html.
 //
-// Los NOMBRES de las seis capacidades son los de
-// src/components/sections/Servicios.tsx, que AGENTS.md fija como fuente
-// funcional para ese dato. El resto del copy es del plan.
+// CONTRADICCIÓN VIVA, PENDIENTE DE RESOLVER EN UN BLOQUE POSTERIOR:
+// los NOMBRES de las seis capacidades venían de
+// src/components/sections/Servicios.tsx. Ese archivo ya pasó a los cuatro
+// motores, porque el plan fusiona esta sección dentro de la 05 «Cómo
+// trabajamos»: Branding se absorbe en Creatividad e Influencer Marketing sale
+// del sitio. Las seis capacidades de acá abajo son las de ANTES de esa
+// fusión, y hoy ya no tienen fuente funcional que las respalde.
+// Este archivo y QueActivamos.tsx se eliminan cuando se implemente la fusión.
+// Hasta entonces NO tomar esta lista como referencia. El resto del copy es
+// del plan.
 //
 // Medidas en píxeles del lienzo de referencia 1440 × 900.
 

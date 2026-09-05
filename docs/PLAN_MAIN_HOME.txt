@@ -277,695 +277,245 @@ MOCKUP APROBADO:
     después de este mockup, de forma aditiva, sin tocar geometría ni
     materiales.
 
+
+ACTUALIZACIÓN 2026-09-06 — NAV, DESPEJE, CTA Y PÍLDORAS
+
+EL CRYSTAL 5 NO SE MODIFICA.
+- No cambia su geometría, materiales, tamaño ni animación.
+- Queda exactamente como está implementado.
+- Los únicos cambios del Hero son los cuatro que siguen.
+
+Despeje bajo el nav:
+- Valor único de 176 px, aplicado en TODAS las secciones.
+- Reemplaza los dos valores que hoy conviven: .hero con 144 px y
+  .reveal-outer con 112 px.
+- El bloque completo del Hero baja en consecuencia.
+
+Links del nav:
+- Pasan de --on-dark-2 a --on-dark.
+- Deben seguir pasando por el color-mix que resuelve la variante clara
+  de la Sección 08. No reemplazar por un color fijo.
+
+Píldoras — tratamiento V2:
+- Borde de 1 px con degradado que va de rosa claro a transparente hacia
+  la derecha, sobre relleno oscuro.
+- Los seis iconos se REDIBUJAN como vectores reales. Los SVG oficiales de
+  public/brand-approved/official/pills/ usan el carácter tipográfico ◉
+  como texto en Arial: esa es la causa de su baja calidad.
+- Ocho píldoras, cuatro por lado: tres reales y un eco al 17 % de opacidad
+  en cada costado. El catálogo sigue siendo de seis disciplinas; no se
+  inventan nuevas.
+- Ninguna píldora invade el bloque de copy ni los botones. Todas arrancan
+  por debajo de y=596.
+- Flotado lento y continuo, con desfase distinto por píldora, entre 0,4 y
+  3,6 s. Es la primera animación del sitio independiente de
+  useScrollEngine. Se apaga en prefers-reduced-motion.
+
+Lienzo:
+- El Hero pasa a ~1120 de alto. Las píldoras inferiores se descubren al
+  empezar a scrollear.
+
+MOCKUP APROBADO:
+- PENDIENTE. Referencia de composición: 01-hero-propuesta.html
+
 ------------------------------------------------------------
 
 SECCIÓN 02 — EL PROBLEMA
-Headline:
-- Una sola persona no puede cargar todo el crecimiento de un negocio.
 
-Estructura propuesta:
-- Copy dominante.
-- Escena conceptual secundaria; no repetir una explosión completa.
-- Espacio lateral reservado para el fragmento guía.
+Eyebrow:
+- El problema
+
+Headline:
+- Todo pasa por vos.
+- Corte forzado en dos líneas: "Todo pasa" / "por vos."
+- "por vos" en --pink.
+
+Bajada:
+- La pauta, el contenido, la web, los precios, los números. Sos el cuello
+  de botella de tu propio negocio.
+
+Estructura:
+- Formato card: ancho 1296, alto ~700, radio 34, borde 1 px blanco al 8 %.
+- Fondo a sangre dentro de la card: atmosphere/network.svg
+- Objeto a la derecha: objects/lightning.svg
+- Copy a la izquierda, caja de 560 px.
+- Oscurecimiento sobre el lado del copy para garantizar legibilidad.
+  Ver decisión abierta A2.
+
+SE ELIMINAN LAS PÍLDORAS DE ESTA SECCIÓN.
+- Desaparecen los tres planos de profundidad y toda su coreografía.
+
+SE ELIMINA EL FRAGMENTO GUÍA.
+- Ya no hay espacio lateral reservado para él.
 
 Movimiento:
-- El fragmento entra desde un borde después de la explosión.
-- Primera caída lenta con giro y pequeño rebote.
-- Últimas motas de polvo desaparecen.
+- El rayo flota y se desplaza en vertical según la dirección del scroll.
+- Recorrido acotado: nunca toca el borde de la card.
+- Función pura del progreso local, reversible, solo transform.
+- En prefers-reduced-motion: posición fija, sin recorrido.
 
 MOCKUP APROBADO:
-- Imagen: docs/home-mockups/02-problema-uno.png
-- HTML de referencia interactivo: docs/home-mockups/02-problema-mockup-final.html
-- Fecha: 2026-08-31
-- Viewport de referencia: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
-
-- Lectura de la escena:
-  · Las seis capacidades existen y son reconocibles, pero ninguna se
-    relaciona con otra. Sin centro, sin eje, sin agrupamiento.
-  · No se repite la explosión, no aparece el Crystal 5 completo y no hay
-    lluvia ni grupos de fragmentos.
-
-- Copy definitivo:
-  · Eyebrow: "El problema" — Geist Mono 500, 0.7rem, letter-spacing .22em,
-    uppercase, color --pink.
-  · Headline: "Una sola persona no puede cargar todo el crecimiento de un
-    negocio." — Manrope 800, 60 px, line-height 1.02,
-    letter-spacing -.032em, ancho de caja 560 px.
-    "todo el crecimiento" en --pink.
-  · Subtítulo: "Estrategia, contenido, pauta, web, diseño y medición. Cada
-    una es un oficio distinto. Juntas, no entran en una sola agenda." —
-    Manrope 400, 1.02rem, line-height 1.55, medida 46ch, color --on-2.
-
-- Geometría de la composición:
-  · Lienzo 1440 × 900, sin overflow lateral.
-  · Copy alineado a la IZQUIERDA: x=72, y=214 a y=526, ancho 560 px.
-    Rompe deliberadamente el centrado simétrico del Hero; es el primer
-    cambio de registro del recorrido.
-  · Campo de dispersión: x 646–1244.
-  · Carril derecho reservado: x 1150–1370.
-  · Zona protegida del copy: x 72–652, y 196–526. El fragmento guía nunca
-    la cruza ni la tapa.
-
-- Píldoras dispersas, tres planos de profundidad:
-  · Lejano — ESTRATEGIA (left 706, top 104, 198 px, -19°) ·
-    WEB (left 1016, top 452, 178 px, +21°).
-  · Medio, opacidad .52 — ANÁLISIS (left 690, top 394, 206 px, +13°) ·
-    DISEÑO (left 944, top 700, 196 px, -9°).
-  · Cercano, opacidad .92 — CONTENIDO (left 806, top 560, 240 px, -22°) ·
-    ADQUISICIÓN (left 646, top 726, 228 px, +8°).
-  · Rotaciones entre -22° y +21°, bastante más fuertes que el ±7° del
-    Hero. Ningún par comparte ángulo ni altura. Sin centro común.
-
-- Tratamiento del plano lejano (técnica aprobada):
-  · El cuerpo de la píldora (rect + circle del icono) y su etiqueta
-    (icono + palabra) se renderizan como DOS SVG HERMANOS SUPERPUESTOS,
-    con el mismo viewBox 0 0 300 72 y posicionados uno sobre otro.
-  · Cuerpo: filter blur 1.55 px, opacidad .44.
-  · Etiqueta: sin filtro, opacidad .62.
-  · Resultado: la profundidad vive en la forma, pero las seis capacidades
-    se identifican. En esta sección las píldoras SON la escena, no
-    atmósfera, así que ninguna puede quedar muda.
-  · IMPORTANTE para la implementación: deben ser dos SVG hermanos, no un
-    <g> interno. Con un grupo dentro del mismo SVG, el blur se calcula en
-    unidades del viewBox y no en píxeles de pantalla, por lo que el
-    desenfoque real variaría con la escala de cada píldora.
-  · Los seis SVG maestros de official/pills/ quedan intactos. Las
-    etiquetas se tipografían en Manrope 700 al renderizar.
-
-- Fragmento guía:
-  · FACETS[15] con INCLUSIONS[6] adherida, según lo aprobado en la
-    Sección 01.
-  · Fuente: grupo 15 de
-    official/narrative/crystal-five-fragments-volumetric-approved.svg,
-    que ya contiene la cara principal rosa, el espesor oscuro desplazado
-    (translate 3 / 3.5) y las cuatro caras internas trianguladas desde el
-    centroide 153.25 / 118.25. No hay que construir volumen: el asset
-    oficial ya lo trae.
-  · Posición en esta escena: left 1214, top 250, ancho 104 px,
-    rotación -24°.
-  · Se mantiene en la zona SUPERIOR derecha: su altura comunica que acaba
-    de entrar como consecuencia de la explosión del Hero. No debe bajarse.
-  · Vive entre el plano medio y el cercano, para leerse por delante del
-    desorden sin competir con el copy.
-  · Continúa su descenso hacia la Sección 03.
-
-- Polvo residual:
-  · Ocho motas en el cuadrante superior derecho, radios 1 a 1.6,
-    opacidades .18 a .5, color --pink-soft.
-  · Es estela de la explosión del Hero, presente solo en la transición.
-    No se mantiene durante toda la sección.
-
-- Movimiento aprobado:
-  · El fragmento entra desde el borde superior del carril derecho, con
-    caída lenta, giro suave y pequeño rebote.
-  · Las píldoras no explotan ni se reagrupan: entran con desfase y quedan
-    donde están.
-  · Las últimas motas de polvo se desvanecen al completarse la entrada.
-
-- Comportamiento mobile:
-  · Pendiente de mockup propio. Menos píldoras simultáneas, el fragmento
-    pegado al lateral y a menor escala, polvo reducido.
-
-- Reduced motion:
-  · Sin caída ni giro del fragmento; aparece en su posición final.
-  · Píldoras estáticas, sin desfase de entrada.
-  · Ningún contenido esencial depende de la animación.
-
-- Relación con la Sección 03:
-  · La 02 muestra capacidades DISPERSAS, sin centro y sin ninguna
-    conexión entre sí: todo cae sobre una sola persona.
-  · La 03 se diferenciará mostrando PEQUEÑOS CLUSTERS con conexiones
-    parciales entre algunos pares, que aun así no llegan a formar un
-    sistema completo.
-  · Sin esa diferencia, la 03 se leería como repetición de la 02.
+- PENDIENTE. Referencia de composición: 02-03-cards-propuesta.html
 
 ------------------------------------------------------------
 
 SECCIÓN 03 — EL OTRO PROBLEMA
-Headline:
-- Y muchos proveedores sueltos tampoco forman un equipo.
 
-Estructura propuesta:
-- Copy y escena en composición distinta de Problema 1.
-- Conexiones parciales, nunca una red completa.
+Eyebrow:
+- El otro problema
+
+Headline:
+- Sumar gente no lo resolvió.
+- Corte forzado en dos líneas: "Sumar gente" / "no lo resolvió."
+- "no lo resolvió" en --pink.
+
+Bajada:
+- Un community, un diseñador, alguien que toca la web. Cada uno hace lo
+  suyo y nadie mira el conjunto.
+
+Estructura:
+- Mismo formato card que la 02, con la composición ESPEJADA.
+- Fondo a sangre: atmosphere/orbit.svg
+- Objeto a la izquierda: objects/prism.svg
+- Copy a la derecha, alineado a la derecha.
+
+SE ELIMINAN LAS PÍLDORAS, LOS CLUSTERS Y LAS CONEXIONES ENTRE ELLOS.
+SE ELIMINA EL FRAGMENTO GUÍA.
 
 Movimiento:
-- El fragmento guía cruza hacia el carril opuesto mediante una curva amplia.
-- Giro parcial en profundidad.
-- Destello breve al pasar cerca de una conexión incompleta.
+- Idéntico al de la 02, aplicado al prisma.
+
+Nota de contenido:
+- La 03 ya no repite el argumento de la 02. La 02 plantea el problema;
+  la 03 ataca la solución obvia a ese problema, que es tercerizar.
 
 MOCKUP APROBADO:
-- Imagen: docs/home-mockups/03-problema-dos.png
-- HTML de referencia interactivo: docs/home-mockups/03-problema-mockup-final.html
-- Fecha: 2026-08-31
-- Viewport de referencia: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
-
-- Lectura de la escena:
-  · Las capacidades ahora SÍ se agrupan, pero cada grupo funciona por su
-    cuenta: hay conexiones dentro de cada cluster y ninguna entre ellos.
-  · Esa es la diferencia con la Sección 02, donde no existía ninguna
-    relación. Acá hay grupos; lo que falta es el sistema.
-  · Nunca se forma una red completa.
-
-- Copy definitivo:
-  · Eyebrow: "El otro problema" — Geist Mono 500, 0.7rem,
-    letter-spacing .22em, uppercase, color --pink.
-  · Headline: "Y muchos proveedores sueltos tampoco forman un equipo." —
-    Manrope 800, 60 px, line-height 1.02, letter-spacing -.032em,
-    ancho de caja 560 px, alineado a la DERECHA.
-    "tampoco forman un equipo" en --pink.
-  · Subtítulo: "Cada uno hace bien su parte. Nadie mira el conjunto. Las
-    decisiones quedan sin dueño y el negocio avanza a pedazos." —
-    Manrope 400, 1.02rem, line-height 1.55, medida 44ch, color --on-2,
-    alineado a la derecha.
-
-- Geometría de la composición:
-  · Lienzo 1440 × 900, sin overflow lateral.
-  · Copy a la DERECHA: right=72, y=200 a y=536, ancho 560 px, alineación
-    a la derecha. Invierte el eje de la Sección 02, que tiene el copy a la
-    izquierda. Es el cambio de composición que pide el plan.
-  · Campo de clusters: x 76–736.
-  · Zona protegida del copy: x 808–1368, y 176–544.
-  · Carril izquierdo de destino: x 70–290.
-
-- Clusters, tres grupos de dos píldoras, uno por plano de profundidad:
-  · Cluster A — LEJANO: ESTRATEGIA (left 96, top 186, 196 px, -8°) ·
-    ANÁLISIS (left 214, top 274, 182 px, +5°).
-    Tratamiento de capas separadas: cuerpo con blur 1.55 px y opacidad .44,
-    etiqueta nítida a opacidad .62, con la misma técnica de dos SVG
-    hermanos aprobada en la Sección 02.
-  · Cluster B — CERCANO, opacidad .94: CONTENIDO (left 352, top 396,
-    238 px, -6°) · DISEÑO (left 498, top 476, 214 px, +9°).
-  · Cluster C — MEDIO, opacidad .60: WEB (left 128, top 556, 210 px, +7°) ·
-    ADQUISICIÓN (left 300, top 624, 224 px, -4°).
-  · La profundidad refuerza el agrupamiento: no es solo proximidad, cada
-    cluster vive en su propio plano.
-
-- Conexiones parciales:
-  · Una línea dentro de cada cluster, ninguna entre clusters:
-    A: (196,236) → (306,318), stroke-opacity .30, ancho 1.1
-    B: (470,452) → (604,522), stroke-opacity .42, ancho 1.3
-    C: (232,604) → (406,668), stroke-opacity .34, ancho 1.2
-  · CONEXIÓN INCOMPLETA: sale de DISEÑO en (604,522) hacia (676,604),
-    stroke-dasharray 5 7, opacidad .26, terminada en un punto tenue de
-    radio 2.6 en --pink-soft. No llega a ningún destino.
-  · Las conexiones se renderizan por debajo de las píldoras (z-index 6).
-
-- Recorrido del fragmento guía (FACETS[15] con INCLUSIONS[6]):
-  1. El recorrido comienza FUERA del borde derecho del viewport,
-     entrando ya a media altura baja (≈ y 592).
-  2. Entra por debajo del copy y NUNCA pisa su zona protegida
-     (x 808–1368, y 176–544). Por eso no desciende por el carril derecho:
-     ese carril se superpone con la columna del copy en esta sección.
-  3. Cruza la franja inferior mediante una curva amplia hasta (646, 736).
-  4. Produce un destello breve al pasar cerca del extremo de la conexión
-     incompleta, en (676, 604).
-  5. Continúa hacia el carril izquierdo y sale por abajo, rumbo a la
-     Sección 04.
-  · Posición en el mockup: left 598, top 686, ancho 98 px, rotación -58°.
-    Bastante más girado que los -24° de la Sección 02, para que se lea el
-    giro parcial en profundidad durante el cruce.
-
-- Vacío inferior derecho:
-  · Es DELIBERADO y funciona como corredor narrativo: muestra el espacio
-    que el fragmento acaba de recorrer.
-  · No se rellena, no se baja el copy y no se mueve el cluster C. La
-    asimetría es intencional y evita tapar contenido.
-
-- Polvo:
-  · No hay. La estela de la explosión del Hero se agotó en la Sección 02.
-
-=====================================================================
-OTRAS REGLAS
-=====================================================================
-- SIN EXPLOSIÓN Y SIN RECONSTRUCCIÓN. En esta sección no hay piezas del
-  Crystal 5 más allá del fragmento guía. La reconstrucción sigue reservada
-  para "Empecemos".
-
-- Comportamiento mobile:
-  · Pendiente de mockup propio. Menos píldoras simultáneas, clusters
-    reducidos, el cruce del fragmento simplificado a un desplazamiento
-    vertical con giro leve.
-
-- Reduced motion:
-  · Sin cruce ni giro: el fragmento aparece en su posición final.
-  · Sin destello.
-  · Píldoras y conexiones estáticas.
-  · Ningún contenido esencial depende de la animación.
-
-- Relación con las secciones vecinas:
-  · Sección 02: capacidades dispersas, sin centro y sin ninguna conexión.
-  · Sección 03: clusters con conexiones parciales, sin sistema completo.
-  · Sección 04: el punto donde todo empieza a alinearse sobre un mismo
-    objetivo. La progresión debe leerse como dispersión → agrupamiento
-    incompleto → integración.
+- PENDIENTE. Referencia de composición: 02-03-cards-propuesta.html
 
 ------------------------------------------------------------
 
 SECCIÓN 04 — UN MISMO OBJETIVO
-Headline:
-- El crecimiento aparece cuando cada parte trabaja sobre el mismo objetivo.
 
-Estructura propuesta:
-- Momento de pausa y claridad visual.
-- Puede aparecer una huella/contorno sutil de Crystal 5, pero NO reconstruirlo.
+Eyebrow:
+- Un mismo objetivo
+
+Headline:
+- El crecimiento aparece cuando cada parte trabaja sobre el mismo
+  objetivo.
+- "el mismo objetivo" en --pink. Centrado, medida máxima 900 px.
+
+Bajada:
+- No hace falta más gente. Hace falta que todo lo que ya se hace apunte
+  al mismo lugar.
+
+EL COPY DE ESTA SECCIÓN NO CAMBIA respecto de la versión anterior.
+
+Estructura:
+- Formato card, igual que la 02 y la 03.
+- El fondo de la card es una SUPERFICIE DE CRISTAL FACETADO que ocupa
+  toda su extensión. No hay figura reconocible: la card es cristal.
+- Copy centrado por encima.
+
+Construcción de la superficie:
+- SVG. Pocas caras y grandes: seis a ocho cruzando toda la card.
+- Contraste bajo entre caras vecinas.
+- Aplicar las siete técnicas de docs/DESIGN_SYSTEM_CRYSTAL.txt: facetas
+  asimétricas, gradientes distintos por cara, superposición de rosas,
+  grafito y vidrio, líneas finas blanco/rosa, reflejos localizados, caras
+  llenas junto a caras casi transparentes, e imperfecciones que rompen la
+  simetría.
+
+SE ELIMINA LA MIRA y toda coreografía asociada a ella.
+SE ELIMINA EL FRAGMENTO GUÍA y con él la rotación de -138,3°.
 
 Movimiento:
-- El fragmento desacelera y se orienta hacia el objetivo.
-- Pulso de luz o alineación breve.
-- Continúa su recorrido sin convocar todavía al resto de piezas.
+- El scroll desplaza la LUZ sobre las caras. La geometría permanece fija.
+- El titular no se mueve.
+- En prefers-reduced-motion: luz en posición fija.
 
 MOCKUP APROBADO:
-- Imagen: docs/home-mockups/04-mismo-objetivo.png
-- HTML de referencia interactivo: docs/home-mockups/04-mismo-objetivo-mockup-final.html
-- Fecha: 2026-08-31
-- Viewport de referencia: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
-
-- Lectura de la escena:
-  · Es el punto de giro de la HOME: la narrativa deja de mostrar problemas
-    y empieza a mostrar dirección.
-  · La pausa se construye QUITANDO, no agregando. Las Secciones 02 y 03
-    tienen seis píldoras, conexiones y el fragmento. Esta tiene TRES
-    ELEMENTOS y un eje.
-
-- SOLO TRES ELEMENTOS VISUALES:
-  1. Huella del Crystal 5 (aristas).
-  2. Mira (el objetivo).
-  3. Fragmento guía.
-  · SIN PÍLDORAS. El plan pide continuar "sin convocar todavía al resto de
-    piezas"; sacarlas por completo es la lectura más limpia y es lo que
-    produce el contraste de densidad que hace que la sección respire.
-
-- Copy definitivo:
-  · Eyebrow: "Un mismo objetivo" — Geist Mono 500, 0.7rem,
-    letter-spacing .22em, uppercase, color --pink.
-  · Headline: "El crecimiento aparece cuando cada parte trabaja sobre el
-    mismo objetivo." — Manrope 800, 58 px, line-height 1.04,
-    letter-spacing -.03em, medida máxima 900 px, CENTRADO.
-    "el mismo objetivo" en --pink.
-  · Subtítulo: "No hace falta más gente. Hace falta que todo lo que ya se
-    hace apunte al mismo lugar." — Manrope 400, 1.02rem, line-height 1.55,
-    medida 50ch, color --on-2, centrado.
-
-- Geometría de la composición:
-  · Lienzo 1440 × 900, sin overflow lateral.
-  · Copy CENTRADO, y=168. La Sección 02 tiene el copy a la izquierda y la
-    03 a la derecha; el centrado de la 04 cierra ese vaivén y detiene el
-    movimiento lateral del recorrido. Es parte de lo que comunica la pausa.
-  · Huella: centrada en el eje x=720, y=452, ancho 620 px.
-  · Mira: centro en (720, 592), 150 px.
-  · Fragmento: left 330, top 556, ancho 92 px.
-
-- HUELLA DEL CRYSTAL 5:
-  · ÚNICAMENTE ARISTAS. Los mismos trazos del asset oficial, sin ningún
-    relleno, sin facetas y sin gradientes.
-  · stroke --pink, stroke-width 0.55, stroke-opacity .15,
-    vector-effect non-scaling-stroke.
-  · NO ES UNA RECONSTRUCCIÓN: es el lugar donde el objeto estuvo.
-  · NO HAY RECONSTRUCCIÓN DEL CRYSTAL 5 EN ESTA SECCIÓN. La reconstrucción
-    real está reservada para la sección "Empecemos".
-
-- LA MIRA (el objetivo):
-  · Asset oficial official/objects/target.svg, sin modificar. Solo se
-    renombraron los IDs de sus <defs> para evitar colisiones al embeber.
-  · El sistema ya la define como foco y dirección: el objetivo tiene un
-    objeto asignado, no es una abstracción.
-  · UBICACIÓN: en el NODO CENTRAL de la huella, el punto donde convergen
-    las aristas de los dos cuerpos del Crystal 5.
-  · CORRECCIÓN IMPORTANTE: NO está en el vértice inferior. El vértice
-    inferior del Crystal 5 es la punta que queda abajo, bastante más lejos
-    del nodo central. Esta distinción se documentó tras un error en la V1
-    del mockup.
-  · Pulso de luz breve en el núcleo durante la alineación.
-
-- FRAGMENTO GUÍA — ORIENTACIÓN CALCULADA:
-  · VÉRTICE GUÍA: (117,166), con ÁNGULO INTERNO 37.7°.
-    Es el vértice más agudo de FACETS[15]. Los otros tres miden
-    136.4° en (139,102), 109.6° en (164,89) y 76.3° en (193,116).
-  · ROTACIÓN FINAL: -138.3°.
-  · LA PUNTA DEBE APUNTAR AL CENTRO REAL DE LA MIRA. La rotación no es
-    estética: se calculó geométricamente.
-    – Vector desde el centro de rotación del elemento hasta el vértice
-      agudo, sin rotar: (-39, 37), es decir 136.5°.
-    – Vector desde el centro del fragmento (376, 603) hasta el centro de
-      la Mira (720, 592): -1.8°.
-    – Rotación necesaria = -1.8° - 136.5° = -138.3°.
-  · NO basta con reducir el ángulo del cruce anterior. En la V1 se usó
-    -31° por continuidad con los -58° de la Sección 03, y la punta quedó
-    apuntando hacia abajo. El ángulo correcto es casi opuesto.
-  · Al implementar: si cambian la posición del fragmento, su tamaño o la
-    posición de la Mira, la rotación DEBE recalcularse con el mismo
-    procedimiento y verificarse visualmente. No es un valor fijo, es el
-    resultado de una relación espacial.
-
-- Movimiento aprobado:
-  · El fragmento llega desde el carril izquierdo, viniendo de la
-    Sección 03.
-  · TRAYECTORIA CASI RECTA: pasa de curva amplia a línea, que es como se
-    lee una desaceleración.
-  · Desacelera y gira para orientar su vértice agudo hacia la Mira.
-  · Pulso de luz breve en el núcleo de la Mira durante la alineación.
-  · Continúa su recorrido saliendo por abajo a la derecha, SOLO: no
-    arrastra ni convoca a las demás piezas.
-
-- Comportamiento mobile:
-  · Pendiente de mockup propio. La huella se recorta o se reduce, la Mira
-    se mantiene como ancla central y el fragmento entra por un lateral con
-    trayectoria vertical simplificada.
-
-- Reduced motion:
-  · Sin desaceleración ni giro: el fragmento aparece ya orientado.
-  · Sin pulso de luz.
-  · Huella y Mira estáticas.
-  · Ningún contenido esencial depende de la animación.
-
-- Relación con las secciones vecinas:
-  · 02: capacidades dispersas, sin centro ni conexión.
-  · 03: clusters con conexiones parciales, sin sistema completo.
-  · 04: aparece el objetivo. Una sola pieza se orienta hacia él.
-  · La progresión se lee como dispersión → agrupamiento incompleto →
-    dirección. La integración plena llega después.
+- PENDIENTE. Referencia de composición:
+  04-facetas-07-cristal-propuesta.html
 
 ------------------------------------------------------------
 
 SECCIÓN 05 — CÓMO TRABAJAMOS
+(absorbe a la anterior Sección 06 "Qué activamos")
+
+Eyebrow:
+- Cómo trabajamos
+
 Headline:
 - Un equipo. Cuatro motores funcionando juntos.
+- "Cuatro motores" en --pink.
 
-Contenido:
-- Estrategia.
-- Creatividad.
-- Adquisición.
-- Web & Conversión.
-- Medición como capa transversal, no quinta card.
+Bajada:
+- No son áreas separadas que se pasan el trabajo. Es un mismo equipo
+  empujando desde cuatro lados.
 
-Estructura propuesta:
-- Cuatro módulos con objetos del sistema.
-- Medición como escala transversal derivada del ScrollAxis oficial.
+LOS CUATRO MOTORES:
+- 01 Estrategia
+- 02 Creatividad
+- 03 Adquisición
+- 04 Web & Conversión
 
-Movimiento:
-- El fragmento guía se alinea y activa el primer hito visual a distancia.
-- Continúa por el margen exterior y los canales, sin tapar las cards.
-- Las cards mantienen reveals propios y secundarios.
+Son los mismos cuatro que ya define src/components/sections/Motores.tsx.
 
-MOCKUP APROBADO:
-- Imagen: docs/home-mockups/05-como-trabajamos.png
-- HTML de referencia interactivo: docs/home-mockups/05-como-trabajamos-mockup-final.html
-- Fecha: 2026-08-31
-- Viewport de referencia: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
+FUSIÓN DE SECCIONES:
+- La Sección 06 "Qué activamos" se elimina. Sus capacidades se absorben
+  acá.
+- Branding se absorbe dentro de Creatividad.
+- Influencer Marketing sale del sitio por ahora.
+- src/components/sections/Servicios.tsx es fuente funcional y hoy lista
+  seis capacidades: debe actualizarse a los cuatro motores en el mismo
+  commit, o la contradicción queda viva.
+- Motivo de la fusión: había cinco secciones seguidas de cards. Con esto
+  quedan tres.
 
-=====================================================================
-CAMBIO RESPECTO DE LA INDICACIÓN ORIGINAL DEL PLAN
-=====================================================================
-- La versión anterior de esta sección decía "Barras como recurso
-  transversal". ESA INDICACIÓN QUEDA REEMPLAZADA.
-- MOTIVO: el sistema tiene exactamente cuatro objetos (Mira, Prisma, Rayo
-  y Barras) y la sección necesita cuatro módulos MÁS una capa transversal.
-  Si las Barras se reservaban para la capa transversal, quedaban tres
-  objetos para cuatro cards. Las únicas salidas eran crear un objeto nuevo
-  —prohibido por las reglas— o dejar una card sin objeto, rompiendo la
-  uniformidad de la fila.
-- SOLUCIÓN APROBADA: los cuatro objetos van en las cards y la medición se
-  expresa como escala horizontal derivada del ScrollAxis oficial, que el
-  pack ya define para representar recorrido y progreso. No se creó ningún
-  asset nuevo.
+EL ABANICO ES LA ESTRUCTURA DE LA SECCIÓN.
+No es un objeto ilustrativo: cada hoja del abanico ES un motor.
 
-=====================================================================
-MAPEO DEFINITIVO DE LOS CUATRO MOTORES
-=====================================================================
-- 01 ESTRATEGIA        → MIRA    (official/objects/target.svg)
-     Foco y dirección, según el manifiesto.
-- 02 CREATIVIDAD       → PRISMA  (official/objects/prism.svg)
-     Una entrada, muchas salidas: es generar variantes a partir de un
-     insumo.
-- 03 ADQUISICIÓN       → RAYO    (official/objects/lightning.svg)
-     Ejecución y velocidad, según el manifiesto.
-- 04 WEB & CONVERSIÓN  → BARRAS  (official/objects/bars.svg)
-     Conversión es crecimiento medible.
-- Los cuatro se usan SIN MODIFICAR. Lo único que se hace al embeberlos es
-  renombrar los IDs de sus <defs>, porque cuatro SVG en la misma página
-  colisionan en gradientes y filtros con nombres iguales (glass, beam, g,
-  gl, front, side, top, inner, core, glow).
+Geometría:
+- Eje en la base: Crystal V en WIREFRAME, solo aristas blancas, sin
+  relleno. Silueta más aristas internas.
+- Cuatro hojas de ~43° cada una. Separación entre hojas de 1,6°.
+- Radio interno 104. Radio externo 310.
+- Seis varillas por hoja, corriendo A LO LARGO del radio, de ancho
+  irregular.
+- NO subdividir en bandas transversales: eso se lee como mosaico, no
+  como abanico. Es el error a evitar.
+- Materiales alternados por varilla: vidrio, rosa denso, grafito, bordó.
+  Nunca dos iguales consecutivas.
+- Un reflejo alargado por hoja, sobre una sola varilla.
 
-- PRISMA: SE USA SIN RECORTAR NI MODIFICAR. Su viewBox es 520 × 260, más
-  apaisado que el resto, así que ajustado por altura se ve algo menos
-  presente que los otros tres. Se limita a max-height 92 px para que no
-  desborde el ancho de la card. NO se recorta el viewBox para "equilibrar"
-  el peso visual: eso sería modificar el asset oficial.
+Tratamiento:
+- VIDRIADO. Caras translúcidas que dejan ver a través.
+- Aristas exteriores encendidas con glow. Aristas internas finas.
+- El volumen se lee por los bordes, no por el relleno.
 
-=====================================================================
-MEDICIÓN — ESCALA TRANSVERSAL
-=====================================================================
-- Derivada del SCROLLAXIS OFICIAL (official/scroll/scroll-axis.svg): es el
-  mismo eje del pack, reorientado de vertical a horizontal.
-- Línea en y=596, stroke --pink a .26 de opacidad, ancho 1.1.
-- Ticks regulares cada 34 px.
-- UN NODO POR MÓDULO, alineado al centro de cada card: x = 225, 555, 885,
-  1215.
-- SIN ETIQUETA POR NODO. Una sola leyenda "MEDICIÓN" al inicio del eje, en
-  x=20 (separada del borde para que no se lea recortada). Si cada nodo
-  llevara rótulo propio, la escala empezaría a leerse como una quinta fila
-  de contenido.
-- ES UNA CAPA SECUNDARIA: atraviesa y relaciona los cuatro módulos, pero
-  nunca compite con los objetos ni parece una quinta card.
+Títulos:
+- Los cuatro nombres van en VERTICAL, siguiendo el radio, a 40 px del
+  arco exterior, uno por hoja.
 
-=====================================================================
-GEOMETRÍA DE LA COMPOSICIÓN
-=====================================================================
-- Lienzo 1440 × 900, sin overflow lateral.
-- Copy CENTRADO arriba, y=104. Headline a 48 px (menor que las secciones
-  narrativas): acá el protagonista son las cards, no el copy.
-- Cuatro cards: y=380, alto 340, ancho 306, gap 24, márgenes 72.
-  Posiciones x: 72, 402, 732, 1062.
-- Estructura interna de card: objeto (118 px de alto fijo) → número en
-  mono → espacio flexible → título → descripción. El espacio flexible es
-  lo que mantiene los cuatro títulos alineados aunque los objetos tengan
-  proporciones distintas, y es por donde pasa la escala.
-- Escala en y=596.
+Movimiento — ANIMACIÓN INVERTIDA:
+- El abanico ENTRA ABIERTO, a 172° de apertura total.
+- Se CIERRA a medida que la sección termina, hasta 24°.
+- Al scrollear hacia arriba se vuelve a abrir.
+- Función pura del progreso local, reversible, solo transform y opacity.
+- En prefers-reduced-motion: abierto y fijo.
+- Nota: el momento fuerte de la sección es el CIERRE, no la apertura.
 
-=====================================================================
-FRAGMENTO GUÍA — ACTIVACIÓN A DISTANCIA
-=====================================================================
-- POSICIÓN: alineado en el CANAL SUPERIOR, centrado exactamente sobre la
-  vertical del nodo 01 (x=225). left=179, top=280, ancho 92 px.
-- NO DESCIENDE HASTA EL NODO. Su cuerpo termina en y=374 y las cards
-  empiezan en y=380: NUNCA TOCA NI ATRAVIESA LA CARD.
-- ROTACIÓN CALCULADA: -46.5°.
-  · Vector centro-punta sin rotar: 136.5° (vértice agudo (117,166)).
-  · Vector deseado: 90°, exactamente vertical hacia abajo, hacia el nodo.
-  · Rotación = 90° - 136.5° = -46.5°.
-  · OBLIGACIÓN: si al implementar cambian la posición del fragmento, su
-    tamaño, la posición de las cards o la altura de la escala, la rotación
-    DEBE RECALCULARSE con el mismo procedimiento y verificarse
-    visualmente. No es un valor fijo: es el resultado de una relación
-    espacial.
-
-- ACTIVACIÓN MEDIANTE PULSO VERTICAL:
-  · Un haz vertical tenue baja desde la punta del fragmento (y=374) hasta
-    el nodo (y=596), en x=225.
-  · Gradiente vertical --pink-soft .42 → --pink .16 → --pink .50, con
-    desenfoque gaussiano.
-  · EL FRAGMENTO SEÑALA; EL PULSO HACE EL TRABAJO. El cuerpo del objeto
-    nunca entra en la card.
-- NODO 01 ACTIVO: se distingue de los otros tres con halo (círculo de
-  radio 15 en --pink al 18% con glow, más anillo de radio 13 en
-  --pink-soft al 50%) y NÚCLEO REFORZADO (radio 3 en vez de 2.2,
-  opacidad 1 en vez de .7, stroke 1.7 en vez de 1.3).
-
-=====================================================================
-RECORRIDO POSTERIOR — CINCO PASOS
-=====================================================================
-1. Entra por el CANAL SUPERIOR desde la derecha (y 276–376).
-2. Se alinea sobre el nodo 01 y lo activa a distancia.
-3. Va hacia el MARGEN EXTERIOR IZQUIERDO (x 0–72).
-4. DESCIENDE POR FUERA DE LA FILA DE CARDS, por ese margen, sin tocar
-   ninguna.
-5. Entra al CANAL INFERIOR (y 736–802) y sale hacia la Sección 06.
-
-- TRES ZONAS DOCUMENTADAS:
-  · CANAL SUPERIOR: y 276–376, entre el copy y los módulos.
-  · MARGEN EXTERIOR IZQUIERDO: x 0–72, a la altura de la fila de cards.
-  · CANAL INFERIOR: y 736–802, debajo de la fila.
-- EL FRAGMENTO NUNCA PASA POR ENCIMA DE UNA CARD. Todo su recorrido ocurre
-  dentro de esas tres zonas.
-
-=====================================================================
-OTRAS REGLAS DE LA SECCIÓN
-=====================================================================
-- SIN EXPLOSIÓN Y SIN RECONSTRUCCIÓN. El Crystal 5 no aparece en esta
-  sección, ni siquiera como huella. La reconstrucción sigue reservada para
-  "Empecemos".
-- Las cards mantienen reveals propios y secundarios, con desfase entre
-  ellas. Nunca compiten con el recorrido del fragmento.
-
-- Comportamiento mobile:
-  · Pendiente de mockup propio. Las cuatro cards pasan a columna o a
-    scroll horizontal, la escala se reorienta o se simplifica a un
-    indicador de progreso, y el fragmento acompaña por un solo lateral.
-
-- Reduced motion:
-  · Sin recorrido ni pulso: el fragmento aparece ya alineado y el nodo 01
-    ya activo.
-  · Cards visibles sin reveal escalonado.
-  · Ningún contenido esencial depende de la animación.
-
-------------------------------------------------------------
-
-SECCIÓN 06 — QUÉ ACTIVAMOS
-Headline:
-- Activamos lo que tu negocio necesita para crecer.
-
-Contenido:
-- Carrusel horizontal de las seis capacidades.
-- Una pieza volumétrica del Crystal 5 por capacidad.
-
-Movimiento:
-- Fragmento guía por el canal superior, a menor velocidad que el carrusel.
-- Un solo reflejo coordinado con la entrada del módulo activo.
+PENDIENTE — DISEÑO DE LA FORMA DEL ABANICO:
+La estructura, el tratamiento, los estados y la animación están
+definidos y aprobados. El diseño de la forma NO está resuelto: las
+versiones generadas por fórmula dan un objeto correcto pero sin carácter,
+que se lee como un medidor. Debe resolverse iterando sobre el SVG en el
+navegador contra DESIGN_SYSTEM_CRYSTAL.txt, o dibujarse en un vector.
 
 MOCKUP APROBADO:
-- Imagen: docs/home-mockups/06-que-activamos.png
-- HTML de referencia interactivo: docs/home-mockups/06-que-activamos-mockup-final.html
-- Fecha: 2026-08-31
-- Viewport de referencia: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
-
-=====================================================================
-DISTINCIÓN NARRATIVA CON LA SECCIÓN 05
-=====================================================================
-- Sección 05 — Cómo trabajamos: los CUATRO MOTORES explican cómo opera el
-  equipo.
-- Sección 06 — Qué activamos: las SEIS CAPACIDADES explican qué
-  combinación se pone en marcha según el problema.
-- Sin esa distinción, las dos secciones se leerían como el mismo listado
-  repetido.
-
-=====================================================================
-LAS SEIS CAPACIDADES Y SUS PIEZAS
-=====================================================================
-Fuente de verdad de los nombres: src/components/sections/Servicios.tsx.
-
-- 01 ESTRATEGIA & GROWTH      → FACETA 02 · cuadrilátero, 5 vértices
-     "Dónde crecer, con qué prioridad y en qué orden."
-- 02 CONTENIDO & CREATIVIDAD  → FACETA 17 · pentágono, 6 vértices
-     "Piezas pensadas para competir, no para llenar el feed."
-- 03 PAID MEDIA               → FACETA 10 · triángulo alargado
-     "Inversión que se optimiza sobre venta real."
-- 04 WEB & CONVERSIÓN         → FACETA 07 · triángulo ancho
-     "Lo que pasa después del clic, ordenado."
-- 05 BRANDING                 → FACETA 11 · cuadrilátero apaisado
-     "Una identidad que sostiene todo lo demás."
-- 06 INFLUENCER MARKETING     → FACETA 05 · triángulo compacto
-     "Colaboraciones con seguimiento, no canjes sueltos."
-
-- MEDICIÓN, TRACKING Y ATRIBUCIÓN SIGUEN SIENDO TRANSVERSALES. No forman
-  una séptima capacidad ni un módulo propio.
-- Meta Ads, Google Ads, GA4, CAPI, contenido para pauta y demás
-  herramientas específicas quedan RESERVADAS como tags o evidencia dentro
-  de Trabajos. No son categorías de esta sección.
-
-=====================================================================
-PIEZAS VOLUMÉTRICAS — REGLAS
-=====================================================================
-- UNA PIEZA VOLUMÉTRICA DISTINTA DEL CRYSTAL 5 POR CAPACIDAD, tomada de
-  official/narrative/crystal-five-fragments-volumetric-approved.svg.
-- Las seis facetas (02, 17, 10, 07, 11, 05) se eligieron por tener
-  siluetas y cantidad de vértices bien distintos entre sí, para que ninguna
-  se confunda con otra a tamaño de card.
-- Cada una conserva la materialidad del sistema: rosa y grafito, volumen,
-  espesor y aristas. NO SE INVENTAN FORMAS NUEVAS.
-- Al aislarlas se les quita el transform de layout del board original y se
-  reencuadra el viewBox al bounding box de la pieza más 6 px de margen. La
-  geometría no se toca.
-- FACETS[15] NO SE USA EN ESTA SECCIÓN. Sigue reservada exclusivamente
-  como fragmento guía.
-- NO SE USAN LOS OBJETOS DEL SISTEMA. Mira, Prisma, Rayo y Barras quedan
-  asignados a los motores de la Sección 05; repetirlos acá haría que el
-  mismo objeto significara dos cosas distintas en secciones seguidas.
-
-=====================================================================
-GEOMETRÍA DE LA COMPOSICIÓN
-=====================================================================
-- Lienzo 1440 × 900, sin overflow lateral.
-- Copy centrado arriba, y=96. Headline 48 px.
-- Subtítulo aprobado, que es lo que impide que la sección se lea como un
-  menú de servicios:
-  "No activamos todo porque sí. Elegimos la combinación que destraba el
-   crecimiento y prepara el siguiente paso."
-- CANAL DE ~100 PX entre el copy y el carrusel (y 286–392). NO SE REDUCE:
-  funciona como aire de composición y como canal narrativo por donde pasa
-  el fragmento guía.
-- Carrusel: y=396, alto 316, módulo 280 px, gap 20 px.
-  Posiciones x de los seis: -90, 210, 510, 810, 1110, 1410.
-- CORTE EN AMBOS BORDES: el primero y el último quedan parcialmente fuera
-  de cuadro, con máscara de degradado de 120 px a cada lado. Así se lee que
-  la lista continúa.
-
-=====================================================================
-ESTADOS: OPACIDADES SEPARADAS
-=====================================================================
-- EL ESTADO INACTIVO BAJA EL CONTENIDO, NO EL MÓDULO ENTERO:
-  · Texto (título, descripción, número): opacidad .62
-  · Pieza volumétrica: opacidad .80
-  · El contenedor NO lleva opacidad global.
-- MOTIVO: con una opacidad global en el contenedor, las facetas más
-  oscuras —Estrategia & Growth y Branding— desaparecían por completo sobre
-  el fondo. Si al implementar se simplifica a una sola opacidad de
-  contenedor, esas dos capacidades vuelven a perderse.
-- MÓDULO ACTIVO: fondo rgba(255,75,141,.055), borde
-  rgba(255,75,141,.45), y todo su contenido a opacidad 1.
-
-=====================================================================
-REFLEJO
-=====================================================================
-- UN ÚNICO REFLEJO EN TODA LA SECCIÓN, recortado al módulo activo con
-  clip-path.
-- Banda diagonal con skewX(-16), gradiente blanco a --pink-soft, opacidad
-  máxima .18.
-- COORDINADO CON LA ENTRADA DEL MÓDULO ACTIVO.
-- Ninguna otra pieza ni módulo tiene brillo propio.
-
-=====================================================================
-FRAGMENTO GUÍA — CONTINUIDAD 05 → 06
-=====================================================================
-- ENTRA POR EL MARGEN EXTERIOR IZQUIERDO, continuando exactamente el
-  descenso y el canal inferior con los que cerró la Sección 05.
-- NO REAPARECE EN EL LATERAL DERECHO NI SE TELETRANSPORTA ENTRE SECCIONES.
-  El recorrido es continuo a lo largo de toda la HOME.
-- Posición en el mockup: left 96, top 292, ancho 84 px, rotación -14°.
-  Ocupa y 292–378; el rail empieza en y=396, así que va POR ENCIMA y la
-  máscara de degradado del carrusel no lo tapa.
-- Atraviesa el canal de ~100 px en deriva lenta, A MENOR VELOCIDAD QUE EL
-  CARRUSEL.
-- SALIDA: continúa hacia el borde exterior de la Sección 07 — Trabajos.
-
-- REGLA OBLIGATORIA DE IMPLEMENTACIÓN:
-  · EL FRAGMENTO GUÍA NO ACTIVA, NO SEÑALA Y NO SELECCIONA CAPACIDADES EN
-    ESTA SECCIÓN.
-  · Su paso sobre la zona del módulo 01 NO DEBE COINCIDIR con la entrada,
-    la activación, el reflejo ni ningún cambio de estado de ninguna card.
-  · MOTIVO: al quedar visualmente cerca del módulo 01, si el timing
-    coincide se leería como si lo estuviera activando, que es lo contrario
-    de lo que define esta sección.
-  · El movimiento del carrusel pertenece a una CAPA NARRATIVA
-    INDEPENDIENTE de la del fragmento. No deben sincronizarse.
-
-=====================================================================
-OTRAS REGLAS DE LA SECCIÓN
-=====================================================================
-- SIN EXPLOSIÓN Y SIN RECONSTRUCCIÓN. Las piezas están sueltas y quietas:
-  todavía no se convocan entre sí. La reconstrucción sigue reservada para
-  "Empecemos".
-
-- Comportamiento mobile:
-  · Pendiente de mockup propio. El carrusel pasa a scroll horizontal
-    nativo con snap, una capacidad visible por vez, y el fragmento
-    acompaña por un solo lateral con deriva simplificada.
-
-- Reduced motion:
-  · Sin desplazamiento del carrusel ni del fragmento: el módulo activo ya
-    aparece activo y el fragmento en su posición.
-  · Sin reflejo.
-  · Ningún contenido esencial depende de la animación.
+- PENDIENTE. Referencias de composición:
+  05-seccion-fundida.html (sección completa)
+  05-abanico-referencia.html (objeto aislado, ambos estados)
 
 ------------------------------------------------------------
 
@@ -1333,169 +883,73 @@ OTRAS REGLAS
 
 ------------------------------------------------------------
 
-SECCIÓN 09 — EMPECEMOS / CONTACTO
-Headline:
-- Hagamos crecer tu negocio.
+SECCIÓN 09 — EMPECEMOS
 
-Contenido:
-- Eyebrow Empecemos.
-- Texto de cierre.
-- Formulario de cinco campos.
-- CTA Quiero analizar mi negocio.
+Estructura, de arriba hacia abajo:
+1. Eyebrow "Empecemos"
+2. Headline "Hagamos crecer tu negocio." — "tu negocio" en --pink
+3. Crystal 5 reconstruido, centrado
+4. El hilo bajando desde la punta del Crystal
+5. Bajada: "Una llamada de 45 minutos, sin costo. Salís con un
+   diagnóstico y una proyección, actives o no con nosotros."
+6. CTA
+7. Línea separadora
+8. Footer
 
-Movimiento:
-- El fragmento guía se detiene en su posición definitiva.
-- Retorno de las piezas desde los bordes.
-- Reconstrucción completa de Crystal 5.
-- Aparición final de aristas y glow.
-- Reveal posterior de eyebrow, headline, texto y formulario.
+EL FORMULARIO SE ELIMINA DE ESTA SECCIÓN.
+- Se descartan los cinco campos, la grilla de dos columnas y el ancho de
+  620.
+- El formulario vive en la ruta /contacto, en dos pasos, con estructura
+  de card translúcida sobre fondo de atmosphere/.
+- T5 ya no dispara el reveal del formulario: debe redefinirse qué revela.
 
-Checkpoint visual del mockup:
-- La reconstrucción utiliza exactamente el mismo Crystal 5 aprobado.
-- No aproximar su silueta a la V, no cambiar facetas y no modificar proporciones.
-- La relación con el isotipo se resuelve mediante eje, iluminación, material y
-  composición, nunca rediseñando el objeto narrativo.
+LA RECONSTRUCCIÓN NO CAMBIA.
+- Se conservan los cinco tiempos con su conteo exacto de piezas.
+- Es la única reconstrucción del sitio.
+- Nota: al eliminarse el fragmento guía, la reconstrucción pierde lo que
+  la anticipaba. El Crystal desaparece entre el Hero y esta sección.
+  Evaluar en implementación si la entrada necesita preparación.
+
+Footer:
+- Marca, navegación, mail y redes.
+- CONTENIDO REAL PENDIENTE. No inventar direcciones ni URLs, por la
+  regla 11 de AGENTS.md.
 
 MOCKUP APROBADO:
-- Imagen: docs/home-mockups/09-empecemos.png
-- HTML de referencia interactivo: docs/home-mockups/09-empecemos-mockup-final.html
-- Fecha: 2026-09-01
-- Lienzo del mockup: 1440 × 1090 (exportado a 2880 × 2180, escala 2×)
-- El contenido cierra en y=1032. La sección EXCEDE el viewport de 900 px de
-  referencia, y se muestra completa a propósito.
+- PENDIENTE. Referencia de composición: 09-empecemos-propuesta.html
 
-=====================================================================
-RECONSTRUCCIÓN — CINCO TIEMPOS
-=====================================================================
-- EL PNG MUESTRA EL ESTADO FINAL COMPLETAMENTE RECONSTRUIDO. No se usa un
-  instante incompleto como imagen final. La coreografía se explica en la
-  capa de anotación "Coreografía del ensamble" del HTML de referencia, con
-  el Crystal 5 real en cada uno de los cinco estados.
+------------------------------------------------------------
 
-- T1 — EL ANCLA: el fragmento guía FACETS[15] con INCLUSIONS[6] adherida
-  entra desde la salida de la Sección 08 y SE ASIENTA PRIMERO. Son DOS
-  polígonos: la faceta y su inclusión interna. Queda solo
-  y quieto: cuando el resto vuelve, ya hay algo a lo que sumarse.
-- T2 — ESTRUCTURA: llegan las SEIS FACETAS DE MAYOR SUPERFICIE.
-- T3 — RELLENO: llegan las ONCE FACETAS RESTANTES y las SEIS INCLUSIONES
-  RESTANTES. Segunda tanda, 200 ms después.
-  · INCLUSIONS[6] NO llega acá: ya está asentada desde T1, adherida al
-    fragmento guía. La inclusión adherida PERSISTE EN TODOS LOS ESTADOS
-    POSTERIORES; no puede desaparecer y reaparecer.
-- T4 — CIERRE: con todas las caras en su lugar, recién ahí SE DIBUJAN LAS
-  ARISTAS. Es el momento en que deja de ser un montón de piezas.
-- T5 — RESUELTO: aparecen el GLOW FINAL y el HILO, que baja hacia el copy
-  y dispara el reveal del eyebrow, el headline, el texto y el formulario.
+CTA — REGLA GLOBAL
 
-- LAS PIEZAS LLEGAN ESCALONADAS DESDE EL BORDE MÁS CERCANO A SU POSICIÓN
-  FINAL.
-- NO RECORREN AL REVÉS LAS TRAYECTORIAS DE LA EXPLOSIÓN DEL HERO.
-- NO HAY OVERSHOOT, NI REBOTE, NI UNA SEGUNDA EXPLOSIÓN.
-- EL CRYSTAL QUEDA ESTABLE DESPUÉS DEL ENSAMBLE.
+FORMATO DEL CTA:
+- Gana el formato del design system: rx=7, flecha ↗, relleno con
+  degradado #FF6DA2 → #FF4B8D → #E72F73, borde #FF7BAB.
+- El formato de radio 999 con flecha → queda OBSOLETO.
+- Queda anulada la nota que daba los SVG maestros por "referencia
+  histórica reemplazada": es al revés.
+- Aplica a todos los CTA del sitio.
 
-- CONTEO EXACTO DE PIEZAS POR ESTADO (verificable programáticamente sobre
-  el HTML de referencia):
-  · T1 —  2 polígonos: 1 faceta + 1 inclusión. Sin aristas, sin glow.
-  · T2 —  8 polígonos: 7 facetas + INCLUSIONS[6]. Sin aristas, sin glow.
-  · T3 — 25 polígonos: 18 facetas + 7 inclusiones. TODAVÍA SIN ARISTAS.
-  · T4 — 25 polígonos + ARISTAS. Sin glow.
-  · T5 — 25 polígonos + aristas + GLOW.
-- LA RECONSTRUCCIÓN OCURRE UNA SOLA VEZ EN TODA LA HOME y no se repite al
-  scrollear hacia arriba.
+TEXTO DEL CTA:
+- Único en todo el sitio: "Reservá tu análisis de negocio ↗"
+- Reemplaza a "Quiero analizar mi negocio".
+- El nav conserva "Hablemos" por ser navegación, no conversión.
 
-- POR QUÉ NO SE LEE COMO UNA EXPLOSIÓN INVERTIDA: en una explosión
-  invertida todas las piezas parten de los bordes al mismo tiempo,
-  recorren sus trayectorias de salida en reversa y llegan juntas. Acá el
-  fragmento guía ya está en su lugar antes de que empiece nada, las demás
-  llegan en tandas escalonadas desde el borde más cercano a su destino, y
-  las aristas aparecen recién al final.
+------------------------------------------------------------
 
-- NOTA DE CONTEXTO: el Contacto.tsx de main documenta en un comentario que
-  ahí NO hay coreografía de facetas, porque en la narrativa V2 ese gesto ya
-  había ocurrido en Reveal y repetirlo se habría leído como una animación
-  nueva. Ese criterio es correcto PARA MAIN. En la narrativa del Plan
-  Maestro no aplica: la Sección 04 solo muestra una huella de aristas y de
-  la 05 a la 08 no hay reconstrucción de ningún tipo, así que la de la
-  Sección 09 es la primera y única del recorrido.
+FRAGMENTO GUÍA — REGLA GLOBAL
 
-=====================================================================
-CRYSTAL 5
-=====================================================================
-- Asset oficial completo: 18 facetas + 7 inclusiones, con sus aristas y su
-  glow. Materiales, facetas, inclusiones y estado final SIN MODIFICAR.
-- Tamaño: 376 px de ancho, centrado, stage en y=158.
-- NO se aproxima su silueta a la V, NO se cambian facetas y NO se
-  modifican proporciones.
-
-=====================================================================
-FORMULARIO
-=====================================================================
-- SE CONSERVAN EXACTAMENTE los cinco campos, labels, required, orden
-  semántico y asociación label/input de main
-  (src/components/sections/Contacto.tsx):
-  1. nombre    — "Nombre"
-  2. empresa   — "Empresa / Marca"
-  3. web       — "Web o Instagram"
-  4. objetivo  — "¿Qué querés hacer crecer?"
-  5. medio     — "Email o WhatsApp"
-  · Todos type="text", todos required, autoComplete off.
-  · Cada label asociado por htmlFor/id.
-  · CTA: "Quiero analizar mi negocio".
-- NO se agrega ni se quita ningún campo. NO se toma el CTA simplificado del
-  rebuild.
-
-- DESKTOP USA DOS COLUMNAS, ancho 620 px, column-gap 20, row-gap 16:
-  · Fila 1: Nombre | Empresa / Marca
-  · Fila 2: Web o Instagram | ¿Qué querés hacer crecer?
-  · Fila 3: Email o WhatsApp — ANCHO COMPLETO
-  · CTA — ANCHO COMPLETO
-- MOBILE VUELVE A UNA COLUMNA, conservando exactamente ese orden.
-- MOTIVO: la grilla reduce el peso vertical del formulario y hace que
-  Crystal, copy y CTA se perciban como un único cierre narrativo, en vez de
-  como una página de contacto con un objeto arriba.
-
-- DEUDA OBLIGATORIA ANTES DE PUBLICAR:
-  · EL DESTINO DEL FORMULARIO NO EXISTE. handleSubmit es hoy un
-    preventDefault() vacío. No hay backend, endpoint, email, WhatsApp ni
-    agenda confirmados en el repositorio.
-  · EL CTA QUE CIERRA TODA LA HOME NO ENVÍA A NINGÚN LADO.
-  · NO SE SIMULA UN ENVÍO EXITOSO NI SE INVENTA ENDPOINT, EMAIL, WHATSAPP
-    O AGENDA.
-  · Falta definir además: mensajes de error, aria-describedby, estado de
-    envío y confirmación con aria-live. Hoy la validación es únicamente la
-    nativa del navegador.
-  · Esta deuda BLOQUEA LA PUBLICACIÓN, no el mockup.
-
-=====================================================================
-MOVIMIENTO Y ACCESIBILIDAD
-=====================================================================
-- EL NAV VUELVE PROGRESIVAMENTE DE CLARO A OSCURO AL SALIR DE LA
-  SECCIÓN 08, en la misma franja de ~100 px y en sentido inverso. Es el
-  mismo componente cambiando de tema, no otro nav.
-- EL HILO (contacto-thread) tiene:
-  · núcleo de 2 px,
-  · degradado rosa que pierde intensidad al acercarse al copy
-    (#FF4B8D 0% → rgba(255,75,141,.72) 42% → rgba(255,75,141,.18) 100%),
-  · halo exterior de 12 px desenfocado al 30%,
-  · SIN pulsos fuertes ni glow excesivo.
-  · Nace del cristal y baja al copy: hace que el formulario se lea como
-    salida del sistema y no como un formulario debajo de un título.
-
-- REDUCED MOTION:
-  · MUESTRA INMEDIATAMENTE EL CRYSTAL FINAL, ya reconstruido, sin ensamble.
-  · TODO EL FORMULARIO DISPONIBLE, sin depender de la animación.
-  · Sin reveal escalonado, sin glow animado, sin crecimiento del hilo.
-  · La transición de tema del nav ocurre sin animación.
-- NINGÚN CONTENIDO ESENCIAL QUEDA OCULTO POR LA ANIMACIÓN.
-
-- LA SECCIÓN USA ALTURA DE CONTENIDO Y NO FUERZA min-height: 100vh.
-  · El contenido cierra en y=1032 sobre un lienzo de mockup de 1090.
-  · Con un viewport de 900 px, quedan debajo del fold la última fila del
-    formulario y el CTA.
-
-- Comportamiento mobile:
-  · Pendiente de mockup propio. Crystal reducido, formulario en una
-    columna con el mismo orden, y ensamble simplificado a menos tandas.
+EL FRAGMENTO GUÍA SE ELIMINA DE TODA LA HOME.
+- FACETS[15] con INCLUSIONS[6] deja de existir en el sitio.
+- El Crystal 5 explota en el Hero y se reconstruye en la Sección 09. En
+  el medio no hay fragmento recorriendo la página.
+- Se elimina su coreografía de todas las secciones.
+- Afecta a las secciones 05, 07 y 08, que hoy lo tienen implementado y
+  verificado.
+- Se elimina verify-guide-fragment.ts y las constantes de rotación por
+  sección.
+- El bug conocido del fragmento de la 05 rozando la card por 3 px deja de
+  existir.
 
 ======================================================================
 5. ORDEN DE PRODUCCIÓN DE MOCKUPS
