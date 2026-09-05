@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Velocentum — Mockup 04 · Un mismo objetivo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#FF4B8D;--pink-soft:#FF85B8;--pink-deep:#D92F6E;
+--ink-deep:#0E0E13;--ink:#0E0E13;--on-dark:#F7F7FB;--on-dark-2:#9A96B4;
+--bd:rgba(255,255,255,.10);
+--sans:'Manrope',sans-serif;--mono:'Geist Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#08080C;color:#FFF;font-family:var(--sans)}
+.shell{width:1440px;max-width:100%;margin:0 auto;padding:26px 0}
+.meta{width:1440px;margin:0 0 16px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.meta h1{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.meta .s{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-top:4px}
+.tgs{display:flex;gap:7px;flex-wrap:wrap}
+.tg{background:rgba(255,255,255,.06);border:1px solid var(--bd);color:#FFF;font-family:var(--mono);font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;padding:8px 13px;border-radius:999px;cursor:pointer}
+.tg.on{background:var(--pink);color:var(--ink);border-color:var(--pink)}
+.ann{position:absolute;inset:0;z-index:60;pointer-events:none;display:none}
+.ann.show{display:block}
+.ann text{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase}
+.note{width:1440px;margin:20px 0 0;border:1px solid var(--bd);border-radius:14px;padding:22px 24px;color:rgba(255,255,255,.62);line-height:1.65;font-size:.88rem}
+.note b{color:#FFF;font-weight:700}
+.note code{font-family:var(--mono);font-size:.85em;color:var(--pink)}
+.note ul{margin:10px 0 0 18px} .note li{margin-bottom:5px}
+/* nav aprobado: alto 80, padding 72, misma geometría en todas las secciones */
+.nav{position:absolute;top:0;left:0;right:0;height:80px;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:0 72px}
+.nav .brand{display:flex;align-items:center;gap:11px}
+.nav .brand svg{width:30px;height:30px;display:block}
+.nav .wm{font-weight:800;font-size:1.22rem;letter-spacing:-.02em;color:#FFF}
+.nav .lk{display:flex;gap:30px;margin-left:auto;margin-right:34px}
+/* ACTUALIZACIÓN: los links pasan de --on-dark-2 a --on-dark */
+.nav .lk span{font-family:var(--mono);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--on-dark)}
+/* CTA del design system: rx 7, flecha ↗, degradado y borde #FF7BAB */
+.cta{display:inline-flex;align-items:center;gap:10px;border-radius:7px;
+ background:linear-gradient(120deg,#FF6DA2,#FF4B8D 48%,#E72F73);border:1px solid #FF7BAB;
+ color:#FFF;font-weight:700;box-shadow:0 8px 26px rgba(255,75,141,.34)}
+.cta.sm{padding:12px 22px;font-size:.82rem}
+.cta.lg{padding:15px 30px;font-size:.88rem}
+.ghost{display:inline-flex;align-items:center;gap:10px;border-radius:7px;
+ border:1px solid rgba(255,75,141,.62);color:#FFF;font-weight:700;padding:15px 30px;font-size:.88rem}
+
+.vp{position:relative;width:1440px;height:900px;overflow:hidden;background:#0B0722}
+.card{position:absolute;left:72px;top:100px;width:1296px;height:700px;border-radius:34px;
+ overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 40px 90px rgba(0,0,0,.55);
+ display:flex;align-items:center;justify-content:center;background:#150E2E}
+.art{position:absolute;inset:0;z-index:1}
+.art svg{width:100%;height:100%;display:block}
+/* LA LUZ SE DESPLAZA SOBRE LAS CARAS · LA GEOMETRÍA PERMANECE FIJA */
+.sweep{animation:sw 9s ease-in-out infinite alternate}
+@keyframes sw{from{transform:translateX(-260px)}to{transform:translateX(300px)}}
+@media (prefers-reduced-motion: reduce){.sweep{animation:none}}
+.scrim{position:absolute;inset:0;z-index:5;
+ background:radial-gradient(62% 56% at 50% 50%, rgba(11,7,34,.72) 0%, rgba(11,7,34,.30) 60%, rgba(11,7,34,0) 100%)}
+.copy{position:relative;z-index:6;text-align:center;max-width:900px;padding:0 40px}
+.eb{font-family:var(--mono);font-weight:500;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+ color:var(--pink);display:block;margin-bottom:26px}
+h2{font-weight:800;font-size:58px;line-height:1.04;letter-spacing:-.03em;color:var(--on-dark);margin-bottom:26px;
+ text-shadow:0 6px 40px rgba(11,7,34,.9)}
+h2 em{font-style:normal;color:var(--pink)}
+.card p{font-weight:400;font-size:1.02rem;line-height:1.55;color:var(--on-dark-2);max-width:50ch;margin:0 auto;
+ text-shadow:0 4px 24px rgba(11,7,34,.9)}
+
+</style></head><body><div class="shell">
+
+<div class="meta">
+  <div><h1>Mockup 04 · Un mismo objetivo · REGENERADO</h1>
+  <div class="s">Desktop 1440 × 900 · la card ES cristal · siete caras · siete técnicas · regenerado 2026-09-06</div></div>
+  <div class="tgs">
+    <button class="tg" data-l="caras">Caras y contraste</button>
+    <button class="tg" data-l="tecnicas">Siete técnicas</button>
+    <button class="tg" data-l="luz">Luz y movimiento</button>
+    <button class="tg" data-l="grid">Grilla y cotas</button>
+  </div>
+</div>
+
+<div class="vp">
+  <nav class="nav">
+    <div class="brand"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 210" fill="none">
+  <defs>
+    <linearGradient id="iso04-iso-left-light" x1="20" y1="18" x2="85" y2="151" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF1F7"/>
+      <stop offset="0.24" stop-color="#FFB5CE"/>
+      <stop offset="0.68" stop-color="#F05A91"/>
+      <stop offset="1" stop-color="#9D274F"/>
+    </linearGradient>
+    <linearGradient id="iso04-iso-left-hot" x1="38" y1="32" x2="112" y2="124" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8DB4"/>
+      <stop offset="0.5" stop-color="#FF5C94"/>
+      <stop offset="1" stop-color="#B7285A"/>
+    </linearGradient>
+    <linearGradient id="iso04-iso-right-light" x1="201" y1="28" x2="128" y2="198" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF3F8"/>
+      <stop offset="0.22" stop-color="#F6A7C4"/>
+      <stop offset="0.64" stop-color="#D64D7D"/>
+      <stop offset="1" stop-color="#8A2348"/>
+    </linearGradient>
+    <linearGradient id="iso04-iso-right-hot" x1="169" y1="55" x2="124" y2="198" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF6CA0"/>
+      <stop offset="0.48" stop-color="#E73773"/>
+      <stop offset="1" stop-color="#A31F4E"/>
+    </linearGradient>
+    <linearGradient id="iso04-iso-deep" x1="67" y1="64" x2="135" y2="196" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#463746"/>
+      <stop offset="0.58" stop-color="#302431"/>
+      <stop offset="1" stop-color="#6F1D3C"/>
+    </linearGradient>
+    <linearGradient id="iso04-iso-edge" x1="16" y1="18" x2="203" y2="198" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF8FB" stop-opacity="0.96"/>
+      <stop offset="0.48" stop-color="#F3B2C9" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#FF6D9E" stop-opacity="0.78"/>
+    </linearGradient>
+    <filter id="iso04-iso-glow" x="-35%" y="-30%" width="170%" height="170%">
+      <feGaussianBlur stdDeviation="4.8"/>
+    </filter>
+  </defs>
+
+  <path d="M13 18L65 27L91 66L114 121L151 49L205 28L169 142L129 199L58 142Z" fill="#D8326C" opacity="0.2" filter="url(#iso04-iso-glow)"/>
+
+  <g stroke-linejoin="round">
+    <path d="M16 18L66 27L92 66L114 121L151 50L203 29L170 142L129 198L59 142Z" fill="url(#iso04-iso-deep)" stroke="url(#iso04-iso-edge)" stroke-width="1.35"/>
+
+    <path d="M16 18L34 31L59 142Z" fill="url(#iso04-iso-left-light)"/>
+    <path d="M16 18L66 27L92 66Z" fill="#3A303D"/>
+    <path d="M16 18L92 66L34 31Z" fill="#6B5366" fill-opacity="0.74"/>
+    <path d="M34 31L80 73L59 142Z" fill="url(#iso04-iso-left-hot)"/>
+    <path d="M34 31L92 66L80 73Z" fill="#F78FB2" fill-opacity="0.88"/>
+    <path d="M80 73L72 111L59 142Z" fill="#C92D62"/>
+    <path d="M80 73L92 66L114 121L72 111Z" fill="#3A303D"/>
+    <path d="M59 142L72 111L114 121Z" fill="#4B3447"/>
+    <path d="M59 142L114 121L129 198Z" fill="#6E2647"/>
+    <path d="M59 142L96 136L129 198Z" fill="#8E2D54" fill-opacity="0.7"/>
+
+    <path d="M203 29L151 50L173 72Z" fill="#685265"/>
+    <path d="M203 29L173 72L170 142Z" fill="url(#iso04-iso-right-light)"/>
+    <path d="M151 50L173 72L137 94Z" fill="#332A37"/>
+    <path d="M151 50L137 94L114 121Z" fill="#B42A59"/>
+    <path d="M173 72L145 111L137 94Z" fill="#E13B73"/>
+    <path d="M173 72L170 142L145 111Z" fill="#C3547B"/>
+    <path d="M137 94L145 111L114 121Z" fill="url(#iso04-iso-right-hot)"/>
+    <path d="M145 111L170 142L129 198Z" fill="#8E3155"/>
+    <path d="M114 121L145 111L129 198Z" fill="url(#iso04-iso-right-hot)"/>
+    <path d="M114 121L125 139L129 198Z" fill="#FF4D89" fill-opacity="0.74"/>
+
+    <g fill="none" stroke="url(#iso04-iso-edge)" stroke-width="0.9" stroke-opacity="0.76">
+      <path d="M16 18L92 66L114 121L151 50L203 29"/>
+      <path d="M34 31L80 73L72 111L59 142L129 198L170 142L173 72"/>
+      <path d="M59 142L114 121L129 198"/>
+      <path d="M151 50L137 94L145 111L114 121"/>
+      <path d="M92 66L72 111L96 136"/>
+      <path d="M173 72L137 94"/>
+    </g>
+
+    <g fill="none" stroke="#FFF8FB" stroke-width="0.48" stroke-opacity="0.34">
+      <path d="M19 20L65 29L89 66"/>
+      <path d="M201 31L153 52L116 121"/>
+      <path d="M61 141L128 195L168 141"/>
+    </g>
+  </g>
+</svg><span class="wm">velocentum</span></div>
+    <div class="lk"><span>Método</span><span>Trabajos</span><span>Casos</span></div>
+    <div class="cta sm">Hablemos <span>↗</span></div>
+  </nav>
+
+  <div class="card">
+    <div class="art"><svg viewBox="0 0 1296 700" preserveAspectRatio="none" aria-hidden="true">
+<defs>
+<linearGradient id="s4-g1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2A1C45"/><stop offset="1" stop-color="#160F31"/></linearGradient>
+<linearGradient id="s4-g2" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#33203F"/><stop offset=".54" stop-color="#241740"/><stop offset="1" stop-color="#1B1236"/></linearGradient>
+<linearGradient id="s4-g3" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#3E2149"/><stop offset="1" stop-color="#221441"/></linearGradient>
+<linearGradient id="s4-g4" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#1A1133"/><stop offset="1" stop-color="#2B1A43"/></linearGradient>
+<linearGradient id="s4-g5" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#3A2150"/><stop offset=".58" stop-color="#2A1741"/><stop offset="1" stop-color="#1D1236"/></linearGradient>
+<linearGradient id="s4-g6" x1="1" y1="1" x2="0" y2="0"><stop stop-color="#241640"/><stop offset="1" stop-color="#150D2C"/></linearGradient>
+<linearGradient id="s4-g7" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".5"/><stop offset=".5" stop-color="#F6BDD1" stop-opacity=".2"/><stop offset="1" stop-color="#6C5364" stop-opacity=".08"/></linearGradient>
+<!-- T3: velos de rosa, grafito y vidrio que se superponen PARCIALMENTE a las caras -->
+<linearGradient id="s4-rose" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#CA3F72" stop-opacity=".34"/><stop offset="1" stop-color="#5B243B" stop-opacity="0"/></linearGradient>
+<linearGradient id="s4-graph" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#5D4C5B" stop-opacity=".30"/><stop offset="1" stop-color="#17141D" stop-opacity="0"/></linearGradient>
+<linearGradient id="s4-glass" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#FFFFFF" stop-opacity=".16"/><stop offset="1" stop-color="#F6BDD1" stop-opacity="0"/></linearGradient>
+<!-- T5: reflejos LOCALIZADOS, nunca iluminación uniforme -->
+<linearGradient id="s4-spec" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFE6F0" stop-opacity=".5"/><stop offset="1" stop-color="#FFB1CE" stop-opacity="0"/></linearGradient>
+<!-- la luz que se desplaza con el scroll -->
+<linearGradient id="s4-lite" x1="0" y1="0" x2="1" y2="1">
+  <stop stop-color="#FF6BA5" stop-opacity=".22"/><stop offset=".5" stop-color="#FF6BA5" stop-opacity=".05"/><stop offset="1" stop-color="#FF6BA5" stop-opacity="0"/></linearGradient>
+</defs>
+<rect width="1296" height="700" fill="#150E2E"/>
+
+<!-- T2 · SIETE CARAS GRANDES, GRADIENTE DISTINTO POR CARA, CONTRASTE BAJO ENTRE VECINAS -->
+<polygon points="0,0 430,0 292,246 0,188" fill="url(#s4-g1)" fill-opacity=".96"/><polygon points="430,0 902,0 764,214 292,246" fill="url(#s4-g2)" fill-opacity=".92"/><polygon points="902,0 1296,0 1296,268 764,214" fill="url(#s4-g3)" fill-opacity=".9"/><polygon points="0,188 292,246 214,700 0,700" fill="url(#s4-g4)" fill-opacity=".94"/><polygon points="292,246 764,214 838,700 214,700" fill="url(#s4-g5)" fill-opacity=".88"/><polygon points="764,214 1296,268 1296,700 838,700" fill="url(#s4-g6)" fill-opacity=".92"/><polygon points="0,470 520,120 1130,40 1296,150 1296,236 640,392 0,560" fill="url(#s4-g7)" fill-opacity=".22"/>
+
+<!-- T3 · SUPERPOSICIÓN PARCIAL DE ROSAS, GRAFITO Y VIDRIO -->
+<polygon points="292,246 764,214 838,700 214,700" fill="url(#s4-rose)"/>
+<polygon points="902,0 1296,0 1296,268 764,214" fill="url(#s4-graph)"/>
+<polygon points="0,188 292,246 214,700 0,700" fill="url(#s4-glass)"/>
+<polygon points="430,0 902,0 764,214 292,246" fill="url(#s4-graph)" opacity=".7"/>
+
+<!-- T1 · FACETAS INTERNAS ASIMÉTRICAS: subdivisiones que no repiten el patrón -->
+<polygon points="292,246 764,214 566,470" fill="#FFFFFF" fill-opacity=".030"/>
+<polygon points="566,470 838,700 214,700" fill="#000000" fill-opacity=".14"/>
+<polygon points="0,188 292,246 118,432" fill="#FFFFFF" fill-opacity=".022"/>
+<polygon points="764,214 1296,268 1024,430" fill="#000000" fill-opacity=".10"/>
+<polygon points="902,0 1296,0 1108,140" fill="#FFFFFF" fill-opacity=".026"/>
+
+<!-- T4 · LÍNEAS MUY FINAS BLANCO/ROSA -->
+<g fill="none" stroke-linejoin="round" stroke-linecap="round">
+  <path d="M430 0 L292 246 M902 0 L764 214 M0 188 L292 246 L764 214 L1296 268 M292 246 L214 700 M764 214 L838 700"
+        stroke="#FF9BC0" stroke-opacity=".20" stroke-width=".8"/>
+  <path d="M292 246 L566 470 L838 700 M0 188 L118 432 M764 214 L1024 430 M902 0 L1108 140"
+        stroke="#FFFFFF" stroke-opacity=".13" stroke-width=".6"/>
+  <path d="M0 470 L520 120 L1130 40 L1296 150" stroke="#FFE6F0" stroke-opacity=".26" stroke-width="1"/>
+  <path d="M0 560 L640 392 L1296 236" stroke="#FF9BC0" stroke-opacity=".18" stroke-width=".7"/>
+</g>
+
+<!-- T5 · REFLEJOS LOCALIZADOS, EN UNAS POCAS CARAS Y NO EN TODAS -->
+<polygon points="352,206 470,64 512,86 396,228" fill="url(#s4-spec)" opacity=".62"/>
+<polygon points="940,132 1042,52 1064,74 958,152" fill="url(#s4-spec)" opacity=".4"/>
+<polygon points="86,556 172,470 190,492 104,580" fill="url(#s4-spec)" opacity=".3"/>
+
+<!-- T7 · IMPERFECCIONES PEQUEÑAS QUE ROMPEN LA SIMETRÍA -->
+<polygon points="640,318 662,306 654,336" fill="#FFFFFF" fill-opacity=".07"/>
+<polygon points="238,596 256,584 250,610" fill="#7C1C40" fill-opacity=".34"/>
+<polygon points="1132,352 1152,338 1146,366" fill="#F6BDD1" fill-opacity=".10"/>
+<polygon points="486,142 500,132 496,154" fill="#7C1C40" fill-opacity=".26"/>
+<polygon points="884,528 898,516 894,542" fill="#FFFFFF" fill-opacity=".05"/>
+<polygon points="60,278 74,268 70,292" fill="#F6BDD1" fill-opacity=".08"/>
+
+<!-- LA LUZ QUE SE DESPLAZA · geometría fija, sólo se mueve el wrapper -->
+<g class="sweep">
+  <polygon points="292,246 764,214 838,700 214,700" fill="url(#s4-lite)"/>
+  <polygon points="430,0 902,0 764,214 292,246" fill="url(#s4-lite)" opacity=".5"/>
+</g>
+</svg></div>
+    <div class="scrim"></div>
+    <div class="copy">
+      <span class="eb">Un mismo objetivo</span>
+      <h2>El crecimiento aparece cuando cada parte trabaja sobre <em>el mismo objetivo</em>.</h2>
+      <p>No hace falta más gente. Hace falta que todo lo que ya se hace apunte al mismo lugar.</p>
+    </div>
+  </div>
+
+  <svg class="ann" data-layer="caras" viewBox="0 0 1440 900">
+    <g transform="translate(72 100)">
+      <g fill="none" stroke="#FF4B8D" stroke-opacity=".65" stroke-width="1.4">
+        <polygon points="0,0 430,0 292,246 0,188"/><polygon points="430,0 902,0 764,214 292,246"/>
+        <polygon points="902,0 1296,0 1296,268 764,214"/><polygon points="0,188 292,246 214,700 0,700"/>
+        <polygon points="292,246 764,214 838,700 214,700"/><polygon points="764,214 1296,268 1296,700 838,700"/>
+      </g>
+      <g fill="#FF4B8D" font-family="Geist Mono" font-size="11" fill-opacity=".85">
+        <text x="120" y="110">01</text><text x="580" y="110">02</text><text x="1030" y="130">03</text>
+        <text x="90" y="470">04</text><text x="520" y="470">05</text><text x="1040" y="490">06</text>
+      </g>
+      <polygon points="0,470 520,120 1130,40 1296,150 1296,236 640,392 0,560" fill="none" stroke="#FFE6F0" stroke-opacity=".7" stroke-width="1.4" stroke-dasharray="7 5"/>
+      <text x="640" y="270" fill="#FFE6F0" font-family="Geist Mono" font-size="11" text-anchor="middle">07 · CARA CASI TRANSPARENTE QUE CRUZA A LAS OTRAS SEIS</text>
+    </g>
+    <text x="72" y="88" fill="#FF4B8D">POCAS CARAS Y GRANDES · SIETE CRUZANDO TODA LA CARD</text>
+    <text x="72" y="826" fill="#FF85B8">NO HAY FIGURA RECONOCIBLE: LA CARD ES CRISTAL</text>
+    <text x="72" y="844" fill="#9A96B4">CONTRASTE BAJO ENTRE CARAS VECINAS · NINGUNA SE LEE COMO UN OBJETO SUELTO</text>
+    <text x="1368" y="826" fill="#FF85B8" text-anchor="end">SE ELIMINA LA MIRA Y TODA COREOGRAFÍA ASOCIADA A ELLA</text>
+    <text x="1368" y="844" fill="#9A96B4" text-anchor="end">SE ELIMINA EL FRAGMENTO GUÍA Y CON ÉL LA ROTACIÓN DE -138,3°</text>
+  </svg>
+
+  <svg class="ann" data-layer="tecnicas" viewBox="0 0 1440 900">
+    <text x="72" y="140" fill="#FF4B8D">LAS SIETE TÉCNICAS DE DESIGN_SYSTEM_CRYSTAL.TXT, TODAS APLICADAS</text>
+    <text x="72" y="164" fill="#FF85B8">1 · FACETAS INTERNAS ASIMÉTRICAS</text>
+    <text x="420" y="164" fill="#9A96B4">CINCO SUBDIVISIONES QUE NO REPITEN EL PATRÓN DE LA CARA QUE PARTEN</text>
+    <text x="72" y="182" fill="#FF85B8">2 · GRADIENTES DISTINTOS POR CARA</text>
+    <text x="420" y="182" fill="#9A96B4">SIETE GRADIENTES, CADA UNO CON SU PROPIO EJE Y SUS PROPIAS PARADAS</text>
+    <text x="72" y="200" fill="#FF85B8">3 · SUPERPOSICIÓN DE ROSAS, GRAFITO Y VIDRIO</text>
+    <text x="420" y="200" fill="#9A96B4">CUATRO VELOS QUE CUBREN PARCIALMENTE, NUNCA UNA CARA ENTERA POR IGUAL</text>
+    <text x="72" y="218" fill="#FF85B8">4 · LÍNEAS MUY FINAS BLANCO/ROSA</text>
+    <text x="420" y="218" fill="#9A96B4">ARISTAS DE 0,6 A 1 PX · ROSA EN LAS EXTERIORES, BLANCO EN LAS INTERNAS</text>
+    <text x="72" y="236" fill="#FF85B8">5 · REFLEJOS LOCALIZADOS</text>
+    <text x="420" y="236" fill="#9A96B4">TRES, EN TRES CARAS DISTINTAS · NUNCA ILUMINACIÓN UNIFORME</text>
+    <text x="72" y="254" fill="#FF85B8">6 · CARAS LLENAS JUNTO A CARAS CASI TRANSPARENTES</text>
+    <text x="420" y="254" fill="#9A96B4">SEIS CARAS ENTRE .88 Y .96 · LA SÉPTIMA AL .22, CRUZANDO A TODAS</text>
+    <text x="72" y="272" fill="#FF85B8">7 · IMPERFECCIONES QUE ROMPEN LA SIMETRÍA</text>
+    <text x="420" y="272" fill="#9A96B4">SEIS ESQUIRLAS MINÚSCULAS, SIN RITMO NI EJE COMÚN</text>
+    <g fill="none" stroke="#FFE6F0" stroke-opacity=".8" stroke-width="1.2">
+      <circle cx="496" cy="406" r="26"/><circle cx="1090" cy="228" r="22"/><circle cx="176" cy="656" r="22"/>
+    </g>
+    <text x="496" y="452" fill="#FFE6F0" text-anchor="middle">REFLEJOS LOCALIZADOS</text>
+  </svg>
+
+  <svg class="ann" data-layer="luz" viewBox="0 0 1440 900">
+    <g transform="translate(72 100)">
+      <polygon points="292,246 764,214 838,700 214,700" fill="#FF4B8D" fill-opacity=".14" stroke="#FF4B8D" stroke-opacity=".6"/>
+      <path d="M40 640 H 1256" stroke="#FF4B8D" stroke-opacity=".5" stroke-width="1.4" stroke-dasharray="7 5"/>
+      <path d="M1256 640 l-14 -6 v12 z" fill="#FF4B8D" fill-opacity=".8"/>
+      <path d="M40 640 l14 -6 v12 z" fill="#FF4B8D" fill-opacity=".8"/>
+    </g>
+    <text x="72" y="826" fill="#FF4B8D">EL SCROLL DESPLAZA LA LUZ SOBRE LAS CARAS · LA GEOMETRÍA PERMANECE FIJA</text>
+    <text x="72" y="844" fill="#9A96B4">EL TITULAR NO SE MUEVE · EN REDUCED MOTION LA LUZ QUEDA EN POSICIÓN FIJA</text>
+    <text x="1368" y="844" fill="#9A96B4" text-anchor="end">SOLO TRANSFORM SOBRE EL WRAPPER DE LA LUZ</text>
+  </svg>
+
+  <svg class="ann" data-layer="grid" viewBox="0 0 1440 900">
+    <g stroke="#FF4B8D" stroke-opacity=".18">
+      <path d="M72 0V900M1368 0V900M720 0V900" stroke-dasharray="6 6"/>
+      <path d="M0 80H1440M0 100H1440M0 800H1440" stroke-dasharray="6 6"/>
+    </g>
+    <text x="80" y="74" fill="#FF4B8D" fill-opacity=".6">NAV 80</text>
+    <text x="80" y="94" fill="#FF4B8D" fill-opacity=".6">CARD Y=100 · 1296 × 700 · RADIO 34</text>
+    <text x="80" y="466" fill="#FF4B8D" fill-opacity=".6">COPY CENTRADO · MEDIDA MÁXIMA 900</text>
+    <text x="1188" y="890" fill="#FF4B8D" fill-opacity=".5">LIENZO 1440 × 900</text>
+  </svg>
+</div>
+
+<div class="note">
+  <b>Lectura de la escena.</b> El fondo de la card es una superficie de cristal facetado que ocupa toda su extensión. No hay figura reconocible: la card <em>es</em> cristal. El copy va centrado por encima.
+  <ul>
+    <li><b>Pocas caras y grandes.</b> Siete cruzando toda la card, con contraste bajo entre vecinas para que ninguna se lea como un objeto suelto. Prendé la capa de caras para ver el despiece.</li>
+    <li><b>Las siete técnicas de <code>DESIGN_SYSTEM_CRYSTAL.txt</code> están aplicadas</b>, no dos: facetas internas asimétricas, gradientes distintos por cara, superposición parcial de rosas, grafito y vidrio, líneas finas blanco/rosa, reflejos localizados, caras llenas junto a caras casi transparentes, e imperfecciones que rompen la simetría. La capa de técnicas las enumera una por una con dónde está cada una.</li>
+    <li><b>Se elimina la mira</b> y toda coreografía asociada a ella. <b>Se elimina el fragmento guía</b> y con él la rotación de -138,3°.</li>
+    <li><b>Movimiento:</b> el scroll desplaza la luz sobre las caras; la geometría permanece fija y el titular no se mueve. Se anima únicamente el <code>transform</code> del wrapper de la luz. En <code>prefers-reduced-motion</code> la luz queda en posición fija.</li>
+    <li><b>El copy de esta sección no cambia</b> respecto de la versión anterior. Centrado, medida máxima 900 px, con «el mismo objetivo» en <code>--pink</code>.</li>
+    <li><b>Tipografía real.</b> Manrope y Geist Mono, no la Helvetica del boceto.</li>
+  </ul>
+</div>
+</div>
+<script>
+document.querySelectorAll('.tg').forEach(b=>{
+  b.addEventListener('click',()=>{
+    b.classList.toggle('on');
+    document.querySelector('.ann[data-layer="'+b.dataset.l+'"]').classList.toggle('show');
+  });
+});
+</script></body></html>
