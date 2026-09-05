@@ -316,7 +316,15 @@ Lienzo:
   empezar a scrollear.
 
 MOCKUP APROBADO:
-- PENDIENTE. Referencia de composición: 01-hero-propuesta.html
+- Imagen: docs/home-mockups/01-hero-v2.png
+- HTML de referencia interactivo: docs/home-mockups/01-hero-mockup-final-v2.html
+- Fecha: 2026-09-06
+- Lienzo del mockup: 1440 × 1120 (exportado a 2880 × 2242, escala 2×)
+- SUSTITUYE al mockup del 2026-08-31 listado más arriba en esta misma
+  sección, que queda como versión anterior y no se borra.
+- Boceto de origen: 01-hero-propuesta.html. Del boceto NO se toman el
+  marcador de Crystal de seis polígonos ni la tipografía Helvetica: va el
+  Crystal 5 oficial y van Manrope y Geist Mono.
 
 ------------------------------------------------------------
 
@@ -355,7 +363,12 @@ Movimiento:
 - En prefers-reduced-motion: posición fija, sin recorrido.
 
 MOCKUP APROBADO:
-- PENDIENTE. Referencia de composición: 02-03-cards-propuesta.html
+- Imagen: docs/home-mockups/02-problema-uno-v2.png
+- HTML de referencia interactivo:
+  docs/home-mockups/02-problema-uno-mockup-final-v2.html
+- Fecha: 2026-09-06
+- Lienzo del mockup: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
+- Boceto de origen: 02-03-cards-propuesta.html, con tipografía real.
 
 ------------------------------------------------------------
 
@@ -390,7 +403,18 @@ Nota de contenido:
   la 03 ataca la solución obvia a ese problema, que es tercerizar.
 
 MOCKUP APROBADO:
-- PENDIENTE. Referencia de composición: 02-03-cards-propuesta.html
+- Imagen: docs/home-mockups/03-problema-dos-v2.png
+- HTML de referencia interactivo:
+  docs/home-mockups/03-problema-dos-mockup-final-v2.html
+- Fecha: 2026-09-06
+- Lienzo del mockup: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
+- Boceto de origen: 02-03-cards-propuesta.html, con tipografía real.
+- DEFECTO CONOCIDO DEL ASSET, NO CORREGIDO EN EL ARCHIVO: en
+  objects/prism.svg la arista interna no declara fill="none", así que su
+  subtrazo cerrado se rellena de negro y tapa el vidrio. El mockup lo
+  neutraliza desde su propio CSS y le suma presencia con una copia de
+  refuerzo por detrás, dejando el SVG oficial intacto encima. Corregir el
+  asset, si se decide, va en un commit propio y aparte.
 
 ------------------------------------------------------------
 
@@ -434,8 +458,15 @@ Movimiento:
 - En prefers-reduced-motion: luz en posición fija.
 
 MOCKUP APROBADO:
-- PENDIENTE. Referencia de composición:
-  04-facetas-07-cristal-propuesta.html
+- Imagen: docs/home-mockups/04-mismo-objetivo-v2.png
+- HTML de referencia interactivo:
+  docs/home-mockups/04-mismo-objetivo-mockup-final-v2.html
+- Fecha: 2026-09-06
+- Lienzo del mockup: 1440 × 900 (exportado a 2880 × 1800, escala 2×)
+- SUSTITUYE al mockup del 2026-08-31, que queda como versión anterior.
+- Boceto de origen: 04-facetas-07-cristal-propuesta.html. El boceto sólo
+  aplicaba dos de las siete técnicas de DESIGN_SYSTEM_CRYSTAL.txt; el
+  mockup aprobado aplica las siete, enumeradas en su capa de anotación.
 
 ------------------------------------------------------------
 
@@ -916,7 +947,17 @@ Footer:
   regla 11 de AGENTS.md.
 
 MOCKUP APROBADO:
-- PENDIENTE. Referencia de composición: 09-empecemos-propuesta.html
+- Imagen: docs/home-mockups/09-empecemos-v2.png
+- HTML de referencia interactivo:
+  docs/home-mockups/09-empecemos-mockup-final-v2.html
+- Fecha: 2026-09-06
+- Lienzo del mockup: 1440 × 1120 (exportado a 2880 × 2240, escala 2×)
+- SUSTITUYE al mockup del 2026-09-01, que queda como versión anterior.
+- Boceto de origen: 09-empecemos-propuesta.html. Del boceto NO se toma el
+  footer: sus direcciones y URLs eran inventadas. En el mockup aprobado el
+  mail, las redes y los legales llevan etiqueta genérica y ningún enlace
+  detrás, y el CONTENIDO REAL DEL FOOTER SIGUE PENDIENTE DE DEFINICIÓN.
+- Queda pendiente redefinir qué revela T5, que ya no dispara el formulario.
 
 ------------------------------------------------------------
 
@@ -931,9 +972,14 @@ FORMATO DEL CTA:
 - Aplica a todos los CTA del sitio.
 
 TEXTO DEL CTA:
-- Único en todo el sitio: "Reservá tu análisis de negocio ↗"
-- Reemplaza a "Quiero analizar mi negocio".
-- El nav conserva "Hablemos" por ser navegación, no conversión.
+- El CTA de CIERRE DE PÁGINA es único y dice "Reservá tu análisis de
+  negocio ↗". Reemplaza a "Quiero analizar mi negocio".
+- El CTA del Hero y del nav dicen "Hablemos ↗".
+- Motivo: el Hero abre y la Sección 09 cierra. Son dos momentos distintos
+  del recorrido y no pueden abrir y cerrar con el mismo botón. Además, en
+  el Hero el CTA primario y el del nav quedan a treinta píxeles uno del
+  otro: con dos textos distintos se leen como dos ofertas.
+- El formato es el del design system en los tres casos: rx=7 y flecha ↗.
 
 ------------------------------------------------------------
 

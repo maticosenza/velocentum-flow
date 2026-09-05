@@ -78,14 +78,16 @@ h2 em{font-style:normal;color:var(--pink)}
 .fnav{display:flex;gap:28px;margin-left:64px;padding-top:5px}
 .fnav span{font-family:var(--mono);font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--on-dark-2)}
 .fright{margin-left:auto;text-align:right}
-/* CONTENIDO REAL PENDIENTE · regla 11 de AGENTS.md: no se inventan direcciones ni URLs */
-.slot{display:inline-block;border:1px dashed rgba(255,75,141,.55);border-radius:6px;
- padding:6px 12px;font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
- color:rgba(255,155,192,.9);background:rgba(255,75,141,.06)}
-.fright .slot{margin-bottom:9px}
-.soc{display:flex;gap:10px;justify-content:flex-end}
-.legal{position:absolute;left:72px;right:72px;top:1062px;display:flex;z-index:20;
- font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:#6F6A86}
+/* Etiquetas genéricas, SIN dirección ni enlace detrás: la regla 11 de
+   AGENTS.md prohíbe inventar direcciones y URLs, y el contenido real del
+   footer está pendiente de definición. Va anotado al margen del mockup. */
+.fmail{display:block;font-size:13px;color:rgba(154,150,180,.78);margin-bottom:10px}
+.soc{display:flex;gap:20px;justify-content:flex-end}
+.soc span{font-family:var(--mono);font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;
+ color:rgba(154,150,180,.6)}
+.legal{position:absolute;left:72px;right:72px;top:1064px;display:flex;z-index:20;
+ font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;
+ color:rgba(111,106,134,.85)}
 .legal .r{margin-left:auto;display:flex;gap:26px}
 
 </style></head><body><div class="shell">
@@ -289,18 +291,14 @@ h2 em{font-style:normal;color:var(--pink)}
 </svg><span>velocentum</span></div>
     <div class="fnav"><span>Método</span><span>Trabajos</span><span>Casos</span><span>Contacto</span></div>
     <div class="fright">
-      <span class="slot">Mail · pendiente</span>
-      <div class="soc">
-        <span class="slot">Red 1 · pendiente</span>
-        <span class="slot">Red 2 · pendiente</span>
-        <span class="slot">Red 3 · pendiente</span>
-      </div>
+      <span class="fmail">Mail</span>
+      <div class="soc"><span>Instagram</span><span>LinkedIn</span><span>TikTok</span></div>
     </div>
   </div>
 
   <div class="legal">
-    <span class="slot">Legal · pendiente</span>
-    <div class="r"><span class="slot">Privacidad · pendiente</span><span class="slot">Términos · pendiente</span></div>
+    <span>© Velocentum</span>
+    <div class="r"><span>Políticas de privacidad</span><span>Términos</span></div>
   </div>
 
   <svg class="ann" data-layer="orden" viewBox="0 0 1440 1120">
@@ -329,9 +327,8 @@ h2 em{font-style:normal;color:var(--pink)}
     <text x="72" y="140" fill="#FF85B8">EL FORMULARIO VIVE EN LA RUTA /CONTACTO, EN DOS PASOS</text>
     <text x="72" y="158" fill="#9A96B4">CARD TRANSLÚCIDA SOBRE FONDO DE ATMOSPHERE/ · ESA RUTA TODAVÍA NO EXISTE EN EL ÁRBOL</text>
     <text x="72" y="176" fill="#9A96B4">T5 YA NO DISPARA EL REVEAL DEL FORMULARIO: DEBE REDEFINIRSE QUÉ REVELA</text>
-    <rect x="1000" y="972" width="368" height="118" fill="none" stroke="#FF4B8D" stroke-opacity=".5" stroke-dasharray="5 5"/>
-    <text x="1368" y="964" fill="#FF4B8D" text-anchor="end">MAIL Y REDES: CONTENIDO REAL PENDIENTE</text>
-    <text x="1368" y="1108" fill="#9A96B4" text-anchor="end">NO SE INVENTAN DIRECCIONES NI URLS · REGLA 11 DE AGENTS.MD</text>
+    <text x="1368" y="964" fill="#FF4B8D" text-anchor="end">EL CONTENIDO REAL DEL FOOTER ESTÁ PENDIENTE DE DEFINICIÓN</text>
+    <text x="1368" y="982" fill="#9A96B4" text-anchor="end">LAS ETIQUETAS SON GENÉRICAS Y NO LLEVAN DIRECCIÓN NI ENLACE DETRÁS · REGLA 11 DE AGENTS.MD</text>
   </svg>
 
   <svg class="ann" data-layer="recon" viewBox="0 0 1440 1120">
@@ -368,8 +365,8 @@ h2 em{font-style:normal;color:var(--pink)}
     <li><b>La reconstrucción no cambia.</b> Se conservan los cinco tiempos con su conteo exacto de piezas, y sigue siendo la única reconstrucción del sitio. El Crystal es el oficial de <code>CrystalFiveApproved</code>: 18 facetas y 7 inclusiones, sin cambios de geometría ni de tamaño.</li>
     <li><b>Al eliminarse el fragmento guía, la reconstrucción pierde lo que la anticipaba.</b> El Crystal desaparece entre el Hero y esta sección. Queda anotado para evaluar en implementación si la entrada necesita preparación.</li>
     <li><b>El hilo</b> baja desde la punta del Crystal hacia el copy: núcleo de 2 px, degradado rosa que pierde intensidad al acercarse, halo exterior desenfocado y sin pulsos fuertes.</li>
-    <li><b>Footer con contenido real pendiente.</b> La marca y la navegación son reales; el mail, las redes y los enlaces legales van como ranuras marcadas, porque no hay direcciones ni URLs confirmadas en el repositorio y la regla 11 de <code>AGENTS.md</code> prohíbe inventarlas.</li>
-    <li><b>CTA del design system</b> con el texto único de conversión del sitio.</li>
+    <li><b>El contenido real del footer está pendiente de definición.</b> La marca y la navegación son reales. El mail, las redes y los enlaces legales aparecen con su etiqueta genérica y sin dirección ni enlace detrás: no hay direcciones ni URLs confirmadas en el repositorio y la regla 11 de <code>AGENTS.md</code> prohíbe inventarlas. Lo que el mockup aprueba de esa franja es la composición y el peso tipográfico, no el contenido.</li>
+    <li><b>CTA del design system.</b> «Reservá tu análisis de negocio ↗» es el CTA de CIERRE DE PÁGINA y es único: el Hero y el nav abren con «Hablemos ↗». El Hero abre y esta sección cierra, y no pueden usar el mismo botón.</li>
     <li><b>Tipografía real.</b> Manrope y Geist Mono, no la Helvetica del boceto.</li>
   </ul>
 </div>

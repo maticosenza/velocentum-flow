@@ -61,7 +61,7 @@ html,body{background:#08080C;color:#FFF;font-family:var(--sans)}
 /* OBJETO: wrapper animado, SVG oficial intacto */
 .obj{position:absolute;z-index:4;filter:drop-shadow(0 24px 60px rgba(255,77,141,.30))}
 .obj svg{width:100%;height:auto;display:block}
-.obj.lightning{right:170px;top:50%;width:300px;transform:translateY(-58%) rotate(6deg)}
+.obj.lightning{right:250px;top:50%;width:300px;transform:translateY(-58%) rotate(6deg)}
 .obj.prism{left:120px;top:50%;width:460px;transform:translateY(-44%) rotate(-4deg)}
 /* DEFECTO DEL ASSET, neutralizado sin tocarlo: en objects/prism.svg la arista
    interna <path d="M250 28L250 218M164 218L250 122 337 218"> no declara
@@ -69,6 +69,19 @@ html,body{background:#08080C;color:#FFF;font-family:var(--sans)}
    vidrio. El PNG oficial del mismo objeto no tiene esa cuña negra. Ninguna
    ruta de ese SVG lleva relleno propio, así que anularlo acá es exacto. */
 .obj.prism svg path{fill:none}
+/* El prisma quedaba como contorno puro y no equilibraba el peso del rayo de
+   la 02. Se le sube la presencia SIN TOCAR EL ASSET: un relleno propio en la
+   cara de vidrio, por debajo del gradiente original del SVG, más un realce
+   suave del contorno. La geometría, los materiales y las opacidades base del
+   archivo quedan intactos. */
+.obj.prism{filter:drop-shadow(0 24px 60px rgba(255,77,141,.34)) drop-shadow(0 0 34px rgba(255,155,192,.34))}
+/* La presencia se agrega POR DETRÁS, no sobre el asset: una copia de refuerzo
+   con las caras rellenas, y encima el SVG oficial intacto con su gradiente
+   glass, su contorno y su haz. Así se suma peso sin reemplazar ni una sola
+   pintura del archivo aprobado. */
+.obj.prism .backing{position:absolute;inset:0;z-index:-1}
+.obj.prism .backing svg polygon{fill:rgba(255,140,184,.40);stroke:none}
+.obj.prism .backing svg path{fill:none;stroke:none}
 
 /* COPY: caja de 560 */
 .copy{position:relative;z-index:5;width:560px;margin-left:88px}
@@ -213,7 +226,17 @@ h2 em{font-style:normal;color:var(--pink)}
   <path d="M18 16h122" stroke="#fff" stroke-opacity=".06"/>
 </svg></div>
     <div class="veil"></div>
-    <div class="obj prism"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 260">
+    <div class="obj prism"><div class="backing"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 260">
+<defs>
+ <linearGradient id="pr03b-glass" x1="190" y1="30" x2="300" y2="220" gradientUnits="userSpaceOnUse"><stop stop-color="#fff" stop-opacity=".16"/><stop offset=".5" stop-color="#FF9BC0" stop-opacity=".12"/><stop offset="1" stop-color="#FF4B8D" stop-opacity=".18"/></linearGradient>
+ <linearGradient id="pr03b-beam" x1="250" y1="0" x2="500" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset=".18" stop-color="#ffe76d"/><stop offset=".38" stop-color="#7dff6a"/><stop offset=".60" stop-color="#50c9ff"/><stop offset=".82" stop-color="#7c5cff"/><stop offset="1" stop-color="#FF4B8D" stop-opacity="0"/></linearGradient>
+ <filter id="pr03b-g"><feGaussianBlur stdDeviation="5"/></filter>
+</defs>
+<path d="M16 136H170" stroke="#FF4B8D" stroke-opacity=".20" stroke-width="16" filter="url(#pr03b-g)"/><path d="M16 136H170" stroke="#FF4B8D" stroke-opacity=".45" stroke-width="3"/>
+<polygon points="250,28 164,218 337,218" fill="url(#pr03b-glass)" stroke="#FFB1CC" stroke-opacity=".82" stroke-width="2"/>
+<path d="M250 28L250 218M164 218L250 122 337 218" stroke="#fff" stroke-opacity=".18"/>
+<path d="M250 136L500 136" stroke="url(#pr03b-beam)" stroke-width="13" filter="url(#pr03b-g)"/><path d="M250 136L500 136" stroke="url(#pr03b-beam)" stroke-width="5"/>
+</svg></div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 260">
 <defs>
  <linearGradient id="pr03-glass" x1="190" y1="30" x2="300" y2="220" gradientUnits="userSpaceOnUse"><stop stop-color="#fff" stop-opacity=".16"/><stop offset=".5" stop-color="#FF9BC0" stop-opacity=".12"/><stop offset="1" stop-color="#FF4B8D" stop-opacity=".18"/></linearGradient>
  <linearGradient id="pr03-beam" x1="250" y1="0" x2="500" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset=".18" stop-color="#ffe76d"/><stop offset=".38" stop-color="#7dff6a"/><stop offset=".60" stop-color="#50c9ff"/><stop offset=".82" stop-color="#7c5cff"/><stop offset="1" stop-color="#FF4B8D" stop-opacity="0"/></linearGradient>
@@ -276,7 +299,7 @@ h2 em{font-style:normal;color:var(--pink)}
     <li><b>Se elimina el fragmento guía.</b> Ya no hay espacio lateral reservado para él, ni en esta sección ni en ninguna otra de la HOME.</li>
     <li><b>Movimiento:</b> idéntico al de la 02, aplicado al prisma. Recorrido acotado, nunca toca el borde de la card. Función pura del progreso local, reversible y sólo <code>transform</code>. En <code>prefers-reduced-motion</code> queda en posición fija, sin recorrido.</li>
     <li><b>Tipografía real.</b> Manrope y Geist Mono, no la Helvetica del boceto.</li>
-    <li><b>Defecto encontrado en <code>objects/prism.svg</code>.</b> Su arista interna no declara <code>fill="none"</code>, así que el subtrazo se rellena de negro y tapa el vidrio del prisma; el PNG oficial del mismo objeto no tiene esa cuña. Acá queda neutralizado desde el CSS del mockup, sin tocar el asset. Corregirlo en el archivo es una decisión del usuario.</li><li><b>Nota de contenido.</b> La 03 ya no repite el argumento de la 02. La 02 plantea el problema; la 03 ataca la solución obvia a ese problema, que es tercerizar.</li><li><b>Corte forzado en dos líneas:</b> «Sumar gente» / «no lo resolvió.», con «no lo resolvió» en <code>--pink</code>.</li>
+    <li><b>Defecto encontrado en <code>objects/prism.svg</code>.</b> Su arista interna no declara <code>fill="none"</code>, así que el subtrazo se rellena de negro y tapa el vidrio del prisma; el PNG oficial del mismo objeto no tiene esa cuña. Acá queda neutralizado desde el CSS del mockup, sin tocar el asset. La presencia de las caras se sube con una copia de refuerzo por detrás, con el SVG oficial intacto encima: no se reemplaza ninguna pintura del archivo aprobado. Corregirlo en el archivo es una decisión del usuario.</li><li><b>Nota de contenido.</b> La 03 ya no repite el argumento de la 02. La 02 plantea el problema; la 03 ataca la solución obvia a ese problema, que es tercerizar.</li><li><b>Corte forzado en dos líneas:</b> «Sumar gente» / «no lo resolvió.», con «no lo resolvió» en <code>--pink</code>.</li>
   </ul>
 </div>
 </div>

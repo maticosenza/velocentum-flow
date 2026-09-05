@@ -61,7 +61,7 @@ html,body{background:#08080C;color:#FFF;font-family:var(--sans)}
 /* OBJETO: wrapper animado, SVG oficial intacto */
 .obj{position:absolute;z-index:4;filter:drop-shadow(0 24px 60px rgba(255,77,141,.30))}
 .obj svg{width:100%;height:auto;display:block}
-.obj.lightning{right:170px;top:50%;width:300px;transform:translateY(-58%) rotate(6deg)}
+.obj.lightning{right:250px;top:50%;width:300px;transform:translateY(-58%) rotate(6deg)}
 .obj.prism{left:120px;top:50%;width:460px;transform:translateY(-44%) rotate(-4deg)}
 /* DEFECTO DEL ASSET, neutralizado sin tocarlo: en objects/prism.svg la arista
    interna <path d="M250 28L250 218M164 218L250 122 337 218"> no declara
@@ -69,6 +69,19 @@ html,body{background:#08080C;color:#FFF;font-family:var(--sans)}
    vidrio. El PNG oficial del mismo objeto no tiene esa cuña negra. Ninguna
    ruta de ese SVG lleva relleno propio, así que anularlo acá es exacto. */
 .obj.prism svg path{fill:none}
+/* El prisma quedaba como contorno puro y no equilibraba el peso del rayo de
+   la 02. Se le sube la presencia SIN TOCAR EL ASSET: un relleno propio en la
+   cara de vidrio, por debajo del gradiente original del SVG, más un realce
+   suave del contorno. La geometría, los materiales y las opacidades base del
+   archivo quedan intactos. */
+.obj.prism{filter:drop-shadow(0 24px 60px rgba(255,77,141,.34)) drop-shadow(0 0 34px rgba(255,155,192,.34))}
+/* La presencia se agrega POR DETRÁS, no sobre el asset: una copia de refuerzo
+   con las caras rellenas, y encima el SVG oficial intacto con su gradiente
+   glass, su contorno y su haz. Así se suma peso sin reemplazar ni una sola
+   pintura del archivo aprobado. */
+.obj.prism .backing{position:absolute;inset:0;z-index:-1}
+.obj.prism .backing svg polygon{fill:rgba(255,140,184,.40);stroke:none}
+.obj.prism .backing svg path{fill:none;stroke:none}
 
 /* COPY: caja de 560 */
 .copy{position:relative;z-index:5;width:560px;margin-left:88px}
